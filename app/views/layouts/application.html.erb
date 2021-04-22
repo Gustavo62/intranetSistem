@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IntraSin</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'> 
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Arimo" />
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %> 
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>   
+  </head> 
+  <style>
+  body{
+    font-family: 'Poppins' !important;
+  }
+  .profiler-button{
+    display:none !important;
+  }
+  </style>
+  <body> 
+    <% if signed_in?%>
+      <% if $user%>  
+        <%= render 'layouts/usuario'%>
+      <% else %> 
+        <%= render 'layouts/administrador'%>
+      <% end %>
+    <% end %>
+    <%= yield %>
+  </body>
+</html> 

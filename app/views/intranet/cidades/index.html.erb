@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Intranet Cidades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descricao</th>
+      <th>Estado</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intranet_cidades.each do |intranet_cidade| %>
+      <tr>
+        <td><%= intranet_cidade.descricao %></td>
+        <td><%= intranet_cidade.estado %></td>
+        <td><%= link_to 'Show', intranet_cidade %></td>
+        <td><%= link_to 'Edit', edit_intranet_cidade_path(intranet_cidade) %></td>
+        <td><%= link_to 'Destroy', intranet_cidade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intranet Cidade', new_intranet_cidade_path %>

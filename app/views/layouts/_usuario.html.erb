@@ -1,0 +1,168 @@
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<%= stylesheet_link_tag 'usuario' %>
+<div id="minimize">
+</div>
+<div id="nav_user">
+    <div id="mySidenav-left" class="sidenav">
+        
+        <svg class="svg-inline--fa fa-times fa-w-11" href="javascript:void(0)" id="closebtn" onclick="closeNavLeft()" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
+        <div class="nav-menu w3-animate-right" >
+            <h3 class="conta" style="font-family: 'Poppins'!important">Conta</h3>
+            <div class="dados-cliente">
+                <%= image_tag "avatar.jpg",style: 'margin-top: 8px;margin-left: 2px;81px;border: 1px solid #f4a16e;border-radius: 50px;' %>
+                <div class="nome">Gustavo Lima de Sá</div> 
+                <div class="cpf" style="font-size: 12px;"><b style="color: #ff6000;">CPF </b>626.238.573-85</div>
+                <div class="numero" style="font-size: 12px;"><%=icon('phone-fill', class:"help-tel")%>85 9 9686-2321</div>
+            </div>
+            <div style="background: #ff8b45;">
+                <ul class="ul-links">
+                    <li class="lista"><b><%= icon('house-fill', class:"ul-link-icons") %><a class="links-li"><%= link_to 'Home', usuario_home_path, class:"links-li" %></a></b></li>
+                    <li class="lista"><b><%= icon('person-circle', class:"ul-link-icons") %><a class="links-li">Conta</a></b></li>
+                    <li class="lista" onclick="openNavUl(1)">
+                        <%= icon('newspaper', class:"ul-link-icons") %>
+                        <a  class="links-li" style="margin-left: -5px;">Novidades <%= icon('caret-down-fill', class:"icon-ul-in-ul")%></a>
+                        <ul id="ul-in-ul">
+                            <li class="li-in-ul"><p style="margin-left: 42px;" >Avisos</p></li>
+                            <li class="li-in-ul"><p style="margin-left: 42px;" >Arquivos</p></li>
+                            <li class="li-in-ul"><p style="margin-left: 42px;" >Eventos</p></li> 
+                        </ul>
+                    </li> 
+                    <li class="lista"><b><%= icon('wallet-fill', class:"ul-link-icons") %><a class="links-li">Financeiro</a></b></li>
+                    <li class="lista"><b><%= icon('telephone-fill', class:"ul-link-icons") %><a class="links-li">Contato</a></b></li>
+                    <li class="lista"><b><%= icon('plus-circle-fill', class:"ul-link-icons") %><a class="links-li">Mais</a></b></li>
+                    <li class="lista"><b><%= icon('door-closed-fill', class:"ul-link-icons") %><%= link_to 'Sair', destroy_user_session_path, method: :delete, class:"links-li"%></b></li>
+                </ul>
+                <div class="propaganda">
+                    <%= image_tag "propaganda.png" %>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div id="mySidenav-right" class="sidenav-right w3-animate-right" >
+        <svg class="svg-inline--fa fa-times fa-w-11" href="javascript:void(0)" id="closebtn-right" onclick="closeNavRight()" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
+        <h3 class="notificacoes" style="margin-top: -40px;font-family: 'Poppins'!important">Notificações</h3> 
+        <p class="line-up-notify"></p>
+        <ul class="container-notify" style="color:white">
+            <li  style="padding-top: 15px;">
+                <a style="display: flex;width: 100%;margin-bottom: 1px;height: 56px;cursor: pointer;">
+                    <span  style="margin-top: -19px;color: #ff6000;">
+                        <%= icon('exclamation-circle-fill', class:"icon-notify")%>
+                    </span>
+                    <p style="padding: 0px;margin-top: -11px;font-size: 11px;margin-left: 9px;">
+                        <b style="font-size: 17px;">
+                            Parlamento Decide<br>
+                        </b>
+                        No dia 10/02/21 seráa decida a moção de retirada.
+                    </p>
+                </a> 
+            </li>
+            <li style="padding-top: 15px;">
+                <a style="display: flex;width: 100%;margin-bottom: 1px;height: 56px;cursor: pointer;">
+                    <span  style="margin-top: -19px;color: #ff6000;">
+                        <%= icon('clipboard-data', class:"icon-notify")%>
+                    </span>
+                    <p style="padding: 0px;margin-top: -11px;font-size: 11px;margin-left: 9px;">
+                        <b style="font-size: 17px;">
+                            Relatório Anual<br>
+                        </b>
+                        Relatório de novos associados disponivel para download.
+                    </p>
+                </a> 
+            </li>
+            <li style="padding-top: 15px;">
+                <a style="display: flex;width: 100%;margin-bottom: 1px;height: 56px;cursor: pointer;">
+                    <span  style="margin-top: -19px;color: #ff6000;">
+                        <%= icon('calendar-event', class:"icon-notify")%>
+                    </span>
+                    <p style="padding: 0px;margin-top: -11px;font-size: 11px;margin-left: 9px;">
+                        <b style="font-size: 17px;">
+                            Assembleia Geral 2021<br>
+                        </b>
+                        Edital de convocação à assembleia geral ordinária.
+                    </p>
+                </a> 
+            </li>
+        </ul>
+    </div>
+    <div class="top-nav" id="top-nav"> 
+        <span style="font-size:30px;cursor:pointer" onclick="openNavLeft()"><%= icon("list" , class:"icon-menu-left")%></span> 
+        <div style="width: 46px;float: right;">
+            <p class="dot-2" onclick="openNavRight()"></p>
+            <p class="dot-1" onclick="openNavRight()"></p>
+            <span style="font-size:30px;cursor:pointer" onclick="openNavRight()"><%= icon('bell-fill', class:"icon-menu-right")%></span>
+        </div>
+        <h5 style="color: white;font-size: larger;padding-top: 10px;width: 213px;margin: auto;"><b>SINOREDI-CE</b> | Intranet</h5>
+    </div>
+</div>
+<script>
+$count = 0
+function openNavLeft() { 
+    document.getElementById("mySidenav-left").style.width    = "314px";  
+    document.getElementById("minimize").style.display   = "block";  
+}
+
+function closeNavLeft() {   
+    document.getElementById("mySidenav-left").style.width    = "0"; 
+    document.getElementById("minimize").style.display   = "none";  
+}
+function openNavRight() {  
+    document.getElementById("mySidenav-right").style.width   = "100%"; 
+    document.getElementById("mySidenav-right").style.display   = "block";  
+    document.getElementById("minimize").style.display   = "block";  
+}
+
+function closeNavRight() {   
+    document.getElementById("mySidenav-right").style.width   = "0%"; 
+    document.getElementById("minimize").style.display   = "none";
+}
+function openNavUl(a) {   
+    document.getElementById("ul-in-ul").style.display   = "block";
+    $count += a; 
+    if($count == 2){ 
+        document.getElementById("ul-in-ul").style.display   = "none"; 
+        $count = 0;
+    }     
+
+}
+ 
+</script> 
+<% flash.each do |name, msg| %> 
+    <% name = 'warning' if name == 'alert'%>
+    <% name = 'info' if name == 'notice'%>
+    <div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 0;top: 605px;right: 16px;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <span data-notify="icon" class="nc-icon nc-app"></span> 
+    <% if name == 'info' %>   
+        <span data-notify="title">Informação:</span>
+    <% elsif name == 'success'%>
+        <span data-notify="title">Sucesso:</span> 
+    <% elsif name == 'danger'%>
+        <span data-notify="title">Perigo:</span>  
+    <% elsif name == 'warning'%> 
+        <span data-notify="title">Aviso:</span>
+    <% end %>
+    <span data-notify="message"><%=sanitize(msg)%></span>
+    <a href="#" target="_blank" data-notify="url"></a>
+    </div>
+<% end %>
+<div class="footer"> 
+    <div class="icons-menu-footer">
+        <%= icon('house', class:"footer-btn") %><br>
+        <span style="font-size: 14px;"><b>HOME</b></span>
+    </div>
+    <div class="icons-menu-footer"> 
+        <%= icon('newspaper', class:"footer-btn") %><br>
+        <span style="font-size: 14px;"><b>NOVIDADES</b></span>
+    </div>
+    <div class="icons-menu-footer"> 
+        <%= icon('chat-square-dots', class:"footer-btn") %><br>
+        <span style="font-size: 14px;"><b>CHAT</b></span>
+    </div> 
+    <div class="icons-menu-footer"> 
+        <%= icon('person-circle', class:"footer-btn") %><br>
+        <span style="font-size: 14px;"><b>CONTA</b></span>
+    </div>
+</div>

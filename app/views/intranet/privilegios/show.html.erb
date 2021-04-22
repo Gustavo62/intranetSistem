@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @intranet_privilegio.descricao %>
+</p>
+
+<p>
+  <strong>Ativo:</strong>
+  <%= @intranet_privilegio.ativo %>
+</p>
+
+<%= link_to 'Edit', edit_intranet_privilegio_path(@intranet_privilegio) %> |
+<%= link_to 'Back', intranet_privilegios_path %>

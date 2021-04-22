@@ -1,0 +1,38 @@
+<div class="container" style="padding:106px">
+  <h2>Log Users</h2> 
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Numero do CPF</label>
+      <%= icon("person", class: "icone-login-user") %> 
+      <%= f.text_field :cpf, autofocus: true,class:"form-control", id:"cpf", type:"text", onkeyup:"cpfCheck(this)", maxlength:"18", onkeydown:"javascript: fMasc( this, mCPF );", style:"padding: 0.375rem 1.75rem;"%>
+      <div id="cpfHelp" class="form-text">Informe o numero de <b>CPF</b> utilizado no cadastro</div>
+    </div> 
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Senha</label> 
+      <%= icon("key", class: "icone-login-key") %>
+      <%= f.password_field :password, autocomplete: false,class:"form-control", id:"exampleInputPassword1", style:"padding: 0.375rem 1.75rem;" %>
+    </div>  
+    <%= f.submit "ENTRAR",class:"btn btn-primary" %> 
+  <% end %> 
+  <%= render "users/shared/links" %>
+<style> 
+  .mb-3 .icone-login-key{
+    position:absolute;
+  }
+  .icone-login-key { 
+    color: rgb(255, 96, 0);
+    margin-top: 43px;
+    margin-left: -44px;
+    z-index: 9;
+}
+  .mb-3 .icone-login-user{
+    position:absolute;
+  }
+  .icone-login-user { 
+    color: rgb(255, 96, 0);
+    margin-top: 43px;
+    margin-left: -123px;
+    z-index: 9;
+}
+}
+</div>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @intranet_cidade.descricao %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @intranet_cidade.estado %>
+</p>
+
+<%= link_to 'Edit', edit_intranet_cidade_path(@intranet_cidade) %> |
+<%= link_to 'Back', intranet_cidades_path %>

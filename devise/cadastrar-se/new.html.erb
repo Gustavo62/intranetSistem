@@ -1,0 +1,72 @@
+<h2>Cadastro</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :nome %><br />
+    <%= f.text_field :nome, autofocus: true %>
+  </div>
+  <div class="field">
+    <%= f.label :cpf %><br />
+    <%= f.text_field :cpf, autofocus: true, onkeypress:"return onlynumber();"%>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true%>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password%>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation%>
+  </div>
+
+  <div class="field">
+    <%= f.label :dica_para_senha %><br />
+    <%= f.text_field :lembrete, autofocus: true%>
+  </div><br>
+  <div class="field">  
+    <%= f.label :privilegio_id %>
+    <% @privilegios.each do |privilegio| %> 
+      <p style="display:flex"> 
+      <%= f.check_box :privilegio_id, {multiple: true}, privilegio.id, nil %>
+      <%= f.label privilegio.descricao %>
+      <p>
+    <% end %>
+  </div> <br>
+  <div class="field"> 
+    <%= f.label :departamento_id %>
+    <% @privilegios.each do |departamento| %> 
+      <p style="display:flex"> 
+      <%= f.check_box :departamento_id, {multiple: true}, departamento.id, nil %>
+      <%= f.label departamento.descricao %>
+      <p>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+<script>
+function onlynumber(evt) {
+   var theEvent = evt || window.event;
+   var key = theEvent.keyCode || theEvent.which;
+   key = String.fromCharCode( key );
+   //var regex = /^[0-9.,]+$/;
+   var regex = /^[0-9.]+$/;
+   if( !regex.test(key) ) {
+      theEvent.returnValue = false;
+      if(theEvent.preventDefault) theEvent.preventDefault();
+   }
+}
+</script>
+<%= render "devise/shared/links" %>

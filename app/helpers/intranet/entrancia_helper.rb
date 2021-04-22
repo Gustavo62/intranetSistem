@@ -1,0 +1,2 @@
+module Intranet::EntranciaHelper
+end

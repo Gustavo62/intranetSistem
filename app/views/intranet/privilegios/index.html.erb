@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Intranet Privilegios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descricao</th>
+      <th>Ativo</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intranet_privilegios.each do |intranet_privilegio| %>
+      <tr>
+        <td><%= intranet_privilegio.descricao %></td>
+        <td><%= intranet_privilegio.ativo %></td>
+        <td><%= link_to 'Show', intranet_privilegio %></td>
+        <td><%= link_to 'Edit', edit_intranet_privilegio_path(intranet_privilegio) %></td>
+        <td><%= link_to 'Destroy', intranet_privilegio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intranet Privilegio', new_intranet_privilegio_path %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @intranet_atividade.descricao %>
+</p>
+
+<p>
+  <strong>Ativo:</strong> 
+  <%= check_box_tag 'Ativo','yes',@intranet_atividade.ativo, onclick:"return false;" %>
+</p>
+
+<%= link_to 'Edit', edit_intranet_atividade_path(@intranet_atividade) %> |
+<%= link_to 'Back', intranet_atividades_path %>

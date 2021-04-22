@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Intranet Regiaos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descricao</th>
+      <th>Ativo</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intranet_regiaos.each do |intranet_regiao| %>
+      <tr>
+        <td><%= intranet_regiao.descricao %></td>
+        <td><%= intranet_regiao.ativo %></td>
+        <td><%= link_to 'Show', intranet_regiao %></td>
+        <td><%= link_to 'Edit', edit_intranet_regiao_path(intranet_regiao) %></td>
+        <td><%= link_to 'Destroy', intranet_regiao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intranet Regiao', new_intranet_regiao_path %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Intranet Contribuicaos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descricao</th>
+      <th>Ativo</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intranet_contribuicaos.each do |intranet_contribuicao| %>
+      <tr>
+        <td><%= intranet_contribuicao.descricao %></td>
+        <td><%= intranet_contribuicao.ativo %></td>
+        <td><%= link_to 'Show', intranet_contribuicao %></td>
+        <td><%= link_to 'Edit', edit_intranet_contribuicao_path(intranet_contribuicao) %></td>
+        <td><%= link_to 'Destroy', intranet_contribuicao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intranet Contribuicao', new_intranet_contribuicao_path %>

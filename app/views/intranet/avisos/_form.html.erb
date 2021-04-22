@@ -1,0 +1,39 @@
+<%= form_with(model: intranet_aviso) do |form| %> 
+  <% if intranet_aviso.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(intranet_aviso.errors.count, "error") %> prohibited this intranet_aviso from being saved:</h2>
+
+      <ul>
+        <% intranet_aviso.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :descricao %>
+    <%= form.text_field :descricao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :atividade %>
+    <% if @atividades != nil%>
+      <%= form.collection_select(:atividade_id, @atividades, :id, :descricao, prompt: "Selecione uma opção")%>  
+    <% else %>
+      <select>
+        <option value=nil>Sem atividades ativas</option>
+      </select>
+    <% end %> 
+
+  </div>
+
+  <div class="field">
+    <%= form.label :ativo %>
+    <%= form.check_box :ativo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

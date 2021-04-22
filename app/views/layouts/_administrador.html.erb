@@ -1,0 +1,94 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" style="color: #000;"><b>SINOREDI-CE</b> Área Restrita</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> 
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="width: 67%;align-items: center;justify-content: center;">
+            <li class="nav-item"> 
+                <%= link_to 'Home', administrador_home_path,class:"nav-link active"%>  
+            </li> 
+            <li class="nav-item"> 
+                <%= link_to 'Arquivos', administrador_home_path,class:"nav-link "%>  
+            </li> 
+
+            <li class="nav-item dropdown" style="display:block">
+                <span class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                    Ferramentas 
+                </span>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUl"> 
+                    <li><%= link_to 'Arquivos', administrador_home_path   ,class:"dropdown-item"%></li>     
+                    <li><%= link_to 'Chamados', administrador_home_path   ,class:"dropdown-item"%></li> 
+                    <li><%= link_to 'Eventos', administrador_home_path    ,class:"dropdown-item"%></li>   
+                    <li><%= link_to 'Financeiro', administrador_home_path ,class:"dropdown-item"%></li> 
+                    <li><%= link_to 'Reunião', administrador_home_path    ,class:"dropdown-item"%></li>   
+                    <li><%= link_to 'Visitantes', administrador_home_path ,class:"dropdown-item"%></li>  
+                    <li><%= link_to 'Mala direta', administrador_home_path,class:"dropdown-item"%></li>  
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown" style="display:block">
+                <span class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                    Cadastros
+                </span>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUl"> 
+                    <li><%= link_to 'Avisos',        intranet_avisos_path       ,class:"dropdown-item"%></li>
+                    <li><%= link_to 'Atividades',    intranet_atividades_path   ,class:"dropdown-item"%></li> 
+                    <li><%= link_to 'Entrâncias',    intranet_entrancia_path    ,class:"dropdown-item"%></li>
+                    <li><%= link_to 'Contribuiçoes', intranet_contribuicaos_path,class:"dropdown-item"%></li>
+                    <li><%= link_to 'Regiões',        intranet_regiaos_path     ,class:"dropdown-item"%></li> 
+                    <li><%= link_to 'Departamentos', intranet_departamentos_path,class:"dropdown-item"%></li> 
+                    <li><%= link_to 'Privilégios', intranet_privilegios_path    ,class:"dropdown-item"%></li> 
+                </ul>
+            </li>
+
+            <% if @master%> 
+                <li class="nav-item dropdown" style="display:block">
+                    <span class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                        Administração
+                    </span>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUl"> 
+                        <li><%= link_to 'Parametros',        intranet_avisos_path       ,class:"dropdown-item"%></li>
+                        <li><%= link_to 'Cadastrar Administrador', intranet_avisos_path ,class:"dropdown-item"%></li>
+                        
+                    </ul>
+                </li> 
+            <% end %>
+        </ul>
+        <form class="d-flex" style="float:left">
+            <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit"><%=icon('search', class:"icon-pesquisa")%></button>
+        </form> 
+        <%= link_to destroy_admin_session_path, method: :delete, class:'sair' do %>
+            <%= icon("box-arrow-right", class:'exit') %>
+        <% end %> 
+    </div>
+  </div>
+</nav> 
+<style>
+.navbarDropdownMenuLink:hover  .navbarDropdownMenuLinkUl{
+    display:block !important; 
+}
+.exit{
+    height: 30px;
+    width: 30px;
+    color: #ced4da;
+    margin-left: 17px;
+    margin-right: -27px;
+    margin-top: 0px;
+}
+.icon-pesquisa{
+    color: #a9aeb3;
+    width: 23px;
+    height: 23px;
+    margin: 0px;
+}
+.btn-outline-success:hover .icon-pesquisa{
+    color:white
+}
+.sair{ 
+    height: 30px;
+}
+</style>

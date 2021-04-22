@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Intranet Atividades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descricao</th>
+      <th>Ativo</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intranet_atividades.each do |intranet_atividade| %>
+      <tr>
+        <td><%= intranet_atividade.descricao %></td>
+        <td><%= intranet_atividade.ativo %></td>
+        <td><%= check_box_tag 'Ativo','yes',intranet_atividade.ativo, onclick:"return false;" %></td>
+        <td><%= link_to 'Show', intranet_atividade %></td>
+        <td><%= link_to 'Edit', edit_intranet_atividade_path(intranet_atividade) %></td>
+        <td><%= link_to 'Destroy', intranet_atividade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intranet Atividade', new_intranet_atividade_path %>

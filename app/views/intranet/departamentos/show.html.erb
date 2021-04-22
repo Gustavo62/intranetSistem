@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @intranet_departamento.descricao %>
+</p>
+
+<p>
+  <strong>Ativo:</strong>
+  <%= @intranet_departamento.ativo %>
+</p>
+
+<%= link_to 'Edit', edit_intranet_departamento_path(@intranet_departamento) %> |
+<%= link_to 'Back', intranet_departamentos_path %>

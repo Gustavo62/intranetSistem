@@ -1,0 +1,27 @@
+<%= form_with(model: intranet_cidade) do |form| %>
+  <% if intranet_cidade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(intranet_cidade.errors.count, "error") %> prohibited this intranet_cidade from being saved:</h2>
+
+      <ul>
+        <% intranet_cidade.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :descricao %>
+    <%= form.text_field :descricao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :estado %>
+    <%= form.text_field :estado %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

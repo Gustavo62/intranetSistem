@@ -1,0 +1,27 @@
+<%= form_with(model: intranet_departamento) do |form| %>
+  <% if intranet_departamento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(intranet_departamento.errors.count, "error") %> prohibited this intranet_departamento from being saved:</h2>
+
+      <ul>
+        <% intranet_departamento.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :descricao %>
+    <%= form.text_field :descricao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ativo %>
+    <%= form.check_box :ativo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

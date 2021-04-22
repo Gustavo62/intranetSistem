@@ -1,0 +1,17 @@
+<p>
+  <strong>Descricao:</strong>
+  <%= @intranet_aviso.descricao %>
+</p>
+
+<p>
+  <strong>Atividade:</strong> 
+  <%= @atividades.try(:find, @intranet_aviso.atividade_id).descricao%>
+</p>
+
+<p>
+  <strong>Ativo:</strong> 
+  <%= check_box_tag 'Ativo','yes',@intranet_aviso.ativo, onclick:"return false;" %>
+</p>
+
+<%= link_to 'Edit', edit_intranet_aviso_path(@intranet_aviso) %> |
+<%= link_to 'Back', intranet_avisos_path %>

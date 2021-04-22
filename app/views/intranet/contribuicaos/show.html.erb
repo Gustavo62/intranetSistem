@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @intranet_contribuicao.descricao %>
+</p>
+
+<p>
+  <strong>Ativo:</strong>
+  <%= @intranet_contribuicao.ativo %>
+</p>
+
+<%= link_to 'Edit', edit_intranet_contribuicao_path(@intranet_contribuicao) %> |
+<%= link_to 'Back', intranet_contribuicaos_path %>
