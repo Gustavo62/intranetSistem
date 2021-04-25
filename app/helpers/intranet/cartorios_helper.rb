@@ -1,0 +1,2 @@
+module Intranet::CartoriosHelper
+end

@@ -1,0 +1,81 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Intranet Cartorios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Possui cnpj?</th>
+      <th>Cei</th>
+      <th>Cnpj</th>
+      <th>Cod tj</th>
+      <th>Cod cnj</th>
+      <th>Nome</th>
+      <th>Nome fant</th>
+      <th>Nome res</th>
+      <th>Cep</th>
+      <th>Logradouro</th>
+      <th>Numero</th>
+      <th>Bairro</th>
+      <th>Complemento</th>
+      <th>Telefone fixo</th>
+      <th>Telefone celular</th>
+      <th>Whatsapp</th>
+      <th>Email</th>
+      <th>Forma branca</th>
+      <th>Observacao</th>
+      <th>Regiao</th>
+      <th>Contribuicao</th>
+      <th>Atividade</th>
+      <th>Entrancia</th>
+      <th>Boleto</th>
+      <th>Cidade</th>
+      <th>Associado</th>
+      <th>Substituto</th>
+      <th>Tabeliaes</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intranet_cartorios.each do |intranet_cartorio| %>
+      <tr>
+        <td><%= intranet_cartorio.possui_cnpj? %></td>
+        <td><%= intranet_cartorio.cei %></td>
+        <td><%= intranet_cartorio.cnpj %></td>
+        <td><%= intranet_cartorio.cod_tj %></td>
+        <td><%= intranet_cartorio.cod_cnj %></td>
+        <td><%= intranet_cartorio.nome %></td>
+        <td><%= intranet_cartorio.nome_fant %></td>
+        <td><%= intranet_cartorio.nome_res %></td>
+        <td><%= intranet_cartorio.cep %></td>
+        <td><%= intranet_cartorio.logradouro %></td>
+        <td><%= intranet_cartorio.numero %></td>
+        <td><%= intranet_cartorio.bairro %></td>
+        <td><%= intranet_cartorio.complemento %></td>
+        <td><%= intranet_cartorio.telefone_fixo %></td>
+        <td><%= intranet_cartorio.telefone_celular %></td>
+        <td><%= intranet_cartorio.whatsapp %></td>
+        <td><%= intranet_cartorio.email %></td>
+        <td><%= intranet_cartorio.forma_branca %></td>
+        <td><%= intranet_cartorio.observacao %></td>
+        <td><%= intranet_cartorio.regiao_id %></td>
+        <td><%= intranet_cartorio.contribuicao_id %></td>
+        <td><%= intranet_cartorio.atividade_id %></td>
+        <td><%= intranet_cartorio.entrancia_id %></td>
+        <td><%= intranet_cartorio.boleto_id %></td>
+        <td><%= intranet_cartorio.cidade_id %></td>
+        <td><%= intranet_cartorio.associado_id %></td>
+        <td><%= intranet_cartorio.substituto_id %></td>
+        <td><%= intranet_cartorio.tabeliaes_id %></td>
+        <td><%= link_to 'Show', intranet_cartorio %></td>
+        <td><%= link_to 'Edit', edit_intranet_cartorio_path(intranet_cartorio) %></td>
+        <td><%= link_to 'Destroy', intranet_cartorio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intranet Cartorio', new_intranet_cartorio_path %>

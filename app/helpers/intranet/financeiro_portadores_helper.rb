@@ -1,0 +1,2 @@
+module Intranet::FinanceiroPortadoresHelper
+end

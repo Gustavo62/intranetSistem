@@ -1,0 +1,39 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  cidade: one
+  matricula: MyString
+  data_nascimento: 2021-04-23
+  funcao: MyString
+  rg: MyString
+  sexo: false
+  ativo: false
+  cep: MyString
+  logradouro: MyString
+  complemento: MyString
+  bairro: MyString
+  telefone_1: MyString
+  telefone_2: MyString
+  celular: MyString
+  whatsapp: MyString
+  email: MyString
+
+two:
+  user: two
+  cidade: two
+  matricula: MyString
+  data_nascimento: 2021-04-23
+  funcao: MyString
+  rg: MyString
+  sexo: false
+  ativo: false
+  cep: MyString
+  logradouro: MyString
+  complemento: MyString
+  bairro: MyString
+  telefone_1: MyString
+  telefone_2: MyString
+  celular: MyString
+  whatsapp: MyString
+  email: MyString

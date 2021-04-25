@@ -1,0 +1,62 @@
+<%= form_with(model: intranet_substituto) do |form| %>
+  <% if intranet_substituto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(intranet_substituto.errors.count, "error") %> prohibited this intranet_substituto from being saved:</h2>
+
+      <ul>
+        <% intranet_substituto.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :dt_inicio %>
+    <%= form.date_select :dt_inicio %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dt_final %>
+    <%= form.date_select :dt_final %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cpf %>
+    <%= form.text_field :cpf %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rg %>
+    <%= form.text_field :rg %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nome %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div class="field">
+    <%= form.label :telefone %>
+    <%= form.text_field :telefone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :whatsapp %>
+    <%= form.check_box :whatsapp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :atual? %>
+    <%= form.check_box :atual? %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

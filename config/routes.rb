@@ -1,5 +1,26 @@
 Rails.application.routes.draw do  
   namespace :intranet do
+    resources :associados
+  end
+  namespace :intranet do
+    resources :cartorios
+  end
+  namespace :intranet do
+    resources :boletos
+  end
+  namespace :intranet do
+    resources :financeiro_portadores
+  end
+  namespace :intranet do
+    resources :financeiro_tipos_cobancas
+  end
+  namespace :intranet do
+    resources :tabeliaos
+  end
+  namespace :intranet do
+    resources :substitutos
+  end
+  namespace :intranet do
     resources :arquivos_tipos
   end
     if $user
@@ -26,10 +47,8 @@ Rails.application.routes.draw do
       end  
     end
   get 'administrador/home', to: 'administrador#home'  
-  get 'usuario/home', to: 'usuario#home'    
-  
-  root :to => redirect('usuario/home')
-
+  get 'usuario/home', to: 'usuario#home'     
+  root :to => redirect('usuario/home') 
 	devise_for :admin, path: 'administrador', controllers: {
     :sessions => "admins/sessions",
     :registrations => "admins/registrations", 

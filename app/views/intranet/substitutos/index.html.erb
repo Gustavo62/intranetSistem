@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Intranet Substitutos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dt inicio</th>
+      <th>Dt final</th>
+      <th>Cpf</th>
+      <th>Rg</th>
+      <th>Nome</th>
+      <th>Telefone</th>
+      <th>Whatsapp</th>
+      <th>Email</th>
+      <th>Atual?</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intranet_substitutos.each do |intranet_substituto| %>
+      <tr>
+        <td><%= intranet_substituto.dt_inicio %></td>
+        <td><%= intranet_substituto.dt_final %></td>
+        <td><%= intranet_substituto.cpf %></td>
+        <td><%= intranet_substituto.rg %></td>
+        <td><%= intranet_substituto.nome %></td>
+        <td><%= intranet_substituto.telefone %></td>
+        <td><%= intranet_substituto.whatsapp %></td>
+        <td><%= intranet_substituto.email %></td>
+        <td><%= intranet_substituto.atual? %></td>
+        <td><%= link_to 'Show', intranet_substituto %></td>
+        <td><%= link_to 'Edit', edit_intranet_substituto_path(intranet_substituto) %></td>
+        <td><%= link_to 'Destroy', intranet_substituto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intranet Substituto', new_intranet_substituto_path %>

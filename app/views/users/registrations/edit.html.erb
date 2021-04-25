@@ -2,6 +2,27 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>
+  <div class="field">
+    <%= f.label :nome %><br />
+    <%= f.text_field :nome, autofocus: true %>
+  </div>
+  <div class="field">
+    <%= f.label :cpf %><br />
+    <span id="cpfResponse"></span>
+    <%= f.text_field :cpf, id:"cpf", type:"text", maxlength:"18"%>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true%>
+  </div>
+
+  <div class="field">
+    <%= f.label :dica_para_senha %><br />
+    <%= f.text_field :lembrete, autofocus: true%>
+  </div>
+
+
 
   <div class="field">
     <%= f.label :email %><br />
@@ -11,33 +32,27 @@
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
-
+  
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <label>Senha</label> <br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
       <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <em><%= @minimum_password_length %> characteres no mínimo</em>
     <% end %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <label>Confirmar Senha</label> <br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <label>Senha Atual</label><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+<% end %> 

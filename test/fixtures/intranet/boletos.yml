@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  intranet_financeiro_tipos_cobranca: one
+  intranet_financeiro_portadores: 
+  intranet_regiao: one
+  intranet_entrancias: one
+  intranet_contribuicao: one
+  intranet_atividade: 
+  intranet_cartorio: one
+  valor: 1.5
+  vencimento: 
+  descricao: MyString
+  observacao_email: MyString
+  forma_cobranca: MyString
+  apenas_titular: false
+
+two:
+  intranet_financeiro_tipos_cobranca: two
+  intranet_financeiro_portadores: 
+  intranet_regiao: two
+  intranet_entrancias: two
+  intranet_contribuicao: two
+  intranet_atividade: 
+  intranet_cartorio: two
+  valor: 1.5
+  vencimento: 
+  descricao: MyString
+  observacao_email: MyString
+  forma_cobranca: MyString
+  apenas_titular: false

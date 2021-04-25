@@ -1,0 +1,157 @@
+<%= form_with(model: intranet_cartorio) do |form| %>
+  <% if intranet_cartorio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(intranet_cartorio.errors.count, "error") %> prohibited this intranet_cartorio from being saved:</h2>
+
+      <ul>
+        <% intranet_cartorio.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :possui_cnpj? %>
+    <%= form.check_box :possui_cnpj? %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cei %>
+    <%= form.text_field :cei %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cnpj %>
+    <%= form.text_field :cnpj %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cod_tj %>
+    <%= form.text_field :cod_tj %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cod_cnj %>
+    <%= form.text_field :cod_cnj %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nome %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nome_fant %>
+    <%= form.text_field :nome_fant %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nome_res %>
+    <%= form.text_field :nome_res %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cep %>
+    <%= form.text_field :cep %>
+  </div>
+
+  <div class="field">
+    <%= form.label :logradouro %>
+    <%= form.text_field :logradouro %>
+  </div>
+
+  <div class="field">
+    <%= form.label :numero %>
+    <%= form.text_field :numero %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bairro %>
+    <%= form.text_field :bairro %>
+  </div>
+
+  <div class="field">
+    <%= form.label :complemento %>
+    <%= form.text_field :complemento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :telefone_fixo %>
+    <%= form.text_field :telefone_fixo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :telefone_celular %>
+    <%= form.text_field :telefone_celular %>
+  </div>
+
+  <div class="field">
+    <%= form.label :whatsapp %>
+    <%= form.text_field :whatsapp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :forma_branca %>
+    <%= form.text_field :forma_branca %>
+  </div>
+
+  <div class="field">
+    <%= form.label :observacao %>
+    <%= form.text_area :observacao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :regiao_id %>
+    <%= form.text_field :regiao_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contribuicao_id %>
+    <%= form.text_field :contribuicao_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :atividade_id %>
+    <%= form.text_field :atividade_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :entrancia_id %>
+    <%= form.text_field :entrancia_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :boleto_id %>
+    <%= form.text_field :boleto_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cidade_id %>
+    <%= form.text_field :cidade_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :associado_id %>
+    <%= form.text_field :associado_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :substituto_id %>
+    <%= form.text_field :substituto_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tabeliaes_id %>
+    <%= form.text_field :tabeliaes_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

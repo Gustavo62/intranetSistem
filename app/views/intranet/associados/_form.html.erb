@@ -1,0 +1,102 @@
+<%= form_with(model: intranet_associado) do |form| %>
+  <% if intranet_associado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(intranet_associado.errors.count, "error") %> prohibited this intranet_associado from being saved:</h2>
+
+      <ul>
+        <% intranet_associado.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cidade_id %>
+    <%= form.text_field :cidade_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :matricula %>
+    <%= form.text_field :matricula %>
+  </div>
+
+  <div class="field">
+    <%= form.label :data_nascimento %>
+    <%= form.date_select :data_nascimento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :funcao %>
+    <%= form.text_field :funcao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rg %>
+    <%= form.text_field :rg %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sexo %>
+    <%= form.check_box :sexo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ativo %>
+    <%= form.check_box :ativo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cep %>
+    <%= form.text_field :cep %>
+  </div>
+
+  <div class="field">
+    <%= form.label :logradouro %>
+    <%= form.text_field :logradouro %>
+  </div>
+
+  <div class="field">
+    <%= form.label :complemento %>
+    <%= form.text_field :complemento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bairro %>
+    <%= form.text_field :bairro %>
+  </div>
+
+  <div class="field">
+    <%= form.label :telefone_1 %>
+    <%= form.text_field :telefone_1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :telefone_2 %>
+    <%= form.text_field :telefone_2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :celular %>
+    <%= form.text_field :celular %>
+  </div>
+
+  <div class="field">
+    <%= form.label :whatsapp %>
+    <%= form.text_field :whatsapp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

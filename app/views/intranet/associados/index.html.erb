@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Intranet Associados</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Cidade</th>
+      <th>Matricula</th>
+      <th>Data nascimento</th>
+      <th>Funcao</th>
+      <th>Rg</th>
+      <th>Sexo</th>
+      <th>Ativo</th>
+      <th>Cep</th>
+      <th>Logradouro</th>
+      <th>Complemento</th>
+      <th>Bairro</th>
+      <th>Telefone 1</th>
+      <th>Telefone 2</th>
+      <th>Celular</th>
+      <th>Whatsapp</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intranet_associados.each do |intranet_associado| %>
+      <tr>
+        <td><%= intranet_associado.user_id %></td>
+        <td><%= intranet_associado.cidade_id %></td>
+        <td><%= intranet_associado.matricula %></td>
+        <td><%= intranet_associado.data_nascimento %></td>
+        <td><%= intranet_associado.funcao %></td>
+        <td><%= intranet_associado.rg %></td>
+        <td><%= intranet_associado.sexo %></td>
+        <td><%= intranet_associado.ativo %></td>
+        <td><%= intranet_associado.cep %></td>
+        <td><%= intranet_associado.logradouro %></td>
+        <td><%= intranet_associado.complemento %></td>
+        <td><%= intranet_associado.bairro %></td>
+        <td><%= intranet_associado.telefone_1 %></td>
+        <td><%= intranet_associado.telefone_2 %></td>
+        <td><%= intranet_associado.celular %></td>
+        <td><%= intranet_associado.whatsapp %></td>
+        <td><%= intranet_associado.email %></td>
+        <td><%= link_to 'Show', intranet_associado %></td>
+        <td><%= link_to 'Edit', edit_intranet_associado_path(intranet_associado) %></td>
+        <td><%= link_to 'Destroy', intranet_associado, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intranet Associado', new_intranet_associado_path %>

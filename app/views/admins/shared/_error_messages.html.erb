@@ -1,14 +1,15 @@
 <% if resource.errors.any? %>
   <div id="error_explanation">
-    <h2>
-      <%= I18n.t("errors.messages.not_saved",
-                 count: resource.errors.count,
-                 resource: resource.class.model_name.human.downcase)
-       %>
-    </h2>
     <ul>
-      <% resource.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <% resource.errors.full_messages.each do |message| %> 
+        <div data-notify="container" class="col-11 col-sm-4 alert alert-warning alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 0;top: 605px;right: 16px;">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          <span data-notify="icon" class="nc-icon nc-app"></span> 
+          <span data-notify="message"><%=sanitize(message)%></span>
+          <a href="#" target="_blank" data-notify="url"></a>
+        </div>
       <% end %>
     </ul>
   </div>

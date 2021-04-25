@@ -1,0 +1,61 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  possui_cnpj?: false
+  cei: MyString
+  cnpj: MyString
+  cod_tj: MyString
+  cod_cnj: MyString
+  nome: MyString
+  nome_fant: MyString
+  nome_res: MyString
+  cep: MyString
+  logradouro: MyString
+  numero: MyString
+  bairro: 
+  complemento: MyString
+  telefone_fixo: MyString
+  telefone_celular: MyString
+  whatsapp: MyString
+  email: MyString
+  forma_branca: MyString
+  observacao: MyText
+  regiao: one
+  contribuicao: one
+  atividade: one
+  entrancia: one
+  boleto: one
+  cidade: one
+  associado: one
+  substituto: one
+  tabeliaes: one
+
+two:
+  possui_cnpj?: false
+  cei: MyString
+  cnpj: MyString
+  cod_tj: MyString
+  cod_cnj: MyString
+  nome: MyString
+  nome_fant: MyString
+  nome_res: MyString
+  cep: MyString
+  logradouro: MyString
+  numero: MyString
+  bairro: 
+  complemento: MyString
+  telefone_fixo: MyString
+  telefone_celular: MyString
+  whatsapp: MyString
+  email: MyString
+  forma_branca: MyString
+  observacao: MyText
+  regiao: two
+  contribuicao: two
+  atividade: two
+  entrancia: two
+  boleto: two
+  cidade: two
+  associado: two
+  substituto: two
+  tabeliaes: two

@@ -1,42 +1,180 @@
-<h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
-  <div class="field">
-    <%= f.label :nome %><br />
-    <%= f.text_field :nome, autofocus: true %>
-  </div>
-  <div class="field">
-    <%= f.label :cpf %><br />
-    <span id="cpfResponse"></span>
-    <%= f.text_field :cpf, id:"cpf", type:"text", maxlength:"18"%>
-  </div>
+<%= javascript_pack_tag "validaForm", "data-turbolinks-track" => true  %>
+<%= javascript_pack_tag "validacao", "data-turbolinks-track" => true %>
+<div class="row">
+	<div class="col-lg-12"> 
+		<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+			<h2>Cadastrar-se</h2>
+			<h3>Etapa <span id="passo"></span></h3>
+			<div id="step_1" class="step"> 
+				<h4>Dados de acesso</h4>
+				<div class="form-group" >
+					<%= f.label :nome %><br />
+					<%= f.text_field :nome, autofocus: true, class:'form-control',presence:true,id:"user_nome",placeholder:"Nome" %>
+				</div>
+				<div class="form-group" >
+					<%= f.label :cpf %><br /> 
+					<%= f.text_field :cpf, type:"text", maxlength:"18", class:'form-control',presence:true,id:"user_cpf",placeholder:"Cpf" %>
+				</div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true%>
-  </div>
+				<div class="form-group">
+					<%= f.label :email %><br />
+					<%= f.email_field :email, autofocus: true, class:'form-control',presence:true,id:"user_email",placeholder:"Email"%>
+				</div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password%>
-  </div>
+				<div class="form-group">
+					<%= f.label :password %>
+					<% if @minimum_password_length %>
+					<em>(<%= @minimum_password_length %> characters minimum)</em>
+					<% end %><br />
+					<%= f.password_field :password, class:'form-control',presence:true,id:"user_senha",placeholder:"Senha"%>
+				</div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation%>
-  </div>
+				<div class="form-group">
+					<%= f.label :password_confirmation %><br />
+					<%= f.password_field :password_confirmation, class:'form-control',presence:true,id:"user_senha_confirm",placeholder:"Confirma Senha"%>
+				</div>
 
-  <div class="field">
-    <%= f.label :dica_para_senha %><br />
-    <%= f.text_field :lembrete, autofocus: true%>
-  </div><br>
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+				<div class="form-group" >
+					<%= f.label :dica_para_senha %><br />
+					<%= f.text_field :lembrete, autofocus: true, class:'form-control',presence:true,placeholder:"Dica para senha"%>
+				</div>
+			</div>
+			
+			<div id="step_2" class="step">
+				<h4>Dados do novo associado</h4> 
+				<div class="form-group">
+					<%= f.label :cidade_id %>  
+					<%= select_tag "intranet_cidade_id",options_from_collection_for_select(@cidades, "id", "municipio"), {:prompt => ""}%>
+				</div> 
+				<div class="form-group">
+					<%= f.label :matricula %> 
+					<input name="intranet_matricula" class='form-control'>
+				</div>
+				<div class="form-group">
+					<%= f.label :data_nascimento %> 
+					<input type="date" name="intranet_data_nascimento" class='form-control'>
+				</div>
 
-<%= render "users/shared/links" %>
+				<div class="form-group">
+					<%= f.label :funcao %> 
+					<input name="intranet_funcao" class='form-control'>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :rg %> 
+					<input name="intranet_rg" class='form-control'>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :sexo %> 
+					<input name="intranet_sexo" class='form-control'>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :ativo %> 
+					<input name="intranet_ativo" class='form-control'>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :cep %> 
+					<input name="intranet_cep" class='form-control'>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :logradouro %>
+					<input name="intranet_logradouro" class='form-control'>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :complemento %>
+					<input name="intranet_complemento" class='form-control'>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :bairro %> 
+					<input name="intranet_bairro" class='form-control'>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :telefone_1 %> 
+					<input name="intranet_telefone_1" class='form-control'>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :telefone_2 %> 
+					<input name="intranet_telefone_2" class='form-control'>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :celular %> 
+					<input name="intranet_celular" class='form-control'>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :whatsapp %> 
+					<input name="intranet_whatsapp" class='form-control'>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :email %> 
+					<input name="intranet_email" class='form-control'>
+				</div>  
+			</div>
+
+			<div id="step_3" class="step">
+				<h4>Fixa de Filiação</h4>
+				<div class="form-group">
+					<label>Fixa de Filiação</label> 
+					<a href="/docs/fixa.pdf" download>Download</a>
+					<div class="actions">
+						<%= f.submit "Sign up" %>
+					</div>
+				</div> 
+			</div>			
+		<% end %>
+		<div class="col-12" style="display: flex;width: 100%;padding: 0px;">
+			<button class="btn btn-primary" id="prev" ><b>Voltar</b></button> 
+			<button class="btn btn-primary" id="next" ><b>Avançar</b></button>
+		</div> 
+
+		<div class="mensagem">
+			<div data-notify="container" class="col-11 col-sm-4 alert alert-danger alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block;position: fixed;transition: all 0.5s ease-in-out 0s;z-index: 0;bottom: 0px;margin-left: auto;margin-right: auto;">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<span data-notify="icon" class="nc-icon nc-app"></span> 
+				<span data-notify="message"><span id="msg"></span></span>
+				<a href="#" target="_blank" data-notify="url"></a>
+			</div>
+		</div> 
+	</div>
+</div>
+
+
+<%= render "users/shared/error_messages", resource: resource %>
+<style>
+.left-right-dots{
+	width: 30px;
+	height: 30px;
+	color: #ff7c2e;
+} 
+#next{ 
+	float:right;
+	width:auto;
+	margin-left:auto;
+	text-align: center;
+
+}
+#prev{ 
+	float:left;
+	margin-right:auto;
+	width:auto; 
+	text-align: center;
+}
+</style>
+
+<script>
+	
+</script>
+<%= render "users/shared/links" %> 

@@ -1,0 +1,2 @@
+module Intranet::SubstitutosHelper
+end

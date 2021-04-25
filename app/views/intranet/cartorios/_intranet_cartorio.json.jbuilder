@@ -1,0 +1,2 @@
+json.extract! intranet_cartorio, :id, :possui_cnpj?, :cei, :cnpj, :cod_tj, :cod_cnj, :nome, :nome_fant, :nome_res, :cep, :logradouro, :numero, :bairro, :complemento, :telefone_fixo, :telefone_celular, :whatsapp, :email, :forma_branca, :observacao, :regiao_id, :contribuicao_id, :atividade_id, :entrancia_id, :boleto_id, :cidade_id, :associado_id, :substituto_id, :tabeliaes_id, :created_at, :updated_at
+json.url intranet_cartorio_url(intranet_cartorio, format: :json)

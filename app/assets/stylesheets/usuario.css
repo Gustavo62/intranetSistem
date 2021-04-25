@@ -225,10 +225,7 @@
     width: 100%;
     height: 313px;
     background-color: #fba571;
-    margin-top: 10px;
-    z-index: -1;
-    position: absolute;
-    bottom: 0; 
+    margin-top: 10px; 
 }
 .propaganda img{
     width: 315px;
@@ -264,15 +261,11 @@
     color: #f1f1f1;
   }
   
-  .sidenav-right #closebtn-right {
-    position: absolute;
-    top: 20px;
-    right: 331px;
+  .sidenav-right #closebtn-right { 
     font-size: 45px;
     color: white;
     z-index: 9;
-    width: 19px;
-    padding-left: 0px;
+    width: 19px; 
   }
 .dot-1{
     margin-top: 24px;
@@ -312,7 +305,7 @@
     width: 100%;
     height: 1px;
     background-color: #ff7520;
-    margin-top: 0px;
+    margin-top: 8px;
 }
 .container-notify{
     margin-top: -15px;
@@ -328,4 +321,19 @@
     width: 24px;
     height: 27px;
     margin-left: -10px;
+}
+#btn-close-right{
+    float: left;
+text-align: left;
+width: 100%;
+margin-left: 19px;
+margin-top: -39px;
+}
+.links-footer{
+    text-decoration: none;
+    color: white;
+}
+.links-footer:hover{
+    text-decoration: none;
+    color: white;
 }

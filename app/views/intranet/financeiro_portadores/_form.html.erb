@@ -1,0 +1,97 @@
+<%= form_with(model: intranet_financeiro_portadore) do |form| %>
+  <% if intranet_financeiro_portadore.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(intranet_financeiro_portadore.errors.count, "error") %> prohibited this intranet_financeiro_portadore from being saved:</h2>
+
+      <ul>
+        <% intranet_financeiro_portadore.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :arquivo %>
+    <%= form.text_area :arquivo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cnpj %>
+    <%= form.text_field :cnpj %>
+  </div>
+
+  <div class="field">
+    <%= form.label :codigo_banco %>
+    <%= form.text_field :codigo_banco %>
+  </div>
+
+  <div class="field">
+    <%= form.label :agencia %>
+    <%= form.text_field :agencia %>
+  </div>
+
+  <div class="field">
+    <%= form.label :carteira %>
+    <%= form.text_field :carteira %>
+  </div>
+
+  <div class="field">
+    <%= form.label :conta %>
+    <%= form.text_field :conta %>
+  </div>
+
+  <div class="field">
+    <%= form.label :aceite %>
+    <%= form.check_box :aceite %>
+  </div>
+
+  <div class="field">
+    <%= form.label :empresa %>
+    <%= form.text_field :empresa %>
+  </div>
+
+  <div class="field">
+    <%= form.label :especie_titulo %>
+    <%= form.text_field :especie_titulo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :moeda %>
+    <%= form.text_field :moeda %>
+  </div>
+
+  <div class="field">
+    <%= form.label :numero_inicial_1 %>
+    <%= form.text_field :numero_inicial_1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :numero_inicial_2 %>
+    <%= form.text_field :numero_inicial_2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :numero_final %>
+    <%= form.text_field :numero_final %>
+  </div>
+
+  <div class="field">
+    <%= form.label :registro_online %>
+    <%= form.text_field :registro_online %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nome_certificado %>
+    <%= form.text_field :nome_certificado %>
+  </div>
+
+  <div class="field">
+    <%= form.label :senha_certificado %>
+    <%= form.text_field :senha_certificado %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

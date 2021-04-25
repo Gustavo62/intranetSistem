@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dt_inicio: 2021-04-23
+  dt_final: 2021-04-23
+  cpf: MyString
+  rg: MyString
+  nome: MyString
+  telefone: MyString
+  whatsapp: false
+  email: MyString
+  atual?: false
+
+two:
+  dt_inicio: 2021-04-23
+  dt_final: 2021-04-23
+  cpf: MyString
+  rg: MyString
+  nome: MyString
+  telefone: MyString
+  whatsapp: false
+  email: MyString
+  atual?: false

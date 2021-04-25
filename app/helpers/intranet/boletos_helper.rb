@@ -1,0 +1,2 @@
+module Intranet::BoletosHelper
+end

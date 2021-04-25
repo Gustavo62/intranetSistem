@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Intranet Boletos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Intranet financeiro tipos cobranca</th>
+      <th>Intranet financeiro portadores</th>
+      <th>Intranet regiao</th>
+      <th>Intranet entrancias</th>
+      <th>Intranet contribuicao</th>
+      <th>Intranet atividade</th>
+      <th>Intranet cartorio</th>
+      <th>Valor</th>
+      <th>Vencimento</th>
+      <th>Descricao</th>
+      <th>Observacao email</th>
+      <th>Forma cobranca</th>
+      <th>Apenas titular</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intranet_boletos.each do |intranet_boleto| %>
+      <tr>
+        <td><%= intranet_boleto.intranet_financeiro_tipos_cobranca_id %></td>
+        <td><%= intranet_boleto.intranet_financeiro_portadores %></td>
+        <td><%= intranet_boleto.intranet_regiao_id %></td>
+        <td><%= intranet_boleto.intranet_entrancias_id %></td>
+        <td><%= intranet_boleto.intranet_contribuicao_id %></td>
+        <td><%= intranet_boleto.intranet_atividade %></td>
+        <td><%= intranet_boleto.intranet_cartorio_id %></td>
+        <td><%= intranet_boleto.valor %></td>
+        <td><%= intranet_boleto.vencimento %></td>
+        <td><%= intranet_boleto.descricao %></td>
+        <td><%= intranet_boleto.observacao_email %></td>
+        <td><%= intranet_boleto.forma_cobranca %></td>
+        <td><%= intranet_boleto.apenas_titular %></td>
+        <td><%= link_to 'Show', intranet_boleto %></td>
+        <td><%= link_to 'Edit', edit_intranet_boleto_path(intranet_boleto) %></td>
+        <td><%= link_to 'Destroy', intranet_boleto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intranet Boleto', new_intranet_boleto_path %>

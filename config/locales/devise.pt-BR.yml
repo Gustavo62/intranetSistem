@@ -91,4 +91,6 @@ pt-BR:
               blank: "Senha não pode ficar em branco"
             password:
               blank: "Confirmação de senha não pode ficar em branco"
+            current_password: 
+              blank: "Preencha o campo senha atual para salvar."
               

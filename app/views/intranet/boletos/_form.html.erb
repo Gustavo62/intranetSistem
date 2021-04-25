@@ -1,0 +1,82 @@
+<%= form_with(model: intranet_boleto) do |form| %>
+  <% if intranet_boleto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(intranet_boleto.errors.count, "error") %> prohibited this intranet_boleto from being saved:</h2>
+
+      <ul>
+        <% intranet_boleto.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :intranet_financeiro_tipos_cobranca_id %>
+    <%= form.text_field :intranet_financeiro_tipos_cobranca_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :intranet_financeiro_portadores %>
+    <%= form.text_field :intranet_financeiro_portadores %>
+  </div>
+
+  <div class="field">
+    <%= form.label :intranet_regiao_id %>
+    <%= form.text_field :intranet_regiao_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :intranet_entrancias_id %>
+    <%= form.text_field :intranet_entrancias_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :intranet_contribuicao_id %>
+    <%= form.text_field :intranet_contribuicao_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :intranet_atividade %>
+    <%= form.text_field :intranet_atividade %>
+  </div>
+
+  <div class="field">
+    <%= form.label :intranet_cartorio_id %>
+    <%= form.text_field :intranet_cartorio_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :valor %>
+    <%= form.text_field :valor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :vencimento %>
+    <%= form.text_field :vencimento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :descricao %>
+    <%= form.text_field :descricao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :observacao_email %>
+    <%= form.text_field :observacao_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :forma_cobranca %>
+    <%= form.text_field :forma_cobranca %>
+  </div>
+
+  <div class="field">
+    <%= form.label :apenas_titular %>
+    <%= form.check_box :apenas_titular %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Intranet Tabeliaos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dt inicio</th>
+      <th>Dt final</th>
+      <th>Cpf</th>
+      <th>Rg</th>
+      <th>Nome</th>
+      <th>Telefone</th>
+      <th>Whatsapp</th>
+      <th>Email</th>
+      <th>Atual?</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intranet_tabeliaos.each do |intranet_tabeliao| %>
+      <tr>
+        <td><%= intranet_tabeliao.dt_inicio %></td>
+        <td><%= intranet_tabeliao.dt_final %></td>
+        <td><%= intranet_tabeliao.cpf %></td>
+        <td><%= intranet_tabeliao.rg %></td>
+        <td><%= intranet_tabeliao.nome %></td>
+        <td><%= intranet_tabeliao.telefone %></td>
+        <td><%= intranet_tabeliao.whatsapp %></td>
+        <td><%= intranet_tabeliao.email %></td>
+        <td><%= intranet_tabeliao.atual? %></td>
+        <td><%= link_to 'Show', intranet_tabeliao %></td>
+        <td><%= link_to 'Edit', edit_intranet_tabeliao_path(intranet_tabeliao) %></td>
+        <td><%= link_to 'Destroy', intranet_tabeliao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intranet Tabeliao', new_intranet_tabeliao_path %>

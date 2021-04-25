@@ -1,0 +1,37 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  arquivo: MyText
+  cnpj: MyString
+  codigo_banco: MyString
+  agencia: MyString
+  carteira: MyString
+  conta: MyString
+  aceite: false
+  empresa: MyString
+  especie_titulo: MyString
+  moeda: MyString
+  numero_inicial_1: 
+  numero_inicial_2: 
+  numero_final: 
+  registro_online: MyString
+  nome_certificado: MyString
+  senha_certificado: MyString
+
+two:
+  arquivo: MyText
+  cnpj: MyString
+  codigo_banco: MyString
+  agencia: MyString
+  carteira: MyString
+  conta: MyString
+  aceite: false
+  empresa: MyString
+  especie_titulo: MyString
+  moeda: MyString
+  numero_inicial_1: 
+  numero_inicial_2: 
+  numero_final: 
+  registro_online: MyString
+  nome_certificado: MyString
+  senha_certificado: MyString
