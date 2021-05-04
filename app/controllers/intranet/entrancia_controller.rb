@@ -1,10 +1,6 @@
 class Intranet::EntranciaController < ApplicationController
   before_action :set_intranet_entrancium, only: %i[ show edit update destroy ]
-  if $user 
-    before_action :authenticate_user!, :valida_acesso 
-  else
-    before_action :authenticate_admin!, :valida_acesso 
-  end
+
   # GET /intranet/entrancia or /intranet/entrancia.json
   def index
     @intranet_entrancia = Intranet::Entrancium.all
@@ -68,6 +64,6 @@ class Intranet::EntranciaController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def intranet_entrancium_params
-      params.require(:intranet_entrancium).permit(:descricao, :ativo)
+      params.fetch(:intranet_entrancium, {})
     end
 end

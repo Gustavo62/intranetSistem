@@ -1,19 +1,28 @@
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <%= stylesheet_link_tag 'usuario' %>
-<div id="minimize">
+<div id="minimize" style="height:1229px !important">
 </div>
 <div id="nav_user">
     <div id="mySidenav-left" class="sidenav">
         
         <svg class="svg-inline--fa fa-times fa-w-11" href="javascript:void(0)" id="closebtn" onclick="closeNavLeft()" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
         <div class="nav-menu w3-animate-right" >
-            <h3 class="conta" style="font-family: 'Poppins'!important">Conta</h3>
-            <div class="dados-cliente">
-                <%= image_tag "avatar.jpg",style: 'margin-top: 8px;margin-left: 2px;81px;border: 1px solid #f4a16e;border-radius: 50px;' %>
-                <div class="nome">Gustavo Lima de Sá</div> 
-                <div class="cpf" style="font-size: 12px;"><b style="color: #ff6000;">CPF </b>626.238.573-85</div>
-                <div class="numero" style="font-size: 12px;"><%=icon('phone-fill', class:"help-tel")%>85 9 9686-2321</div>
+            <%= link_to edit_user_registration_path do %>
+                <h3 class="conta" style="font-family: 'Poppins'!important">Conta</h3>
+            <% end %> 
+            <div class="dados-cliente"> 
+                <div class="cart" style="padding:2px"><b><%= @cart_current.nome_res%></b></div> 
+                <% if current_user.avatar.attached? %>
+                    <%= image_tag(current_user.avatar_thumbnail, style: 'width: 100px;height: 100px;margin-top: 6px;margin-left: 2px;81px;border: 1px solid #f4a16e;border-radius: 50px;' )%>
+                    
+                <% else %>
+                    <%= image_tag('default.png', style: 'width: 100px;height: 100px;margin-top: 6px;margin-left: 2px;81px;border: 1px solid #f4a16e;border-radius: 50px;' )%>
+                
+                <% end %>
+                <div class="nome" style="margin-top: 7px;"><%= current_user.nome%></div> 
+                <div class="cpf" style="font-size: 12px;"><b style="color: #ff6000;">SERV: </b><%= current_user.serventia%></div>
+                <div class="numero" style="font-size: 12px;"><b style="color: #ff6000;">CPF: </b><%= current_user.cpf%></div>
             </div>
             <div style="background: #ff8b45;">
                 <ul class="ul-links">
@@ -92,7 +101,7 @@
             <p class="dot-1" onclick="openNavRight()"></p>
             <span style="font-size:30px;cursor:pointer" onclick="openNavRight()"><%= icon('bell-fill', class:"icon-menu-right")%></span>
         </div>
-        <h5 style="color: white;font-size: larger;padding-top: 10px;width: 213px;margin: auto;"><b>SINOREDI-CE</b> | Intranet</h5>
+        <h5 style="color: white;font-size: larger;padding-top: 12px;width: 213px;margin: auto;"><b>SINOREDI-CE</b> | Intranet</h5>
     </div>
 </div>
 <script>
@@ -130,7 +139,7 @@ function openNavUl(a) {
 <% flash.each do |name, msg| %> 
     <% name = 'warning' if name == 'alert'%>
     <% name = 'info' if name == 'notice'%>
-    <div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 0;top: 605px;right: 16px;">
+    <div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1;bottom: 15px;;right: 16px;">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -148,11 +157,13 @@ function openNavUl(a) {
     <a href="#" target="_blank" data-notify="url"></a>
     </div>
 <% end %>
-<div class="footer"> 
-    <div class="icons-menu-footer">
-        <%= icon('house', class:"footer-btn") %><br>
-        <span style="font-size: 14px;"><b>HOME</b></span>
-    </div>
+<div class="footer">  
+    <%= link_to usuario_home_path, class:"links-footer" do %>
+        <div class="icons-menu-footer" >  
+            <%= icon('house', class:"footer-btn") %><br>
+            <span style="font-size: 14px;"><b>HOME</b></span> 
+        </div>
+    <% end %>
     <div class="icons-menu-footer"> 
         <%= icon('newspaper', class:"footer-btn") %><br>
         <span style="font-size: 14px;"><b>NOVIDADES</b></span>

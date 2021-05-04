@@ -1,7 +1,7 @@
 class CreateIntranetCartorios < ActiveRecord::Migration[6.1]
   def change
     create_table :intranet_cartorios do |t|
-      t.boolean :possui_cnpj?
+      t.boolean :possui_cnpj
       t.string :cei
       t.string :cnpj
       t.string :cod_tj
@@ -19,16 +19,14 @@ class CreateIntranetCartorios < ActiveRecord::Migration[6.1]
       t.string :whatsapp
       t.string :email
       t.string :forma_branca
-      t.text :observacao
-      t.references :intranet_regiao, null: false, foreign_key: true
-      t.references :intranet_contribuicao, null: false, foreign_key: true
-      t.references :intranet_atividade, null: false, foreign_key: true
-      t.references :intranet_entrancia, null: false, foreign_key: true
-      t.references :intranet_boleto, null: false, foreign_key: true
-      t.references :intranet_cidade, null: false, foreign_key: true
-      
-      t.references :intranet_substituto, null: false, foreign_key: true
-      t.references :intranet_tabeliao, null: false, foreign_key: true
+      t.text :observacao 
+      t.references :intranet_regiao, null: true, foreign_key: true
+      t.references :intranet_contribuicao, null: true, foreign_key: true
+      t.references :intranet_entrancia, null: true, foreign_key: true
+      t.references :intranet_boleto, null: true, foreign_key: true
+      t.references :intranet_cidade, null: true, foreign_key: true
+      t.references :intranet_substituto, null: true, foreign_key: true
+      t.references :intranet_tabeliao, null: true, foreign_key: true
 
       t.timestamps
     end

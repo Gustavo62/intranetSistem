@@ -2,11 +2,12 @@ class CreateIntranetAssociados < ActiveRecord::Migration[6.1]
   def change
     create_table :intranet_associados do |t|
       t.references :user, null: false, foreign_key: true
-      t.references :intranet_cidade, null: false, foreign_key: true
       t.string :matricula
       t.date :data_nascimento
       t.string :funcao
+      t.string :nome
       t.string :rg
+      t.string :rg_emissor
       t.boolean :sexo
       t.boolean :ativo
       t.string :cep

@@ -1,0 +1,16 @@
+class PopularRegioes < ActiveRecord::Migration[6.1] 
+  Intranet::Regiao.create(id:220,descricao: "CAPITAL", ativo: true)                      
+  Intranet::Regiao.create(id:19 ,descricao: "CARIRI", ativo: true)               
+  Intranet::Regiao.create(id:94 ,descricao: "CERTÃO CENTRAL", ativo: true)       
+  Intranet::Regiao.create(id:119,descricao: "CHAPADA DA IBIAPABA", ativo: true)  
+  Intranet::Regiao.create(id:58 ,descricao: "LITORAL LESTE", ativo: true)
+  Intranet::Regiao.create(id:24 ,descricao: "LITORAL NORTE", ativo: true)
+  Intranet::Regiao.create(id:48 ,descricao: "LITORAL OESTE", ativo: true)
+  Intranet::Regiao.create(id:23 ,descricao: "MACIÇO DE BATURITÉ", ativo: true)
+  Intranet::Regiao.create(id:44 ,descricao: "MÉDIO JAGUARIBE", ativo: true)
+  Intranet::Regiao.create(id:53 ,descricao: "REGIÃO METROPOLITANA", ativo: true)
+  Intranet::Regiao.create(id:75 ,descricao: "SERTÃO CENTRAL", ativo: true)
+  Intranet::Regiao.create(id:30 ,descricao: "SERTÃO CENTRO-SUL", ativo: true)
+  Intranet::Regiao.create(id:40 ,descricao: "SERTÃO DOS INHAMUNS", ativo: true)
+  Intranet::Regiao.create(id:43 ,descricao: "SERTÃO NORTE", ativo: true)
+end

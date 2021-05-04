@@ -36,16 +36,16 @@
 .conta{
     color: white;
     font-weight: bold;
-    height: 45px;
-    margin-left: 13px;
-    margin-top: 9px;
+    height: 55px;
+    margin-left: -13px;
+    margin-top: 2px;
     width: 112px;
 
 }
 .nome{
     text-align: left;
     float: right;
-    width: 197px;
+    width: 185px;
     color: white;
     font-size: 18px;
     border-bottom: 1px solid #ff8b4575;
@@ -54,18 +54,17 @@
 .cpf{
     text-align: left;
     float: right;
-    width: 190px;
-    margin-top: -43px;
+    width: 182px;
+    margin-top: -62px;
     letter-spacing: 2px;
     font-weight: bold;
     color: white;
-
 }
 .numero{
     text-align: left;
     float: right;
     width: 174px;
-    margin-top: -16px;
+    margin-top: -38px;
     letter-spacing: 2px;
     font-weight: bold;
     color: white;
@@ -81,8 +80,25 @@
     margin-right: 7px;
     color: #ff6000;
 }
+.cart{
+    width: 316px;
+    margin-left: -10px;
+    background: #ffb68a;
+    font-size: 15px;
+    margin-top: -38px;
+    text-align: center;
+    float: none;
+    margin-bottom: 13px;
+    border-bottom: 1px solid #ff8b4575;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: #ff6000;
+    text-shadow: 1px 1px 2px white;
+    height: 32px;
+}
 .dados-cliente{
-    height: 114px;
+    margin-top: -25px;
+    height: 144px;
     background: #fba571;
     padding: 13px;
     width: 319px;
@@ -148,6 +164,7 @@
   color: #818181;
   display: block;
   transition: 0.3s;
+  width: 196px;
 }
 
 .sidenav a:hover {
@@ -164,9 +181,10 @@
     width: 19px;
 }
 .top-nav{
-    height: 43px;
+    height: 48px;
     background: #ff8b45;
     text-align: center;
+    padding: 1px;
 }
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
@@ -229,7 +247,7 @@
 }
 .propaganda img{
     width: 315px;
-    height: 313px;
+    height: 338px;
     background-color: #fba571;
 }
 

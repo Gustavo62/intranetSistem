@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_25_210128) do
+ActiveRecord::Schema.define(version: 2021_05_03_123502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -46,11 +74,12 @@ ActiveRecord::Schema.define(version: 2021_04_25_210128) do
 
   create_table "intranet_associados", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "intranet_cidade_id", null: false
     t.string "matricula"
     t.date "data_nascimento"
     t.string "funcao"
+    t.string "nome"
     t.string "rg"
+    t.string "rg_emissor"
     t.boolean "sexo"
     t.boolean "ativo"
     t.string "cep"
@@ -66,7 +95,6 @@ ActiveRecord::Schema.define(version: 2021_04_25_210128) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "intranet_cartorio_id", null: false
     t.index ["intranet_cartorio_id"], name: "index_intranet_associados_on_intranet_cartorio_id"
-    t.index ["intranet_cidade_id"], name: "index_intranet_associados_on_intranet_cidade_id"
     t.index ["user_id"], name: "index_intranet_associados_on_user_id"
   end
 
@@ -90,7 +118,7 @@ ActiveRecord::Schema.define(version: 2021_04_25_210128) do
     t.bigint "intranet_financeiro_tipos_cobanca_id", null: false
     t.bigint "intranet_financeiro_portadores_id"
     t.bigint "intranet_regiao_id", null: false
-    t.bigint "intranet_entrancia_id", null: false
+    t.bigint "intranet_entrancium_id", null: false
     t.bigint "intranet_contribuicao_id", null: false
     t.bigint "intranet_atividade_id"
     t.float "valor"
@@ -105,14 +133,14 @@ ActiveRecord::Schema.define(version: 2021_04_25_210128) do
     t.index ["intranet_atividade_id"], name: "index_intranet_boletos_on_intranet_atividade_id"
     t.index ["intranet_cartorio_id"], name: "index_intranet_boletos_on_intranet_cartorio_id"
     t.index ["intranet_contribuicao_id"], name: "index_intranet_boletos_on_intranet_contribuicao_id"
-    t.index ["intranet_entrancia_id"], name: "index_intranet_boletos_on_intranet_entrancia_id"
+    t.index ["intranet_entrancium_id"], name: "index_intranet_boletos_on_intranet_entrancium_id"
     t.index ["intranet_financeiro_portadores_id"], name: "index_intranet_boletos_on_intranet_financeiro_portadores_id"
     t.index ["intranet_financeiro_tipos_cobanca_id"], name: "index_intranet_boletos_on_intranet_financeiro_tipos_cobanca_id"
     t.index ["intranet_regiao_id"], name: "index_intranet_boletos_on_intranet_regiao_id"
   end
 
   create_table "intranet_cartorios", force: :cascade do |t|
-    t.boolean "possui_cnpj?"
+    t.boolean "possui_cnpj"
     t.string "cei"
     t.string "cnpj"
     t.string "cod_tj"
@@ -131,19 +159,18 @@ ActiveRecord::Schema.define(version: 2021_04_25_210128) do
     t.string "email"
     t.string "forma_branca"
     t.text "observacao"
-    t.bigint "intranet_regiao_id", null: false
-    t.bigint "intranet_contribuicao_id", null: false
-    t.bigint "intranet_atividade_id", null: false
-    t.bigint "intranet_entrancia_id", null: false
-    t.bigint "intranet_boleto_id", null: false
-    t.bigint "intranet_cidade_id", null: false
-    t.bigint "intranet_substituto_id", null: false
-    t.bigint "intranet_tabeliao_id", null: false
+    t.bigint "intranet_regiao_id"
+    t.bigint "intranet_contribuicao_id"
+    t.bigint "intranet_entrancia_id"
+    t.bigint "intranet_boleto_id"
+    t.bigint "intranet_cidade_id"
+    t.bigint "intranet_substituto_id"
+    t.bigint "intranet_tabeliao_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "intranet_associado_id", null: false
+    t.bigint "intranet_associado_id"
+    t.integer "intranet_atividade_id", array: true
     t.index ["intranet_associado_id"], name: "index_intranet_cartorios_on_intranet_associado_id"
-    t.index ["intranet_atividade_id"], name: "index_intranet_cartorios_on_intranet_atividade_id"
     t.index ["intranet_boleto_id"], name: "index_intranet_cartorios_on_intranet_boleto_id"
     t.index ["intranet_cidade_id"], name: "index_intranet_cartorios_on_intranet_cidade_id"
     t.index ["intranet_contribuicao_id"], name: "index_intranet_cartorios_on_intranet_contribuicao_id"
@@ -157,6 +184,16 @@ ActiveRecord::Schema.define(version: 2021_04_25_210128) do
     t.string "municipio"
     t.string "estado"
     t.integer "cod_ibge"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "intranet_contribuicao_importadas", force: :cascade do |t|
+    t.string "ano", null: false
+    t.string "serventia", null: false
+    t.string "descContrib", null: false
+    t.float "float", null: false
+    t.string "documento", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -266,20 +303,21 @@ ActiveRecord::Schema.define(version: 2021_04_25_210128) do
     t.string "cpf", default: "", null: false
     t.boolean "acesso", default: false, null: false
     t.text "lembrete"
+    t.integer "serventia", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "intranet_associados", "intranet_cartorios"
-  add_foreign_key "intranet_associados", "intranet_cidades"
   add_foreign_key "intranet_associados", "users"
   add_foreign_key "intranet_boletos", "intranet_cartorios"
   add_foreign_key "intranet_boletos", "intranet_contribuicaos"
-  add_foreign_key "intranet_boletos", "intranet_entrancia", column: "intranet_entrancia_id"
+  add_foreign_key "intranet_boletos", "intranet_entrancia"
   add_foreign_key "intranet_boletos", "intranet_financeiro_tipos_cobancas"
   add_foreign_key "intranet_boletos", "intranet_regiaos"
   add_foreign_key "intranet_cartorios", "intranet_associados"
-  add_foreign_key "intranet_cartorios", "intranet_atividades"
   add_foreign_key "intranet_cartorios", "intranet_boletos"
   add_foreign_key "intranet_cartorios", "intranet_cidades"
   add_foreign_key "intranet_cartorios", "intranet_contribuicaos"

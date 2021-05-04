@@ -2,6 +2,15 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>
+  
+  <div class="field"> 
+    <%= image_tag(current_user.avatar_thumbnail) if current_user.avatar.attached?  %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :avatar %><br />
+    <%= f.file_field :avatar %>
+  </div>
   <div class="field">
     <%= f.label :nome %><br />
     <%= f.text_field :nome, autofocus: true %>
@@ -20,9 +29,7 @@
   <div class="field">
     <%= f.label :dica_para_senha %><br />
     <%= f.text_field :lembrete, autofocus: true%>
-  </div>
-
-
+  </div> 
 
   <div class="field">
     <%= f.label :email %><br />

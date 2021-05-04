@@ -27,9 +27,12 @@ gem 'jbuilder', '~> 2.7'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
-
+# O BrCep é um gem que tem como objetivo buscar um endereço com base no seu CEP.
+gem 'brcep'
 # Devise
 gem 'devise'
+# Use Active storage Variant
+gem 'image_processing', '~> 1.2'
 # font-awesome-rails
 gem "font-awesome-rails"
 # sendgrid

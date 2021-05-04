@@ -3,6 +3,11 @@
 class Users::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
   def new
+    @cartorios = Intranet::Cartorio.all
+		@cartorios.each do |cart|
+			@cidade = Intranet::Cidade.find_by_id(cart.intranet_cidade_id)
+			cart.nome = "#{@cidade.municipio} - #{cart.nome_res}"
+		end
     super 
   end
   def create
@@ -13,6 +18,6 @@ class Users::SessionsController < Devise::SessionsController
   end
   protected
   def configure_sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [keys: [:cpf, :password]])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:cpf, :password, :serventia])
   end
 end

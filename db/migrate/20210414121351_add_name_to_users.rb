@@ -4,5 +4,6 @@ class AddNameToUsers < ActiveRecord::Migration[6.1]
     add_column :users, :cpf, :string, null: false, default: ""
     add_column :users, :acesso, :boolean, null: false, default: false
     add_column :users, :lembrete, :text, null: true
+    add_column :users, :serventia, :integer, null: false
   end
 end

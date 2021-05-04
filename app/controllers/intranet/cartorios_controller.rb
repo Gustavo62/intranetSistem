@@ -64,6 +64,6 @@ class Intranet::CartoriosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def intranet_cartorio_params
-      params.require(:intranet_cartorio).permit(:possui_cnpj?, :cei, :cnpj, :cod_tj, :cod_cnj, :nome, :nome_fant, :nome_res, :cep, :logradouro, :numero, :bairro, :complemento, :telefone_fixo, :telefone_celular, :whatsapp, :email, :forma_branca, :observacao, :regiao_id, :contribuicao_id, :atividade_id, :entrancia_id, :boleto_id, :cidade_id, :associado_id, :substituto_id, :tabeliaes_id)
+      params.require(:intranet_cartorio).permit(:possui_cnpj, :cei, :cnpj, :cod_tj, :cod_cnj, :nome, :nome_fant, :nome_res, :cep, :logradouro, :numero, :bairro, :complemento, :telefone_fixo, :telefone_celular, :whatsapp, :email, :forma_branca, :observacao, :intranet_regiao_id, :intranet_contribuicao_id, :intranet_atividade_id, :intranet_entrancia_id, :intranet_boleto_id, :intranet_cidade_id, :intranet_associado_id, :intranet_substituto_id, :intranet_tabeliao_id)
     end
 end

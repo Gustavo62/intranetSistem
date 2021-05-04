@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Intranet Contribuicao Importadas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ano</th>
+      <th>Documento</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intranet_contribuicao_importadas.each do |intranet_contribuicao_importada| %>
+      <tr>
+        <td><%= intranet_contribuicao_importada.ano %></td>
+        <td><%= intranet_contribuicao_importada.documento %></td>
+        <td><%= link_to 'Show', intranet_contribuicao_importada %></td>
+        <td><%= link_to 'Edit', edit_intranet_contribuicao_importada_path(intranet_contribuicao_importada) %></td>
+        <td><%= link_to 'Destroy', intranet_contribuicao_importada, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intranet Contribuicao Importada', new_intranet_contribuicao_importada_path %>

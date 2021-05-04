@@ -1,4 +1,7 @@
-pt-BR:
+pt-BR: 
+  support:
+    array:
+      words_connector:  ', '
   activerecord:
     attributes:
       spree/address:
@@ -361,7 +364,7 @@ pt-BR:
       send_instructions: Em alguns minutos você receberá um email com instruções para confimar sua conta.
     failure:
       inactive: Sua conta ainda não foi ativada.
-      invalid: Email ou senha inválidos.
+      invalid: Login inválido.
       invalid_token: Token de autenticação inválido.
       locked: Sua conta está congelada.
       timeout: Sua sessão expirou, por favor faça o login novamente.

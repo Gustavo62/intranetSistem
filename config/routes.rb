@@ -1,5 +1,11 @@
 Rails.application.routes.draw do  
   namespace :intranet do
+    resources :contribuicao_importadas
+  end
+  namespace :intranet do
+    resources :entrancia
+  end
+  namespace :intranet do
     resources :associados
   end
   namespace :intranet do

@@ -14,8 +14,6 @@ class Intranet::EntranciaTest < ApplicationSystemTestCase
     visit intranet_entrancia_url
     click_on "New Intranet/Entrancium"
 
-    check "Ativo" if @intranet_entrancium.ativo
-    fill_in "Descricao", with: @intranet_entrancium.descricao
     click_on "Create Entrancium"
 
     assert_text "Entrancium was successfully created"
@@ -26,8 +24,6 @@ class Intranet::EntranciaTest < ApplicationSystemTestCase
     visit intranet_entrancia_url
     click_on "Edit", match: :first
 
-    check "Ativo" if @intranet_entrancium.ativo
-    fill_in "Descricao", with: @intranet_entrancium.descricao
     click_on "Update Entrancium"
 
     assert_text "Entrancium was successfully updated"

@@ -17,7 +17,7 @@ class Intranet::EntranciaControllerTest < ActionDispatch::IntegrationTest
 
   test "should create intranet_entrancium" do
     assert_difference('Intranet::Entrancium.count') do
-      post intranet_entrancia_url, params: { intranet_entrancium: { ativo: @intranet_entrancium.ativo, descricao: @intranet_entrancium.descricao } }
+      post intranet_entrancia_url, params: { intranet_entrancium: {  } }
     end
 
     assert_redirected_to intranet_entrancium_url(Intranet::Entrancium.last)
@@ -34,7 +34,7 @@ class Intranet::EntranciaControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update intranet_entrancium" do
-    patch intranet_entrancium_url(@intranet_entrancium), params: { intranet_entrancium: { ativo: @intranet_entrancium.ativo, descricao: @intranet_entrancium.descricao } }
+    patch intranet_entrancium_url(@intranet_entrancium), params: { intranet_entrancium: {  } }
     assert_redirected_to intranet_entrancium_url(@intranet_entrancium)
   end
 
