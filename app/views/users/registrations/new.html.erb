@@ -1,50 +1,55 @@
 <div class="container">
 	<%= javascript_pack_tag "validaForm", "data-turbolinks-track" => true  %>
-	<%= javascript_pack_tag "validacao", "data-turbolinks-track" => true %>
-
+	<%= javascript_pack_tag "validacao", "data-turbolinks-track" => true %> 
 	<div class="row">
 		<div class="col-lg-12">
 			<br> 
+			<div style="margin-top: -15px;padding: 30px;padding: 16px;padding-top: 0px;padding-bottom: 28px;"> 
+				<div id="line">
+					<div id="status">
+					</div>
+					<ul style="list-style: none; display: flex;padding:0px">
+						<li id="li-status-1">1<br><p id="leg-1" style="color: #959595;margin-left: -8px;font-size: 11px;transition:0.5s">Acesso</p></li>
+						<li id="li-status-2">2<br><p id="leg-2" style="color: #959595;margin-left: -15px;font-size: 11px;transition:0.5s">Associado</p></li>
+						<li id="li-status-3">3<br><p id="leg-3" style="color: #959595;margin-left: -20px;font-size: 11px;transition: 0.5s;text-align: center;width: 67px;">Termo de Filiação</p></li>
+					</ul>
+				</div>
+			</div>
 			<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %> 
-				<div id="step_1" class="step"> 
-					<br>
-					<h4>Dados de acesso <b style="font-size: 16px;">- Etapa <span id="passo"></span></b></h4>
-					<br>
+				<div id="step_1" class="step">  
+					<h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Dados de acesso</h4>
 					<div class="form-group" >
-						<%= f.label :nome %>*<br />
+						<%= f.label :nome %>*<span id="user_nome_exist" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span><br />
 						<%= f.text_field :nome, autofocus: true, class:'form-control',presence:true,id:"user_nome",placeholder:"Nome" %>
 					</div>
 					<div class="form-group">
-						<%= f.label :cpf %>*<br /> 
-						<%= f.text_field :cpf, type:"text", maxlength:"18", class:'form-control',presence:true,id:"user_cpf",placeholder:"Cpf" %>
+						<%= f.label :cpf, style:"text-transform: uppercase;" %>*<span id="user_cpf_exist" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span><br /> 
+						<%= f.text_field :cpf, type:"text", maxlength:"14", class:'form-control',presence:true,id:"user_cpf",placeholder:"Cpf"%>
 					</div>
-
 					<div class="form-group">
-						<%= f.label :email %>*<br />
+						<%= f.label :email %>* <span id="user_email_exist" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span><br />
 						<%= f.email_field :email, autofocus: true, class:'form-control',presence:true,id:"user_email",placeholder:"Email"%>
 					</div>
-
 					<div class="form-group">
 						<%= f.label :senha %>
 						<% if @minimum_password_length %>
-						<em>(<%= @minimum_password_length %> caracteres no minimo)</em>
+						<em>(<%= @minimum_password_length %> caracteres no mínimo)</em>
 						<% end %><br />
+						<span id="user_senha_exist" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<%= f.password_field :password, class:'form-control',presence:true,id:"user_senha",placeholder:"Senha"%>
 					</div>
-
 					<div class="form-group">
-						<%= f.label :confirmar_senha %><br />
-						<%= f.password_field :password_confirmation, class:'form-control',presence:true,id:"user_senha_confirm",placeholder:"Confirma Senha"%>
+						<%= f.label :confirmar_senha %><span id="user_senha_conf_exist" style="float: inline-end;color: #b30303;"></span><br />
+						<%= f.password_field :password_confirmation, class:'form-control',presence:true,id:"user_senha_confirm",placeholder:"Confirmar Senha"%>
 					</div>
-
 					<div class="form-group" >
 						<%= f.label :dica_para_senha %><br />
 						<%= f.text_field :lembrete, autofocus: true, class:'form-control',presence:true,placeholder:"Dica para senha"%>
 					</div>
+					
 				</div>
-				
 				<div id="step_2" class="step"> 
-					<h4>Dados do associado <b style="font-size: 16px;">- Etapa <span id="passo"></span></b></h4>
+					<h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Dados do associado.</h4>
 					<div class="form-group">
 						<%= f.label :nome %>*
 						<input name="intranet_nome" id="ass_nome" class='form-control'>
@@ -61,14 +66,13 @@
 						<%= f.label :data_nascimento %>*
 						<input type="date" id="ass_data_nascimento" name="intranet_data_nascimento" class='form-control'>
 					</div>
-
 					<div class="form-group">
 						<%= f.label :funcao %>*
 						<%= select_tag "intranet_funcao", options_for_select([ "","Títular", "Substituto", "Interino" ], ""), id:"ass_funcao"%> 
 					</div>
 					<div class="form-group">
 						<%= f.label :rg %>*
-						<input name="intranet_rg" id="ass_rg" class='form-control'>
+						<input name="intranet_rg" id="ass_rg" class='form-control' size="14" maxlength="14">
 					</div>
 					<div class="form-group">
 						<%= f.label :rg_emissor %>*
@@ -80,64 +84,143 @@
 					</div>
 					<div class="form-group">
 						<%= f.label :cep %>*
-						<input name="intranet_cep" id="ass_cep"  class='form-control'>
+						<input name="intranet_cep" id="ass_cep"  class='form-control' size="10" maxlength="9" >
 					</div>
-
 					<div class="form-group">
 						<%= f.label :logradouro %>*
 						<input name="intranet_logradouro" id="ass_logradouro" class='form-control'>
 					</div>
-
 					<div class="form-group">
 						<%= f.label :complemento %>
 						<input name="intranet_complemento" id="ass_complemento" class='form-control'>
 					</div>
-
 					<div class="form-group ">
 						<%= f.label :bairro %> 
 						<input name="intranet_bairro" id="ass_complemento" class='form-control'>
 					</div>
-
 					<div class="form-group">
 						<%= f.label :telefone_1 %>*
 						<input name="intranet_telefone_1" id="ass_telefone_1" class='form-control'>
 					</div>
-
 					<div class="form-group">
 						<%= f.label :telefone_2 %> 
 						<input name="intranet_telefone_2" id="ass_telefone_2" class='form-control'>
-					</div>
-
+					</div> 
 					<div class="form-group">
 						<%= f.label :celular %> 
 						<input name="intranet_celular" id="ass_celular" class='form-control'>
-					</div>
-
+					</div> 
 					<div class="form-group">
 						<%= f.label :whatsapp %> 
 						<input name="intranet_whatsapp" id="ass_whatsapp" class='form-control'>
-					</div>
-
+					</div> 
 					<div class="form-group">
 						<%= f.label :email %>*
 						<input name="intranet_email" id="ass_email" class='form-control'>
 					</div>  
-				</div>
-
+				</div> 
 				<div id="step_3" class="step">
-					<h4>Fixa de Filiação</h4>
-					<div class="form-group">
-						<label>Fixa de Filiação</label> 
-						<a href="/docs/fixa.pdf" download>Download</a>
-						<div class="actions">
-							<%= f.submit "Sign up" %>
+					<h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Termo de Filiação.</h4>
+					<h6>Nessa última etapa faça o <b>Download</b> do <span>termo de filiação</span> e assine, após assinar basta scanear a fixa e enviar novamente ela assinada, confira se os dados estão corretos.</h6>
+					<div class="form-group" style="text-align:center;padding: 11px;">
+						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de Filiação a baixo.</h4>  
+						<a href="/docs/fixa.pdf" download class="btn btn-success" style="display: flex;width: 40%;margin: auto;margin-bottom: 22px;margin-top: 24px;">
+							BAIXAR
+							<div class="baixar">
+							</div>
+							<%= icon('file-earmark-arrow-down-fill', class:"btn-download")%>
+						</a>
+						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de posse.</h4>  
+						<%= f.file_field :termo_posse,style:"width: 100%;margin-top: 21px;"%>	
+						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de Filiação assinado.</h4>   
+						<%= f.file_field :fixa_assinada,style:"width: 100%;margin-top: 21px;"%>
+						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Foto da identidade.</h4>  
+						<div class="documents" style="overflow: hidden;display: inline-block;text-align: center;width: 100%;"> 
+							<div style="float: left;display: inline-block;">
+								<div class="identidade-frente" style="margin-left: auto;margin-right: auto;border: 1px solid #ced4da;width:115px;border-radius: 6px;text-align: center;transform: rotate(-90deg);margin-bottom: -39px;">
+									<div style="background: #d4d6db;margin: -3px;border-radius: 4px; padding: 3px;border: 1px solid #e0e3e5;">	
+										<div style="display: flex;border: 1px solid #ced4da;background: white;border-radius: 4px;">
+											<div style="width: 1px;background: #d4d6db;padding: 1px;margin-top: 19px;margin-bottom: 21px;margin-left: 10px;margin-right: -19px;">
+											</div>
+
+											<div>
+												<i class="fa fa-fingerprint ident-img"></i>
+												<br>
+												<%= icon('person-fill', class:"ident-let")%> 
+											</div>
+										</div>
+									</div>
+								</div>
+								<p style="text-align: center;font-weight: bold;margin-top: -143px;position: relative;font-size: 14px;color: #909497;margin-bottom: 72px;">IDENTIDADE - FRENTE</p>
+								<%= f.file_field :rg_photo_1,style:"width: 100%;margin-top: 21px;"%>
+							</div>
+							<div  style="display: inline-block;float: right;">
+								
+								<div class="identidade-verso" style="margin-left: auto;margin-right: auto;border: 1px solid #ced4da;width: 115px;border-radius: 6px;text-align: center;transform: rotate(-90deg);margin-bottom: -39px;">
+									<div style="background: #d4d6db;margin: -3px;border-radius: 4px; padding: 3px;border: 1px solid #e0e3e5;">	
+										<div style="display: flex;border: 1px solid #ced4da;background: white;border-radius: 4px;">
+											
+
+											<div>
+												<%= icon('filter-right', class:"ident-let-verso")%> 
+												<br>
+												<%= icon('filter-right', class:"ident-img-verso")%> 
+											</div>
+										</div>
+									</div>
+								</div>
+								<p style="text-align: center;font-weight: bold;margin-top: -143px;position: relative;font-size: 14px;color: #909497;margin-bottom: 72px;">IDENTIDADE - VERSO</p>
+								<%= f.file_field :rg_photo_2,style:"width: 100%;margin-top: 20px;"%>
+							</div>
 						</div>
+
+						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Foto do CPF.</h4>  
+						<div class="documents" style="overflow: hidden;display: inline-block;text-align: center;width: 100%;"> 
+							<div  style="display: inline-block;float: none;">
+								<div class="identidade-verso" style="margin-left: auto;margin-right: auto;border: 1px solid #ced4da;width: 61px;border-radius: 6px;text-align: center;transform: rotate(-90deg);margin-bottom: -103px;margin-top: -55px;">
+									<div style="background: #d4d6db;margin: -3px;border-radius: 4px; padding: 3px;border: 1px solid #e0e3e5;">	
+										<div style="display: flex;border: 1px solid #ced4da;background: white;border-radius: 4px;">
+											<div>
+												<%= icon('filter-right', class:"cpf-let-verso")%> 
+												<br>
+												<%= icon('filter-right', class:"cpf-img-verso")%> 
+											</div>
+										</div>
+									</div>
+									<div style="background: #d4d6db;margin: -3px;border-radius: 4px; padding: 3px;border: 1px solid #e0e3e5;">	
+										<div style="display: flex;border: 1px solid #ced4da;background: white;border-radius: 4px;">
+											<div>
+												<%= icon('filter-right', class:"cpf-let-verso")%> 
+												<br>
+												<%= icon('filter-right', class:"cpf-img-verso")%> 
+											</div>
+											<p style="text-align: center;
+font-weight: bold;
+margin-top: -115px;
+position: relative;
+font-size: 14px;
+color: #909497;
+margin-bottom: 213px;
+margin-left: -30px;
+transform: rotate(90deg);">CPF</p>
+										</div>
+									</div>
+								</div> 
+								<%= f.file_field :cpf_photo,style:"width: 100%;margin-top: 20px;"%>
+							</div>
+							<br>	 
+						</div>
+						<div class="actions">
+							<%= f.submit "Enviar", class:"btn btn-primary", id:"enviar"%>
+						</div>
+						
 					</div> 
-				</div>			
+				</div>	 
 			<% end %>
 			<div class="col-12" style="display: flex;width: 100%;padding: 0px;margin-bottom: 19px;">
 				<button class="btn btn-primary" id="prev" ><b>Voltar</b></button> 
 				<button class="btn btn-primary" id="next" ><b>Avançar</b></button>
+				
 			</div> 
 
 			<div class="mensagem">
@@ -156,6 +239,148 @@
 
 	<%= render "users/shared/error_messages", resource: resource %>
 	<style>
+	.ident-img{
+		height: 84px;
+		color: #e0e3e5;
+		transform: rotate(180deg);
+		margin-top: -14px;
+		font-size: 53px;
+		margin-bottom: 40px;
+	}
+	.ident-let{ 
+		transform: rotate(180deg);
+		width: 98px;
+		margin: 10px; 
+		margin-top: -8px;
+		height: 70px;
+		color: #e0e3e5;
+	}
+	.ident-img-verso{
+		width: 90px; 
+		height: 81px;
+		color: #ced4da;
+		transform: rotate(90deg);
+		margin-top: 8px;
+	}
+	.ident-let-verso{ 
+		width: 90px; 
+		height: 81px;
+		color: #ced4da;
+		transform: rotate(270deg);
+		margin-top: 8px;
+	}
+	.cpf-img-verso{
+		width: 66px;
+		height: 49px;
+		color: #ced4da;
+		transform: rotate(90deg);
+		margin-top: 11px;
+		margin-left: -4px;
+	}
+	.cpf-let-verso{ 
+		width: 66px;
+		height: 46px;
+		color: #ced4da;
+		transform: rotate(270deg);
+		margin-top: 8px;
+		margin-left: -10px;
+	}
+	.active-leg-1{
+		color: #ff8b45     !important;
+		margin-left: -11px !important;
+		font-size: 13px    !important;
+	}
+	.active-leg-2{
+		color: #ff8b45     !important;
+		margin-left: -19px !important;
+		font-size: 13px    !important;
+	}
+	.active-leg-3{
+		color: #ff8b45 !important;
+		margin-left: -19px !important;
+		font-size: 13px !important;
+		text-align: center!important;
+		min-width: 65px!important;
+	}
+	.active{
+		color:white !important;
+		background:#ff8b45 !important;
+	}
+	#line{
+		width: 100%;
+		background: #e6e6e6;
+		height: 1px;
+		text-align: center;
+		list-style: none;
+		margin-top: 17px;
+		margin-bottom: 18px;
+	}
+	#status{
+		transition:0.5s;
+		width: 0%;
+		background: #ff8b45;
+		height: 1px;
+		text-align: center;
+		list-style: none;
+	}
+	#li-status-1{
+		transition:0.8s;
+		width: 26px;
+		height: 25px;
+		background: #e6e6e6;
+		border-radius: 16px;
+		color: #b0b0b0;
+		font-weight: bold;
+		margin-top: -12px;
+		margin-left: 0px;
+		margin-right: auto;
+	}
+	#li-status-2{
+		transition:0.8s;
+		width: 26px;
+		height: 25px;
+		background: #e6e6e6;
+		border-radius: 16px;color: #b0b0b0;
+		margin-top: -12px;
+		margin-left: auto;
+		font-weight: bold;
+		margin-right: auto;
+	}
+	#li-status-3{
+		transition:0.8s;
+		width: 26px;
+		height: 25px;
+		background: #e6e6e6;
+		border-radius: 16px;color: #b0b0b0;
+		margin-top: -12px;margin-left: auto;
+		font-weight: bold;
+		margin-right: 0px;
+	}
+	#enviar{
+		background: #ff8b45;
+		border: 1px;
+		float: right;
+		position: absolute;
+		font-weight: bold;
+		z-index: 1;
+		right: 14px;
+		bottom: 18px;
+		width: 98px;
+		height: 40px;
+	}
+	.baixar{
+		height: 38px;
+		width: 1px;
+		background-color: #24883b; 
+		margin-left: auto;
+		margin-right: 11px;
+		margin-top: -7px;
+		margin-bottom: -7px;
+	}
+	.btn-download{
+		width: 19px;
+		height: 23px;
+	}
 	#intranet_cartorio_id{
 	width:100%;
 	}
@@ -189,3 +414,12 @@
 	</style>
  
 </div>
+<script>
+$(document).on('keyup keypress', 'form input[type="text"]', function(e) {
+  if(e.keyCode == 13) {
+    e.preventDefault();
+    return false;
+  }
+});
+
+</script>

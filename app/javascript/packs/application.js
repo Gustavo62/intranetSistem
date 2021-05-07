@@ -8,6 +8,7 @@ import "../../assets/stylesheets/application";
 import "bootstrap"; 
 import "popper.js";   
 import $ from 'jquery';
+import "@fortawesome/fontawesome-free/css/all"
 require("@rails/ujs").start();
 require("turbolinks").start();
 require("@rails/activestorage").start();

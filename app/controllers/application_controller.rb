@@ -35,6 +35,9 @@ class ApplicationController < ActionController::Base
     def first_name(full_name)
         return full_name.split(" ")[0]+ " " +full_name.split(" ")[1]
     end
+    def reload_csrf 
+        render json: { csrf: form_authenticity_token }, status: :ok
+      end
 end
 
 

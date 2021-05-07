@@ -83,6 +83,7 @@ pt-BR:
           attributes:
             email:
               blank: "Email não pode ficar em branco" 
+              taken: "Esse Email já está em uso"
             cpf:
               blank: "Cpf não pode ficar em branco"
             nome:
@@ -92,5 +93,4 @@ pt-BR:
             password:
               blank: "Confirmação de senha não pode ficar em branco"
             current_password: 
-              blank: "Preencha o campo senha atual para salvar."
-              
+              blank: "Preencha o campo senha atual para salvar." 

@@ -17,7 +17,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 			@cidade = Intranet::Cidade.find_by_id(cart.intranet_cidade_id)
 			cart.nome = "#{@cidade.municipio} - #{cart.nome_res}"
 		end  
-		if params[:intranet_cartorio_id] != nil 
+		if params[:intranet_cartorio_id] != '' 
 			@cart = Intranet::Cartorio.find_by_id(params[:intranet_cartorio_id])
 			params[:user][:serventia] = @cart.cod_tj
 		end
@@ -88,6 +88,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	def cancel
 	super
 	end  
+	def emailcheck
+		@user = User.search(params[:email])
+		respond_to do |format|
+		  format.json {render :json => {email_exists: @user.present?}} #sir Deep suggestion to return true or false for email_exists or the code below
+		 # format.json {render :json => @user}
+		end
+	end
 	  
 	protected
 	

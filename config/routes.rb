@@ -55,6 +55,10 @@ Rails.application.routes.draw do
   get 'administrador/home', to: 'administrador#home'  
   get 'usuario/home', to: 'usuario#home'     
   root :to => redirect('usuario/home') 
+  devise_scope :user do 
+    post '/checkemail', to: 'users/registrations#emailcheck' 
+  end
+
 	devise_for :admin, path: 'administrador', controllers: {
     :sessions => "admins/sessions",
     :registrations => "admins/registrations", 
