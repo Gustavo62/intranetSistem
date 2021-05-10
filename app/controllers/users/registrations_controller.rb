@@ -94,8 +94,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 		  format.json {render :json => {email_exists: @user.present?}} #sir Deep suggestion to return true or false for email_exists or the code below
 		 # format.json {render :json => @user}
 		end
-	end
-	  
+	end 
 	protected
 	
 	  

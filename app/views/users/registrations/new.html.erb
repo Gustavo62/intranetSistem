@@ -1,6 +1,7 @@
 <div class="container">
 	<%= javascript_pack_tag "validaForm", "data-turbolinks-track" => true  %>
 	<%= javascript_pack_tag "validacao", "data-turbolinks-track" => true %> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
 	<div class="row">
 		<div class="col-lg-12">
 			<br> 
@@ -18,8 +19,9 @@
 			<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %> 
 				<div id="step_1" class="step">  
 					<h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Dados de acesso</h4>
+					
 					<div class="form-group" >
-						<%= f.label :nome %>*<span id="user_nome_exist" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span><br />
+						<%= f.label :nome %>*<span id="user_nome_exist" style="transition:1s;font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span><br />
 						<%= f.text_field :nome, autofocus: true, class:'form-control',presence:true,id:"user_nome",placeholder:"Nome" %>
 					</div>
 					<div class="form-group">
@@ -27,7 +29,7 @@
 						<%= f.text_field :cpf, type:"text", maxlength:"14", class:'form-control',presence:true,id:"user_cpf",placeholder:"Cpf"%>
 					</div>
 					<div class="form-group">
-						<%= f.label :email %>* <span id="user_email_exist" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span><br />
+						<%= f.label :email %>* <span id="user_email_exist" style="transition:1s;font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span><br />
 						<%= f.email_field :email, autofocus: true, class:'form-control',presence:true,id:"user_email",placeholder:"Email"%>
 					</div>
 					<div class="form-group">
@@ -39,7 +41,7 @@
 						<%= f.password_field :password, class:'form-control',presence:true,id:"user_senha",placeholder:"Senha"%>
 					</div>
 					<div class="form-group">
-						<%= f.label :confirmar_senha %><span id="user_senha_conf_exist" style="float: inline-end;color: #b30303;"></span><br />
+						<%= f.label :confirmar_senha %><span id="user_senha_conf_exist" style="transition:1s;font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span><br />
 						<%= f.password_field :password_confirmation, class:'form-control',presence:true,id:"user_senha_confirm",placeholder:"Confirmar Senha"%>
 					</div>
 					<div class="form-group" >
@@ -51,11 +53,11 @@
 				<div id="step_2" class="step"> 
 					<h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Dados do associado.</h4>
 					<div class="form-group">
-						<%= f.label :nome %>*
+						<%= f.label :nome %>*<span id="ass_nome_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<input name="intranet_nome" id="ass_nome" class='form-control'>
 					</div>
 					<div class="form-group">
-						<%= f.label :cartorio_id %>  
+						<%= f.label :cartorio_id %>*<span id="ass_cart_id_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<%= select_tag "intranet_cartorio_id",options_from_collection_for_select(@cartorios, "id", "nome"), {:prompt => ""}%>
 					</div> 
 					<div class="form-group">
@@ -63,31 +65,31 @@
 						<input type="number" name="intranet_matricula" class='form-control' >
 					</div>
 					<div class="form-group">
-						<%= f.label :data_nascimento %>*
+						<%= f.label :data_nascimento %>*<span id="ass_dtn_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<input type="date" id="ass_data_nascimento" name="intranet_data_nascimento" class='form-control'>
 					</div>
 					<div class="form-group">
-						<%= f.label :funcao %>*
+						<%= f.label :funcao %>*<span id="ass_func_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<%= select_tag "intranet_funcao", options_for_select([ "","Títular", "Substituto", "Interino" ], ""), id:"ass_funcao"%> 
 					</div>
 					<div class="form-group">
-						<%= f.label :rg %>*
+						<%= f.label :rg %>*<span id="ass_rg_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<input name="intranet_rg" id="ass_rg" class='form-control' size="14" maxlength="14">
 					</div>
 					<div class="form-group">
-						<%= f.label :rg_emissor %>*
+						<%= f.label :rg_emissor %>*<span id="ass_rg_emissor_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<input name="intranet_rg_emissor" id="ass_rg_emissor" class='form-control'>
 					</div>
 					<div class="form-group">
-						<%= f.label :sexo %>*
+						<%= f.label :sexo %>*<span id="ass_sexo_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<%= select_tag "intranet_sexo", options_for_select([ "","Masculino", "Féminino", "Outros" ], ""), id:"ass_sexo"%>
 					</div>
 					<div class="form-group">
-						<%= f.label :cep %>*
+						<%= f.label :cep %>*<span id="ass_cep_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<input name="intranet_cep" id="ass_cep"  class='form-control' size="10" maxlength="9" >
 					</div>
 					<div class="form-group">
-						<%= f.label :logradouro %>*
+						<%= f.label :logradouro %>*<span id="ass_log_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<input name="intranet_logradouro" id="ass_logradouro" class='form-control'>
 					</div>
 					<div class="form-group">
@@ -99,7 +101,7 @@
 						<input name="intranet_bairro" id="ass_complemento" class='form-control'>
 					</div>
 					<div class="form-group">
-						<%= f.label :telefone_1 %>*
+						<%= f.label :telefone_1 %>*<span id="ass_tel1_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<input name="intranet_telefone_1" id="ass_telefone_1" class='form-control'>
 					</div>
 					<div class="form-group">
@@ -115,7 +117,7 @@
 						<input name="intranet_whatsapp" id="ass_whatsapp" class='form-control'>
 					</div> 
 					<div class="form-group">
-						<%= f.label :email %>*
+						<%= f.label :email %>*<span id="ass_email_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<input name="intranet_email" id="ass_email" class='form-control'>
 					</div>  
 				</div> 
@@ -124,19 +126,20 @@
 					<h6>Nessa última etapa faça o <b>Download</b> do <span>termo de filiação</span> e assine, após assinar basta scanear a fixa e enviar novamente ela assinada, confira se os dados estão corretos.</h6>
 					<div class="form-group" style="text-align:center;padding: 11px;">
 						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de Filiação a baixo.</h4>  
-						<a href="/docs/fixa.pdf" download class="btn btn-success" style="display: flex;width: 40%;margin: auto;margin-bottom: 22px;margin-top: 24px;">
+						
+						<a id="btnPDF" class="btn btn-success" style="display: flex;width: 40%;margin: auto;margin-bottom: 22px;margin-top: 24px;">
 							BAIXAR
-							<div class="baixar">
-							</div>
+							<span class="baixar">
+							</span>
 							<%= icon('file-earmark-arrow-down-fill', class:"btn-download")%>
 						</a>
-						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de posse.</h4>  
-						<%= f.file_field :termo_posse,style:"width: 100%;margin-top: 21px;"%>	
-						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de Filiação assinado.</h4>   
-						<%= f.file_field :fixa_assinada,style:"width: 100%;margin-top: 21px;"%>
-						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Foto da identidade.</h4>  
+						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de posse.</h4><span id="termo_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<%= f.file_field :termo_posse,style:"width: 97%;margin-top: 20px;"%>	
+						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de Filiação assinado.</h4><span id="fixa_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<%= f.file_field :fixa_assinada,style:"width: 97%;margin-top: 20px;"%>
+						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Foto da identidade.</h4> <span id="identidade_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<div class="documents" style="overflow: hidden;display: inline-block;text-align: center;width: 100%;"> 
-							<div style="float: left;display: inline-block;">
+							<div style="display: inline-block;">
 								<div class="identidade-frente" style="margin-left: auto;margin-right: auto;border: 1px solid #ced4da;width:115px;border-radius: 6px;text-align: center;transform: rotate(-90deg);margin-bottom: -39px;">
 									<div style="background: #d4d6db;margin: -3px;border-radius: 4px; padding: 3px;border: 1px solid #e0e3e5;">	
 										<div style="display: flex;border: 1px solid #ced4da;background: white;border-radius: 4px;">
@@ -152,15 +155,12 @@
 									</div>
 								</div>
 								<p style="text-align: center;font-weight: bold;margin-top: -143px;position: relative;font-size: 14px;color: #909497;margin-bottom: 72px;">IDENTIDADE - FRENTE</p>
-								<%= f.file_field :rg_photo_1,style:"width: 100%;margin-top: 21px;"%>
+								<%= f.file_field :rg_photo_1,style:"width: 97%;margin-top: 19px;"%>
 							</div>
-							<div  style="display: inline-block;float: right;">
-								
+							<div  style="display: inline-block;height: 197px;">
 								<div class="identidade-verso" style="margin-left: auto;margin-right: auto;border: 1px solid #ced4da;width: 115px;border-radius: 6px;text-align: center;transform: rotate(-90deg);margin-bottom: -39px;">
 									<div style="background: #d4d6db;margin: -3px;border-radius: 4px; padding: 3px;border: 1px solid #e0e3e5;">	
 										<div style="display: flex;border: 1px solid #ced4da;background: white;border-radius: 4px;">
-											
-
 											<div>
 												<%= icon('filter-right', class:"ident-let-verso")%> 
 												<br>
@@ -170,7 +170,7 @@
 									</div>
 								</div>
 								<p style="text-align: center;font-weight: bold;margin-top: -143px;position: relative;font-size: 14px;color: #909497;margin-bottom: 72px;">IDENTIDADE - VERSO</p>
-								<%= f.file_field :rg_photo_2,style:"width: 100%;margin-top: 20px;"%>
+								<%= f.file_field :rg_photo_2,style:"width: 97%;margin-top: 22px;"%>
 							</div>
 						</div>
 
@@ -194,19 +194,11 @@
 												<br>
 												<%= icon('filter-right', class:"cpf-img-verso")%> 
 											</div>
-											<p style="text-align: center;
-font-weight: bold;
-margin-top: -115px;
-position: relative;
-font-size: 14px;
-color: #909497;
-margin-bottom: 213px;
-margin-left: -30px;
-transform: rotate(90deg);">CPF</p>
+											<p style="text-align: center;font-weight: bold;margin-top: -115px;position: relative;font-size: 14px;color: #909497;margin-bottom: 213px;margin-left: -30px;transform: rotate(90deg);">CPF</p>
 										</div>
 									</div>
 								</div> 
-								<%= f.file_field :cpf_photo,style:"width: 100%;margin-top: 20px;"%>
+								<%= f.file_field :cpf_photo,style:"width: 97%;margin-top: 17px;"%>
 							</div>
 							<br>	 
 						</div>
@@ -413,13 +405,4 @@ transform: rotate(90deg);">CPF</p>
 	}
 	</style>
  
-</div>
-<script>
-$(document).on('keyup keypress', 'form input[type="text"]', function(e) {
-  if(e.keyCode == 13) {
-    e.preventDefault();
-    return false;
-  }
-});
-
-</script>
+</div> 
