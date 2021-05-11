@@ -29,10 +29,9 @@ $(document).ready(function(){
 	let assTel1 			= document.getElementById("ass_telefone_1");
 	let assEmail			= document.getElementById("ass_email");
 	let assTermoPosse       = document.getElementById("user_termo_posse");
-	let assFixaAssinada     = document.getElementById("user_fixa_assinada");
     $('.step').hide();
 	$('.mensagem').hide(); 
-    $('.step').last().show();
+    $('.step').first().show();
     let passoexibido = function(){
         let index = parseInt($(".step:visible").index());   
         if(index == 1){
@@ -272,16 +271,6 @@ $(document).ready(function(){
 				$("#termo_required").html(""); 
 				valida_terceira_pagina++;
 			};
-			if(assFixaAssinada.value==''){
-				assFixaAssinada.focus();
-				assFixaAssinada.style.boxShadow = "0px 0px 0px 1px #ea2c00";
-				$("#fixa_required").html("Não pode ficar vazio."); 
-				assFixaAssinada.style.borderRadius = "6px";
-			}else{
-				assFixaAssinada.style.boxShadow = "0px 0px 0px 0px white";
-				$("#fixa_required").html(""); 
-				valida_terceira_pagina++;
-			};
 			if(document.getElementById("user_rg_photo_1").value==''){
 				$("#identidade_required").html("Não pode ficar vazio."); 
 				document.getElementById("user_rg_photo_1").focus();
@@ -346,7 +335,7 @@ $(document).ready(function(){
     });
 	$("#enviar").click(function(){ 
 		validaPagina();
-		if(valida_terceira_pagina == 4){
+		if(valida_terceira_pagina == 3){
 			return true
 		}else{
 			valida_terceira_pagina = 0;

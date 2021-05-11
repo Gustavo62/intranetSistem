@@ -1,4 +1,17 @@
-pt-BR: 
+pt-BR:  
+  month_names:
+    January: 	  Janeiro 
+    February: 	Fevereiro
+    March: 	    Março    
+    April: 	    Abril 	 
+    May: 	      Maio 	   
+    June: 	    Junho    
+    July: 	    Julho    
+    August: 	  Agosto 	 
+    September: 	Setembro 
+    October: 	  Outubro 
+    November: 	Novembro 
+    December: 	Dezembro
   support:
     array:
       words_connector:  ', '
@@ -668,7 +681,11 @@ pt-BR:
         site_id: Site ID
         token: Tokan
       jirafe_settings_updated: Configurações do Jirafe atualizadas.
-    date: Data
+    
+    formats:
+      default: "%d-%m-%Y"
+      short: "%B"
+      long: "%B %d, %Y"
     date_completed: Data do Término
     date_picker:
       # FlatPickr human friendly formatting

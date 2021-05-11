@@ -12,7 +12,7 @@
 					<ul style="list-style: none; display: flex;padding:0px">
 						<li id="li-status-1">1<br><p id="leg-1" style="color: #959595;margin-left: -8px;font-size: 11px;transition:0.5s">Acesso</p></li>
 						<li id="li-status-2">2<br><p id="leg-2" style="color: #959595;margin-left: -15px;font-size: 11px;transition:0.5s">Associado</p></li>
-						<li id="li-status-3">3<br><p id="leg-3" style="color: #959595;margin-left: -20px;font-size: 11px;transition: 0.5s;text-align: center;width: 67px;">Termo de Filiação</p></li>
+						<li id="li-status-3">3<br><p id="leg-3" style="color: #959595;margin-left: -23px;font-size: 11px;transition: 0.5s;text-align: center;width: 67px;">Documentos</p></li>
 					</ul>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 					
 				</div>
 				<div id="step_2" class="step"> 
-					<h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Dados do associado.</h4>
+					<h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Dados do associado</h4>
 					<div class="form-group">
 						<%= f.label :nome %>*<span id="ass_nome_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<input name="intranet_nome" id="ass_nome" class='form-control'>
@@ -60,10 +60,6 @@
 						<%= f.label :cartorio_id %>*<span id="ass_cart_id_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<%= select_tag "intranet_cartorio_id",options_from_collection_for_select(@cartorios, "id", "nome"), {:prompt => ""}%>
 					</div> 
-					<div class="form-group">
-						<%= f.label :matricula %> 
-						<input type="number" name="intranet_matricula" class='form-control' >
-					</div>
 					<div class="form-group">
 						<%= f.label :data_nascimento %>*<span id="ass_dtn_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<input type="date" id="ass_data_nascimento" name="intranet_data_nascimento" class='form-control'>
@@ -122,21 +118,11 @@
 					</div>  
 				</div> 
 				<div id="step_3" class="step">
-					<h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Termo de Filiação.</h4>
-					<h6>Nessa última etapa faça o <b>Download</b> do <span>termo de filiação</span> e assine, após assinar basta scanear a fixa e enviar novamente ela assinada, confira se os dados estão corretos.</h6>
+					<h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Documentação</h4>
 					<div class="form-group" style="text-align:center;padding: 11px;">
-						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de Filiação a baixo.</h4>  
 						
-						<a id="btnPDF" class="btn btn-success" style="display: flex;width: 40%;margin: auto;margin-bottom: 22px;margin-top: 24px;">
-							BAIXAR
-							<span class="baixar">
-							</span>
-							<%= icon('file-earmark-arrow-down-fill', class:"btn-download")%>
-						</a>
 						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de posse.</h4><span id="termo_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
-						<%= f.file_field :termo_posse,style:"width: 97%;margin-top: 20px;"%>	
-						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de Filiação assinado.</h4><span id="fixa_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
-						<%= f.file_field :fixa_assinada,style:"width: 97%;margin-top: 20px;"%>
+						<%= f.file_field :termo_posse,style:"width: 97%;margin-top: 20px;"%>
 						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Foto da identidade.</h4> <span id="identidade_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
 						<div class="documents" style="overflow: hidden;display: inline-block;text-align: center;width: 100%;"> 
 							<div style="display: inline-block;">
@@ -289,8 +275,8 @@
 	}
 	.active-leg-3{
 		color: #ff8b45 !important;
-		margin-left: -19px !important;
-		font-size: 13px !important;
+		margin-left: -26px !important;
+		font-size: 12px !important;
 		text-align: center!important;
 		min-width: 65px!important;
 	}

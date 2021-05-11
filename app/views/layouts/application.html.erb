@@ -21,11 +21,12 @@
 	</style>
 	<body> 
 		<% if signed_in?%>
-		<% if $user%>  
-			<%= render 'layouts/usuario'%>
-		<% else %> 
-			<%= render 'layouts/administrador'%>
-		<% end %>
+			<% session.id%>
+			<% if $user%> 
+				<%= render 'layouts/usuario'%> 
+			<% else %> 
+				<%= render 'layouts/administrador'%>
+			<% end %>
 		<% else %> 
 			<%= render 'layouts/default'%>
 		<% end %>

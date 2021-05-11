@@ -3,6 +3,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
     before_action :configure_sign_up_params, only: [:create]
     before_action :configure_account_update_params, only: [:update]
+	require './lib/generate_pdf'
     def new  
 		@cartorios = Intranet::Cartorio.all
 		@cartorios.each do |cart|
@@ -21,8 +22,74 @@ class Users::RegistrationsController < Devise::RegistrationsController
 			@cart = Intranet::Cartorio.find_by_id(params[:intranet_cartorio_id])
 			params[:user][:serventia] = @cart.cod_tj
 		end
-      	super 
-		if @user.save  
+      	super  
+    end 
+	def edit
+		@cart_current = Intranet::Cartorio.where(cod_tj: current_user.serventia).take
+		current_user.nome = first_name(current_user.nome)
+		@cid_current  = Intranet::Cidade.where(id: @cart_current.intranet_cidade_id).take
+		super
+	end 
+	def update
+	super
+	end 
+	def destroy
+	super
+	end
+	def cancel
+	super
+	end  
+	def emailcheck
+		@user = User.search(params[:email])
+		respond_to do |format|
+		  format.json {render :json => {email_exists: @user.present?}} #sir Deep suggestion to return true or false for email_exists or the code below
+		 # format.json {render :json => @user}
+		end
+	end 
+	def confirmarcad 
+		session.destroy
+		@user_id = params[:id]
+		if params[:user]
+			@user = User.find(@user_id)
+			doc = StringIO.new(params[:user][:fixa_assinada])
+			@user.fixa_assinada.attach(io:doc,filename: "doc_termo_assinao") 
+			@user.save 
+			$concluido = true
+			redirect_to new_user_session_path
+		end
+	end
+	def geratermofiliacao
+		user_d  	= User.find(params[:id])
+		associado_d = Intranet::Associado.where(user_id: user_d.id).take
+		cartorio_d  = Intranet::Cartorio.find(associado_d.intranet_cartorio_id)
+		cidade_d    = Intranet::Cidade.find(cartorio_d.intranet_cidade_id) 
+		GeneratePdf::run_pdf(user_d,associado_d,cartorio_d,cidade_d)
+		redirect_to '/termo_filiacao.pdf'
+		$link_valido = false
+	end
+	protected
+	
+	
+    def criar_associado(parameters)
+		@intranet_associado = Intranet::Associado.new(parameters) 
+		@intranet_associado.save 
+		if @intranet_associado.save
+			return true
+		else  
+			return false
+		end 
+    end
+    def configure_sign_up_params
+      	devise_parameter_sanitizer.permit(:sign_up, keys: [:termo_posse, :rg_photo_1, :rg_photo_2, :cpf_photo, :serventia,:nome, :email, :password, :password_confirmation,:cpf, :lembrete,  :intranet_cidade_id, :intranet_matricula, :intranet_data_nascimento, :intranet_funcao, :intranet_rg, :intranet_sexo, :intranet_ativo, :intranet_cep, :intranet_logradouro, :intranet_complemento, :intranet_bairro, :intranet_telefone_1, :intranet_telefone_2, :intranet_celular, :intranet_whatsapp, :intranet_email])
+    end
+    def configure_account_update_params
+      	devise_parameter_sanitizer.permit(:sign_up, keys: [:termo_posse, :rg_photo_1, :rg_photo_2, :cpf_photo, :serventia,:nome, :email, :password, :password_confirmation,:cpf, :lembrete])
+    end
+    def after_sign_up_path_for(resource)
+		if @user.save   
+			puts "-----------"
+			puts params[:user][:cpf_photo]
+			puts "-----------" 
 			@cep = BuscaEndereco.cep(params[:intranet_cep]) 			if params[:intranet_cep] != ''
 			@user_id          = @user.id
 			@cartorio_id      = params[:intranet_cartorio_id] 			if params[:intranet_cartorio_id] != ''
@@ -63,59 +130,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
 			email:					@email, 
 			intranet_cartorio_id:	@cartorio_id}
 			@result = criar_associado(@paramsAss)
-			if @result 
-				flash.delete(:notice)
-				flash[:success] = "Olá Conta criada com sucesso aguarde um email com a ativação do seu ambiente!"
+			if @result      
+				$link_valido = true
+				confirmar_cadastro_path(id: @user.id)
 			else 
 				User.delete(@user.id) 
+				super(resource) 
 				flash.delete(:notice)
 				flash[:success] = "Ops! Algum problema aconteceu, tente se cadastrar novamente em algumas minutos."
 			end
-		end
-    end 
-	def edit
-		@cart_current = Intranet::Cartorio.where(cod_tj: current_user.serventia).take
-		current_user.nome = first_name(current_user.nome)
-		@cid_current  = Intranet::Cidade.where(id: @cart_current.intranet_cidade_id).take
-		super
-	end 
-	def update
-	super
-	end 
-	def destroy
-	super
-	end
-	def cancel
-	super
-	end  
-	def emailcheck
-		@user = User.search(params[:email])
-		respond_to do |format|
-		  format.json {render :json => {email_exists: @user.present?}} #sir Deep suggestion to return true or false for email_exists or the code below
-		 # format.json {render :json => @user}
-		end
-	end 
-	protected
-	
-	  
-    def criar_associado(parameters)
-		@intranet_associado = Intranet::Associado.new(parameters) 
-		@intranet_associado.save 
-		if @intranet_associado.save
-			return true
-		else  
-			return false
 		end 
-    end
-    def configure_sign_up_params
-      	devise_parameter_sanitizer.permit(:sign_up, keys: [:serventia,:nome, :email, :password, :password_confirmation,:cpf, :lembrete,  :intranet_cidade_id, :intranet_matricula, :intranet_data_nascimento, :intranet_funcao, :intranet_rg, :intranet_sexo, :intranet_ativo, :intranet_cep, :intranet_logradouro, :intranet_complemento, :intranet_bairro, :intranet_telefone_1, :intranet_telefone_2, :intranet_celular, :intranet_whatsapp, :intranet_email])
-    end
-    def configure_account_update_params
-      	devise_parameter_sanitizer.permit(:sign_up, keys: [:serventia,:nome, :email, :password, :password_confirmation,:cpf, :lembrete])
-    end
-    def after_sign_up_path_for(resource)
-      	super(resource)
-    end
+	end
     def after_inactive_sign_up_path_for(resource)
       	super(resource)
     end

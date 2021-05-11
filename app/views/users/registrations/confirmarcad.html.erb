@@ -1,0 +1,85 @@
+<div class="container">
+<br>
+    <% if @user_id%>
+        <% if $link_valid == true or $concluido == false%>
+            <h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Termo de Filiação.</h4>
+            <h6>Nessa última etapa faça o <b>Download</b> do <span>termo de filiação</span> e assine, após assinar basta scanear a fixa e enviar novamente ela assinada, confira se os dados estão corretos.</h6>
+            <%= link_to termo_filiacao_path(:id => @user_id),id:"btnPDF", class:"btn btn-success", style:"display: flex;width: 40%;margin: auto;margin-bottom: 22px;margin-top: 24px;", target:"blank"  do %>
+                BAIXAR
+                <span class="baixar">
+                </span>
+                <%= icon('file-earmark-arrow-down-fill', class:"btn-download")%> 
+            <% end %> 
+            <h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de posse.</h4><span id="termo_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+            <form> 
+                <div class="form-group" style="padding:6px;display:none"> 
+                    <input type="text" id="id" name="id" value="<%= @user_id%>" style="width: 100%;">
+                </div>
+                <div class="form-group" style="padding:6px"> 
+                    <br>
+                    <input type="file" id="user_fixa_assinada" name="user[fixa_assinada]" style="width: 100%;">
+                </div>
+                <div class="actions">
+                    <button  class="btn btn-primary" id="enviar" >Enviar</button>
+                </div>
+            </form>
+        <% else %>
+            <h4>Link não está validado</h4>
+            <div data-notify="container" class="col-11 col-sm-4 alert alert-warning alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 0;bottom: 15px;right: 16px;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span data-notify="icon" class="nc-icon nc-app"></span>
+                <span data-notify="message">Infelizmente o link não está mais funcionando, caso não tenha feito o Download do seu Termo entre em contato com o sindicato <a href="http://www.sinoredice.org.br/contato/">aqui</a>.</span>
+                <a href="#" target="_blank" data-notify="url"></a>
+            </div>
+        <% end %>
+    <% else %>
+        <h4>Link não está validádo</h4>
+        <div data-notify="container" class="col-11 col-sm-4 alert alert-warning alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 0;bottom: 15px;right: 16px;">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span data-notify="icon" class="nc-icon nc-app"></span>
+            <span data-notify="message">Infelizmente o link não está mais funcionando, caso não tenha feito o Download do seu Termo entre em contato com o sindicato<a href="http://www.sinoredice.org.br/contato/">aqui</a>.</span>
+            <a href="#" target="_blank" data-notify="url"></a>
+        </div>
+    <% end %>
+</div>
+<style> 
+	.baixar{
+		height: 38px;
+		width: 1px;
+		background-color: #24883b; 
+		margin-left: auto;
+		margin-right: 11px;
+		margin-top: -7px;
+		margin-bottom: -7px;
+	}
+</style>
+<script>
+    $(document).ready(function(){
+        var assFixaAssinada     = document.getElementById("user_fixa_assinada");    
+        $(document).on('keyup keypress', 'form input[type="text"]', function(e) {
+            if(e.keyCode == 13) {
+            e.preventDefault();
+            return false;
+            }
+        }); 
+        $("#enviar").click(function(){ 
+            if(assFixaAssinada.value==''){
+                assFixaAssinada.focus(); 
+                $("#termo_required").html("Não pode ficar vazio."); 
+                assFixaAssinada.style.boxShadow = "0px 0px 0px 1px #ea2c00";
+                assFixaAssinada.style.borderRadius = "6px";
+                return false;
+            }else{
+                assFixaAssinada.style.boxShadow = "0px 0px 0px 0px white";
+                $("#termo_required").html(""); 
+                return true;
+            };
+        });
+    
+    });
+
+</script>
