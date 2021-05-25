@@ -1,7 +1,7 @@
 <div class="container">
 <br>
     <% if @user_id%>
-        <% if $link_valid == true or $concluido == false%>
+        <% if @user.fixa_assinada.attached? == false%>
             <h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Termo de Filiação.</h4>
             <h6>Nessa última etapa faça o <b>Download</b> do <span>termo de filiação</span> e assine, após assinar basta scanear a fixa e enviar novamente ela assinada, confira se os dados estão corretos.</h6>
             <%= link_to termo_filiacao_path(:id => @user_id),id:"btnPDF", class:"btn btn-success", style:"display: flex;width: 40%;margin: auto;margin-bottom: 22px;margin-top: 24px;", target:"blank"  do %>
@@ -42,7 +42,7 @@
             </button>
             <span data-notify="icon" class="nc-icon nc-app"></span>
             <span data-notify="message">Infelizmente o link não está mais funcionando, caso não tenha feito o Download do seu Termo entre em contato com o sindicato<a href="http://www.sinoredice.org.br/contato/">aqui</a>.</span>
-            <a href="#" target="_blank" data-notify="url"></a>
+            <a href="#" target="_blank" data-notify="url" accept= 'application/pdf,image/jpeg'></a>
         </div>
     <% end %>
 </div>

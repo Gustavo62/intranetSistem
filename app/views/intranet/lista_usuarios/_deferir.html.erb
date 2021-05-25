@@ -1,0 +1,28 @@
+<div class="modal-header"> 
+  	<i class="fas fa-times" class="close" data-dismiss="modal"></i>
+  	<h4 class="modal-title" id="myModalLabel">Deferir Usuário</h4>
+</div>
+<div class="modal-body">
+	<p>Tem certeza que deseja liberar o usuário Nº: <%= @user_id%>?</p>
+</div>
+<div class="modal-footer">
+	<button type="submit" data-dismiss="modal" class="btn btn-primary" id="deferir">Sim</button>
+	<button type="button" data-dismiss="modal" class="btn" id="cancelar">Cancelar</button>
+</div> 
+<script> 
+$(document).ready(function(event) {
+    $("#deferir").click(function() {
+       $.ajax({
+			type: "get",
+			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},
+			url: '/administrador/lista_usuarios/deferir?',
+			data: {status: 'liberado', user_id: <%= @user_id %>},
+			success: function(data) {
+                document.location.reload(true);
+			}
+		}); 
+    });
+});
+
+	
+</script>

@@ -1,0 +1,48 @@
+<div class="modal-header"> 
+  	<i class="fas fa-times" class="close" data-dismiss="modal"></i>
+  	<h4 class="modal-title" id="myModalLabel">Indeferir Usuário</h4>
+</div>
+<div class="modal-body">
+	<p>Informe a baixo o motivo pelo qual cadastro do usuário N°:<%= @user_id%> será indeferido, e será encaminha um email para o usuário.</p>
+    <form>
+        <div class="form-group"> 
+            <label>Assunto</label> 
+            <div class="disabled">
+                <input id="assunto" class='form-control' disable="true" value="Seu cadastro foi indeferido">
+            </div>
+            <br>
+            <label>Mensagem</label> 
+            <textarea id="mensagem" class='form-control' placeholder="Mensagem detalhada"></textarea>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+	<button type="submit" data-dismiss="modal" class="btn btn-primary" id="indeferir">Sim</button>
+	<button type="button" data-dismiss="modal" class="btn" id="cancelar">Cancelar</button>
+</div> 
+<script> 
+	$(document).ready(function(event) {
+        
+        $("#indeferir").click(function() {
+        var assunto  = document.getElementById("assunto").value;
+        var mensagem = document.getElementById("mensagem").value;
+        $.ajax({
+                type: "get",
+                beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},
+                url: '/administrador/lista_usuarios/indeferir?',
+                data: {assunto: assunto,mensagem: mensagem,user_id: <%= @user_id%>},
+                success: function(data) {
+                    document.location.reload(true);
+                }
+            }); 
+        });
+    }); 
+</script>
+<style>
+.disabled { 
+    pointer-events: none; 
+  -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; 
+  user-select: none;
+}
+.disabled *:focus { outline: 0; }
+</style>

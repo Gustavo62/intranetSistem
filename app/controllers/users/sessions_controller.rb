@@ -8,6 +8,7 @@ class Users::SessionsController < Devise::SessionsController
 			@cidade = Intranet::Cidade.find_by_id(cart.intranet_cidade_id)
 			cart.nome = "#{@cidade.municipio} - #{cart.nome_res}"
 		end
+    $concluido == nil
     super 
   end
   def create

@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
     end
     def reload_csrf 
         render json: { csrf: form_authenticity_token }, status: :ok
-      end
+    end 
 end
 
 

@@ -1,0 +1,77 @@
+
+<table class="table table-bordered" style="width:100%;border:1px solid gray;border-collapse: collapse;">
+    <tr>
+        <th colspan="3"align=center style="border-bottom:1px solid gray">Relatório do Novo Filiado</th>
+    </tr>
+    <tr>
+        <th colspan="3"align=left style="border-bottom:1px solid gray">Dados do Novo Usuario</th>
+    </tr>
+    <tr>
+        <th align=center>#</th>
+        <th>Nome</th>
+        <th>CPF</th>
+    </tr> 
+    <tr>
+        <td align=center><%= @user.id %></td>
+        <td align=center><%= @nome_abrev%></td>
+        <td align=center><%= @user.cpf%></td>
+    </tr>
+    <tr>
+        <th colspan="3" align=left style="border-top:1px solid gray;border-bottom:1px solid gray;">Mais Informações</th>
+    </tr> 
+    <tr>
+        <td align=center><b>Município</b></td>
+        <td align=center><b>ID Associado</b></td>
+        <td align=center><b>Data de Criação</b></td>
+    </tr>
+    <tr> 
+        <td align=center><%= @cidade.municipio %></td>
+        <td align=center><%= @associado.id %></td>
+        <td align=center><%= @associado.created_at.strftime('%d/%m/%Y') %></td>
+    </tr>
+    <tr>
+        <td align=center><b>CPF_FILE?</b></td>
+        <td align=center><b>Função</b></td>
+        <td align=center><b>RG</b></td>
+    </tr>
+    <tr> 
+        <% if @user.cpf_photo.attached? %> 
+            <td align=center>Sim</td>
+        <% else %>
+            <td align=center>Não</td>
+        <% end %>
+        <td align=center><%= @associado.funcao %></td>
+        <td align=center><%= @associado.rg %></td>
+    </tr>
+    <tr>
+        <td align=left colspan="3" style="border-top:1px solid gray;border-bottom:1px solid gray"><b>Informações Cartório</b>
+    </tr>
+    <tr> 
+        <td align=right colspan="1" ><b>Nome:</b></td>
+        <td align=left colspan="2"><%= @cartorio.nome %></td>
+    </tr>
+    <tr> 
+        <td align=right colspan="1" ><b>Telefone:</b></td>
+        <td align=left colspan="2"><%= @cartorio.telefone_celular %></td> 
+    </tr>
+    <tr> 
+        <td align=right colspan="1" ><b>Email:</b></td>
+        <td align=left colspan="2"><%= @cartorio.email %></td> 
+    </tr>
+    <tr>
+        <th colspan="3" align=left style="border-top:1px solid gray;border-bottom:1px solid gray">Informações de contato</th>
+    </tr>
+    <tr> 
+        <td align=right colspan="1"><b>Num. Contat.:</b></td>
+        <td align=left colspan="2"><%= @associado.telefone_1 %></td> 
+    </tr>
+    <tr> 
+        <td align=right colspan="1"><b>Email Usuario:</b></td>
+        <td align=left colspan="2"><%= @user.email %></td> 
+    </tr>
+    <tr>
+    	<td align=right colspan="1"><b>Email Associ.:</b></td>
+        <td align=left colspan="2"><%= @associado.email %></td>
+    </tr>
+</table> 
+<p>Avalie os documentos e libere o filiado, para acessar os dados do cliente clique <a href="http://localhost:3000/intranet/lista_usuarios/index?id=<%= @user.id%>">Aqui</a>.</p>

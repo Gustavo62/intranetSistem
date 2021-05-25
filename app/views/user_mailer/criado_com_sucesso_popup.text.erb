@@ -1,0 +1,25 @@
+Relatório do Novo Filiado
+Dados do Novo Usuario
+#<%= @user.id %>
+Nome:<%= @nome_abrev%>
+CPF:<%= @user.cpf%>
+Mais Informações
+Município:<%= @cidade.municipio %>
+ID Associado:<%= @associado.id %>
+Data de Criação:<%= @associado.created_at.strftime('%d/%m/%Y') %>
+CPF_FILE?
+<% if @user.cpf_photo.attached? %> 
+    <td align=center>Sim</td>
+<% else %>
+    <td align=center>Não</td>
+<% end %>
+Função:<%= @associado.funcao %>
+RG:<%= @associado.rg %>
+Informações Cartório
+Nome:<%= @cartorio.nome %>
+Telefone:<%= @cartorio.telefone_celular %>
+Email:<%= @cartorio.email %>
+Informações de contato
+Num. Contat.:<%= @associado.telefone_1 %>
+Email Usuario:<%= @user.email %>
+Email Associ.:<%= @associado.email %>

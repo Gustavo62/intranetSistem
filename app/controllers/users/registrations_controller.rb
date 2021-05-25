@@ -2,7 +2,7 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
     before_action :configure_sign_up_params, only: [:create]
-    before_action :configure_account_update_params, only: [:update]
+    before_action :configure_account_update_params, only: [:update] 
 	require './lib/generate_pdf'
     def new  
 		@cartorios = Intranet::Cartorio.all
@@ -46,15 +46,40 @@ class Users::RegistrationsController < Devise::RegistrationsController
 		 # format.json {render :json => @user}
 		end
 	end 
-	def confirmarcad 
+
+	def valida_doc(doc_name)
+		@images      = ['jpeg','jpg','png','bwp']
+		@xml         = ['xml']
+		@pdf         = ['pdf']
+		@word        = ['doc']
+		@doc_name 	= doc_name
+		@doc_name 	= @doc_name.split('.')
+		@doc_name 	= @doc_name[@doc_name.length - 1]
+		if @doc_name == @images[0] or @doc_name == @images[1] or @doc_name == @images[2] or @doc_name == @images[3]
+		  @doc_name = "image/#{@doc_name}"
+		elsif @doc_name == @xml[0]
+		  @doc_name = "application/xml"
+		elsif @doc_name == @pdf[0]
+		  @doc_name = "application/pdf"
+		else @doc_name == @word[0]
+		  @doc_name = "application/msword" 
+		end
+		return @doc_name
+	end
+	
+	def confirmarcad
 		session.destroy
-		@user_id = params[:id]
+		@user_id = params[:id] 
+		@user      	= User.find(@user_id)
 		if params[:user]
-			@user = User.find(@user_id)
-			doc = StringIO.new(params[:user][:fixa_assinada])
-			@user.fixa_assinada.attach(io:doc,filename: "doc_termo_assinao") 
+			@doc_name = valida_doc(params[:user][:fixa_assinada])  
+			@user      	= User.find(@user_id)
+			@associado 	= Intranet::Associado.try(:where, user_id: @user.id)
+			doc        	= StringIO.new(params[:user][:fixa_assinada])
+			@user.fixa_assinada.attach(io:doc,filename: "doc_termo_assinao",content_type: @doc_name) 
 			@user.save 
-			$concluido = true
+			UserMailer.criado_com_sucesso(@user).deliver_later
+			UserMailer.criado_com_sucesso_popup(@user).deliver_later
 			redirect_to new_user_session_path
 		end
 	end
@@ -65,7 +90,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 		cidade_d    = Intranet::Cidade.find(cartorio_d.intranet_cidade_id) 
 		GeneratePdf::run_pdf(user_d,associado_d,cartorio_d,cidade_d)
 		redirect_to '/termo_filiacao.pdf'
-		$link_valido = false
 	end
 	protected
 	
@@ -131,7 +155,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 			intranet_cartorio_id:	@cartorio_id}
 			@result = criar_associado(@paramsAss)
 			if @result      
-				$link_valido = true
 				confirmar_cadastro_path(id: @user.id)
 			else 
 				User.delete(@user.id) 
