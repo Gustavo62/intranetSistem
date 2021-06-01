@@ -138,7 +138,7 @@ module GeneratePdf
             pdf.bounding_box([420,185], width: 200) do 
                 pdf.text "#{Time.now.strftime('%Y')}", size: 8
             end 
-            pdf.render_file('public/termo_filiacao.pdf') 
+            pdf.render_file("public/termo_filiacao.pdf") 
         end
     end 
 end

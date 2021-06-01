@@ -11,18 +11,18 @@
                 <%= icon('file-earmark-arrow-down-fill', class:"btn-download")%> 
             <% end %> 
             <h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de posse.</h4><span id="termo_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
-            <form> 
+            <%= form_for @user do |f| %>
                 <div class="form-group" style="padding:6px;display:none"> 
                     <input type="text" id="id" name="id" value="<%= @user_id%>" style="width: 100%;">
                 </div>
                 <div class="form-group" style="padding:6px"> 
-                    <br>
-                    <input type="file" id="user_fixa_assinada" name="user[fixa_assinada]" style="width: 100%;">
+                    <br> 
+                    <%= f.file_field :fixa_assinada,id:"fixa_assinada", name:"fixa_assinada", accept:".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"%>
                 </div>
                 <div class="actions">
                     <button  class="btn btn-primary" id="enviar" >Enviar</button>
                 </div>
-            </form>
+            <% end %>
         <% else %>
             <h4>Link não está validado</h4>
             <div data-notify="container" class="col-11 col-sm-4 alert alert-warning alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 0;bottom: 15px;right: 16px;">
@@ -59,7 +59,7 @@
 </style>
 <script>
     $(document).ready(function(){
-        var assFixaAssinada     = document.getElementById("user_fixa_assinada");    
+        var assFixaAssinada     = document.getElementById("fixa_assinada");    
         $(document).on('keyup keypress', 'form input[type="text"]', function(e) {
             if(e.keyCode == 13) {
             e.preventDefault();
@@ -73,9 +73,9 @@
                 assFixaAssinada.style.boxShadow = "0px 0px 0px 1px #ea2c00";
                 assFixaAssinada.style.borderRadius = "6px";
                 return false;
-            }else{
-                assFixaAssinada.style.boxShadow = "0px 0px 0px 0px white";
-                $("#termo_required").html(""); 
+            }else{  
+                var attachment = fileInput.files[0];
+                $("#termo_required").html("");  
                 return true;
             };
         });

@@ -25,13 +25,13 @@
         
         $("#indeferir").click(function() {
         var assunto  = document.getElementById("assunto").value;
-        var mensagem = document.getElementById("mensagem").value;
+        var mensagem = document.getElementById("mensagem").value; 
         $.ajax({
-                type: "get",
-                beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},
-                url: '/administrador/lista_usuarios/indeferir?',
-                data: {assunto: assunto,mensagem: mensagem,user_id: <%= @user_id%>},
-                success: function(data) {
+            type: "get",
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},
+            url: '/administrador/lista_usuarios/indeferir?',
+            data: {assunto: assunto,mensagem: mensagem,user_id: <%= @user_id%>},
+            success: function(data) {
                     document.location.reload(true);
                 }
             }); 

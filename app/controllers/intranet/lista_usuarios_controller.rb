@@ -19,6 +19,9 @@ class Intranet::ListaUsuariosController < ApplicationController
 			@user	 		= User.find(params[:user_id])
 			@user.acesso  	= true
 			@user.save    
+			@msg 			= "Seu cadastro feito com sucesso, seu acesso foi liberado, fique a vontade para assistir o sistema."
+			@assunto     	= "Cadaatro efetuado com sucesso"
+			AdminMailer.cad_deferido(@user,@assunto,@msg).deliver_later 
 			redirect_to intranet_lista_usuarios_index_path(deferido: true)
 		end  
 	end 
@@ -42,6 +45,7 @@ class Intranet::ListaUsuariosController < ApplicationController
 			@associado      = Intranet::Associado.where(user_id: @user.id).take
 			@cartorio       = Intranet::Cartorio.find(@associado.intranet_cartorio_id)
 			@cidade         = Intranet::Cidade.find(@cartorio.intranet_cidade_id) 
+			url_for(@user.fixa_assinada)
 		end
 	end
 	def msg_deferido
