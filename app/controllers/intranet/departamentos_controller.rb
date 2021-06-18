@@ -1,10 +1,5 @@
 class Intranet::DepartamentosController < ApplicationController
   before_action :set_intranet_departamento, only: %i[ show edit update destroy ]
-  if $user 
-    before_action :authenticate_user!, :valida_acesso 
-  else
-    before_action :authenticate_admin!, :valida_acesso 
-  end
   # GET /intranet/departamentos or /intranet/departamentos.json
   def index
     @intranet_departamentos = Intranet::Departamento.all

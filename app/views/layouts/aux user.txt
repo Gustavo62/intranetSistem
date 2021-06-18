@@ -1,0 +1,39 @@
+<li  style="padding-top: 15px;">
+    <a style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
+        <span  style="margin-top: -19px;color: #ff6000;">
+            <%= icon('exclamation-circle-fill', class:"icon-notify")%>
+        </span>
+        <p style="padding: 0px;margin-top: -11px;font-size: 11px;margin-left: 9px;">
+            <b style="font-size: 17px;">
+                Parlamento Decide<br>
+            </b>
+            No dia 10/02/21 seráa decida a moção de retirada.
+        </p>
+    </a> 
+</li>
+<li style="padding-top: 15px;">
+    <a style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
+        <span  style="margin-top: -19px;color: #ff6000;">
+            <%= icon('clipboard-data', class:"icon-notify")%> 
+        </span>
+        <p style="padding: 0px;margin-top: -11px;font-size: 11px;margin-left: 9px;">
+            <b style="font-size: 17px;">
+                Relatório Anual<br>
+            </b>
+            Relatório de novos associados disponivel para download.
+        </p>
+    </a> 
+</li>
+<li style="padding-top: 15px;">
+    <a style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
+        <span  style="margin-top: -19px;color: #ff6000;">
+            <%= icon('calendar-event', class:"icon-notify")%>
+        </span>
+        <p style="padding: 0px;margin-top: -11px;font-size: 11px;margin-left: 9px;">
+            <b style="font-size: 17px;">
+                Assembleia Geral 2021<br>
+            </b>
+            Edital de convocação à assembleia geral ordinária.
+        </p>
+    </a> 
+            </li>

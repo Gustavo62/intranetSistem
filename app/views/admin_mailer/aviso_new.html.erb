@@ -1,0 +1,30 @@
+<h1>Aviso Sinoredi-CE</h1>
+<h4>Para todos os cartórios que exercem as atividades de 
+    <% if @intranet_aviso.intranet_atividade_id %>
+        <% @intranet_aviso.intranet_atividade_id.each do |atv| %>
+            <%= @atividades.try(:find, atv).descricao%>
+            <% if atv == @intranet_aviso.intranet_atividade_id.last%>
+                <span>. </span>
+            <% elsif atv == @intranet_aviso.intranet_atividade_id[-2]%>
+                <span>e </span>
+            <% else %>
+                <span>, </span>
+            <% end %>
+        <% end %>
+    <% end %>
+</h4>
+
+<h4>
+<%= @intranet_aviso.descricao%>
+</h4>
+<h4>
+<%= @intranet_aviso.aviso%>
+</h4>
+<div class="field" >
+    <label>Documentos</label><br /> 
+    <% if @intranet_aviso.docs %>
+      <% @intranet_aviso.docs.each do |doc| %>
+          <%= doc.filename%> <span style="float:right"><%= link_to "Baixar", rails_blob_url(doc, disposition: 'inline'), target:'blank',	class:"btn btn-info" ,style:"height: 21px;font-size: 13px;padding-top: 0px;"%></span><br />
+      <% end %>
+    <% end %>
+</div> <br>

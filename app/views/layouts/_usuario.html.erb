@@ -4,7 +4,7 @@
 <div id="minimize" style="height:1229px !important">
 </div>
 <div id="nav_user">
-    <div id="mySidenav-left" class="sidenav">
+    <div id="mySidenav-left" class="sidenav" style="z-index: 1000;">
         
         <svg class="svg-inline--fa fa-times fa-w-11" href="javascript:void(0)" id="closebtn" onclick="closeNavLeft()" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
         <div class="nav-menu w3-animate-right" >
@@ -32,7 +32,12 @@
                         <%= icon('newspaper', class:"ul-link-icons") %>
                         <a  class="links-li" style="margin-left: -5px;">Novidades <%= icon('caret-down-fill', class:"icon-ul-in-ul")%></a>
                         <ul id="ul-in-ul">
-                            <li class="li-in-ul"><p style="margin-left: 42px;" >Avisos</p></li>
+                            <li class="li-in-ul">
+                                <p style="margin-left: 42px;" >
+                                    <%= link_to 'Avisos', intranet_avisos_path, style:"padding: 0px;color: white;text-decoration: none;font-size: 16px;" %>
+                                </p>
+                            </li>
+                            
                             <li class="li-in-ul"><p style="margin-left: 42px;" >Arquivos</p></li>
                             <li class="li-in-ul"><p style="margin-left: 42px;" >Eventos</p></li> 
                         </ul>
@@ -50,56 +55,47 @@
     </div>
     <div id="mySidenav-right" class="sidenav-right w3-animate-right" >
         <span id="btn-close-right"><svg class="svg-inline--fa fa-times fa-w-11" href="javascript:void(0)" id="closebtn-right" onclick="closeNavRight()" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span>
-        <h3 class="notificacoes" style="margin-top: -40px;font-family: 'Poppins'!important">Notificações</h3> 
+        <h3 class="notificacoes" style="margin-top: -40px;font-family: 'Poppins'!important;text-shadow: 1px 1px 2px #d5a487;">Notificações</h3> 
         <p class="line-up-notify"></p>
-        <ul class="container-notify" style="color:white">
-            <li  style="padding-top: 15px;">
-                <a style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
-                    <span  style="margin-top: -19px;color: #ff6000;">
-                        <%= icon('exclamation-circle-fill', class:"icon-notify")%>
-                    </span>
-                    <p style="padding: 0px;margin-top: -11px;font-size: 11px;margin-left: 9px;">
-                        <b style="font-size: 17px;">
-                            Parlamento Decide<br>
-                        </b>
-                        No dia 10/02/21 seráa decida a moção de retirada.
-                    </p>
-                </a> 
-            </li>
-            <li style="padding-top: 15px;">
-                <a style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
-                    <span  style="margin-top: -19px;color: #ff6000;">
-                        <%= icon('clipboard-data', class:"icon-notify")%>
-                    </span>
-                    <p style="padding: 0px;margin-top: -11px;font-size: 11px;margin-left: 9px;">
-                        <b style="font-size: 17px;">
-                            Relatório Anual<br>
-                        </b>
-                        Relatório de novos associados disponivel para download.
-                    </p>
-                </a> 
-            </li>
-            <li style="padding-top: 15px;">
-                <a style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
-                    <span  style="margin-top: -19px;color: #ff6000;">
-                        <%= icon('calendar-event', class:"icon-notify")%>
-                    </span>
-                    <p style="padding: 0px;margin-top: -11px;font-size: 11px;margin-left: 9px;">
-                        <b style="font-size: 17px;">
-                            Assembleia Geral 2021<br>
-                        </b>
-                        Edital de convocação à assembleia geral ordinária.
-                    </p>
-                </a> 
-            </li>
+        <ul class="container-notify" style="color:white;list-style: none;"> 
+            <% if @numero_pushs %>
+                <% @avisonumb.each do |aviso| %>
+                    <%= link_to aviso, style:"padding:0px" do %>
+                        <li  style="padding-top: 15px;">
+                            <div style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
+                                <span  style="margin-top: -19px;color: #ff6000;padding: 25px;"> 
+                                    <i class="fas fa-exclamation-circle icon-notify" style="color: white;padding: 4px;"></i>
+                                </span>
+                                <p style="width: 70%;
+color: white;
+padding: 0px;margin-top: -5px;
+font-size: 11px;
+margin-left: -1px;
+border-left: 2px solid #ff6000;
+padding-left: 14px;">
+                                
+                                    <b style="font-size: 17px;">
+                                        <%= aviso.titulo%><br>
+                                    </b>
+                                    <%= aviso.descricao%>
+                                </p>
+                            </div> 
+                        </li>
+                    <% end %>
+                <% end %>
+            <% end %>
         </ul>
     </div>
     <div class="top-nav" id="top-nav"> 
-        <span style="font-size:30px;cursor:pointer" onclick="openNavLeft()"><%= icon("list" , class:"icon-menu-left")%></span> 
+        <span style="font-size:30px;cursor:pointer" onclick="openNavLeft()"><i class="fas fa-bars icon-menu-left"></i></span> 
         <div style="width: 46px;float: right;">
-            <p class="dot-2" onclick="openNavRight()"></p>
-            <p class="dot-1" onclick="openNavRight()"></p>
-            <span style="font-size:30px;cursor:pointer" onclick="openNavRight()"><%= icon('bell-fill', class:"icon-menu-right")%></span>
+            <% if @numero_pushs %>
+                <% if @numero_pushs > 0 %>
+                    <p class="dot-2" onclick="openNavRight()"></p>
+                    <p class="dot-1" onclick="openNavRight()"></p>
+                <% end %>
+            <% end %>
+            <span style="font-size:30px;cursor:pointer" onclick="openNavRight()"><i class="fas fa-bell icon-menu-right"></i></span>
         </div>
         <h5 style="color: white;font-size: larger;padding-top: 12px;width: 213px;margin: auto;"><b>SINOREDI-CE</b> | Intranet</h5>
     </div>
@@ -136,46 +132,53 @@ function openNavUl(a) {
 }
  
 </script> 
-<% flash.each do |name, msg| %> 
-    <% name = 'warning' if name == 'alert'%>
-    <% name = 'info' if name == 'notice'%>
-    <div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1;bottom: 15px;;right: 16px;">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <span data-notify="icon" class="nc-icon nc-app"></span> 
-    <% if name == 'info' %>   
-        <span data-notify="title">Informação:</span>
-    <% elsif name == 'success'%>
-        <span data-notify="title">Sucesso:</span> 
-    <% elsif name == 'danger'%>
-        <span data-notify="title">Perigo:</span>  
-    <% elsif name == 'warning'%> 
-        <span data-notify="title">Aviso:</span>
-    <% end %>
-    <span data-notify="message"><%=sanitize(msg)%></span>
-    <a href="#" target="_blank" data-notify="url"></a>
-    </div>
-<% end %>
+
 <div class="footer">  
     <%= link_to usuario_home_path, class:"links-footer" do %>
-        <div class="icons-menu-footer" >  
-            <%= icon('house', class:"footer-btn") %><br>
+        <div class="icons-menu-footer" >   
+            <i class="fas fa-home footer-btn"></i><br>
             <span style="font-size: 14px;"><b>HOME</b></span> 
         </div>
     <% end %>
-    <div class="icons-menu-footer"> 
-        <%= icon('newspaper', class:"footer-btn") %><br>
+    <div class="icons-menu-footer">  
+        <i class="fas fa-newspaper footer-btn"></i><br>
         <span style="font-size: 14px;"><b>NOVIDADES</b></span>
     </div>
-    <div class="icons-menu-footer"> 
-        <%= icon('chat-square-dots', class:"footer-btn") %><br>
+    <div class="icons-menu-footer">  
+        <i class="fas fa-comments footer-btn"></i><br>
         <span style="font-size: 14px;"><b>CHAT</b></span>
     </div>
     <%= link_to edit_user_registration_path, class:"links-footer" do %>
-        <div class="icons-menu-footer" >  
-            <%= icon('person-circle', class:"footer-btn") %><br>
+        <div class="icons-menu-footer" >   
+            <i class="fas fa-user-circle footer-btn"></i><br>
             <span style="font-size: 14px;"><b>CONTA</b></span> 
         </div>
     <% end %>
+</div>
+<div class="container">
+
+
+    <div class="central_msgs">
+        <% flash.each do |name, msg| %> 
+            <% name = 'warning' if name == 'alert'%>
+            <% name = 'info' if name == 'notice'%>
+            <div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="transition: all 0.5s ease-in-out 0s;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span data-notify="icon" class="nc-icon nc-app"></span> 
+                <% if name == 'info' %>   
+                    <span data-notify="title">Informação:</span>
+                <% elsif name == 'success'%>
+                    <span data-notify="title">Sucesso:</span> 
+                <% elsif name == 'danger'%>
+                    <span data-notify="title">Perigo:</span>  
+                <% elsif name == 'warning'%> 
+                    <span data-notify="title">Aviso:</span>
+                <% end %>
+                <span data-notify="message"><%=sanitize(msg)%></span>
+                <a href="#" target="_blank" data-notify="url"></a>
+            </div> 
+        <% end %>
+    </div>
 </div>

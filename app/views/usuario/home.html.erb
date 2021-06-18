@@ -6,14 +6,14 @@
         <li data-target="#myCarousel" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
-        <div class="carousel-item active"> 
-        <%= image_tag 'back_slide.jpg',class:"d-block w-100",style:"height: 241px;"%>
+        <div class="carousel-item active" > 
+            <a href="#"><%= image_tag 'Captura de tela de 2021-06-17 10-43-06.png',class:"d-block w-100",style:"height: 500px;min-width: 360px !important;margin: auto;max-width: 600px"%></a>
         </div>
         <div class="carousel-item">
-        <%= image_tag 'back_slide.jpg',class:"d-block w-100",style:"height: 241px;"%>
+            <a href="#"><%= image_tag 'Captura de tela de 2021-06-17 10-43-38.png',class:"d-block w-100",style:"height: 500px;min-width: 360px !important;margin: auto;max-width: 600px"%></a>
         </div>
         <div class="carousel-item">
-        <%= image_tag 'back_slide.jpg',class:"d-block w-100",style:"height: 241px;"%>
+            <a href="#"><%= image_tag 'Captura de tela de 2021-06-17 10-49-09.png',class:"d-block w-100",style:"height: 500px;min-width: 360px !important;margin: auto;max-width: 600px"%></a>
         </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -27,105 +27,54 @@
 </div>
 <div class="container" style="height:30px;">
     <div class="banner-1"> 
-        <div class="element">
-            <%= icon('exclamation-circle-fill', class:"icon-notify")%><br/>
-            <label>AVISOS</label>
-        </div>
-        <div class="element">
-            <%= icon('clipboard-data', class:"icon-notify")%><br/>
+        <%= link_to intranet_avisos_path, class:"element",style:"margin-top: 28px;" do %> 
+            <div>
+                <% if @avisonumb.size > 0 %>
+                    <div class="notify_number"><%= @avisonumb.size %> <i class="fas fa-fire" style=""></i></div>
+                <% end %> 
+                <i class="fas fa-exclamation-circle icon-notify"></i><br/>
+                <label>AVISOS</label>
+                
+            </div>
+        <% end %>
+        <div class="element"> 
+            <i class="fas fa-hand-holding-usd icon-notify"></i><br/>
             <label>FINANÇAS</label>
         </div>
-        <div class="element">
-            <%= icon('calendar-event', class:"icon-notify")%><br/>
+        <div class="element"> 
+            <i class="fas fa-calendar-day icon-notify"></i><br/>
             <label>EVENTOS</label>
         </div>
-        <div class="element">
-            <%= icon('file-earmark-arrow-down-fill', class:"icon-notify")%><br/>
+        <div class="element"> 
+            <i class="fas fa-file-download icon-notify"></i><br/>
             <label>ARQUIVOS</label>
         </div>
     </div>
     <div class="banner-2">
-        <p style="line-height: 23px;color: #ff6000;font-size: 24px;font-weight: bolder;">Novidades e notícias<br />
-        <span style="color: #fba571;font-size: 14px;">ultima interação 10/03/2021</span></p>
-        <div class="container-feed">
+        <p style="line-height: 23px;color: #ff6000;font-size: 24px;font-weight: bolder;">Feed de notícias<br />
+        <span style="color: #fba571;font-size: 14px;">ultima atualização <%= Time.now.strftime("%d/%m/%Y às %H:%M")%></span></p>
+        <% @aviso.each do |aviso| %>
+            <div class="container-feed">
             <div class="element-feed" style="display:flex;">
                 <div class="image-feed">
+                    <div style="color: white;font-size: 10px;margin-bottom: -17px;font-weight: bold;width: 29%;text-align: center;border-radius: 7px;">
+                        <% if aviso.read_at == nil %> 
+                            <span><i class="fas fa-eye-slash"></i></span>
+                        <% else %>
+                            <i class="fas fa-eye"></i>
+                        <% end %>
+                    </div>
                     <%= icon('exclamation-circle-fill', class:"icon-feed")%>
                 </div>
-                <div class="texto">
-                    <p class="titulo">Essa é uma atividades teste para saber o limite de letras</p>
-                    <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
+                <div class="texto" style="width: 100%;">
+                    <p class="titulo"><%= aviso.titulo %><span class="conteudo" style="float: right;font-size: 14px;"><%= aviso.created_at.strftime("%d/%m/%Y às %H:%M") %></span></p>
+                    <p class="conteudo"><%= aviso.descricao %>, <%= link_to 'Ler mais', aviso, style:"text-decoration:none"%>.</p>
                 </div>
             </div>
         </div>
-        <div class="container-feed">
-            <div class="element-feed" style="display:flex;">
-                <div class="image-feed">
-                    <%= icon('clipboard-data', class:"icon-feed")%>
-                </div>
-                <div class="texto">
-                    <p class="titulo">Teste até 57 letras, limitar nos inputs</p>
-                    <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-feed">
-            <div class="element-feed" style="display:flex;">
-                <div class="image-feed">
-                    <%= icon('calendar-event', class:"icon-feed")%>
-                </div>
-                <div class="texto">
-                    <p class="titulo">Teste</p>
-                    <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
-                </div>
-            </div>
-        </div>
-        <div class="container-feed">
-            <div class="element-feed" style="display:flex;">
-                <div class="image-feed">
-                    <%= icon('file-earmark-arrow-down-fill', class:"icon-feed")%>
-                </div>
-                <div class="texto">
-                    <p class="titulo">Teste</p>
-                    <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
-                </div>
-            </div>
-        </div>
-        <div class="container-feed">
-            <div class="element-feed" style="display:flex;">
-                <div class="image-feed">
-                    <%= icon('exclamation-circle-fill', class:"icon-feed")%>
-                </div>
-                <div class="texto">
-                    <p class="titulo">Teste</p>
-                    <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
-                </div>
-            </div>
-        </div>
-        <div class="container-feed">
-            <div class="element-feed" style="display:flex;">
-                <div class="image-feed">
-                    <%= icon('file-earmark-arrow-down-fill', class:"icon-feed")%>
-                </div>
-                <div class="texto">
-                    <p class="titulo">Teste</p>
-                    <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
-                </div>
-            </div>
-        </div>
-        <div class="container-feed">
-            <div class="element-feed" style="display:flex;">
-                <div class="image-feed">
-                    <%= icon('exclamation-circle-fill', class:"icon-feed")%>
-                </div>
-                <div class="texto">
-                    <p class="titulo">Teste</p>
-                    <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
-                </div>
-            </div>
-        </div>
-    <div style="height:111px;text-align: center;color: #ff8b45;"> 
+        <% end %> 
+        
+    <div style="margin-top: 44px;height:111px;text-align: center;color: #ff8b45;"> 
         <hr style="background-color: #fba571;margin: 13px;height: 1px;">
         <a href="#">Ir para central de notícias</a>
     </div>
@@ -143,8 +92,7 @@
     border-radius: 5px; 
     align-self: center;
 }
-.icon-feed{
-    background: #fba571;
+.icon-feed{ 
     padding: 12px;
     width: 58px;
     height: 54px;
@@ -165,9 +113,8 @@
 .conteudo a{
     color: #393939;
 }
-.icon-notify{ 
-    width: 29px;
-    height: 50px; 
+.icon-notify{  
+    font-size: 37px;
     color: #ff6000; 
     margin: auto;
 }
@@ -194,13 +141,12 @@
 }
 .element{
     margin: auto;
-    margin-top: 13px;
+    margin-top: 30px;
     text-align:center;
     width:25%;
 }
 .element-feed{
-    margin-top: 20px;
-    height: 73px;
+    margin-top: 20px; 
     margin-bottom: 20px;
 }
 .element label{
@@ -211,6 +157,7 @@
     font-size: 12px;
 }
 .banner-1{
+    z-index: 0;
     align-items: center;
     justify-content: center;
     height: 124px;
@@ -224,9 +171,17 @@
 .element-feed:hover .image-feed{
     background:#ff6000 !important;
     border-radius: 6px;
-}
-.element-feed:hover .icon-feed{
-    background:#ff6000 !important;
-    border-radius: 6px;
+} 
+.notify_number{
+    position: relative;
+    margin-left: 69%;
+    background: #ff6000;
+    max-width: 23px;
+    margin-bottom: -16px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 9px;
+    border-radius: 9px;
+    padding: 3px;
 }
 </style>

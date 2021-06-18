@@ -1,10 +1,5 @@
 class Intranet::CidadesController < ApplicationController
   before_action :set_intranet_cidade, only: %i[ show edit update destroy ]
-  if $user 
-    before_action :authenticate_user!, :valida_acesso 
-  else
-    before_action :authenticate_admin!, :valida_acesso 
-  end
   # GET /intranet/cidades or /intranet/cidades.json
   def index
     @intranet_cidades = Intranet::Cidade.all

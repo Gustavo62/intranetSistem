@@ -1,39 +1,136 @@
+
 <%= form_with(model: intranet_aviso) do |form| %> 
-  <% if intranet_aviso.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(intranet_aviso.errors.count, "error") %> prohibited this intranet_aviso from being saved:</h2>
-
-      <ul>
-        <% intranet_aviso.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="field">
-    <%= form.label :descricao %>
-    <%= form.text_field :descricao %>
+    <%= form.label :titulo %>
+    <%= form.text_field :titulo, class: 'form-control' %>
   </div>
-
+  <div style="display: flex;">
+    <div class="field" style="width:84%;margin-right: 4%;">
+      <%= form.label :descricao %>
+      <%= form.text_field :descricao, class: 'form-control' %>
+    </div>  
+    <div class="field" class="field" style="width:12%;text-align: center;">
+      <%= form.label :ativo %>
+      <%= form.check_box :ativo, class: 'form-control',style:"text-align: left;" %>
+    </div>
+  </div>
+  <div class="form-floating">
+    <%= form.label :aviso %>
+    <%= form.rich_text_area :aviso, class: 'form-control', style:"height:auto !important;text-align: justify !important;" %>
+  </div>
   <div class="field">
+    <%= form.label :docs %>
+    <%= form.file_field :docs, class: 'form-control', multiple:true %>
+  </div>
+  <div class="field">  
     <%= form.label :atividade %>
-    <% if @atividades != nil%>
-      <%= form.collection_select(:atividade_id, @atividades, :id, :descricao, prompt: "Selecione uma opção")%>  
-    <% else %>
-      <select>
-        <option value=nil>Sem atividades ativas</option>
-      </select>
+    <% @atividades.each do |atvs| %> 
+      <p style="display:flex"> 
+      <%= form.check_box :intranet_atividade_id, {multiple: true}, atvs.id, nil%>
+      <%= form.label atvs.descricao%>.
+      </p>
     <% end %> 
 
-  </div>
+    <p style="display:flex"> 
+      <input type="checkbox" id="tdscheck" onclick="checktds();" />
+      <label >Marcar Todos</label><br/>
+    </p>
+  </div> 
 
-  <div class="field">
-    <%= form.label :ativo %>
-    <%= form.check_box :ativo %>
-  </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Enviar',class:"btn btn-primary", style:"float:right",id:"subform" %>
   </div>
 <% end %>
+<style>
+#intranet_aviso_atividade_id{
+  width: 100%;padding: 3px;
+}
+.field_with_errors{
+  border:1px solid red;
+  border-radius: 5px;
+}
+</style>
+<script>
+function checktds() { 
+    var id21      = document.getElementById("intranet_aviso_intranet_atividade_id_21");
+    var id126     = document.getElementById("intranet_aviso_intranet_atividade_id_126");
+    var id125     = document.getElementById("intranet_aviso_intranet_atividade_id_125");
+    var id27      = document.getElementById("intranet_aviso_intranet_atividade_id_27");
+    var id25      = document.getElementById("intranet_aviso_intranet_atividade_id_25");
+    var id198     = document.getElementById("intranet_aviso_intranet_atividade_id_198");
+    var id29      = document.getElementById("intranet_aviso_intranet_atividade_id_29");
+    var id147     = document.getElementById("intranet_aviso_intranet_atividade_id_147"); 
+    var tds       = document.getElementById("tdscheck");
+    if(tds.checked){ 
+      id21.checked    = true; 
+      id126.checked   = true; 
+      id125.checked   = true;  
+      id27.checked    = true;   
+      id25.checked    = true;   
+      id198.checked   = true;  
+      id29.checked    = true;   
+      id147.checked   = true;  
+    }else{ 
+      id21.checked    = false; 
+      id126.checked   = false; 
+      id125.checked   = false;  
+      id27.checked    = false;   
+      id25.checked    = false;   
+      id198.checked   = false;  
+      id29.checked    = false;   
+      id147.checked   = false; 
+    }
+  };
+$(document).ready(function(event) {  
+  
+  $("#subform").click(function() {
+  var titulo  = document.getElementById("intranet_aviso_titulo");
+  var aviso = document.getElementById("intranet_aviso_aviso");
+  if(titulo.value == ''){
+    titulo.style.border = "1px solid #ea2c00"; 
+    return false;
+  }else{
+    titulo.style.border = "1px solid #ced4da"; 
+    if(aviso.value == ""){
+      aviso.style.border = "1px solid #ea2c00"; 
+      return false;
+    }else{
+      aviso.style.border = "1px solid #ced4da"; 
+      return true;
+    };
+  };
+  
+  });
+}); 
+</script>
+<style> 
+#intranet_aviso_intranet_atividade_id_21{
+  height: 23px;width: 18px;margin-right: 9px;
+}
+#intranet_aviso_intranet_atividade_id_126{
+  height: 23px;width: 18px;margin-right: 9px;
+}
+#intranet_aviso_intranet_atividade_id_125{
+  height: 23px;width: 18px;margin-right: 9px;
+}
+#intranet_aviso_intranet_atividade_id_27{
+  height: 23px;width: 18px;margin-right: 9px;
+}
+#intranet_aviso_intranet_atividade_id_25{
+  height: 23px;width: 18px;margin-right: 9px;
+}
+#intranet_aviso_intranet_atividade_id_198{
+  height: 23px;width: 18px;margin-right: 9px;
+}
+#intranet_aviso_intranet_atividade_id_29{
+  height: 23px;width: 18px;margin-right: 9px;
+}
+#intranet_aviso_intranet_atividade_id_147{
+  height: 23px;width: 18px;margin-right: 9px;
+}
+#tdscheck{
+  height: 19px;width: 18px;margin-right: 9px;margin-top: 2px;
+}
+</style>

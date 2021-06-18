@@ -13,6 +13,7 @@ class CreateIntranetBoletos < ActiveRecord::Migration[6.1]
       t.string :observacao_email
       t.string :forma_cobranca
       t.boolean :apenas_titular
+      t.boolean :pago
 
       t.timestamps
     end

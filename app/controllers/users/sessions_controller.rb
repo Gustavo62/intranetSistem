@@ -3,7 +3,7 @@
 class Users::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
   def new
-    @cartorios = Intranet::Cartorio.all
+    @cartorios = Intranet::Cartorio.all.order(:intranet_cidade_id)
 		@cartorios.each do |cart|
 			@cidade = Intranet::Cidade.find_by_id(cart.intranet_cidade_id)
 			cart.nome = "#{@cidade.municipio} - #{cart.nome_res}"

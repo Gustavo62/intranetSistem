@@ -1,10 +1,5 @@
 class Intranet::RegiaosController < ApplicationController
   before_action :set_intranet_regiao, only: %i[ show edit update destroy ]
-  if $user 
-    before_action :authenticate_user!, :valida_acesso 
-  else
-    before_action :authenticate_admin!, :valida_acesso 
-  end
   # GET /intranet/regiaos or /intranet/regiaos.json
   def index
     @intranet_regiaos = Intranet::Regiao.all

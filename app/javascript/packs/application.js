@@ -2,7 +2,7 @@
 // present in this directory. You're encouraged to place your actual application logic in
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
-//= require bootstrap   
+//= require bootstrap    
 import "../../assets/stylesheets/application";     
 import "bootstrap"; 
 import "popper.js";   
@@ -12,9 +12,12 @@ require("@rails/ujs").start();
 require("turbolinks").start();
 require("@rails/activestorage").start();
 require("channels");    
-require("./custom")
+require("./custom");
 $(document).on('turbolinks:load', function(){
     setTimeout(function(){
         $('.alert').fadeOut();
     }, 10000);
 });
+require("trix");
+require("@rails/actiontext");
+require('data-confirm-modal');

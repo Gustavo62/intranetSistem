@@ -1,31 +1,78 @@
-<p id="notice"><%= notice %></p>
+<h1 class="titulo_page"> 
+	Central de Avisos
+</h1> 
+<div class="container">    
+	<table>
+		<thead>
+		<tr>
+			<th style="width:70%">Titulo</th>
+			<th style="width:10%">Ativo</th>
+			<th colspan="3" style="width:20%;text-align: center;">Ações</th> 
+			<th colspan="3"></th>
+		</tr>
+		</thead>
 
-<h1>Intranet Avisos</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Descricao</th>
-      <th>Atividade</th>
-      <th>Ativo</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @intranet_avisos.each do |intranet_aviso| %>
-      <tr>
-        <td><%= intranet_aviso.descricao %></td>
-        <td><%= @atividades.try(id: intranet_aviso.atividade_id).try(descricao) if @atividades.size != 0 %></td> 
-        <td><%= check_box_tag 'Ativo','yes',intranet_aviso.ativo, onclick:"return false;" %></td>
-        <td><%= link_to 'Show', intranet_aviso %></td>
-        <td><%= link_to 'Edit', edit_intranet_aviso_path(intranet_aviso) %></td>
-        <td><%= link_to 'Destroy', intranet_aviso, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Intranet Aviso', new_intranet_aviso_path %>
+		<tbody>
+		<% @intranet_avisos.each do |intranet_aviso| %>
+			<tr>
+			<td><%= intranet_aviso.titulo %></td>
+			
+			<td><%= check_box_tag 'Ativo','yes',intranet_aviso.ativo, onclick:"return false;",class: 'form-control',style:"width: 17px;height: 17px;" %></td>
+			<% if user_signed_in?%> 
+				<td style="text-align: center;">
+				<%= link_to intranet_aviso, class:"btni" do %>
+					<i class="fas fa-eye" style="padding:0px;"></i>
+				<% end %>
+				</td>
+			<% else %> 
+				<td>
+				<%= link_to intranet_aviso, class:"btni" do %>
+					<i class="fas fa-eye" style="padding:0px;"></i>
+				<% end %>
+				</td>
+			<% end %>
+			<% if user_signed_in? == false%> 
+				<td>
+				<%= link_to edit_intranet_aviso_path(intranet_aviso), class:"btni" do %>
+					<i class="fas fa-edit" style="padding-left: 3px;"></i>
+				<% end %>
+				</td>
+				<td>
+				<%= link_to intranet_aviso, method: :delete,data: {confirm: 'Você tem certeza?'}, class:"btni" do %>
+					<i class="fas fa-trash-alt" style="padding:0px;"></i>
+				<% end %>
+				<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						...
+					</div>
+					</div>
+				</div>
+				</td>
+			<% end %>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
+	<br>
+	<% if user_signed_in? == false%> 
+		<%= link_to new_intranet_aviso_path,style:"float:right" do %>
+		<button class="btn btn-primary">Adcionar Atividade</button>
+		<% end %>
+	<% end %>
+</div>
+<style>
+.btni{  font-size:16px
+}
+.titulo_page{
+	background: #ffb68a;
+margin-top: 0px;
+height: 64px;
+padding: 9px;
+    padding-left: 9px;
+padding-left: 16px;
+border-bottom: 1px solid #d5a487;
+color: #ff6000;
+text-shadow: 1px 1px 2px #d5a487;
+}
+</style>

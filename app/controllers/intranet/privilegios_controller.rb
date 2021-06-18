@@ -1,10 +1,5 @@
 class Intranet::PrivilegiosController < ApplicationController
   before_action :set_intranet_privilegio, only: %i[ show edit update destroy ]
-  if $user 
-    before_action :authenticate_user!, :valida_acesso 
-  else
-    before_action :authenticate_admin!, :valida_acesso 
-  end
   # GET /intranet/privilegios or /intranet/privilegios.json
   def index
     @intranet_privilegios = Intranet::Privilegio.all

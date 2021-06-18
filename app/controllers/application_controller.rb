@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
             end
     def valida_acesso
         @master = false
-        if $user == true
+        if user_signed_in?
             if current_user.acesso == false
                 session.destroy  
                 redirect_to "/usuario/entrar"
@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
                 link =  "<a href=\"http://www.sinoredice.org.br/contato/\">aqui</a>" 
                 flash[:info] = "Seu acesso ainda não foi liberado. Entre em contato con o sindicato, para falar conosco clique #{link}."
             end
-            if current_admin.nome == 'Kaio Magno'
+            if current_admin.nome == 'Sinoredi'
                 @master = true 
             end
         end

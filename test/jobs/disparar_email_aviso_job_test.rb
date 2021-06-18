@@ -1,6 +1,6 @@
 require "test_helper"
 
-class DataFileTest < ActiveSupport::TestCase
+class DispararEmailAvisoJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

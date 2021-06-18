@@ -1,6 +1,16 @@
 <%= link_to new_user_session_path, style:"text-decoration:none" do %>
     <div class="top-nav" id="top-nav"> 
-        <h5 style="color: white;font-size: larger;padding-top: 10px;margin: auto;"><b>SINOREDI-CE</b> | Intranet</h5>
+        <h5 style="color: white;font-size: larger;padding-top: 10px;margin: auto;">
+            <a href="http://www.sinoredice.org.br/" style="color:white">
+                <span style="float: left;margin-left: 8px;font-size: 20px;"><i class="fas fa-door-open"></i></span>
+            </a>
+            <%= link_to user_session_path, style:"color:white;text-decoration:none" do %>
+                <b>SINOREDI-CE</b> | Intranet
+            <% end %>
+            <%= link_to administrador_home_path, style:"color:white" do %>
+                <span style="float: right;margin-right: 8px;font-size: 20px;"><i class="fab fa-expeditedssl"></i></span>
+            <% end %>
+        </h5>
     </div>
 <% end %>
 <style>

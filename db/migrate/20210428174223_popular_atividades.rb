@@ -1,5 +1,5 @@
-class PopularAtividades < ActiveRecord::Migration[6.1]
-    Intranet::Atividade.create(id:147	,descricao: 	"Distribuição de Protestos Escrituras. e Atos"		, ativo: true)		#147
+class PopularAtividades < ActiveRecord::Migration[6.1]			
+    Intranet::Atividade.create(id:147	,descricao: 	"Distribuição de Protestos Escrituras e Atos"		, ativo: true)		#147
     Intranet::Atividade.create(id:21	,descricao: 	"Distrito"											, ativo: true)		#21
     Intranet::Atividade.create(id:126	,descricao: 	"Notas"												, ativo: true)		#126
     Intranet::Atividade.create(id:125	,descricao:		"Protesto de Títulos"								, ativo: true)		#125

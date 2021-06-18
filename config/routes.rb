@@ -60,7 +60,7 @@ Rails.application.routes.draw do
 		resources :avisos        , as: 'avisos' 
 	end 
 	get 'administrador/home', to: 'administrador#home'  
-	get 'usuario/home', to: 'usuario#home'     
+	get 'usuario/home', to: 'usuario#home'      
 	root :to => redirect('usuario/home') 
 	devise_scope :user do 
 		post '/checkemail', to: 'users/registrations#emailcheck'  

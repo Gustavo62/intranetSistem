@@ -1,0 +1,67 @@
+<div class="container-feed">
+    <div class="element-feed" style="display:flex;">
+        <div class="image-feed">
+            <%= icon('clipboard-data', class:"icon-feed")%>
+        </div>
+        <div class="texto">
+            <p class="titulo">Teste até 57 letras, limitar nos inputs</p>
+            <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container-feed">
+    <div class="element-feed" style="display:flex;">
+        <div class="image-feed">
+            <%= icon('calendar-event', class:"icon-feed")%>
+        </div>
+        <div class="texto">
+            <p class="titulo">Teste</p>
+            <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
+        </div>
+    </div>
+</div>
+<div class="container-feed">
+    <div class="element-feed" style="display:flex;">
+        <div class="image-feed">
+            <%= icon('file-earmark-arrow-down-fill', class:"icon-feed")%>
+        </div>
+        <div class="texto">
+            <p class="titulo">Teste</p>
+            <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
+        </div>
+    </div>
+</div>
+<div class="container-feed">
+    <div class="element-feed" style="display:flex;">
+        <div class="image-feed">
+            <%= icon('exclamation-circle-fill', class:"icon-feed")%>
+        </div>
+        <div class="texto">
+            <p class="titulo">Teste</p>
+            <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
+        </div>
+    </div>
+</div>
+<div class="container-feed">
+    <div class="element-feed" style="display:flex;">
+        <div class="image-feed">
+            <%= icon('file-earmark-arrow-down-fill', class:"icon-feed")%>
+        </div>
+        <div class="texto">
+            <p class="titulo">Teste</p>
+            <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
+        </div>
+    </div>
+</div>
+<div class="container-feed">
+    <div class="element-feed" style="display:flex;">
+        <div class="image-feed">
+            <%= icon('exclamation-circle-fill', class:"icon-feed")%>
+        </div>
+        <div class="texto">
+            <p class="titulo">Teste</p>
+            <p class="conteudo">Lorem ipsum dolor sit amet adiscipliscing... <a href="#">Ler mais</a>.</p>
+        </div>
+    </div>
+</div>

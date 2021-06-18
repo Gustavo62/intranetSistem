@@ -1,10 +1,5 @@
 class Intranet::ContribuicaosController < ApplicationController
   before_action :set_intranet_contribuicao, only: %i[ show edit update destroy ]
-  if $user 
-    before_action :authenticate_user!, :valida_acesso 
-  else
-    before_action :authenticate_admin!, :valida_acesso 
-  end
   # GET /intranet/contribuicaos or /intranet/contribuicaos.json
   def index
     @intranet_contribuicaos = Intranet::Contribuicao.all

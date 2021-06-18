@@ -1,6 +1,11 @@
-<h1>Editing Intranet Aviso</h1>
+<div class="container">
+    <h1>Editar Aviso</h1>
 
-<%= render 'form', intranet_aviso: @intranet_aviso %>
-
-<%= link_to 'Show', @intranet_aviso %> |
-<%= link_to 'Back', intranet_avisos_path %>
+    <%= render 'form', intranet_aviso: @intranet_aviso %> 
+    <%= link_to @intranet_aviso do %>
+        <button class="btn btn-secondary" style="float:left;margin-right:10px">Visualizar</button>
+    <% end %>
+    <%= link_to intranet_avisos_path do %>
+        <button class="btn btn-secondary" style="float:left">Voltar</button>
+    <% end %>
+</div>

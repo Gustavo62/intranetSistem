@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_31_132634) do
+ActiveRecord::Schema.define(version: 2021_06_03_194814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -65,11 +75,6 @@ ActiveRecord::Schema.define(version: 2021_05_31_132634) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "data_files", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "intranet_arquivos_tipos", force: :cascade do |t|
     t.string "descricao"
     t.boolean "ativo"
@@ -111,12 +116,19 @@ ActiveRecord::Schema.define(version: 2021_05_31_132634) do
   end
 
   create_table "intranet_avisos", force: :cascade do |t|
+    t.string "titulo"
     t.string "descricao"
-    t.bigint "atividade_id"
+    t.bigint "intranet_atividade_id", array: true
+    t.bigint "integer_id", array: true
     t.boolean "ativo", default: false
+    t.integer "recipient_id"
+    t.datetime "read_at"
+    t.boolean "master", default: false
+    t.integer "master_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["atividade_id"], name: "index_intranet_avisos_on_atividade_id"
+    t.index ["integer_id"], name: "index_intranet_avisos_on_integer_id"
+    t.index ["intranet_atividade_id"], name: "index_intranet_avisos_on_intranet_atividade_id"
   end
 
   create_table "intranet_boletos", force: :cascade do |t|
@@ -132,6 +144,7 @@ ActiveRecord::Schema.define(version: 2021_05_31_132634) do
     t.string "observacao_email"
     t.string "forma_cobranca"
     t.boolean "apenas_titular"
+    t.boolean "pago"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "intranet_cartorio_id", null: false

@@ -5,7 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     before_action :configure_account_update_params, only: [:update] 
 	require './lib/generate_pdf'
     def new  
-		@cartorios = Intranet::Cartorio.all
+		@cartorios = Intranet::Cartorio.all.order(:intranet_cidade_id)
 		@cartorios.each do |cart|
 			@cidade = Intranet::Cidade.find_by_id(cart.intranet_cidade_id)
 			cart.nome = "#{@cidade.municipio} - #{cart.nome_res}"
@@ -13,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       	super  
     end 
     def create
-		@cartorios = Intranet::Cartorio.all
+		@cartorios = Intranet::Cartorio.all.order(:intranet_cidade_id)
 		@cartorios.each do |cart|
 			@cidade = Intranet::Cidade.find_by_id(cart.intranet_cidade_id)
 			cart.nome = "#{@cidade.municipio} - #{cart.nome_res}"

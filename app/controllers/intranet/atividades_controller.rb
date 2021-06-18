@@ -1,10 +1,5 @@
 class Intranet::AtividadesController < ApplicationController
   before_action :set_intranet_atividade, only: %i[ show edit update destroy ]
-  if $user 
-    before_action :authenticate_user!, :valida_acesso 
-  else
-    before_action :authenticate_admin!, :valida_acesso 
-  end
   # GET /intranet/atividades or /intranet/atividades.json
   def index
     @intranet_atividades = Intranet::Atividade.all
