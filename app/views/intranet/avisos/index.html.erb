@@ -25,19 +25,19 @@
 				<% end %>
 				</td>
 			<% else %> 
-				<td>
+				<td style="text-align: center;">
 				<%= link_to intranet_aviso, class:"btni" do %>
 					<i class="fas fa-eye" style="padding:0px;"></i>
 				<% end %>
 				</td>
 			<% end %>
 			<% if user_signed_in? == false%> 
-				<td>
+				<td style="text-align: center;">
 				<%= link_to edit_intranet_aviso_path(intranet_aviso), class:"btni" do %>
 					<i class="fas fa-edit" style="padding-left: 3px;"></i>
 				<% end %>
 				</td>
-				<td>
+				<td style="text-align: center;">
 				<%= link_to intranet_aviso, method: :delete,data: {confirm: 'Você tem certeza?'}, class:"btni" do %>
 					<i class="fas fa-trash-alt" style="padding:0px;"></i>
 				<% end %>

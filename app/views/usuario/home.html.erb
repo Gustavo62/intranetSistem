@@ -7,13 +7,13 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active" > 
-            <a href="#"><%= image_tag 'Captura de tela de 2021-06-17 10-43-06.png',class:"d-block w-100",style:"height: 500px;min-width: 360px !important;margin: auto;max-width: 600px"%></a>
+            <a href="#"><%= image_tag 'image1.png',class:"d-block w-100",style:"height: 500px;min-width: 360px !important;margin: auto;max-width: 600px"%></a>
         </div>
         <div class="carousel-item">
-            <a href="#"><%= image_tag 'Captura de tela de 2021-06-17 10-43-38.png',class:"d-block w-100",style:"height: 500px;min-width: 360px !important;margin: auto;max-width: 600px"%></a>
+            <a href="#"><%= image_tag 'image2.png',class:"d-block w-100",style:"height: 500px;min-width: 360px !important;margin: auto;max-width: 600px"%></a>
         </div>
         <div class="carousel-item">
-            <a href="#"><%= image_tag 'Captura de tela de 2021-06-17 10-49-09.png',class:"d-block w-100",style:"height: 500px;min-width: 360px !important;margin: auto;max-width: 600px"%></a>
+            <a href="#"><%= image_tag 'image3.png',class:"d-block w-100",style:"height: 500px;min-width: 360px !important;margin: auto;max-width: 600px"%></a>
         </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -56,25 +56,29 @@
         <% @aviso.each do |aviso| %>
             <div class="container-feed">
             <div class="element-feed" style="display:flex;">
-                <div class="image-feed">
-                    <div style="color: white;font-size: 10px;margin-bottom: -17px;font-weight: bold;width: 29%;text-align: center;border-radius: 7px;">
-                        <% if aviso.read_at == nil %> 
-                            <span><i class="fas fa-eye-slash"></i></span>
-                        <% else %>
-                            <i class="fas fa-eye"></i>
-                        <% end %>
-                    </div>
+                <div class="image-feed"> 
                     <%= icon('exclamation-circle-fill', class:"icon-feed")%>
                 </div>
                 <div class="texto" style="width: 100%;">
-                    <p class="titulo"><%= aviso.titulo %><span class="conteudo" style="float: right;font-size: 14px;"><%= aviso.created_at.strftime("%d/%m/%Y às %H:%M") %></span></p>
+                    <p class="titulo"> 
+                            <span style="font-size: 18px;"><%= aviso.titulo %></span>
+                    <br>
+                             
+                        <span class="conteudo" style="float: left;font-size: 14px;width: 100%;">
+                            <%= aviso.created_at.strftime("%d/%m/%Y às %H:%M") %> 
+                            <% if aviso.read_at == nil %> 
+                                <span class="status_aviso">NOVO</span>
+                            <% end %> 
+                        </span>
+                    </p>
+                    <br>
                     <p class="conteudo"><%= aviso.descricao %>, <%= link_to 'Ler mais', aviso, style:"text-decoration:none"%>.</p>
                 </div>
             </div>
         </div>
         <% end %> 
         
-    <div style="margin-top: 44px;height:111px;text-align: center;color: #ff8b45;"> 
+    <div style="margin-top: 44px;height:209px;text-align: center;color: #ff8b45;"> 
         <hr style="background-color: #fba571;margin: 13px;height: 1px;">
         <a href="#">Ir para central de notícias</a>
     </div>
@@ -183,5 +187,15 @@
     font-size: 9px;
     border-radius: 9px;
     padding: 3px;
+}
+.status_aviso{background: #ff6000;
+color: white; 
+padding-left: 5px;
+border-radius: 14px;
+padding-right: 5px; 
+font-weight: bold; 
+font-size: 12px; 
+margin-left: 13px; 
+vertical-align: middle;
 }
 </style>
