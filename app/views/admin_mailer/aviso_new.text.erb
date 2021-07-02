@@ -1,0 +1,18 @@
+Aviso Sinoredi-CE
+Para todos os cartórios que exercem as atividades de 
+    <% if @intranet_aviso.intranet_atividade_id %>
+        <% @intranet_aviso.intranet_atividade_id.each do |atv| %>
+            <%= @atividades.try(:find, atv).descricao%>
+            <% if atv == @intranet_aviso.intranet_atividade_id.last%>
+                <span>. </span>
+            <% elsif atv == @intranet_aviso.intranet_atividade_id[-2]%>
+                <span>e </span>
+            <% else %>
+                <span>, </span>
+            <% end %>
+        <% end %>
+    <% end %>
+DESC:<%= @intranet_aviso.descricao%>
+AVIS:<%= @intranet_aviso.aviso%>
+
+Para mais informações acesse o site da Sinoredi-CE

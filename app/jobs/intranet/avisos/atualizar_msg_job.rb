@@ -10,6 +10,7 @@ class Intranet::Avisos::AtualizarMsgJob < ApplicationJob
 			aviso.aviso					= intranet_aviso.aviso					if aviso.aviso					!= intranet_aviso.aviso
 			aviso.intranet_atividade_id = intranet_aviso.intranet_atividade_id	if aviso.intranet_atividade_id 	!= intranet_aviso.intranet_atividade_id
 			aviso.ativo					= intranet_aviso.ativo					if aviso.ativo 					!= intranet_aviso.ativo 
+			aviso.docs					= intranet_aviso.docs					if aviso.docs 					!= intranet_aviso.docs 
 			aviso.save
 		end
 	end

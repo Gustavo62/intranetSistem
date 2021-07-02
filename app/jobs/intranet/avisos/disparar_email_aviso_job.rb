@@ -16,8 +16,15 @@ class Intranet::Avisos::DispararEmailAvisoJob < ApplicationJob
 														integer_id: 			intranet_aviso.integer_id, 
 														ativo: 					intranet_aviso.ativo, 
 														recipient_id: 			@assoc.user_id,
-														master_id:              intranet_aviso.id)
+														master_id:              intranet_aviso.id) 
 					@avs_slave.save
+					if intranet_aviso.docs
+						puts "tem doc -------------------------" 
+						intranet_aviso.docs.each do |documents|
+							@avs_slave.docs.attach(documents.blob)
+						end 
+						puts "tem doc -------------------------" 
+					end
 					@avs 	= Intranet::Aviso.find(intranet_aviso.id)  
 					@avs.recipient_id = @assoc.user_id
 					@avs.save

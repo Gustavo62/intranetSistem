@@ -56,8 +56,12 @@ Rails.application.routes.draw do
 	namespace :intranet do
 		resources :atividades    , as: 'atividades'  
 	end 
-	namespace :intranet do
-		resources :avisos        , as: 'avisos' 
+	namespace :intranet do      
+		resources :avisos, as: 'avisos' do
+			member do
+				delete :delete_doc_attachment
+			end
+		end
 	end 
 	get 'administrador/home', to: 'administrador#home'  
 	get 'usuario/home', to: 'usuario#home'      

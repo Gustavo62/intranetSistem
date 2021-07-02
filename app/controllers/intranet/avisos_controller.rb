@@ -1,7 +1,7 @@
 class Intranet::AvisosController < ApplicationController
 	before_action :set_intranet_aviso, only: %i[ show edit update destroy ]
 	before_action :valida_acesso
-	# GET /intranet/avisos or /intranet/avisos.json 
+	
 	def index
 		if user_signed_in? 
 			@intranet_avisos = Intranet::Aviso.where(recipient_id: current_user.id,master: false).order(:created_at)
@@ -17,8 +17,7 @@ class Intranet::AvisosController < ApplicationController
 			@atividades = Intranet::Atividade.all
 		end
 	end
-
-	# GET /intranet/avisos/1 or /intranet/avisos/1.json
+	
 	def show
 		@atividades = Intranet::Atividade.all
 		if user_signed_in?
@@ -29,18 +28,22 @@ class Intranet::AvisosController < ApplicationController
 		end
 	end
 
-	# GET /intranet/avisos/new
+	def delete_doc_attachment
+		@doc = ActiveStorage::Attachment.find(params[:idb])
+		@doc.purge  
+		flash[:notice] = "Documento Deletado" 
+		redirect_to intranet_aviso_path(params[:ida])
+	end
+	
 	def new
 		@intranet_aviso = Intranet::Aviso.new
 		@atividades = Intranet::Atividade.where(ativo: true)
 	end
-
-	# GET /intranet/avisos/1/edit
+	
 	def edit
 		@atividades = Intranet::Atividade.all
 	end
-
-	# POST /intranet/avisos or /intranet/avisos.json
+	
 	def create 
 		params[:intranet_aviso][:master] = true
 		@intranet_aviso = Intranet::Aviso.new(intranet_aviso_params) 
@@ -56,8 +59,7 @@ class Intranet::AvisosController < ApplicationController
 			end
 		end
 	end
-
-	# PATCH/PUT /intranet/avisos/1 or /intranet/avisos/1.json
+	
 	def update
 		respond_to do |format|
 		if @intranet_aviso.update(intranet_aviso_params) 
@@ -70,8 +72,7 @@ class Intranet::AvisosController < ApplicationController
 		end
 		end
 	end
-
-	# DELETE /intranet/avisos/1 or /intranet/avisos/1.json
+	
 	def destroy 
 		Intranet::Avisos::ExcluirLoteAvisoJob.perform_later(@intranet_aviso)
 		@intranet_aviso.destroy
@@ -82,12 +83,11 @@ class Intranet::AvisosController < ApplicationController
 	end
 
 	private
-		# Use callbacks to share common setup or constraints between actions.
+	
 		def set_intranet_aviso
 			@intranet_aviso = Intranet::Aviso.find(params[:id])
 		end
-
-		# Only allow a list of trusted parameters through.
+		
 		def intranet_aviso_params
 			params.require(:intranet_aviso).permit(:recipient_id, :master, :aviso,:titulo, :descricao, :ativo, :intranet_atividade_id => [],:docs => [])
 		end 

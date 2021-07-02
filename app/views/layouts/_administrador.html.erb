@@ -66,6 +66,31 @@
     </div>
   </div>
 </nav> 
+<div class="container"> 
+    <div class="central_msgs">
+        <% flash.each do |name, msg| %> 
+            <% name = 'warning' if name == 'alert'%>
+            <% name = 'info' if name == 'notice'%>
+            <div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="transition: all 0.5s ease-in-out 0s;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span data-notify="icon" class="nc-icon nc-app"></span> 
+                <% if name == 'info' %>   
+                    <span data-notify="title">Informação:</span>
+                <% elsif name == 'success'%>
+                    <span data-notify="title">Sucesso:</span> 
+                <% elsif name == 'danger'%>
+                    <span data-notify="title">Perigo:</span>  
+                <% elsif name == 'warning'%> 
+                    <span data-notify="title">Aviso:</span>
+                <% end %>
+                <span data-notify="message"><%=sanitize(msg)%></span>
+                <a href="#" target="_blank" data-notify="url"></a>
+            </div> 
+        <% end %>
+    </div>
+</div>
 <style>
 .navbarDropdownMenuLink:hover  .navbarDropdownMenuLinkUl{
     display:block !important; 
@@ -89,5 +114,14 @@
 }
 .sair{ 
     height: 30px;
+}
+.central_msgs{
+    position: fixed;
+    z-index: 2;
+    bottom: 56px;
+    width: 100%;
+    right: 0px;
+    justify-content: flex-end;
+    display: flex;
 }
 </style>

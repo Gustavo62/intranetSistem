@@ -1,47 +1,56 @@
 
 <%= form_with(model: intranet_aviso) do |form| %> 
 
-  <div class="field">
-    <%= form.label :titulo %>
-    <%= form.text_field :titulo, class: 'form-control' %>
-  </div>
-  <div style="display: flex;">
-    <div class="field" style="width:84%;margin-right: 4%;">
-      <%= form.label :descricao %>
-      <%= form.text_field :descricao, class: 'form-control' %>
-    </div>  
-    <div class="field" class="field" style="width:12%;text-align: center;">
-      <%= form.label :ativo %>
-      <%= form.check_box :ativo, class: 'form-control',style:"text-align: left;" %>
-    </div>
-  </div>
-  <div class="form-floating">
-    <%= form.label :aviso %>
-    <%= form.rich_text_area :aviso, class: 'form-control', style:"height:auto !important;text-align: justify !important;" %>
-  </div>
-  <div class="field">
-    <%= form.label :docs %>
-    <%= form.file_field :docs, class: 'form-control', multiple:true %>
-  </div>
-  <div class="field">  
-    <%= form.label :atividade %>
-    <% @atividades.each do |atvs| %> 
-      <p style="display:flex"> 
-      <%= form.check_box :intranet_atividade_id, {multiple: true}, atvs.id, nil%>
-      <%= form.label atvs.descricao%>.
-      </p>
-    <% end %> 
+	<div class="field">
+		<%= form.label :titulo %>
+		<%= form.text_field :titulo, class: 'form-control' %>
+	</div><br />
+	<div style="display: flex;">
+		<div class="field" style="width:84%;margin-right: 4%;">
+		<%= form.label :descricao %>
+		<%= form.text_field :descricao, class: 'form-control' %>
+		</div>  
+		<div class="field" class="field" style="width:12%;text-align: center;">
+		<%= form.label :ativo %>
+		<%= form.check_box :ativo, class: 'form-control',style:"text-align: left;" %>
+		</div>
+	</div><br />
+	<div class="form-floating">
+		<%= form.label :aviso %>
+		<%= form.rich_text_area :aviso, class: 'form-control', style:"height:auto !important;text-align: justify !important;" %>
+	</div><br />
+	<% if @intranet_aviso.docs%>
+    <label>Documentos Anexados</label><br />
+		<% @intranet_aviso.docs.each do |doc| %>
+			<%= doc.filename%>
+			<span style="float:right">
+				<%= link_to "Download", rails_blob_url(doc, disposition: 'inline'), target:'blank',	class:"btn btn-info" ,style:"height: 20px;font-size: 13px;padding-top: 0px;"%>
+			</span><br />
+		<% end %>
+  <br />
+	<% end %>
+	<div class="field">
+		<label>Anexar Documentos</label>
+		<%= form.file_field :docs, class: 'form-control', multiple:true %>
+	</div><br />
+	<div class="field">  
+		<%= form.label :atividade %>
+		<% @atividades.each do |atvs| %> 
+		<p style="display:flex"> 
+		<%= form.check_box :intranet_atividade_id, {multiple: true}, atvs.id, nil%>
+		<%= form.label atvs.descricao%>.
+		</p>
+		<% end %>  
+		<p style="display:flex"> 
+		<input type="checkbox" id="tdscheck" onclick="checktds();" />
+		<label >Marcar Todos</label><br/>
+		</p>
+	</div> 
 
-    <p style="display:flex"> 
-      <input type="checkbox" id="tdscheck" onclick="checktds();" />
-      <label >Marcar Todos</label><br/>
-    </p>
-  </div> 
 
-
-  <div class="actions">
-    <%= form.submit 'Enviar',class:"btn btn-primary", style:"float:right",id:"subform" %>
-  </div>
+	<div class="actions">
+		<%= form.submit 'Enviar',class:"btn btn-primary", style:"float:right",id:"subform" %>
+	</div>
 <% end %>
 <style>
 #intranet_aviso_atividade_id{

@@ -1,81 +1,89 @@
 <div class="container">
-  <h4>Dados do Aviso</h4>
-  <hr>
-  <div class="field" >
-    <label>Titulo</label><br />
-    <div class="disabled">
-      <input placeholder="<%= @intranet_aviso.titulo%>" class='form-control'><br />
-    </div>
-  </div>   
-  <div class="field" >
-    <label>Descricao</label><br />
-    <div class="disabled">
-      <input placeholder="<%= @intranet_aviso.descricao%>" class='form-control'><br />
-    </div>
-  </div>    
-  <div class="field" >
-    <label>Aviso</label><br />
-    <div class="disabled" id="inputavs"> 
-      <%= @intranet_aviso.aviso%>
-    </div>
-  </div> <br>
-  <div class="field" >
-    <label>Atividades</label><br />
-    <div class="disabled"> 
-      <% if @intranet_aviso.intranet_atividade_id %>
-        <% @intranet_aviso.intranet_atividade_id.each do |atv| %>
-          <input placeholder="<%= @atividades.try(:find, atv).descricao%>" class='form-control'><br />
-        <% end %>
-      <% end %>
-    </div>
-  </div>   
-  <p>
-    <strong>Ativo:</strong> 
-    <%= check_box_tag 'Ativo','yes',@intranet_aviso.ativo, onclick:"return false;" %>
-  </p>
-  <div class="field" >
-    <label>Documentos</label><br /> 
-    <% if @intranet_aviso.docs %>
-      <% @intranet_aviso.docs.each do |doc| %>
-          <%= doc.filename%> <span style="float:right"><%= link_to "Download", rails_blob_url(doc, disposition: 'inline'), target:'blank',	class:"btn btn-info" ,style:"height: 21px;font-size: 13px;padding-top: 0px;"%></span><br />
-      <% end %>
-    <% end %>
-  </div> <br>
-  <% if user_signed_in? == false%> 
-    <%= link_to 'Editar', edit_intranet_aviso_path(@intranet_aviso),class:"btn btn-primary", style:"float:right" %> 
-  <% end %>
-  <%= link_to intranet_avisos_path do %>
-    <button class="btn btn-secondary" style="float:left">Voltar</button>
-  <% end %>
+	<h4>Dados do Aviso</h4>
+	<hr>
+	<div class="field" >
+		<label>Titulo</label><br />
+		<div class="disabled">
+		<input placeholder="<%= @intranet_aviso.titulo%>" class='form-control'><br />
+		</div>
+	</div>   
+	<div class="field" >
+		<label>Descricao</label><br />
+		<div class="disabled">
+		<input placeholder="<%= @intranet_aviso.descricao%>" class='form-control'><br />
+		</div>
+	</div>    
+	<div class="field" >
+		<label>Aviso</label><br />
+		<div class="disabled" id="inputavs"> 
+		<%= @intranet_aviso.aviso%>
+		</div>
+	</div> <br>
+	<div class="field" >
+		<label>Atividades</label><br />
+		<div class="disabled"> 
+		<% if @intranet_aviso.intranet_atividade_id %>
+			<% @intranet_aviso.intranet_atividade_id.each do |atv| %>
+			<input placeholder="<%= @atividades.try(:find, atv).descricao%>" class='form-control'><br />
+			<% end %>
+		<% end %>
+		</div>
+	</div>   
+	<p>
+		<strong>Ativo:</strong> 
+		<%= check_box_tag 'Ativo','yes',@intranet_aviso.ativo, onclick:"return false;" %>
+	</p>
+	<div class="field" >
+		<label>Documentos</label><br /> 
+		<% if @intranet_aviso.docs %>
+			<% @intranet_aviso.docs.each do |doc| %> 
+				<div style="text-align:end;height: 48px;">
+					<span style="    float: left;font-weight: bold;width: 335px;text-align: left;"><%= doc.filename%></span> 
+					<span><%= link_to "Download", rails_blob_url(doc, disposition: 'inline'), target:'blank',	class:"btn btn-info" ,style:"height: 20px;font-size: 13px;padding-top: 0px;"%></span>
+					<% if user_signed_in? == false%>
+						<%= link_to "Deletar", delete_doc_attachment_intranet_aviso_path(idb: doc.id,ida: @intranet_aviso.id),method: :delete,
+							data: { confirm: 'Você tem certeza disso?' },	class:"btn btn-danger" ,style:"height: 20px;font-size: 13px;padding-top: 0px;"%>
+					<% end %> 
+				</div>
+			<% end %>
+		<% end %>
+	</div><br>
+	<% if user_signed_in? == false%> 
+		<%= link_to 'Editar', edit_intranet_aviso_path(@intranet_aviso),class:"btn btn-primary", style:"float:right" %> 
+	<% end %>
+	<%= link_to intranet_avisos_path do %>
+		<button class="btn btn-secondary" style="float:left">Voltar</button>
+	<% end %>
 </div>
 <br>
 <style>
-	.disabled { 
-    pointer-events: none; 
-  -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; 
-  user-select: none;
+.disabled { 
+	pointer-events: none; 
+	-webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; 
+	user-select: none;
 }
 .disabled *:focus { outline: 0; }
 #inputavs{
-  display: block;
-  width: 100%;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  
+	display: block;
+	width: 100%;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-radius: 0.25rem;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+		
 }
 </style>
 <% if user_signed_in?%> 
-  <style>
-    .container{
-      margin-bottom: 92px;
-    }
-  </style>
+	<style>
+		.container{
+			margin-top: -47px;
+			padding-bottom: 103px;
+		}
+	</style>
 <% end %>
