@@ -4,9 +4,9 @@
   
     <%= link_to edit_admin_registration_path, class:'sair' do %> 
         <% if current_admin.avatar.attached? %>
-            <%= image_tag(current_admin.avatar_thumbnail, class: 'shadow-sm mb-5 bg-white rounded foto' )%>
+            <%= image_pack_tag(current_admin.avatar_thumbnail, class: 'shadow-sm mb-5 bg-white rounded foto' )%>
         <% else %>
-            <%= image_tag('default.png', class: 'shadow-sm mb-5 bg-white rounded foto' )%>
+            <%= image_pack_tag('default.png', class: 'shadow-sm mb-5 bg-white rounded foto' )%>
         <% end %>
     <% end %> 
                 

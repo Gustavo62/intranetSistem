@@ -4,12 +4,13 @@
 // that code so it'll be compiled.    
 import "popper.js";    
 import "bootstrap";  
-import "../stylesheets/application"
+import "../stylesheets/application" 
 require("@rails/ujs").start();
 require("turbolinks").start();
 require("@rails/activestorage").start(); 
 require("jquery")
 require("channels");     
+const images = require.context('../images', true)
 import "@fortawesome/fontawesome-free/css/all"  
 require("./custom");
 $(document).on('turbolinks:load', function(){
