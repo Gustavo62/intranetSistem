@@ -6,6 +6,8 @@ ruby '2.7.1'
 gem 'chart-js-rails' 
 # Auth routes
 gem 'cancancan'
+# for bootstrap
+gem 'sass-rails', '~> 5.0', '>= 5.0.4'
 # savon
 gem 'savon', '~> 2.12.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
