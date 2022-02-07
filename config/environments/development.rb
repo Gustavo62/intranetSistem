@@ -42,13 +42,12 @@ Rails.application.configure do
 	config.action_mailer.perform_deliveries = true
 	config.action_mailer.delivery_method = :smtp 
 	config.action_mailer.smtp_settings = {
-		:user_name => 'apikey', # This is the string literal 'apikey', NOT the ID of your API key
-		:password => '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', # This is the secret sendgrid API key which was issued during API key creation
-		:domain => 'anoregce.org.br',
-		:address => 'smtp.sendgrid.net',
-		:port => 587,
-		:authentication => :plain,
-		:enable_starttls_auto => true
+		:address              => "smtp.gmail.com",
+		:port                 => 587,
+		:domain               => "gmail.com",
+		:user_name            => "anoregce@anoregce.org.br",
+		:password             => "notariosdoceara55",
+		:authentication       => :plain
 	} 
 	# Print deprecation notices to the Rails logger.
 	config.active_support.deprecation = :log
