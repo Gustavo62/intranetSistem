@@ -1,7 +1,8 @@
 require_relative "boot"
 
 require "rails/all"
-
+require 'boletosimples'
+require 'dalli'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -11,6 +12,7 @@ module IntraSin
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1 
     config.i18n.default_locale = :'pt-BR'
+    config.active_job.queue_adapter = :sidekiq
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -18,5 +20,21 @@ module IntraSin
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.public_file_server.headers = {
+      'Cache-Control' => "no-cache"
+    }
+    
   end
+end
+
+BoletoSimples.configure do |c|
+  c.environment = :sandbox # defaut :sandbox
+  # production - https://boletosimples.com.br/conta/api/tokens
+  # sandbox - https://sandbox.boletosimples.com.br/conta/api/tokens
+  c.api_token = '-J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM'
+  c.user_agent = 'gust904@gmail.com' #Colocar um e-mail válido para contatos técnicos relacionado ao uso da API.
+  # c.debug = true 
+  c.cache = ActiveSupport::Cache.lookup_store(:mem_cache_store, ['localhost:11211'],
+                                            namespace: 'boletosimples_client',
+                                            compress: true)
 end

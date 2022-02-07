@@ -1,0 +1,119 @@
+<%= javascript_pack_tag "mala_direta_form" %> 
+<%= form_with(model: intranet_mala_diretum) do |form| %>
+  <% if intranet_mala_diretum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(intranet_mala_diretum.errors.count, "error") %> prohibited this intranet_mala_diretum from being saved:</h2>
+
+      <ul>
+        <% intranet_mala_diretum.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %> 
+  <div class="form-group" style="display:flex"> 
+    <div style="width:100%;"> 
+      <%= form.label "assunto" %>
+      <%= form.text_field :assunto, class:"form-control",placeholder:"Informe a descrição do evento", required:true %> 
+    </div>   
+  </div>   
+  <div class="form-group" style="display:flex"> 
+    <div style="width:100%;"> 
+      <%= form.label "Sub Título" %>
+      <%= form.text_field :sub_assunto, class:"form-control",placeholder:"Informe a descrição do evento", required:true %> 
+    </div>   
+  </div>  
+  <div class="form-group" style="display:flex"> 
+    <div style="width:100%;"> 
+      <%= form.label "layout" %>
+      <%= select_tag "intranet_mala_diretum_layout", options_for_select(["ANOREG", "IRTDPJ", "SINOREDI" ], @intranet_mala_diretum.layout), :prompt => "Escolha o layout do e-mail", :class=> "form-control", :required => true %> 
+    </div>   
+  </div> 
+  <% if @intranet_mala_diretum.id == nil %> 
+    <div class="form-group">  
+      <div class="collapse" id="collapseExample" style="width:100%;padding-top: 32px;">
+        <div class="card card-body shadow p-3 mb-5 bg-white rounded" style="background: #efefef;width:100%">
+          <div class="form-group" style="display:flex"> 
+            <div style="width:49.5%;margin-right:auto"> 
+              <%= form.label 'Região' %>
+              <select id="regiao_select" name="regiao_select_id" class="form-control">
+                <option value="">Selecione uma região</option> 
+                <% @intranet_regiaos.each do |regiao| %> 
+                  <option value="<%= regiao.id %>"><%= regiao.descricao %></option>
+                <% end %>
+              </select>
+            </div> 
+            <div style="width:48.5%;"> 
+              <%= form.label 'Entrâncias' %>
+              <select id="entrancia_select" name="entrancia_select_id" class="form-control">
+                <option value="">Selecione uma entrância</option> 
+                <% @intranet_entrancias.each do |entrancia| %> 
+                  <option value="<%= entrancia.id %>"><%= entrancia.descricao %></option>
+                <% end %>
+              </select>
+            </div> 
+          </div> 
+          <div class="form-group" style="display:flex"> 
+            <div style="width:49.5%;margin-right:auto"> 
+              <%= form.label 'Atividade' %>
+              <select id="atividade_select" name="atividade_select_id" class="form-control">
+                <option value="">Selecione um tipo de atividade</option> 
+                <% @intranet_atividades.each do |atividade| %> 
+                  <option value="<%= atividade.id %>"><%= atividade.descricao %></option>
+                <% end %>
+              </select>
+            </div> 
+            <div style="width:49.5%;"> 
+              <%= form.label 'Contribuição' %>
+              <select id="contribuicaos_select" name="contribuicaos_select_id" class="form-control">
+                <option value="">Selecione um grupo</option> 
+                <% @intranet_contribuicaos.each do |contribuicao| %> 
+                  <option value="<%= contribuicao.id %>"><%= contribuicao.descricao %></option>
+                <% end %>
+              </select>
+            </div> 
+          </div> 
+        </div>
+      </div> 
+    </div>
+    <div class="form-group">
+      <p>  
+        <%= form.label 'Cartório' %>
+        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="float:right">
+          Filtros
+        </button>
+      </p>
+      <select id="intranet_mala_diretum_intranet_cartorio_id" name="intranet_mala_diretum[intranet_cartorio_id][]" class="form-control" required="true" multiple="true" style="height:430px">
+        <option value="">Selecione um cartório</option> 
+          <% if @intranet_mala_diretum.intranet_cartorio_id == 0 %>
+            <option value="0" selected>Todos os cartorios</option> 
+          <% else %>
+            <option value="0">Todos os cartorios</option> 
+          <% end %> 
+          <% @intranet_cartorios.each do |cartorio| %> 
+            <% if @intranet_mala_diretum.intranet_cartorio_id == cartorio.id %>
+              <option value="<%= cartorio.id %>" selected><%= cartorio.nome %></option>
+            <% else %>
+              <option value="<%= cartorio.id %>"><%= cartorio.nome %></option>
+            <% end %> 
+          <% end %>
+      </select>
+    </div>   
+  <% end %>  
+  
+  <div class="form-group" style="display:flex"> 
+    <div style="width:100%;min-height: 400px;"> 
+      <%= form.label :email %>
+      <%= form.rich_text_area :email, class: 'form-control', style:"min-height: 400px;height:auto !important;text-align: justify !important;" %>
+    </div>
+  </div>
+  <br>
+  <div class="form-groups" style="float:right">
+    <%= form.submit 'Salvar', class:"btn btn-primary"%>
+  </div>
+  <style>
+    .form-control{
+      margin-bottom:10px;
+    }
+  </style>
+<% end %> 

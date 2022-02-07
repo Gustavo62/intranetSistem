@@ -1,6 +1,9 @@
-<h1>Editing Intranet Boleto</h1>
-
-<%= render 'form', intranet_boleto: @intranet_boleto %>
-
-<%= link_to 'Show', @intranet_boleto %> |
-<%= link_to 'Back', intranet_boletos_path %>
+<%= javascript_pack_tag "boletos_new", "data-turbolinks-track" => true  %>
+<script src="https://unpkg.com/imask"></script> 
+<div class="container" style="margin-bottom: 104px;">  
+    <div class="page-header">
+        <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Cobrança</h1>      
+    </div>
+    <p>Editar Cobrança N°: <%= @intranet_boleto.id %>.</p>  
+    <%= render 'form', intranet_boleto: @intranet_boleto %> 
+</div>

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  intranet_arquivos_tipo: one
+  intranet_cartorio: one
+  intranet_atividade: one
+  ativo: false
+  descricao: MyString
+
+two:
+  intranet_arquivos_tipo: two
+  intranet_cartorio: two
+  intranet_atividade: two
+  ativo: false
+  descricao: MyString

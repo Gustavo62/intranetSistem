@@ -1,6 +1,7 @@
-<h1>Editing Intranet Atividade</h1>
-
-<%= render 'form', intranet_atividade: @intranet_atividade %>
-
-<%= link_to 'Show', @intranet_atividade %> |
-<%= link_to 'Back', intranet_atividades_path %>
+<div class="container" style="margin-bottom: 7%;">
+    <div class="page-header">
+		<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Editar atividade</h1>      
+	</div>
+	<p>Edição da atividade n°: <%= @intranet_atividade.id %>.</p>
+    <%= render 'form', intranet_atividade: @intranet_atividade %>  
+</div>

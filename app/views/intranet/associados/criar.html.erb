@@ -1,0 +1,234 @@
+<div class="container">
+	<script src="https://unpkg.com/imask"></script> 
+	<%= javascript_pack_tag "validaForm", "data-turbolinks-track" => true  %> 
+	<%= stylesheet_link_tag "usuario_cadastro" %>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+	<div class="row">
+		<div class="col-lg-12" style="margin-bottom: 6%;">
+			<br> 
+			<div style="margin-top: -15px;padding: 30px;padding: 16px;padding-top: 0px;padding-bottom: 28px;"> 
+				<div id="line">
+					<div id="status">
+					</div>
+					<ul style="list-style: none; display: flex;padding:0px">
+						<li id="li-status-1">1<br><p id="leg-1" style="color: #959595;margin-left: -8px;font-size: 11px;transition:0.5s">Acesso</p></li>
+						<li id="li-status-2">2<br><p id="leg-2" style="color: #959595;margin-left: -17px;font-size: 11px;transition:0.5s">Associado</p></li>
+						<li id="li-status-3">3<br><p id="leg-3" style="color: #959595;margin-left: -23px;font-size: 11px;transition: 0.5s;text-align: center;width: 67px;">Documentos</p></li>
+					</ul>
+				</div>
+			</div>  
+			<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %> 
+				<div id="step_1" class="step">  
+					<h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Dados de acesso</h4>
+					
+					<div class="form-group">
+						<%= f.label :nome %>*<span id="user_nome_exist" style="transition:1s;font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span><br />
+						<%= f.text_field :nome, class:'form-control',presence:true,id:"user_nome",placeholder:"Nome" %>
+					</div>
+					<div class="form-group">
+						<%= f.label :cpf, style:"text-transform: uppercase;" %>*<span id="user_cpf_exist" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span><br /> 
+						<%= f.text_field :cpf, type:"text", maxlength:"14", class:'form-control',presence:true,id:"user_cpf",placeholder:"Cpf"%>
+					</div>
+					<div class="form-group">
+						<%= f.label :email %>* <span id="user_email_exist" style="transition:1s;font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span><br />
+						<%= f.email_field :email, class:'form-control',presence:true,id:"user_email",placeholder:"Email"%>
+					</div>
+					<div class="form-group">
+						<%= f.label :senha %>
+						<% if @minimum_password_length %>
+						<em>(<%= @minimum_password_length %> caracteres no mínimo)</em>
+						<% end %><br />
+						<span id="user_senha_exist" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<%= f.password_field :password, class:'form-control',presence:true,id:"user_senha",placeholder:"Senha"%>
+					</div>
+					<div class="form-group">
+						<%= f.label :confirmar_senha %><span id="user_senha_conf_exist" style="transition:1s;font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span><br />
+						<%= f.password_field :password_confirmation, class:'form-control',presence:true,id:"user_senha_confirm",placeholder:"Confirmar Senha"%>
+					</div>
+					<div class="form-group" >
+						<%= f.label :dica_para_senha %><br />
+						<%= f.text_field :lembrete, class:'form-control',presence:true,placeholder:"Dica para senha"%>
+					</div> 
+				</div>  
+				<div id="step_2" class="step"> 
+					<h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Dados do associado</h4>
+					<div class="form-group" style="display: none;" >
+						<%= f.label :nome %>*<span id="ass_nome_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<input name="intranet_nome" id="ass_nome" class='form-control'>
+					</div>
+					<div class="form-group">
+						<%= f.label :cartorio_id %>*<span id="ass_cart_id_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<%= select_tag "intranet_cartorio",options_from_collection_for_select(@cartorios, "id", "nome"), {:prompt => "Escolha o seu cartório",multiple:true,required:true}%>
+					</div> 
+					<div class="form-group">
+						<%= f.label :data_nascimento %><span id="ass_dtn_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<input placeholder="00/00" type="text" id="ass_data_nascimento" name="intranet_data_nascimento" class='form-control' autocomplete="false">
+					</div>
+					<div class="form-group">
+						<%= f.label "Substituto" %>*<span id="ass_subs_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<%= select_tag "intranet_substituto", options_for_select(["sim", "não"], ""), id:"ass_substituto", :prompt => "É substituto?", :class => 'form-control' %> 
+					</div>
+					<div class="form-group" id="intranet_funcao_box" style="display:none">
+						<%= f.label :funcao %>*<span id="ass_func_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<%= select_tag "intranet_funcao", options_for_select(["Tabelião","Interino" ], ""), id:"ass_funcao", :prompt => "Escolha a sua função"%> 
+					</div> 
+					<div class="form-group">
+						<%= f.label :rg %><span id="ass_rg_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<input placeholder="0000.000.000-0" name="intranet_rg" id="ass_rg" class='form-control' size="14" maxlength="14">
+					</div>
+					<div class="form-group">
+						<%= f.label :cep %>*<span id="ass_cep_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<input placeholder="00000-000" name="intranet_cep" id="ass_cep"  class='form-control' size="10" maxlength="9" >
+					</div>
+					<div class="form-group">
+						<%= f.label :logradouro %>*<span id="ass_log_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<input placeholder="Ex: Rua / Travessa ..." name="intranet_logradouro" id="ass_logradouro" class='form-control'>
+					</div>
+					<div class="form-group">
+						<%= f.label :complemento %>
+						<input placeholder="Ex: Em frente à ..." name="intranet_complemento" class='form-control'>
+					</div>
+					<div class="form-group ">
+						<%= f.label :bairro %> 
+						<input placeholder="Ex: Aldeota " name="intranet_bairro" class='form-control'>
+					</div>
+					<div class="form-group">
+						<%= f.label :telefone_1 %>*<span id="ass_tel1_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<input placeholder="(00) 0 0000-0000" name="intranet_telefone_1" id="ass_telefone_1" class='form-control'>
+					</div>
+					<div class="form-group">
+						<%= f.label :telefone_2 %> 
+						<input placeholder="(00) 0 0000-0000" name="intranet_telefone_2" id="ass_telefone_2" class='form-control'>
+					</div>   
+					<div class="form-group">
+						<%= f.label :email %>*<span id="ass_email_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<input placeholder="Seu email pessoal" name="intranet_email" id="ass_email" class='form-control'>
+					</div>  
+					<div class="modal fade" id="cart_info_resumo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="cart_info_resumoLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="cart_info_resumoLabel">Confirmar dados</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body" id="content_cart_info_resumo" style="text-align: left;"> 
+								
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+									<button type="button" class="btn btn-primary" id="prosseguir_etapa_2">Proseguir</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> 
+				<div id="step_3" class="step">
+					<h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Documentação</h4>
+					<div class="form-group" style="text-align:center;padding: 11px;"> 
+						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de posse.</h4><span id="termo_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<div id="box_termos_poses" style="text-align: left;"> 
+						</div>
+						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Foto da identidade.</h4> <span id="identidade_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
+						<div class="documents" style="overflow: hidden;display: inline-block;text-align: center;width: 100%;"> 
+							<div style="display: inline-block;">
+								<div class="identidade-frente" style="margin-left: auto;margin-right: auto;border: 1px solid #ced4da;width:115px;border-radius: 6px;text-align: center;transform: rotate(-90deg);margin-bottom: -39px;">
+									<div style="background: #d4d6db;margin: -3px;border-radius: 4px; padding: 3px;border: 1px solid #e0e3e5;">	
+										<div style="display: flex;border: 1px solid #ced4da;background: white;border-radius: 4px;">
+											<div style="width: 1px;background: #d4d6db;padding: 1px;margin-top: 19px;margin-bottom: 21px;margin-left: 10px;margin-right: -19px;">
+											</div>
+
+											<div>
+												<i class="fa fa-fingerprint ident-img"></i>
+												<br>
+												<%= icon('person-fill', class:"ident-let")%> 
+											</div>
+										</div>
+									</div>
+								</div>
+								<p style="text-align: center;font-weight: bold;margin-top: -143px;position: relative;font-size: 14px;color: #909497;margin-bottom: 72px;">IDENTIDADE - FRENTE</p>
+								<%= f.file_field :rg_photo_1,style:"width: 97%;margin-top: 19px;",class:"form-control"%>
+							</div>
+							<div  style="display: inline-block;height: 197px;">
+								<div class="identidade-verso" style="margin-left: auto;margin-right: auto;border: 1px solid #ced4da;width: 115px;border-radius: 6px;text-align: center;transform: rotate(-90deg);margin-bottom: -39px;">
+									<div style="background: #d4d6db;margin: -3px;border-radius: 4px; padding: 3px;border: 1px solid #e0e3e5;">	
+										<div style="display: flex;border: 1px solid #ced4da;background: white;border-radius: 4px;">
+											<div>
+												<%= icon('filter-right', class:"ident-let-verso")%> 
+												<br>
+												<%= icon('filter-right', class:"ident-img-verso")%> 
+											</div>
+										</div>
+									</div>
+								</div>
+								<p style="text-align: center;font-weight: bold;margin-top: -143px;position: relative;font-size: 14px;color: #909497;margin-bottom: 72px;">IDENTIDADE - VERSO</p>
+								<%= f.file_field :rg_photo_2,style:"width: 97%;margin-top: 22px;",class:"form-control"%>
+							</div>
+						</div>
+
+						<h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Foto do CPF.</h4>  
+						<div class="documents" style="overflow: hidden;display: inline-block;text-align: center;width: 100%;"> 
+							<div  style="display: inline-block;float: none;">
+								<div class="identidade-verso" style="margin-left: auto;margin-right: auto;border: 1px solid #ced4da;width: 61px;border-radius: 6px;text-align: center;transform: rotate(-90deg);margin-bottom: -103px;margin-top: -55px;">
+									<div style="background: #d4d6db;margin: -3px;border-radius: 4px; padding: 3px;border: 1px solid #e0e3e5;">	
+										<div style="display: flex;border: 1px solid #ced4da;background: white;border-radius: 4px;">
+											<div>
+												<%= icon('filter-right', class:"cpf-let-verso")%> 
+												<br>
+												<%= icon('filter-right', class:"cpf-img-verso")%> 
+											</div>
+										</div>
+									</div>
+									<div style="background: #d4d6db;margin: -3px;border-radius: 4px; padding: 3px;border: 1px solid #e0e3e5;">	
+										<div style="display: flex;border: 1px solid #ced4da;background: white;border-radius: 4px;">
+											<div>
+												<%= icon('filter-right', class:"cpf-let-verso")%> 
+												<br>
+												<%= icon('filter-right', class:"cpf-img-verso")%> 
+											</div>
+											<p style="text-align: center;font-weight: bold;margin-top: -115px;position: relative;font-size: 14px;color: #909497;margin-bottom: 213px;margin-left: -30px;transform: rotate(90deg);">CPF</p>
+										</div>
+									</div>
+								</div> 
+								<%= f.file_field :cpf_photo,style:"width: 97%;margin-top: 17px;",class:"form-control"%>
+							</div>
+							<br>	 
+						</div>
+						
+						<button type="button" class="btn btn-primary enviar" data-bs-toggle="modal" data-bs-target="#exampleModal" style="position: absolute;right: 12px;bottom: 19px;z-index: 1;">
+							Enviar
+						</button>
+						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel"><%= image_tag 'logo', style:"width: 30px;margin-right: 10px;"%>Ficha de filiação</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+								</div> 
+								<div class="modal-body" style="text-align: center;" id="msg">
+									Ao Sr. Presidente da ANOREG-CE<br>
+									Venho, através deste instrumento, requerer a filiação 
+									a essa Entidade Representativa de Classe, declarando 
+									conhecer e estar de acordo com os dispositivos estatuários 
+									e com as matérias aprovadas nas Assembléias Gerais, incusive 
+									quanto à taxas de filiação e contribuição associativa que vierem, 
+									a ser convencionadas. 
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button> 
+									<%= f.submit "Confirmar", class:"btn btn-primary"%>
+								</div>
+								</div>
+							</div>
+						</div> 
+					</div> 
+				</div>	 
+			<% end %>
+			<div class="col-12" style="display: flex;width: 100%;padding: 0px;margin-bottom: 19px;">
+				<button class="btn btn-link" id="prev" style="text-decoration: none;"><b>Voltar</b></button> 
+				<button class="btn btn-primary" id="next" ><b>Avançar</b></button>
+				
+			</div>  
+		</div>
+	</div> 
+	<%= render "users/shared/error_messages", resource: resource %>  
+</div>  

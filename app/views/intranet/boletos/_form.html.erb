@@ -1,4 +1,14 @@
+<script src="https://unpkg.com/imask"></script>
 <%= form_with(model: intranet_boleto) do |form| %>
+  <ul class="nav nav-tabs" style="margin-bottom: 11px;">
+    <li class="nav-item">
+      <a class="nav-link active" id="btn_menu_1" type="button" >Detalhes da cobrança</a>
+    </li> 
+    <div style="margin-left: auto;">
+      <%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+      <%= link_to 'Visualizar',  @intranet_boleto ,class:"btn btn-primary" if @intranet_boleto.id != nil %> 
+    </div>
+  </ul>
   <% if intranet_boleto.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(intranet_boleto.errors.count, "error") %> prohibited this intranet_boleto from being saved:</h2>
@@ -9,74 +19,76 @@
         <% end %>
       </ul>
     </div>
+  <% end %> 
+  <% if @intranet_boleto.id == nil %>
+    <div class="form-group">
+      <%= form.label 'Cartório' %>
+      <select id="intranet_boleto_intranet_cartorio_id" name="intranet_boleto[intranet_cartorio_id]" class="form-control">
+        <option value="">Selecione um cartório</option> 
+        <% @intranet_cartorios.each do |cartorio| %> 
+          <option value="<%= cartorio.id %>"><%= cartorio.nome %></option>
+        <% end %>
+      </select> 
+    </div>  
+    <div class="form-group" id="associadoSelect" style="display:none">
+      <%= form.label 'Usuário' %>
+      <select id="intranet_boleto_intranet_associado_id" name="intranet_boleto[intranet_associado_id]" class="form-control"></select>
+    </div>  
   <% end %>
-
-  <div class="field">
-    <%= form.label :intranet_financeiro_tipos_cobranca_id %>
-    <%= form.text_field :intranet_financeiro_tipos_cobranca_id %>
+  <div class="form-group" style="display:flex"> 
+    <div style="width:29%;margin-right: auto;">
+      <%= form.label 'Criação' %> 
+      <input readonly type="date" class="form-control" value="<%= Time.now.to_date%>">
+    </div>
+    <div style="width:29%;margin: auto;">
+      <%= form.label :vencimento %>
+      <%= form.date_field :vencimento, class:"form-control",value:"#{(Time.now.to_date >> 1).to_date}"%> 
+    </div> 
+    <div style="width:29%;margin-left: auto;">
+      <%= form.label "Tipo" %>
+      <%= form.select :metodo, options_for_select([["Avulso",'avulso'],["Acordo",'acordo'],["Evento",'evento']],params[:metodo]),{style:"margin-right:1%;"},{class:"form-control",prompt:"Status do Boleto"}  %> 
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :intranet_financeiro_portadores %>
-    <%= form.text_field :intranet_financeiro_portadores %>
+  <div class="form-group" style="display:flex"> 
+    <div style="width:69.5%;margin-right: auto;">
+      <%= form.label 'Descrição'%> 
+      <%= form.text_field :descricao, class:"form-control", placeholder:"REF ao mês de JAN, FEV, ABR ..." %>
+    </div>
+    <div style="width:29.5%;margin-left: auto;">
+      <%= form.label 'Valor'%> 
+      <%= form.text_field :valor, class:"form-control",required:true,placeholder:"R$ 00,00"  %>
+    </div> 
   </div>
-
-  <div class="field">
-    <%= form.label :intranet_regiao_id %>
-    <%= form.text_field :intranet_regiao_id %>
+  <div class="form-groups" style="float:right">
+    <%= form.submit 'Salvar', class:"btn btn-primary"%>
   </div>
-
-  <div class="field">
-    <%= form.label :intranet_entrancias_id %>
-    <%= form.text_field :intranet_entrancias_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intranet_contribuicao_id %>
-    <%= form.text_field :intranet_contribuicao_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intranet_atividade %>
-    <%= form.text_field :intranet_atividade %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intranet_cartorio_id %>
-    <%= form.text_field :intranet_cartorio_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :valor %>
-    <%= form.text_field :valor %>
-  </div>
-
-  <div class="field">
-    <%= form.label :vencimento %>
-    <%= form.text_field :vencimento %>
-  </div>
-
-  <div class="field">
-    <%= form.label :descricao %>
-    <%= form.text_field :descricao %>
-  </div>
-
-  <div class="field">
-    <%= form.label :observacao_email %>
-    <%= form.text_field :observacao_email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :forma_cobranca %>
-    <%= form.text_field :forma_cobranca %>
-  </div>
-
-  <div class="field">
-    <%= form.label :apenas_titular %>
-    <%= form.check_box :apenas_titular %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+<% end %> 
+<script> 
+  IMask( 
+    document.getElementById("intranet_boleto_valor"), 
+    {
+      mask: [
+          { mask: '' },
+          {
+              mask: 'R$ num',
+              lazy: false,
+              blocks: {
+                  num: {
+                      mask: Number,
+                      scale: 2,
+                      thousandsSeparator: '.',
+                      padFractionalZeros: true,
+                      radix: ',',
+                      mapToRadix: ['.'],
+                  }
+              }
+          }
+      ]
+    }
+  ); 
+</script>
+<style>
+ .form-group{
+    margin-bottom:10px;
+  }
+</style>

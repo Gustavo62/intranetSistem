@@ -1,0 +1,87 @@
+<script src="https://unpkg.com/imask"></script> 
+<div class="container" style="margin-bottom: 104px;">   
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Mala direta</h1>      
+  </div>
+  <p>Visualizar e-mail Nº <b><%= @intranet_mala_diretum.id%></b>.</p>  
+  <ul class="nav nav-tabs" style="margin-bottom: 11px;">
+    <li class="nav-item">
+      <a class="nav-link active" id="btn_menu_1" type="button" >Detalhes do e-mail</a>
+    </li> 
+    <div style="margin-left: auto;">
+      <%= link_to 'Voltar', :back,class:"btn btn-link" %>  
+    </div> 
+  </ul>
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Assunto</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_mala_diretum.assunto %>">
+      </div>
+    </div>
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Sub Título</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_mala_diretum.sub_assunto %>">
+      </div>
+    </div>
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Layout</label>
+      <div class="col-sm-10 correct-md-10" >
+        <%= select_tag "intranet_mala_diretum_layout", options_for_select(["ANOREG", "IRTDPJ", "SINOREDI" ], @intranet_mala_diretum.layout), :prompt => "Escolha o layout do e-mail", :class=> "form-control",:onchange =>"this.value = '#{@intranet_mala_diretum.layout}'" %> 
+      </div>
+    </div>
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Cartórios</label>
+      <div class="col-sm-10 correct-md-10" > 
+        <div class="form-control-plaintext input-show">
+          <% if (@intranet_mala_diretum.intranet_cartorio_id & ["0"]).any? %> 
+            Todos os cartórios
+          <% else %> 
+            <% @intranet_mala_diretum.intranet_cartorio_id.each do | cartorio |  %>  
+              <%= @intranet_cartorios.find(cartorio).nome  %>
+              <% if @intranet_mala_diretum.intranet_cartorio_id.last == cartorio%> 
+                <span style="margin-left:-4px">. </span> 
+              <% else %>
+                <span style="margin-left:-4px">, </span> 
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >E-mail</label>
+      <div class="col-sm-10 correct-md-10" >  
+        <%= render "#{@intranet_mala_diretum.layout.downcase}" %>   
+      </div>
+    </div>
+  </div>   
+</div>
+
+<style>
+  .input-show{
+    background: #f8f9fa;
+    border-radius: 2px;
+    border: 1px solid #ededed;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  .correct-md-10{
+    max-width: 100%;
+    width: 100%;
+  }
+  .col-sm-2{
+    max-width: 100%;
+    width: 100%;
+  } 	
+</style> 

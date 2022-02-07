@@ -1,89 +1,301 @@
-<p id="notice"><%= notice %></p>
+<%= javascript_pack_tag "associados_show", "data-turbolinks-track" => true  %> 
+<script src="https://unpkg.com/imask"></script> 
+<div class="container" style="margin-bottom: 104px;">  
+  
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Associados</h1>      
+  </div>
+  <p>Visualizar associado Nº <b><%= @intranet_associado.id%></b>.</p>  
+  <ul class="nav nav-tabs" style="margin-bottom: 11px;">
+    <li class="nav-item">
+      <a class="nav-link active" id="btn_menu_1" type="button" >Dados do Associado</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="btn_menu_2" type="button" >Dados para Contato</a>
+    </li> 
+    <li class="nav-item">
+      <a class="nav-link" id="btn_menu_4" type="button" >Área Financeira</a>
+    </li> 
+    <div style="margin-left: auto;">
+      <%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+      <%= link_to 'Editar', edit_intranet_associado_path(@intranet_associado),class:"btn btn-primary" %>  
+      <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= @intranet_associado.id %>">Deletar</i></a>
+      <%= link_to 'Logar', intranet_associados_logar_associado_path(user_id:@user.id), class:"btn btn-info" if @intranet_associado.ativo %> 
+    </div>
+    <div class="modal fade" id="exampleModal<%= @intranet_associado.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Deletar Associado</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+          </div>
+          <div class="modal-body">
+            Deseja deletar Associado <%= @intranet_associado.nome %>, sua ação não poderá ser desfeita, ao clicar em <b>EXCLUIR</b> será deletado o Associado e o acesso ao intranet.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" focus>cancelar</button> 
+            <%= link_to intranet_associado_path, method: :delete do %> 
+                <button type="button" class="btn btn-danger">Excluir</button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ul>
+  <div id="dados_acesso"> 
+    <div class="form-group row" style="display:flex">
+      <div style="width:70%">
+        <label for="staticEmail" class="col-sm-2 col-form-label" >Nome</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @user.nome %>">
+        </div>
+      </div>
+      <div style="width:30%">
+        <label for="staticEmail" class="col-sm-2 col-form-label" >CPF</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @user.cpf %>">
+        </div>
+      </div>
+    </div> 
+    <div class="form-group row" style="display:flex">
+      <div style="width:70%">
+        <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Lembrete Senha</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @user.lembrete %>">
+        </div>
+      </div>
+      <div style="width:30%">
+        <label for="staticEmail" class="col-sm-2 col-form-label" >Acesso</label>
+        <% if @user.acesso%>
+          <div class="col-sm-10 correct-md-10" >
+            <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="Liberado">
+          </div>
+        <% else %> 
+          <div class="col-sm-10 correct-md-10" >
+            <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="Bloqueado">
+          </div>
+        <% end %>
+      </div>
+    </div>  
+    <div class="form-group row" style="display:flex">
+      <div style="width:50%">
+        <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Data de Aniversário</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @intranet_associado.data_nascimento || 'Vazio'%>">
+        </div>
+      </div> 
+      <div style="width:50%">
+        <label class="col-sm-2 col-form-label" style="max-width: inherit;">Função 
+          <span style="float: right;font-size: 13px;margin-top: 4px;">
+            é substituto? 
+            <%= check_box_tag 'Ativo','yes',@intranet_associado.substituto, onclick:"return false;" %>
+          </span>
+        </label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @intranet_associado.funcao || 'Vazio'%>">
+        </div>
+      </div> 
+    </div> 
+    <div class="form-group row" style="display:flex"> 
+      <% if @intranet_associado.ativo%>
+        <div style="width:50%">
+          <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Situação</label>
+          <div class="col-sm-10 correct-md-10" >
+            <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%=  'Liberado' %>">
+          </div>
+        </div> 
+      <% else %> 
+        <div style="width:50%">
+          <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Situação</label>
+          <div class="col-sm-10 correct-md-10" >
+            <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%=  'Bloqueado'  %>">
+          </div>
+        </div> 
+      <% end %> 
+    </div>  
+    <hr>
+    <div class="form-group row" style="display:flex">  
+      <div style="width:50%">
+        <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Ficha de associação</label>
+        <div class="col-sm-10 correct-md-10" >  
+          <% if ApplicationRecord.verificaFicha(@user.id) %>  
+            <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="Enviado"> 
+            <i class="fas fa-thumbs-up icon_ok"></i>
+          <% else %>
+            <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="Não Enviado">
+            <i class="fas fa-exclamation-triangle icon_alert"></i>
+          <% end %>
+        </div>
+      </div>  
+      <div style="width:50%">
+        <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Termo de posse </label>
+        <div class="col-sm-10 correct-md-10" > 
+          <% if ApplicationRecord.termoPosse(@user.id)%>  
+            <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="Enviado">
+            <i class="fas fa-thumbs-up icon_ok"></i> 
+          <% else %> 
+            <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="Não Enviado"> 
+            <i class="fas fa-exclamation-triangle icon_alert"></i>
+          <% end %>
+        </div>
+      </div> 
+    </div>  
+  </div> 
 
-<p>
-  <strong>User:</strong>
-  <%= @intranet_associado.user_id %>
-</p>
-
-<p>
-  <strong>Cidade:</strong>
-  <%= @intranet_associado.cidade_id %>
-</p>
-
-<p>
-  <strong>Matricula:</strong>
-  <%= @intranet_associado.matricula %>
-</p>
-
-<p>
-  <strong>Data nascimento:</strong>
-  <%= @intranet_associado.data_nascimento %>
-</p>
-
-<p>
-  <strong>Funcao:</strong>
-  <%= @intranet_associado.funcao %>
-</p>
-
-<p>
-  <strong>Rg:</strong>
-  <%= @intranet_associado.rg %>
-</p>
-
-<p>
-  <strong>Sexo:</strong>
-  <%= @intranet_associado.sexo %>
-</p>
-
-<p>
-  <strong>Ativo:</strong>
-  <%= @intranet_associado.ativo %>
-</p>
-
-<p>
-  <strong>Cep:</strong>
-  <%= @intranet_associado.cep %>
-</p>
-
-<p>
-  <strong>Logradouro:</strong>
-  <%= @intranet_associado.logradouro %>
-</p>
-
-<p>
-  <strong>Complemento:</strong>
-  <%= @intranet_associado.complemento %>
-</p>
-
-<p>
-  <strong>Bairro:</strong>
-  <%= @intranet_associado.bairro %>
-</p>
-
-<p>
-  <strong>Telefone 1:</strong>
-  <%= @intranet_associado.telefone_1 %>
-</p>
-
-<p>
-  <strong>Telefone 2:</strong>
-  <%= @intranet_associado.telefone_2 %>
-</p>
-
-<p>
-  <strong>Celular:</strong>
-  <%= @intranet_associado.celular %>
-</p>
-
-<p>
-  <strong>Whatsapp:</strong>
-  <%= @intranet_associado.whatsapp %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @intranet_associado.email %>
-</p>
-
-<%= link_to 'Edit', edit_intranet_associado_path(@intranet_associado) %> |
-<%= link_to 'Back', intranet_associados_path %>
+  <div id="dados_para_contato"> 
+    <div class="form-group row" style="display:flex">
+      <div style="width:100%">
+        <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">E-mail</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @user.email %>">
+        </div>
+      </div> 
+    </div> 
+    <div class="form-group row" style="display:flex">
+      <div style="width:30%;margin-right: auto;">
+        <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Contato 1</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="intranet_associado_telefone_1" value="<%= @intranet_associado.telefone_1 || 'Vazio' %> ">
+        </div>
+      </div>
+      <div style="width:30%">
+        <% if @intranet_associado.whatsapp%>
+          <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: initial;">Contato 2 
+            <span style="float: right;font-size: 13px;margin-top: 4px;">possui whatsapp <i class="fas fa-check" style="color: #3fbf61;"></i></span>
+          </label>
+          <div class="col-sm-10 correct-md-10" >
+            <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @intranet_associado.telefone_2 || 'Vazio' %>">
+          </div>
+        <% else %>
+          <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: initial;">Contato 2 
+            <span style="float: right;font-size: 13px;margin-top: 4px;">possui whatsapp <i class="fas fa-times" style="color: #e13f3f"></i></span>
+          </label>
+          <div class="col-sm-10 correct-md-10" >
+            <input type="text" readonly class="form-control-plaintext input-show" id="intranet_associado_telefone_2" value="<%= @intranet_associado.telefone_2 || 'Vazio' %>">
+          </div> 
+        <% end %>
+      </div>
+      <div style="width:30%;    margin-left: auto;">
+        <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Contato 3</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="intranet_associado_celular" value="<%= @intranet_associado.celular || 'Vazio' %>">
+        </div>
+      </div> 
+    </div>  
+    <div class="form-group row" style="display:flex">
+      <div style="width:70%">
+        <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Logradouro</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @intranet_associado.logradouro %>">
+        </div>
+      </div> 
+      <div style="width:30%">
+        <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">CEP</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @intranet_associado.cep %>">
+        </div>
+      </div> 
+    </div> 
+    <div class="form-group row" style="display:flex">
+      <div style="width:50%;margin-right: auto;">
+        <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Complemento</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @intranet_associado.complemento || 'Vazio' %> ">
+        </div>
+      </div> 
+      <div style="width:50%;    margin-left: auto;">
+        <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Bairro</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @intranet_associado.bairro || 'Vazio' %>">
+        </div>
+      </div> 
+    </div>  
+  </div>
+ 
+  <div id="dados_financeiro"> 
+    <div>
+      <div class="table-wrapper-scroll-y my-custom-scrollbar shadow p-3 mb-5 bg-white rounded">
+        <table  class="table table-hover table-striped mb-0" style="overflow-x: auto;">
+          <thead>
+            <tr> 
+              <th>Vencimento</th> 
+              <th>Nosso Numero</th> 
+              <th>Valor</th>   
+              <th>Status</th> 
+            </tr>
+          </thead> 
+          <tbody>  
+            <% @boletos.each do |boleto| %>
+              <tr id="<%= boleto.id %>">
+                <td><%= boleto.vencimento.strftime("%d/%m/%Y") if boleto.vencimento%></td> 
+                <td><%= boleto.nosso_numero %></td>  
+                <td><%= boleto.valor %></td>  
+                <td><%= I18n.t("boleto_simples.status.#{boleto.status}") %></td>
+              </tr> 
+            <% end %> 
+          </tbody> 
+        </table>
+      </div>
+    </div> 
+    <%= link_to 'Mais Informações', intranet_boletos_path(id_cart: @intranet_associado.intranet_cartorio,associado: @intranet_associado.id), class:"btn btn-link",style:"width: 100%;"%>
+  </div>
+</div>
+<style> 
+  .my-custom-scrollbar {
+  position: relative;
+  height: 300px;
+  overflow: auto;
+  }
+  .table-wrapper-scroll-y {
+  display: block;
+  }
+  .btni{
+    text-align: center;
+  }
+  #btn_menu_1{
+    color: #1e4779
+  }
+  #btn_menu_2{
+    color: #1e4779
+  }
+  #btn_menu_3{
+    color: #1e4779
+  }
+  #btn_menu_4{
+    color: #1e4779
+  }
+  
+  .input-show{
+    background: #f8f9fa;
+    border-radius: 2px;
+    border: 1px solid #ededed;
+    padding-left: 12px;
+  }
+  .active{
+    font-weight: bold !important; 
+    color: #12345e !important;
+  }
+  .correct-md-10{
+    max-width: 100%;
+    width: 100%;
+  }
+  .table th{
+    border-top: 0px solid #dee2e6;
+  }
+  .icon_alert{
+    float: right;
+    margin-right: 14px;
+    margin-top: -27px;
+    color: #ebe532;
+  } 
+  .icon_ok{
+    float: right;
+    margin-right: 14px;
+    margin-top: -27px;
+    color: #0b386b;
+  }
+  .col-sm-2{
+    max-width: 100%;
+    width: 100%;
+  } 	
+</style> 

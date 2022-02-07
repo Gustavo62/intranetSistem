@@ -1,4 +1,13 @@
 pt-BR:  
+  boleto_simples:
+    status:
+      generating:         "sendo gerado."
+      opened:             "Aberto."
+      canceled:           "Cancelado."
+      paid:               "Pago."
+      overdue:            "Vencido."
+      generation_failed:  "Falha ao gerar."
+      validation_failed:  "Inválido." 
   month_names:
     January: 	  Janeiro 
     February: 	Fevereiro
@@ -301,6 +310,14 @@ pt-BR:
         other: Regiões
     errors:
       models:
+        user:
+          attributes:
+            intranet_cartorio_id:
+              taken: "Já esxite um associado ativo para este cartório, selecione outro ou entre em contato conosco"
+            reset_password_token: 
+              invalid: "Link inválido."
+            cpf:
+              taken: "já está em uso"
         spree/calculator/tiered_flat_rate:
           attributes:
             base:

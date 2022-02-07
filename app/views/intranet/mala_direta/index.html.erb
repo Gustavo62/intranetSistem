@@ -1,0 +1,59 @@
+ 
+
+
+<script src="https://unpkg.com/imask"></script>
+<div class="container" style="margin-bottom: 200px;">  
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Mala direta</h1>      
+  </div>
+  <p>Gerenciar e-mails enviados.</p>    
+  <div style="width: 100%;height: 572px;overflow-y: scroll;" class="table-wrapper-scroll-y my-custom-scrollbar shadow p-3 mb-5 bg-white rounded">
+    <div class="collapse multi-collapse show" id="multiCollapseExample">  
+      <table  class="table table-hover table-striped mb-0" style="overflow-x: auto;">
+        <thead>
+          <tr> 
+            <th style="width: 70%;">Assunto</th> 
+            <th style="width: 10%;">Layout</th> 
+            <th style="width: 10%;">Data</th>   
+            <th style="text-align: center;width: 10%;" colspan="2">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @intranet_mala_direta.each do |mala_diretum| %>
+            <tr> 
+              <td> <div class="sammy-nowrap-2"><%= mala_diretum.assunto %></div></td>  
+              <td><%= mala_diretum.layout %></td> 
+              <td><%= mala_diretum.created_at.strftime("%d/%m/%Y") %></td>  
+              <td style="text-align: center;">
+                <%= link_to intranet_mala_diretum_path(mala_diretum), class:"btni" do %>
+                  <i class="fas fa-eye" style="padding:0px;"></i>
+                <% end %>
+              </td> 
+            </tr>
+          <% end %>
+        </tbody>
+      </table> 
+    </div>  
+  </div>
+  <p style="text-align: center;padding: 1%;">Consulta obteve <%=  @intranet_mala_direta.size %> resultados.<p>  
+  <%= link_to new_intranet_mala_diretum_path ,style:"float:right", class:"btn btn-primary" do %>
+    <i style="margin-right: 9px;" class="fas fa-plus icon-aux-label"></i>Mala direta
+  <% end %> 
+  <br>
+  <%= paginate @intranet_mala_direta %> 
+  <br>
+</div>  
+<style>
+  #form_assoc{
+    display: flex;
+    margin-bottom: 1%;
+  } 
+  .sammy-nowrap-2 {
+    width: 703px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+</style>
+

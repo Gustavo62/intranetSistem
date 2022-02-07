@@ -1,6 +1,43 @@
-<h1>Editing Intranet Associado</h1>
 
-<%= render 'form', intranet_associado: @intranet_associado %>
-
-<%= link_to 'Show', @intranet_associado %> |
-<%= link_to 'Back', intranet_associados_path %>
+<script src="https://unpkg.com/imask"></script> 
+<%= javascript_pack_tag "associados_edit", "data-turbolinks-track" => true  %>   
+<div class="container" style="margin-bottom: 200px;">   
+    <div class="page-header">
+        <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Associados</h1>      
+    </div>
+    <p>Editar novo associado</p>  
+    <ul class="nav nav-tabs" style="margin-bottom: 11px;">
+        <li class="nav-item">
+        <a class="nav-link active" id="btn_menu_1" type="button" >Dados do Associado</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" id="btn_menu_2" type="button" >Dados para Contato</a>
+        </li>  
+        <div style="margin-left: auto;">
+        <%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+        <%= link_to 'Visualiar', @intranet_associado,class:"btn btn-primary" %>   
+        <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= @intranet_associado.id %>">Deletar</i></a>
+					
+        </div>
+    </ul>
+    <div class="modal fade" id="exampleModal<%= @intranet_associado.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Deletar Associado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+            </div>
+            <div class="modal-body">
+                Deseja deletar Associado <%= @intranet_associado.nome %>, sua ação não poderá ser desfeita, ao clicar em <b>EXCLUIR</b> será deletado o Associado e o acesso ao intranet.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" focus>cancelar</button> 
+                <%= link_to intranet_associado_path, method: :delete do %> 
+                    <button type="button" class="btn btn-danger">Excluir</button>
+                <% end %>
+            </div>
+            </div>
+        </div>
+    </div>
+    <%= render 'form', intranet_associado: @intranet_associado %>
+</div> 

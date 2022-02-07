@@ -1,186 +1,378 @@
-
+<%= javascript_pack_tag "layout_usuario" %> 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <%= stylesheet_link_tag 'usuario' %>
-<div id="minimize" style="height:1229px !important">
+<div id="minimize" >
 </div>
-<div id="nav_user">
-    <div id="mySidenav-left" class="sidenav" style="z-index: 1000;">
-        
-        <svg class="svg-inline--fa fa-times fa-w-11" href="javascript:void(0)" id="closebtn" onclick="closeNavLeft()" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
+<div id="nav_user" style="position: -webkit-sticky;position: sticky;top: 0px;z-index: 1054;">
+    <div id="mySidenav-left" class="sidenav" style="z-index: 1000;"> 
+        <a id="closebtn"><i class="fas fa-times"></i></a>
         <div class="nav-menu w3-animate-right" >
-            <%= link_to edit_user_registration_path do %>
-                <h3 class="conta" style="font-family: 'Poppins'!important">Conta</h3>
-            <% end %> 
-            <div class="dados-cliente"> 
-                <div class="cart" style="padding:2px"><b><%= @cart_current.nome_res%></b></div> 
+            <h3 class="conta" style="font-family: 'Poppins'!important">Conta</h3>
+            <div class="line-style-top"></div>
+            <div class="dados-cliente">  
                 <% if current_user.avatar.attached? %>
-                    <%= image_tag(current_user.avatar_thumbnail, style: 'width: 100px;height: 100px;margin-top: 6px;margin-left: 2px;81px;border: 1px solid #f4a16e;border-radius: 50px;' )%>
-                    
+                    <%= image_tag(current_user.avatar_thumbnail, style: 'width: 50px;height: 50px;margin-top: -2%;margin-left: 0%;border: 1px solid #082c54c7;border-radius: 50px;' )%> 
                 <% else %>
-                    <%= image_tag('default.png', style: 'width: 100px;height: 100px;margin-top: 6px;margin-left: 2px;81px;border: 1px solid #f4a16e;border-radius: 50px;' )%>
-                
+                    <%= image_tag('default.png', style: 'width: 50px;height: 50px;margin-top: -2%;margin-left: 0%;border: 1px solid #082c54c7;border-radius: 50px;' )%>
                 <% end %>
-                <div class="nome" style="margin-top: 7px;"><%= current_user.nome%></div> 
-                <div class="cpf" style="font-size: 12px;"><b style="color: #ff6000;">SERV: </b><%= current_user.serventia%></div>
-                <div class="numero" style="font-size: 12px;"><b style="color: #ff6000;">CPF: </b><%= current_user.cpf%></div>
+                <div class="nome" ><%= first_name current_user.nome%></div>  
+                <div class="descricao" ><b>CPF</b> <%= current_user.cpf%>  
+                    <%= link_to edit_user_registration_path, style:"display: inline;" do %>
+                        <span>Editar <i class="fas fa-cog"></i> </span> 
+                    <% end %> 
+                </div>  
             </div>
-            <div style="background: #ff8b45;">
+            <div class="line-style-bottom"></div>
+            <div style="background: #134a88;background: #134a88;padding-top: 7px;margin-top: 8px;">
                 <ul class="ul-links">
-                    <li class="lista"><b><i class="fas fa-home ul-link-icons"></i><a class="links-li"><%= link_to 'Home', usuario_home_path, class:"links-li" %></a></b></li>
-                    
-                    <li class="lista"><b><i class="fas fa-user-circle ul-link-icons"></i><a class="links-li">Conta</a></b></li>
-                    <li class="lista" onclick="openNavUl(1)">
-                        <i class="fas fa-newspaper ul-link-icons"></i>
-                        <a  class="links-li" style="margin-left: -5px;">Novidades <i class="fas fa-sort-down icon-ul-in-ul"></i></a>
-                        <ul id="ul-in-ul">
-                            <li class="li-in-ul">
-                                <p style="margin-left: 42px;" >
-                                    <%= link_to intranet_avisos_path, style:"padding: 0px;color: white;text-decoration: none;font-size: 16px;"  do%>
-                                        <i class="fas fa-exclamation-circle"></i> 
-                                        <span>Avisos</span>
-                                    <% end %>
-                                </p>
-                            </li>
-                            
-                            <li class="li-in-ul"><p style="margin-left: 42px;" >Arquivos</p></li>
-                            <li class="li-in-ul"><p style="margin-left: 42px;" >Eventos</p></li> 
-                        </ul>
+                    <li class="lista">
+                        <b><i class="fas fa-home ul-link-icons"></i><a class="links-li"><%= link_to 'Home', usuario_home_path, class:"links-li" %></a></b>
+                        <% if @notificacao %>
+                            <div class="notify_number_menu" style="margin-bottom: -30px;padding: 8px;"><i class="fas fa-circle"></i></i></div>
+                        <% end %>
                     </li> 
-                    <li class="lista"><b><i class="fas fa-hand-holding-usd ul-link-icons"></i><a class="links-li">Financeiro</a></b></li>
-                    <li class="lista"><b><i class="fas fa-phone-alt ul-link-icons"></i><a class="links-li">Contato</a></b></li>
-                    <li class="lista"><b><i class="fas fa-plus-circle ul-link-icons"></i><a class="links-li">Mais</a></b></li>
+                    <% if @adimplente.adimplente %>
+                        <li class="lista" id="openNavUl">
+                            <i class="fas fas fa-cogs ul-link-icons"></i>
+                            <a  class="links-li" style="margin-left: -5px;">Ferramentas <i class="fas fa-sort-down icon-ul-in-ul"></i></a>
+                        
+                            <ul id="ul-in-ul">
+                                <div class="traco_menu"></div>
+                                <% if can? :read, :aviso %>
+                                    <li class="li-in-ul-sbmenu">
+                                        <p style="margin-left: 42px;">
+                                            <%= link_to intranet_avisos_path, style:"padding: 0px;color: white;text-decoration: none;font-size: 14px;"  do %> 
+                                                <span>
+                                                    <i class="fas fa-circle dot-sbmenu"></i>Avisos
+                                                </span> 
+                                            <% end %>
+                                        </p>
+                                        <% if @avisonumb && @avisonumb.size != 0  %>
+                                            <div class="notify_number_menu" style="margin-right: 29px;margin-top: -41px;padding: 8px;"><i class="fas fa-circle"></i></i></div>
+                                        <% end %>
+                                    </li>
+                                <% end %>
+                                
+                                <% if can? :read, :pergunt %>
+                                    <li class="li-in-ul-sbmenu">
+                                        <p style="margin-left: 42px;">
+                                            <%= link_to intranet_pergunts_path, style:"padding: 0px;color: white;text-decoration: none;font-size: 14px;"  do %> 
+                                                <span><i class="fas fa-circle dot-sbmenu"></i>Perguntas</span>
+                                            <% end %>
+                                        </p> 
+                                        <% if @perguntnumb && @perguntnumb.size != 0 %>
+                                            <div class="notify_number_menu" style="margin-right: 29px;margin-top: -41px;padding: 8px;"><i class="fas fa-circle"></i></i></div>
+                                        <% end %>
+                                    </li>
+                                <% end %>
+
+                                <% if can? :read, :arquivo %>
+                                    <li class="li-in-ul-sbmenu">
+                                        <p style="margin-left: 42px;">
+                                            <%= link_to intranet_arquivos_path, style:"padding: 0px;color: white;text-decoration: none;font-size: 14px;"  do %> 
+                                                <span><i class="fas fa-circle dot-sbmenu"></i>Arquivos</span>
+                                            <% end %>
+                                        </p>
+                                        <% if @arquivosnumb && @arquivosnumb.size != 0 %>
+                                            <div class="notify_number_menu" style="margin-right: 29px;margin-top: -41px;padding: 8px;"><i class="fas fa-circle"></i></i></div>
+                                        <% end %>
+                                    </li>
+                                <% end %>
+    
+                                <% if can? :read, :event %>
+                                    <li class="li-in-ul-sbmenu">
+                                        <p style="margin-left: 42px;">
+                                            <%= link_to intranet_events_path, style:"padding: 0px;color: white;text-decoration: none;font-size: 16px;"  do %> 
+                                                <span><i class="fas fa-circle dot-sbmenu"></i>Eventos</span>
+                                            <% end %>
+                                        </p>
+                                        <% if @eventnumb && @eventnumb.size != 0 %>
+                                            <div class="notify_number_menu" style="margin-right: 29px;margin-top: -41px;padding: 8px;"><i class="fas fa-circle"></i></i></div>
+                                        <% end %>
+                                    </li> 
+                                <% end %>
+                                
+                                <% if can? :read, :reunion %>
+                                    <li class="li-in-ul-sbmenu">
+                                        <p style="margin-left: 42px;">
+                                            <%= link_to intranet_reunions_path, style:"padding: 0px;color: white;text-decoration: none;font-size: 16px;"  do %> 
+                                                <span><i class="fas fa-circle dot-sbmenu"></i>Reunião</span>
+                                            <% end %>
+                                        </p>
+                                        <% if @reunionnumb && @reunionnumb.size != 0  %>
+                                            <div class="notify_number_menu" style="margin-right: 29px;margin-top: -41px;padding: 8px;"><i class="fas fa-circle"></i></i></div>
+                                        <% end %>
+                                    </li> 
+                                <% end %>
+                            </ul>
+                        </li>    
+                    <% end %> 
+                    <% if can? :read, :boleto %>
+                        <li class="lista">
+                            <b><i class="fas fa-hand-holding-usd ul-link-icons"></i><%= link_to "Financeiro", intranet_boletos_path, class:"links-li" %></b>
+                            <% if @boletosnumb && @boletosnumb.size != 0 %>
+                                <div class="notify_number_menu" style="margin-bottom: -30px;padding: 8px;"><i class="fas fa-circle"></i></i></div>
+                            <% end %>
+                        </li> 
+                    <% end %>
+
+                    <li class="lista"><b><i class="fas fa-phone-alt ul-link-icons"></i><%= link_to "Contato", usuario_contato_path, class:"links-li" %></b></li>
+                    <li class="lista"><b><i class="fas fa-plus-circle ul-link-icons"></i><%= link_to "Mais", usuario_mais_path, class:"links-li" %></b></li>
                     <li class="lista"><b><i class="fas fa-door-open ul-link-icons"></i><%= link_to 'Sair', destroy_user_session_path, method: :delete, class:"links-li"%></b></li>
-                </ul>
-                <div class="propaganda">
-                    <%= image_tag "propaganda.png" %>
-                </div>
+                </ul> 
             </div>
         </div>  
     </div>
     <div id="mySidenav-right" class="sidenav-right w3-animate-right" >
-        <span id="btn-close-right"><svg class="svg-inline--fa fa-times fa-w-11" href="javascript:void(0)" id="closebtn-right" onclick="closeNavRight()" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span>
-        <h3 class="notificacoes" style="margin-top: -40px;font-family: 'Poppins'!important;text-shadow: 1px 1px 2px #d5a487;">Notificações</h3> 
+        <span id="btn-close-right">
+        
+        <a  href="javascript:void(0)" id="closebtn-right"><i class="fas fa-times"></i></a>
+        </span>
+        <h3 class="notificacoes" style="margin-top: -46px;font-family: 'Poppins'!important;text-shadow: 1px 1px 2px #d5a487;">Notificações</h3> 
         <p class="line-up-notify"></p>
         <ul class="container-notify" style="color:white;list-style: none;"> 
-            <% if @numero_pushs %>
-                <% @avisonumb.each do |aviso| %>
-                    <%= link_to aviso, style:"padding:0px" do %>
-                        <li  style="padding-top: 15px;">
-                            <div style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
-                                <span  style="margin-top: -19px;color: #ff6000;padding: 25px;"> 
-                                    <i class="fas fa-exclamation-circle icon-notify" style="color: white;padding: 4px;"></i>
-                                </span>
-                                <p style="width: 70%;
-color: white;
-padding: 0px;margin-top: -5px;
-font-size: 11px;
-margin-left: -1px;
-border-left: 2px solid #ff6000;
-padding-left: 14px;">
-                                
-                                    <b style="font-size: 17px;">
-                                        <%= aviso.titulo%><br>
-                                    </b>
-                                    <%= aviso.descricao%>
-                                </p>
-                            </div> 
-                        </li>
+            <% if @notificacao %> 
+                <% if @boletosnumb %>
+                    <% @boletosnumb.each do |boleto| %>
+                        <%= link_to boleto, style:"padding:0px" do %>
+                            <li  style="padding-top: 15px;">
+                                <div style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
+                                    <div class="content_icon">
+                                        <span  > 
+                                            <i class="fas fa-hand-holding-usd icon-notify" style="color: white;"></i> 
+                                            <h6 class="desc_notify">Boletos</h6>
+                                        </span> 
+                                    </div>
+                                    <p class="content_notify">
+                                        <b style="font-size: 17px;">
+                                            <%= boleto.descricao%><br>
+                                        </b>
+                                        Vencimento <%= boleto.vencimento.strftime("%d/%m/%Y")%>
+                                    </p>
+                                </div> 
+                            </li>
+                        <% end %>
+                    <% end %>
+                <% end %>
+                <% if @avisonumb %>
+                    <% @avisonumb.each do |aviso| %>
+                        <%= link_to aviso, style:"padding:0px" do %>
+                            <li  style="padding-top: 15px;">
+                                <div style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
+                                    <div class="content_icon">
+                                        <span  > 
+                                            <i class="fas fa-exclamation-circle icon-notify" style="color: white;"></i> 
+                                            <h6 class="desc_notify">Aviso</h6>
+                                        </span> 
+                                    </div>
+                                    <p class="content_notify">
+                                        <b style="font-size: 17px;">
+                                            <%= aviso.titulo%><br>
+                                        </b>
+                                        <%= aviso.descricao%>
+                                    </p>
+                                </div> 
+                            </li>
+                        <% end %>
+                    <% end %>
+                <% end %>
+                <% if @eventnumb %>
+                    <% @eventnumb.each do |event| %>
+                        <%= link_to event, style:"padding:0px" do %>
+                            <li  style="padding-top: 15px;">
+                                <div style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
+                                    <div class="content_icon">
+                                        <span  > 
+                                            <i class="fas fa-calendar-day icon-notify" style="color: white;"></i> 
+                                            <h6 class="desc_notify">Evento</h6>
+                                        </span> 
+                                    </div>
+                                    <p class="content_notify">
+                                        <b style="font-size: 17px;">
+                                            <%= event.titulo%><br>
+                                        </b>
+                                        <%= event.cabecalho_1%>
+                                    </p>
+                                </div> 
+                            </li>
+                        <% end %>
+                    <% end %>
+                <% end %>
+                <% if @arquivosnumb %>
+                    <% @arquivosnumb.each do |arquivo| %>
+                        <%= link_to arquivo, style:"padding:0px" do %>
+                            <li  style="padding-top: 15px;">
+                                <div style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
+                                    <div class="content_icon">
+                                        <span  >  
+                                            <i class="fas fa-folder"  style="color: white;"></i>
+                                            <h6 class="desc_notify">Arquivos</h6>
+                                        </span> 
+                                    </div>
+                                    <p class="content_notify">
+                                        <b style="font-size: 17px;">
+                                            <%= arquivo.descricao%><br>
+                                        </b>
+                                        Para baixar o conteudo clique <b>AQUI</b>
+                                    </p>
+                                </div> 
+                            </li>
+                        <% end %>
+                    <% end %> 
+                <% end %> 
+                <% if @perguntnumb %>
+                    <% @perguntnumb.each do |pergunt| %>
+                        <%= link_to pergunt, style:"padding:0px" do %>
+                            <li  style="padding-top: 15px;">
+                                <div style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
+                                    <div class="content_icon">
+                                        <span  > 
+                                            <i class="fas fa-comments icon-notify" style="color: white;"></i>
+                                            <h6 class="desc_notify">Pergunta</h6> 
+                                        </span> 
+                                    </div>
+                                    <p class="content_notify">
+                                        <b style="font-size: 17px;">
+                                            <%= pergunt.assunto%><br>
+                                        </b>
+                                        Mensagem respondida veja a resposta <b>AQUI</b>
+                                    </p>
+                                </div> 
+                            </li>
+                        <% end %>
+                    <% end %> 
+                <% end %> 
+                <% if @reunionnumb %>
+                    <% @reunionnumb.each do |reuniao| %>
+                        <%= link_to reuniao, style:"padding:0px" do %>
+                            <li  style="padding-top: 15px;">
+                                <div style="display: flex;width: 100%;margin-bottom: 1px;height: auto;cursor: pointer;">
+                                    <div class="content_icon">
+                                        <span  > 
+                                            <i class="fas fa-users icon-notify" style="color: white;"></i> 
+                                            <h6 class="desc_notify">Reunião</h6>
+                                        </span> 
+                                    </div>
+                                    <p class="content_notify">
+                                        <b style="font-size: 17px;">
+                                            <%= reuniao.assunto%><br>
+                                        </b>
+                                        Nova reuniuão clique <b>AQUI</b> para saber como participar.
+                                    </p>
+                                </div> 
+                            </li>
+                        <% end %>
                     <% end %>
                 <% end %>
             <% end %>
         </ul>
     </div>
     <div class="top-nav" id="top-nav"> 
-        <span style="font-size:30px;cursor:pointer" onclick="openNavLeft()"><i class="fas fa-bars icon-menu-left"></i></span> 
-        <div style="width: 46px;float: right;">
-            <% if @numero_pushs %>
-                <% if @numero_pushs > 0 %>
-                    <p class="dot-2" onclick="openNavRight()"></p>
-                    <p class="dot-1" onclick="openNavRight()"></p>
-                <% end %>
+        <span style="font-size:30px;cursor:pointer" id="openNavLeft"><i class="fas fa-ellipsis-v icon-menu-left"></i></span> 
+        <div style="width: 46px;float: right;" id="openNavRight">
+            <% if @notificacao %> 
+                <p class="dot-2" ></p>
+                <p class="dot-1" ></p> 
             <% end %>
-            <span style="font-size:30px;cursor:pointer" onclick="openNavRight()"><i class="fas fa-bell icon-menu-right"></i></span>
+            <span style="font-size:30px;cursor:pointer" id="openNavRight"><i class="fas fa-bell icon-menu-right"></i></span>
         </div>
-        <h5 style="color: white;font-size: larger;padding-top: 12px;width: 213px;margin: auto;"><b>SINOREDI-CE</b> | Intranet</h5>
+        <h5 style="color: white;font-size: larger;padding-top: 12px;width: 213px;margin: auto;"><%= image_tag 'logo', style:"width: 30px;margin-right: 10px;"%><b>Anoreg-CE</b></h5>
     </div>
 </div>
-<script>
-$count = 0
-function openNavLeft() { 
-    document.getElementById("mySidenav-left").style.width    = "314px";  
-    document.getElementById("minimize").style.display   = "block";  
-}
-
-function closeNavLeft() {   
-    document.getElementById("mySidenav-left").style.width    = "0"; 
-    document.getElementById("minimize").style.display   = "none";  
-}
-function openNavRight() {  
-    document.getElementById("mySidenav-right").style.width   = "100%"; 
-    document.getElementById("mySidenav-right").style.display   = "block";  
-    document.getElementById("minimize").style.display   = "block";  
-}
-
-function closeNavRight() {   
-    document.getElementById("mySidenav-right").style.width   = "0%"; 
-    document.getElementById("minimize").style.display   = "none";
-}
-function openNavUl(a) {   
-    document.getElementById("ul-in-ul").style.display   = "block";
-    $count += a; 
-    if($count == 2){ 
-        document.getElementById("ul-in-ul").style.display   = "none"; 
-        $count = 0;
-    }     
-
-}
- 
-</script> 
+<div class="central_msgs">
+    <% flash.each do |name, msg| %> 
+        <% name = 'warning' if name == 'alert'%>
+        <% name = 'info' if name == 'notice'%>
+        <div data-notify="container" class="col-11 col-sm-11 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="transition: all 0.5s ease-in-out 0s;width: 92%;margin: auto;z-index: 5;"> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;"></button>
+            <span data-notify="icon" class="nc-icon nc-app"></span> 
+            <% if name == 'info' %>   
+                <span data-notify="title">Informação:</span>
+            <% elsif name == 'success'%>
+                <span data-notify="title">Sucesso:</span> 
+            <% elsif name == 'danger'%>
+                <span data-notify="title">Perigo:</span>  
+            <% elsif name == 'warning'%> 
+                <span data-notify="title">Aviso:</span>
+            <% end %>
+            <span data-notify="message"><%=sanitize(msg)%></span>
+            <a href="#" target="_blank" data-notify="url"></a>
+        </div> 
+    <% end %>
+</div>   
 
 <div class="footer">  
-    <%= link_to usuario_home_path, class:"links-footer" do %>
+    <%= link_to intranet_boletos_path, class:"links-footer" do %>
+        <% if @boletosnumb.size != 0 %>
+            <div class="notify_number" style="margin-bottom: -30px;padding: 8px;"><i class="fas fa-circle"></i></i></div>
+        <% end %>
         <div class="icons-menu-footer" >   
-            <i class="fas fa-home footer-btn"></i><br>
+            <i class="fas fa-hand-holding-usd footer-btn"></i><br>
+            <span style="font-size: 14px;"><b>BOLETOS</b></span> 
+        </div>
+    <% end %>  
+    <%= link_to usuario_home_path, class:"links-footer" do %>  
+        <% if @notificacao %>
+            <div class="notify_number" style="margin-bottom: -30px;padding: 8px;"><i class="fas fa-circle"></i></i></div>
+        <% end %>
+        <div class="icons-menu-footer" >    
+            <i class="fas fa-home  footer-btn"></i><br>
             <span style="font-size: 14px;"><b>HOME</b></span> 
         </div>
-    <% end %>
-    <div class="icons-menu-footer">  
-        <i class="fas fa-newspaper footer-btn"></i><br>
-        <span style="font-size: 14px;"><b>NOVIDADES</b></span>
-    </div>
-    <div class="icons-menu-footer">  
-        <i class="fas fa-comments footer-btn"></i><br>
-        <span style="font-size: 14px;"><b>CHAT</b></span>
-    </div>
+    <% end %> 
     <%= link_to edit_user_registration_path, class:"links-footer" do %>
         <div class="icons-menu-footer" >   
             <i class="fas fa-user-circle footer-btn"></i><br>
             <span style="font-size: 14px;"><b>CONTA</b></span> 
         </div>
     <% end %>
-</div>
-<div class="container">
-    <div class="central_msgs">
-        <% flash.each do |name, msg| %> 
-            <% name = 'warning' if name == 'alert'%>
-            <% name = 'info' if name == 'notice'%>
-            <div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="transition: all 0.5s ease-in-out 0s;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <span data-notify="icon" class="nc-icon nc-app"></span> 
-                <% if name == 'info' %>   
-                    <span data-notify="title">Informação:</span>
-                <% elsif name == 'success'%>
-                    <span data-notify="title">Sucesso:</span> 
-                <% elsif name == 'danger'%>
-                    <span data-notify="title">Perigo:</span>  
-                <% elsif name == 'warning'%> 
-                    <span data-notify="title">Aviso:</span>
-                <% end %>
-                <span data-notify="message"><%=sanitize(msg)%></span>
-                <a href="#" target="_blank" data-notify="url"></a>
-            </div> 
-        <% end %>
-    </div>
-</div>
+</div>  
+<style>
+#mySidenav-left::-webkit-scrollbar { 
+    width: 3px; 
+}
+
+/* Track */
+#mySidenav-left::-webkit-scrollbar-track {
+    background: #134a88;
+}
+
+/* Handle */
+#mySidenav-left::-webkit-scrollbar-thumb { 
+  background: #cbcbcb;
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+#mySidenav-left::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.content_icon{    
+    text-align: center;
+    width: 79px;
+    height: 55px;
+    margin-top: -11px;
+    align-self: center;
+}
+.content_notify{
+    width: 70%;
+    color: white;
+    padding: 0px; 
+    font-size: 11px;
+    margin-left: -1px;
+    border-left: 2px solid #05274d;
+    padding-left: 14px;
+}
+
+.notify_number{
+    position: relative;
+    margin-left: 51%;
+    max-width: 23px;
+    margin-bottom: -16px;
+    color: #5ace0a;
+    font-weight: bold;
+    font-size: 9px;
+    border-radius: 9px;
+    padding: 1px;
+}
+</style>

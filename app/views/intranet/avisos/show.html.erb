@@ -1,8 +1,11 @@
-<div class="container">
-	<h4>Dados do Aviso</h4>
-	<hr>
+<div class="container" style="margin-bottom: 169px;">
+	<div class="page-header">
+		<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Visualizar Aviso</h1>      
+	</div>
+	<p>Visualização do aviso n°: <%= @intranet_aviso.id %>.</p>
 	<div class="field" >
-		<label>Titulo</label><br />
+		<label style="width: 100%;">Titulo
+		<h6 style="float:right;margin: 0px">Mensagem ativa? <%= check_box_tag 'Ativo','yes',@intranet_aviso.ativo, onclick:"return false;"%></h6></label><br />
 		<div class="disabled">
 		<input placeholder="<%= @intranet_aviso.titulo%>" class='form-control'><br />
 		</div>
@@ -14,30 +17,31 @@
 		</div>
 	</div>    
 	<div class="field" >
-		<label>Aviso</label><br />
+		<label style="display: block;margin-bottom: -15px;">
+			Aviso  
+		</label>
+		<br />
 		<div class="disabled" id="inputavs"> 
-		<%= @intranet_aviso.aviso%>
+			<%= @intranet_aviso.aviso%>
 		</div>
 	</div> <br>
-	<div class="field" >
-		<label>Atividades</label><br />
-		<div class="disabled"> 
-		<% if @intranet_aviso.intranet_atividade_id %>
-			<% @intranet_aviso.intranet_atividade_id.each do |atv| %>
-			<input placeholder="<%= @atividades.try(:find, atv).descricao%>" class='form-control'><br />
+	<% if user_signed_in? == false %>
+		<div class="field" >
+			<label>Atividades</label><br />
+			<% if @intranet_aviso.intranet_atividade_id %> 
+				<% @intranet_aviso.intranet_atividade_id.each do |atv| %>
+					<div class="disabled" style="display:flex;padding-bottom: 10px;">
+						<i class="fas fa-location-arrow icons"></i> <input placeholder="<%= @atividades.try(:find, atv).descricao%>" class='form-control'><br />
+					</div>
+				<% end %>
 			<% end %>
-		<% end %>
-		</div>
-	</div>   
-	<p>
-		<strong>Ativo:</strong> 
-		<%= check_box_tag 'Ativo','yes',@intranet_aviso.ativo, onclick:"return false;" %>
-	</p>
+		</div>   
+	<% end %> 
 	<div class="field" >
 		<label>Documentos</label><br /> 
 		<% if @intranet_aviso.docs %>
 			<% @intranet_aviso.docs.each do |doc| %> 
-				<div style="text-align:end;height: 48px;">
+				<div style="text-align:end;height: 48px;align-items: center;display: flex;">
 					<span style="    float: left;font-weight: bold;width: 335px;text-align: left;"><%= doc.filename%></span> 
 					<span><%= link_to "Download", rails_blob_url(doc, disposition: 'inline'), target:'blank',	class:"btn btn-info" ,style:"height: 20px;font-size: 13px;padding-top: 0px;"%></span>
 					<% if user_signed_in? == false%>
@@ -45,9 +49,11 @@
 							data: { confirm: 'Você tem certeza disso?' },	class:"btn btn-danger" ,style:"height: 20px;font-size: 13px;padding-top: 0px;"%>
 					<% end %> 
 				</div>
+				<br>
 			<% end %>
 		<% end %>
-	</div><br>
+	</div>
+	<br>
 	<% if user_signed_in? == false%> 
 		<%= link_to 'Editar', edit_intranet_aviso_path(@intranet_aviso),class:"btn btn-primary", style:"float:right" %> 
 	<% end %>
@@ -57,10 +63,18 @@
 </div>
 <br>
 <style>
+.icons{
+	padding: 11px;
+    color: #204979;
+    padding-right: 14px;
+}
 .disabled { 
 	pointer-events: none; 
 	-webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; 
 	user-select: none;
+}
+.form-control{ 
+	background: #f8f9fa !important; 
 }
 .disabled *:focus { outline: 0; }
 #inputavs{
@@ -71,7 +85,7 @@
 	font-weight: 400;
 	line-height: 1.5;
 	color: #495057;
-	background-color: #fff;
+	background: #f8f9fa !important; 
 	background-clip: padding-box;
 	border: 1px solid #ced4da;
 	border-radius: 0.25rem;
@@ -81,8 +95,7 @@
 </style>
 <% if user_signed_in?%> 
 	<style>
-		.container{
-			margin-top: -47px;
+		.container{ 
 			padding-bottom: 103px;
 		}
 	</style>

@@ -1,59 +1,151 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Intranet Associados</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Cidade</th>
-      <th>Matricula</th>
-      <th>Data nascimento</th>
-      <th>Funcao</th>
-      <th>Rg</th>
-      <th>Sexo</th>
-      <th>Ativo</th>
-      <th>Cep</th>
-      <th>Logradouro</th>
-      <th>Complemento</th>
-      <th>Bairro</th>
-      <th>Telefone 1</th>
-      <th>Telefone 2</th>
-      <th>Celular</th>
-      <th>Whatsapp</th>
-      <th>Email</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @intranet_associados.each do |intranet_associado| %>
-      <tr>
-        <td><%= intranet_associado.user_id %></td>
-        <td><%= intranet_associado.cidade_id %></td>
-        <td><%= intranet_associado.matricula %></td>
-        <td><%= intranet_associado.data_nascimento %></td>
-        <td><%= intranet_associado.funcao %></td>
-        <td><%= intranet_associado.rg %></td>
-        <td><%= intranet_associado.sexo %></td>
-        <td><%= intranet_associado.ativo %></td>
-        <td><%= intranet_associado.cep %></td>
-        <td><%= intranet_associado.logradouro %></td>
-        <td><%= intranet_associado.complemento %></td>
-        <td><%= intranet_associado.bairro %></td>
-        <td><%= intranet_associado.telefone_1 %></td>
-        <td><%= intranet_associado.telefone_2 %></td>
-        <td><%= intranet_associado.celular %></td>
-        <td><%= intranet_associado.whatsapp %></td>
-        <td><%= intranet_associado.email %></td>
-        <td><%= link_to 'Show', intranet_associado %></td>
-        <td><%= link_to 'Edit', edit_intranet_associado_path(intranet_associado) %></td>
-        <td><%= link_to 'Destroy', intranet_associado, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<%= javascript_pack_tag "associados_index", "data-turbolinks-track" => true  %> 
+<div class="container" style="margin-bottom: 200px;">  
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Associados</h1>      
+  </div>
+  <p>Gerenciar associados do sistema.</p>  
+  <%= form_with(url:'/intranet/associados',method: :get, id:"form_assoc")  do |f| %> 
+    <%= f.select "intranet_cartorio_id",options_from_collection_for_select(@intranet_cartorios_consult, "id", "nome",params[:intranet_cartorio_id]), {:prompt => "Escolha o cartório"},{style:"margin-right:1%;"}%> 
+    <%= f.select "cidade",options_from_collection_for_select(@intranet_cidades_consult, "id", "municipio",params[:cidade]), {:prompt => "Escolha a cidade"},{style:"margin-right:1%;"}%>   
+    <%= select_tag(:acesso, options_for_select([["Liberado",0],["Bloqueado",1]],params[:acesso]), class:"form-control",prompt:"Status do associado",style:"margin-right:1%;") %>
+    <%= select_tag(:situacao, options_for_select([["Adiplente",true],["Inadimplente",false]],params[:situacao]), class:"form-control",prompt:"Situação do associado",style:"margin-right:1%;") %>
+    <%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
+    <%= link_to "Limpar", intranet_associados_path , style:"width: 21%;",class:"btn btn-link" %>
+  <% end %>
+  <div class="card " style="border: 0px solid rgba(0, 0, 0, 0.125);">
+    <div class="card-body shadow p-3 mb-5 bg-white rounded" style="width: 100%;height: 572px;overflow-y: scroll;">
+      <% @cidades.each do |cidade|  %>  
+        <div>  
+          <% if @intranet_associados.where("intranet_cartorio  && ?","{#{@intranet_cartorios.where(intranet_cidade_id: cidade.id).take.id}}").size > 0 %>
+            <a class="btn btn-link" data-bs-toggle="collapse" href="#multiCollapseExample<%= cidade.id %>" role="button" aria-expanded="false" aria-controls="multiCollapseExample<%= cidade.id %>">
+              <i class="far fa-plus-square" style="margin-right:10px"></i>
+              <%= cidade.try(:municipio)%>
+            </a>
+            <div class="row">
+              <div class="col">
+                <div class="collapse multi-collapse show" id="multiCollapseExample<%= cidade.id %>">
+                  <div class="card card-body" style="width:100%;min-width:1051px">
+                    <table class="table table-hover" style="overflow-x: auto;">
+                      <thead>
+                        <tr> 
+                          <th style="width: 300px;">Nome</th> 
+                          <th style="width: 330px;">Serventia</th> 
+                          <th style="width: 165px;">Situação</th>   
+                          <th colspan="3" style="width:129px;text-align: center;">Ações</th>
+                          <th style="width: 85px;">Acesso</th>
+                        </tr>
+                      </thead> 
+                      <tbody>  
+                        <% @intranet_associados.where("intranet_cartorio  && ?","{#{@intranet_cartorios.where(intranet_cidade_id: cidade.id).take.id}}").each do |intranet_associado| %>
+                          <tr id="<%= intranet_associado.id %>">
+                            <td style="width: 300px;"><%= intranet_associado.nome %></td> 
+                            <td style="width: 330px;"><%= @intranet_cartorios.find_by_id(intranet_associado.intranet_cartorio).try(:nome) %></td>  
+                            <td style="width: 85px;text-transform: capitalize;"><%=@intranet_cartorios.find_by_id(intranet_associado.intranet_cartorio).try(:adimplente) %></td>  
+                            <td>
+                              <%= link_to intranet_associado, class:"btni" do %>
+                                <i class="fas fa-eye" style="padding:0px;"></i>
+                              <% end %>
+                            </td>
+                            
+                            <td>
+                              <%= link_to edit_intranet_associado_path(intranet_associado), class:"btni" do %>
+                                <i class="fas fa-edit" style="padding-left: 3px;"></i>
+                              <% end %>
+                            </td>
+                            <td style="text-align: center;"> 
+                              <a  class="btni" data-bs-toggle="modal" data-bs-target="#exampleModal<%= intranet_associado.id %>"><i class="fas fa-trash-alt" style="padding:0px;"></i></a>
+                              
+                              <div class="modal fade" id="exampleModal<%= intranet_associado.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Deletar Associado</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Deseja deletar associado n°: <%= intranet_associado.nome %>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" focus>cancelar</button> 
+                                    <%= link_to intranet_associado, method: :delete do %> 
+                                      <button type="button" class="btn btn-danger">Excluir</button>
+                                    <% end %>
+                                  </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td style="text-align:center;color: #0b386b;font-size: 20px;">
+                              <%= link_to intranet_path(intranet_associado) do%>
+                                <% if intranet_associado.ativo %> 
+                                  <a  class="btni" data-bs-toggle="modal" data-bs-target="#exampleModalStatus<%= intranet_associado.id %>"><i class="fas fa-toggle-on" style="padding:0px;"></i></a>
+                                <% else %>  
+                                  <a  class="btni" data-bs-toggle="modal" data-bs-target="#exampleModalStatus<%= intranet_associado.id %>"><i class="fas fa-toggle-off" style="padding:0px;"></i></a>
+                                <% end %>
+                              <% end %>
+                            </td>
+                            <div class="modal fade" id="exampleModalStatus<%= intranet_associado.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalStatusLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalStatusLabel">Alterar acesso</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <% if intranet_associado.ativo %> 
+                                      Deseja remover acesso de <%= intranet_associado.nome %>?
+                                    <% else %>  
+                                      Deseja liberar acesso de <%= intranet_associado.nome %>?
+                                    <% end %>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" focus>cancelar</button> 
+                                    <%= link_to intranet_path(intranet_associado) do %> 
+                                      <button type="button" class="btn btn-primary">Alterar</button>
+                                    <% end %>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </tr> 
+                        <% end %> 
+                      </tbody> 
+                    </table>  
+                  </div>
+                </div>
+              </div>  
+            </div>  
+          <% end %> 
+        </div> 
+      <% end %>   
+    </div>
+  </div>   
+  <p style="text-align: center;padding: 1%;">Consulta obteve 
+    <% if @intranet_associados.size > 0 && @intranet_cartorios_aux.size > 0 %>
+      <%= @intranet_cartorios_aux.pluck(:intranet_associado_id).size %>  
+    <% else %> 
+      0
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Intranet Associado', new_intranet_associado_path %>
+    resultados.
+  <p>  
+  <% if @intranet_associados.size > 0 && @intranet_cartorios_aux.size > 0 %> 
+    <%= link_to intranet_associados_relatorio_simples_path(ref_ids:  @intranet_cartorios_aux.pluck(:intranet_associado_id),filtro: @filtro),action: :relatorio,class:"btn btn-success", target:"blank" do %>
+      <i class="far fa-file-pdf icon-aux-label"></i> Relatorio 
+    <% end %> 
+  <% end %>    
+  <%= link_to new_registration_path(@user_new) ,style:"float:right", class:"btn btn-primary" do %>
+    <i style="margin-right: 9px;" class="fas fa-plus icon-aux-label"></i>Associado
+  <% end %> 
+  <br>
+  <%= paginate @cidades%> 
+  <br>
+</div> 
+<style>
+  #form_assoc{
+    display: flex;
+    margin-bottom: 1%;
+  }
+  .icon-aux-label{
+    margin-right: 5px;
+  }
+</style>

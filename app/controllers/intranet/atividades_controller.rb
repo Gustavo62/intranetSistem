@@ -1,8 +1,10 @@
 class Intranet::AtividadesController < ApplicationController
+	before_action :valida_acesso
   before_action :set_intranet_atividade, only: %i[ show edit update destroy ]
+  authorize_resource :class => false
   # GET /intranet/atividades or /intranet/atividades.json
   def index
-    @intranet_atividades = Intranet::Atividade.all
+    @intranet_atividades = Intranet::Atividade.consulta_por_status(params[:status])
   end
 
   # GET /intranet/atividades/1 or /intranet/atividades/1.json
@@ -20,11 +22,11 @@ class Intranet::AtividadesController < ApplicationController
 
   # POST /intranet/atividades or /intranet/atividades.json
   def create
-    @intranet_atividade = Intranet::Atividade.new(intranet_atividade_params)
-
+    @intranet_atividade = Intranet::Atividade.new(intranet_atividade_params) 
+    
     respond_to do |format|
       if @intranet_atividade.save
-        format.html { redirect_to @intranet_atividade, notice: "Atividade was successfully created." }
+        format.html { redirect_to @intranet_atividade, notice: "Atividade criada com sucesso." }
         format.json { render :show, status: :created, location: @intranet_atividade }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -37,7 +39,7 @@ class Intranet::AtividadesController < ApplicationController
   def update
     respond_to do |format|
       if @intranet_atividade.update(intranet_atividade_params)
-        format.html { redirect_to @intranet_atividade, notice: "Atividade was successfully updated." }
+        format.html { redirect_to @intranet_atividade, notice: "Atividade foi editada com sucesso." }
         format.json { render :show, status: :ok, location: @intranet_atividade }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -50,7 +52,7 @@ class Intranet::AtividadesController < ApplicationController
   def destroy
     @intranet_atividade.destroy
     respond_to do |format|
-      format.html { redirect_to intranet_atividades_url, notice: "Atividade was successfully destroyed." }
+      format.html { redirect_to intranet_atividades_url, notice: "Atividade foi excluida com sucesso." }
       format.json { head :no_content }
     end
   end

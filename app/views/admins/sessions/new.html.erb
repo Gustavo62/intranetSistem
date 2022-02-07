@@ -1,13 +1,10 @@
-
-<%= javascript_pack_tag "validacao", "data-turbolinks-track" => true %>
-
-<div class="container" style="padding-top:15%">
+<div class="container background_principal">
 	<h2></h2> 
 	<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 		<div class="mb-3">
 			<label class="form-label">Numero do CPF</label>
 			<%= icon("person", class: "icone-login-user") %> 
-			<%= f.text_field :cpf, autofocus: true,class:"form-control", id:"user_cpf", type:"text", maxlength:"14", style:"padding: 0.375rem 1.75rem;", placeholder:"Cpf"%>
+			<%= f.text_field :cpf, autofocus: true,class:"form-control", id:"user_cpf", type:"text", maxlength:"14", style:"padding: 0.375rem 1.75rem;", placeholder:"CPF do operador"%>
 			<div id="cpfHelp" class="form-text">Informe o numero de <b>CPF</b> utilizado no cadastro</div>
 		</div>  
 		<div class="mb-3">
@@ -15,20 +12,19 @@
 			<%= icon("key", class: "icone-login-key") %>
 			<%= f.password_field :password, autocomplete: false,class:"form-control", style:"padding: 0.375rem 1.75rem;",placeholder:"Senha" %>
 		</div>  
-		<%= f.submit "Entrar",class:"btn btn-primary", style:"border: 1px;
+		<%= f.submit "Entrar como operador",class:"btn btn-primary", style:"border: 1px;
 background: #ff8b45;
 font-weight: bold; 
 float: right;
-width: 100%;" %> 
-	<% end %> 
+width: 100%;
+margin-bottom: 7%;" %> 
 	<%= render "admins/shared/links" %>
+	<% end %> 
 	<% flash.each do |name, msg| %> 
 		<% name = 'warning' if name == 'alert'%>
 		<% name = 'info' if name == 'notice'%>
-		<div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 0;bottom: 15px;right: 16px;">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
-			<span aria-hidden="true">&times;</span>
-		</button>
+		<div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 5;bottom: 15px;right: 16px;">
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"  style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;"><span aria-hidden="true"><i class="fas fa-times"></i></button>
 		<span data-notify="icon" class="nc-icon nc-app"></span> 
 		<% if name == 'info' %>   
 			<span data-notify="title">Informação:</span>
@@ -45,6 +41,12 @@ width: 100%;" %>
 	<% end %>
 </div>
 <style> 
+label{
+	display: inline-block;
+    font-weight: bold;
+    margin-bottom: 0rem;
+    color: #0b386b;
+}
 #user_serventia{
 	width: 100%;
 }
@@ -52,7 +54,7 @@ width: 100%;" %>
   position:absolute;
 }
 .icone-login-key { 
-  color: rgb(255, 96, 0);
+  color: rgb(4 39 78);
   margin-top: 43px;
   margin-left: -44px;
   z-index: 9;
@@ -61,9 +63,21 @@ width: 100%;" %>
   position:absolute;
 }
 .icone-login-user { 
-  color: rgb(255, 96, 0);
-  margin-top: 43px;
-  margin-left: -115px;
-  z-index: 9;
+  	color: rgb(4 39 78);
+	margin-top: 43px;
+	margin-left: -119px;
+  	z-index: 9;
+} 
+#new_admin{
+	padding:14px;
+}
+
+.background_principal{
+	background-position: top;
+    background-position-y: 51px;
+    padding-top: 166px; 
+    background-size: 92px;
+    background-image: url(/assets/logo.png);
+    background-repeat: no-repeat;
 }
 </style> 

@@ -1,6 +1,7 @@
-<h1>Editing Intranet Contribuicao</h1>
-
-<%= render 'form', intranet_contribuicao: @intranet_contribuicao %>
-
-<%= link_to 'Show', @intranet_contribuicao %> |
-<%= link_to 'Back', intranet_contribuicaos_path %>
+<div class="container" style="margin-bottom: 7%;">
+    <div class="page-header">
+		<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Editar contribuição</h1>      
+	</div>
+	<p>Edição do contribuição n°: <%= @intranet_contribuicao.id %>.</p>
+    <%= render 'form', intranet_contribuicao: @intranet_contribuicao %>  
+</div>

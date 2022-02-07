@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  intranet_regiao: one
+  intranet_entrancium: one
+  intranet_contribuicao: one
+  intranet_atividade: one
+  intranet_cartorio: one
+  layout: MyString
+  assunto: MyString
+  destinatario: MyString
+
+two:
+  intranet_regiao: two
+  intranet_entrancium: two
+  intranet_contribuicao: two
+  intranet_atividade: two
+  intranet_cartorio: two
+  layout: MyString
+  assunto: MyString
+  destinatario: MyString

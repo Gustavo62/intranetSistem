@@ -1,0 +1,52 @@
+<%= form_with(model: intranet_chamado) do |form| %>
+  <% if intranet_chamado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(intranet_chamado.errors.count, "error") %> prohibited this intranet_chamado from being saved:</h2>
+
+      <ul>
+        <% intranet_chamado.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :assunto %>
+    <%= form.text_field :assunto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :intranet_associado_id %>
+    <%= form.text_field :intranet_associado_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mensagem_pergunta %>
+    <%= form.text_field :mensagem_pergunta %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mensagem_resposta %>
+    <%= form.text_field :mensagem_resposta %>
+  </div>
+
+  <div class="field">
+    <%= form.label :profissional_id %>
+    <%= form.number_field :profissional_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :visualizada %>
+    <%= form.check_box :visualizada %>
+  </div>
+
+  <div class="field">
+    <%= form.label :visualizada_at %>
+    <%= form.datetime_select :visualizada_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

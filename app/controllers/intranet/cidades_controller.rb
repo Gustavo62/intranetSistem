@@ -1,4 +1,6 @@
 class Intranet::CidadesController < ApplicationController
+	before_action :valida_acesso 
+	authorize_resource :class => false
   before_action :set_intranet_cidade, only: %i[ show edit update destroy ]
   # GET /intranet/cidades or /intranet/cidades.json
   def index
@@ -24,7 +26,7 @@ class Intranet::CidadesController < ApplicationController
 
     respond_to do |format|
       if @intranet_cidade.save
-        format.html { redirect_to @intranet_cidade, notice: "Cidade was successfully created." }
+        format.html { redirect_to @intranet_cidade}
         format.json { render :show, status: :created, location: @intranet_cidade }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -37,7 +39,7 @@ class Intranet::CidadesController < ApplicationController
   def update
     respond_to do |format|
       if @intranet_cidade.update(intranet_cidade_params)
-        format.html { redirect_to @intranet_cidade, notice: "Cidade was successfully updated." }
+        format.html { redirect_to @intranet_cidade }
         format.json { render :show, status: :ok, location: @intranet_cidade }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -50,7 +52,7 @@ class Intranet::CidadesController < ApplicationController
   def destroy
     @intranet_cidade.destroy
     respond_to do |format|
-      format.html { redirect_to intranet_cidades_url, notice: "Cidade was successfully destroyed." }
+      format.html { redirect_to intranet_cidades_url }
       format.json { head :no_content }
     end
   end

@@ -1,69 +1,125 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Intranet financeiro tipos cobranca:</strong>
-  <%= @intranet_boleto.intranet_financeiro_tipos_cobranca_id %>
-</p>
-
-<p>
-  <strong>Intranet financeiro portadores:</strong>
-  <%= @intranet_boleto.intranet_financeiro_portadores %>
-</p>
-
-<p>
-  <strong>Intranet regiao:</strong>
-  <%= @intranet_boleto.intranet_regiao_id %>
-</p>
-
-<p>
-  <strong>Intranet entrancias:</strong>
-  <%= @intranet_boleto.intranet_entrancias_id %>
-</p>
-
-<p>
-  <strong>Intranet contribuicao:</strong>
-  <%= @intranet_boleto.intranet_contribuicao_id %>
-</p>
-
-<p>
-  <strong>Intranet atividade:</strong>
-  <%= @intranet_boleto.intranet_atividade %>
-</p>
-
-<p>
-  <strong>Intranet cartorio:</strong>
-  <%= @intranet_boleto.intranet_cartorio_id %>
-</p>
-
-<p>
-  <strong>Valor:</strong>
-  <%= @intranet_boleto.valor %>
-</p>
-
-<p>
-  <strong>Vencimento:</strong>
-  <%= @intranet_boleto.vencimento %>
-</p>
-
-<p>
-  <strong>Descricao:</strong>
-  <%= @intranet_boleto.descricao %>
-</p>
-
-<p>
-  <strong>Observacao email:</strong>
-  <%= @intranet_boleto.observacao_email %>
-</p>
-
-<p>
-  <strong>Forma cobranca:</strong>
-  <%= @intranet_boleto.forma_cobranca %>
-</p>
-
-<p>
-  <strong>Apenas titular:</strong>
-  <%= @intranet_boleto.apenas_titular %>
-</p>
-
-<%= link_to 'Edit', edit_intranet_boleto_path(@intranet_boleto) %> |
-<%= link_to 'Back', intranet_boletos_path %>
+<script src="https://unpkg.com/imask"></script> 
+<div class="container" style="margin-bottom: 104px;">   
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Cobrança</h1>      
+  </div>
+  <p>Visualizar Cobrança Nº <b><%= @intranet_boleto.id%></b>.</p>  
+  <ul class="nav nav-tabs" style="margin-bottom: 11px;">
+    <li class="nav-item">
+      <a class="nav-link active" id="btn_menu_1" type="button" >Detalhes da cobrança</a>
+    </li> 
+    <div style="margin-left: auto;">
+      <%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+      <% if user_signed_in? == false%> 
+        <%= link_to 'Editar', edit_intranet_boleto_path(@intranet_boleto),class:"btn btn-primary" %> 
+        <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= @intranet_boleto.id %>">Deletar</i></a>
+      <% end %>
+    </div>
+    
+    <% if user_signed_in? == false%> 
+      <div class="modal fade" id="exampleModal<%= @intranet_boleto.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Deletar Cobrança</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+            </div>
+            <div class="modal-body">
+                Deseja deletar Cobrança <%= @intranet_boleto.descricao %>, ligada a(o) usuário <%= @user.nome %>? <br> Sua ação não poderá ser desfeita, ao clicar em <b>EXCLUIR</b> será deletado a Cobrança.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
+                <%= link_to intranet_boleto_path, method: :delete do %> 
+                    <button type="button" class="btn btn-danger">Excluir</button>
+                <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </ul>
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Nome
+        <span style="float: right;color: #d5d5d5;">
+          Status: Boleto <%= @intranet_boleto.status.downcase %>
+        </span>
+      </label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @user.nome %>">
+      </div>
+    </div>
+  </div>
+  <div class="form-group row" style="display:flex"> 
+    <div style="width:70%">
+      <label  class="col-sm-2 col-form-label" >Descrição</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_boleto.descricao %>">
+      </div>
+    </div>
+    <div style="width:30%">
+      <label  class="col-sm-2 col-form-label" >Valor</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_boleto.valor %>">
+      </div>
+    </div>
+  </div>
+  <div class="form-group row" style="display:flex">
+    <div style="width:33%">
+      <label  class="col-sm-2 col-form-label" style="max-width: max-content;">Nosso Numero</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_boleto.nosso_numero %>">
+      </div>
+    </div>
+    <div style="width:33%;margin: auto;">
+      <label class="col-sm-2 col-form-label" >tipo</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show" value="<%= @intranet_boleto.metodo %>">
+      </div>
+    </div> 
+    <div style="width:33%">
+      <label class="col-sm-2 col-form-label" >Vencimento</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show" value="<%= @intranet_boleto.vencimento.strftime("%d/%m/%Y") %>">
+      </div>
+    </div> 
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label class="col-sm-2 col-form-label" style="max-width: max-content;">Codigo de Barras</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input id="codigoDeBarras" type="text" readonly class="form-control-plaintext input-show" value="<%= @intranet_boleto.codigo_de_barras %>">
+      </div>
+    </div>
+  </div>
+  <br> 
+  <div class="form-group row" style="display:flex">  
+    <div style="width: 100%;padding-right: 15px;padding-left: 15px;">
+      <%= link_to 'Baixar Boleto', @intranet_boleto.url , class:"btn btn-info",style:"float:left",target: '_blank'%>  
+    </div>
+  </div>
+</div> 
+ 
+<style>
+  .input-show{
+    background: #f8f9fa;
+    border-radius: 2px;
+    border: 1px solid #ededed;
+    padding-left: 12px;
+  }
+  
+  .correct-md-10{
+    max-width: 100%;
+    width: 100%;
+  }
+  .col-sm-2{
+    max-width: 100%;
+    width: 100%;
+  } 	
+</style>
+<script>
+IMask(
+  document.getElementById("codigoDeBarras"),
+  {mask:'00000.00000 00000.000000 00000.000000 0 00000000000000'}
+);  
+</script> 

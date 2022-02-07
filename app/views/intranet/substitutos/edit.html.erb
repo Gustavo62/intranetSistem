@@ -1,6 +1,9 @@
-<h1>Editing Intranet Substituto</h1>
-
-<%= render 'form', intranet_substituto: @intranet_substituto %>
-
-<%= link_to 'Show', @intranet_substituto %> |
-<%= link_to 'Back', intranet_substitutos_path %>
+<%= javascript_pack_tag "substituto_edit" %> 
+<div class="container" style="margin-bottom: 104px;">  
+    <div class="page-header">
+        <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Substituto</h1>      
+    </div>
+    <p>Editar substituto N°: <%= @intranet_substituto.id %>.</p>  
+    <input type="hidden" value="<%= @intranet_substituto.id %>" id="id_sub" >
+    <%= render 'form', intranet_substituto: @intranet_substituto %> 
+</div> 

@@ -4,7 +4,7 @@ class CreateIntranetAvisos < ActiveRecord::Migration[6.1]
       t.string      :titulo
       t.string      :descricao
       t.references  :intranet_atividade, :integer,array: true
-      t.boolean     :ativo, default: false
+      t.boolean     :ativo, default: true
       t.integer     :recipient_id
       t.datetime    :read_at
       t.boolean     :master, default: false

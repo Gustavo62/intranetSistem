@@ -16,8 +16,11 @@
 /* app/assets/stylesheets/application.css */
 
 /* import the bootstrap library */ 
-@import "bootstrap";    
+@import "bootstrap";     
 @import "trix/dist/trix"; 
+body{
+  --color-principal: #0b386b;
+}
 .trix-content{ 
     text-align: justify;
   }
@@ -26,4 +29,29 @@
 }
 .trix-button .trix-button--icon .trix-button--icon-attach{ 
   display:none;
+}
+.btn-primary{
+    background-color: var(--color-principal) !important;
+    border-color: var(--color-principal) !important;
+}
+.cart{
+  width: 316px;
+  margin-left: -10px;
+  background: var(--color-principal);
+  font-size: 15px;
+  margin-top: -38px;
+  text-align: center;
+  float: none;
+  margin-bottom: 13px;
+  border-bottom: 1px solid var(--color-principal)75;
+  letter-spacing: 2px;
+  font-weight: bold;
+  color: #fff584;
+  text-shadow: 1px 1px 2px #000000;
+  height: 32px;
+}  
+
+.correct-md-10{
+  max-width: 100% !important;
+  width: 100% !important;
 }

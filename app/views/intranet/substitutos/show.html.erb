@@ -1,49 +1,109 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Dt inicio:</strong>
-  <%= @intranet_substituto.dt_inicio %>
-</p>
-
-<p>
-  <strong>Dt final:</strong>
-  <%= @intranet_substituto.dt_final %>
-</p>
-
-<p>
-  <strong>Cpf:</strong>
-  <%= @intranet_substituto.cpf %>
-</p>
-
-<p>
-  <strong>Rg:</strong>
-  <%= @intranet_substituto.rg %>
-</p>
-
-<p>
-  <strong>Nome:</strong>
-  <%= @intranet_substituto.nome %>
-</p>
-
-<p>
-  <strong>Telefone:</strong>
-  <%= @intranet_substituto.telefone %>
-</p>
-
-<p>
-  <strong>Whatsapp:</strong>
-  <%= @intranet_substituto.whatsapp %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @intranet_substituto.email %>
-</p>
-
-<p>
-  <strong>Atual?:</strong>
-  <%= @intranet_substituto.atual? %>
-</p>
-
-<%= link_to 'Edit', edit_intranet_substituto_path(@intranet_substituto) %> |
-<%= link_to 'Back', intranet_substitutos_path %>
+<script src="https://unpkg.com/imask"></script> 
+<div class="container" style="margin-bottom:104px;">   
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Substituto</h1>      
+  </div>
+  <p>Visualizar Substituto Nº <b><%= @intranet_substituto.id%></b>.</p>  
+  <ul class="nav nav-tabs" style="margin-bottom:11px;">
+    <li class="nav-item">
+      <a class="nav-link active" id="btn_menu_1" type="button" >Detalhes da substituto</a>
+    </li> 
+    <div style="margin-left: auto;">
+      <%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+      <%= link_to 'Editar', edit_intranet_substituto_path(@intranet_substituto),class:"btn btn-primary" %> 
+      <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= @intranet_substituto.id %>">Deletar</i></a>
+    </div>
+    <div class="modal fade" id="exampleModal<%= @intranet_substituto.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Deletar substituto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+          </div>
+          <div class="modal-body">
+              Deseja deletar substituto <%= @intranet_substituto.nome %>.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
+            <%= link_to intranet_substituto_path, method: :delete do %> 
+              <button type="button" class="btn btn-danger">Excluir</button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ul>
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;" >Nome 
+				<span style="float: right;font-size: 13px;margin-top: 4px;">
+					Substituto atual? 
+					<%= check_box_tag 'Ativo','yes',@intranet_substituto.atual?, onclick:"return false;" %>
+				</span>
+      </label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_substituto.nome %>">
+      </div>
+    </div>
+  </div> 
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Cartório</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_cart.nome %>">
+      </div>
+    </div>
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >E-mail</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_substituto.email %>">
+      </div>
+    </div>
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:49.5%;margin-right:auto">
+      <label  class="col-sm-2 col-form-label" >CPF</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_substituto.cpf %>">
+      </div>
+    </div>
+    <div style="width:49.5%;margin-left:auto">
+      <label  class="col-sm-2 col-form-label" >RG</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_substituto.rg %>">
+      </div>
+    </div>
+  </div> 
+  <div class="form-group row" style="display:flex">
+    <div style="width:49.5%;margin-right:auto">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;" >Telefone
+				<span style="float: right;font-size: 13px;margin-top: 4px;">
+					É whatsapp? 
+					<%= check_box_tag 'Ativo','yes',@intranet_substituto.whatsapp, onclick:"return false;" %>
+				</span>
+      </label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_substituto.telefone %>">
+      </div>
+    </div>
+  </div> 
+</div> 
+<style>
+  .input-show{
+    background: #f8f9fa;
+    border-radius: 2px;
+    border: 1px solid #ededed;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .correct-md-10{
+    max-width: 100%;
+    width: 100%;
+  }
+  .col-sm-2{
+    max-width: 100%;
+    width: 100%;
+  } 	
+</style> 

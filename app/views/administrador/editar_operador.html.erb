@@ -1,0 +1,184 @@
+<%= javascript_pack_tag "administrador_editar_operador", "data-turbolinks-track" => true %> 
+<div class="container" style="margin-bottom: 7%;">
+  <div class="page-header">
+		<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Dados Pessoais</h1>      
+	</div> 
+    <%= form_with url: "/administrador/operador/atualizar", method: :post do |f| %>
+    <div class="row" style="margin-right: 0px;margin-left: 0px;">
+      <div class="col-3 card shadow p-3 mb-5 bg-white rounded" style="text-align: center;background: #f8f9fa;margin-right: 1%;height: 380px;" >
+        <div>
+          <% if @admin.avatar.attached? %>
+            <%= image_tag(@admin.avatar_thumbnail, class: 'shadow-sm mb-5 bg-white rounded foto_edit',id:"foto_edit")%>
+          <% else %>
+            <%= image_tag('default.png', class: 'shadow-sm mb-5 bg-white rounded foto_edit',id:"foto_edit")%>
+          <% end %> 
+          <span class="foto_edit_edit" aria-hidden="true"><i class="fas fa-pen" style="padding:8px"></i></span>
+          <%= f.file_field 'admin[avatar]',style:"display:none",id:"admin_avatar",onchange:"loadFile(event)",class:"form-control"%>
+        </div> 
+        <div style="margin-bottom: 14px;margin-top: -37px;">
+          <span style="font-weight: bolder;font-size: 21px;"><%= @admin.nome%></span>
+        </div> 
+        <div class="form-group" style="display:flex;">  
+          <div style="width:100%;margin-right:auto">  
+            <label  class="col-sm-2 col-form-label" style="max-width: inherit;padding-left: 0px;padding-right: 0px;text-align: left;">
+              Ultimo Login  
+            </label>  
+            <input type="date" readonly="true" class="form-control" value="<%= @admin.updated_at.to_date %>">
+          </div>  
+        </div> 
+      </div>
+      <div class="col card shadow p-3 mb-5 bg-white rounded" style="background: #f8f9fa;"> 
+        <div class="form-group" style="display:flex;margin-top: 13px;"> 
+          <div style="width:100%;">  
+            <label  class="col-sm-2 col-form-label" style="max-width: inherit;padding-left: 0px;padding-right: 0px;">
+              Nome 
+              <span style="float: right;font-size: 13px;margin-top: 4px;">Operador master? 
+                <% if can? :read, :novo_operador %>
+                  <input type="checkbox" name="admin[isAdmin]" checked>
+                <% else %>
+                  <input type="checkbox" name="admin[isAdmin]">
+                <% end %>
+              </span>
+            </label> 
+            <input type="text" name="admin[nome]" required class="form-control" value="<%= @admin.nome%>">
+          </div>    
+        </div> 
+        <div class="form-group" style="display:flex;">  
+          <div style="width:100%;"> 
+            <%= label_tag "Email" %> 
+            <input type="text" name="admin[email]" required class="form-control" value="<%= @admin.email%>">
+          </div>  
+        </div> 
+        <div class="form-group" style="display:flex;">  
+          <div style="width:49.5%;margin-right:auto"> 
+            <%= label_tag "CPF" %>  
+            <input type="text" name="admin[cpf]" required class="form-control" value="<%= @admin.cpf%>">
+          </div> 
+          <div style="width:49.5%;margin-left:auto"> 
+            <%= label_tag "Lembrete de senha" %>
+            <input type="text" name="admin[lembrete]" required class="form-control" value="<%= @admin.lembrete%>">
+          </div>  
+        </div> 
+        <div class="form-group" style="display:flex;">  
+          <div style="width:49.5%;margin-right:auto">  
+            <label  class="col-sm-2 col-form-label" style="max-width: inherit;padding-left: 0px;padding-right: 0px;">
+              Data de criação  
+              <span style="float: right;font-size: 13px;margin-top: 4px;">
+                Operador ativo? 
+                <% if @admin.acesso %>
+                  <input type="checkbox" name="admin[acesso]" checked>
+                <% else %> 
+                  <input type="checkbox" name="admin[acesso]">
+                <% end %>
+              </span>
+            </label> 
+            <input type="date" readonly="true" class="form-control" value="<%= @admin.created_at.to_date %>">
+          </div>
+          <div style="width:49.5%;margin-left:auto">  
+            <label  class="col-sm-2 col-form-label" style="max-width: inherit;padding-left: 0px;padding-right: 0px;">
+              Ultima atualização 
+            </label> 
+            <input type="date" readonly="true" class="form-control" value="<%= @admin.updated_at.to_date %>">
+          </div>   
+        </div> 
+        <div class="form-group" style="display:flex;">  
+          <div style="width:49.5%;margin-right:auto">  
+            <%= label_tag :privilegio_id %>
+            <div class="form-control" style="overflow-y: scroll;height: 200px;padding-top: 12px;">
+              <% @privilegios.each  do |privilegio| %> 
+                
+                <p style="display:flex;margin-bottom: 0px;"> 
+                  <% if (@admin.privilegio_id & [privilegio.id]).any? %> 
+                    <span style="margin: 1px;" ><input type="checkbox" id="admin[privilegio_id]" name="admin[privilegio_id][]" value="<%= privilegio.id %>" checked></span>
+                  <% else %> 
+                    <span style="margin: 1px;" ><input type="checkbox" id="admin[privilegio_id]" name="admin[privilegio_id][]" value="<%= privilegio.id %>"></span>
+                  <% end %>
+                  <%= label_tag privilegio.descricao %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+          <div style="width:49.5%;margin-left:auto">  
+            <%= label_tag :departamento_id %> 
+            <div class="form-control" style="overflow-y: scroll;height: 200px;padding-top: 12px;">
+              <% @dapartamentos.each do |departamento| %> 
+                <p style="display:flex;margin-bottom: 0px;  ">  
+                  <% if (@admin.departamento_id & [departamento.id]).any? %> 
+                    <span style="margin: 1px;" ><input type="checkbox" id="admin[departamento_id]" name="admin[departamento_id][]" value="<%= departamento.id %>" checked></span>
+                  <% else %> 
+                    <span style="margin: 1px;" ><input type="checkbox" id="admin[departamento_id]" name="admin[departamento_id][]" value="<%= departamento.id %>"></span>
+                  <% end %>
+                  <%= label_tag departamento.descricao %>
+                </p>
+              <% end %>
+            </div>
+          </div>   
+        </div> 
+        <hr>
+        <div class="form-group" style="display:flex;">  
+            <div style="width:49.5%;margin-right:auto"> 
+                <%= label_tag "Nova senha" %> 
+                <input type="password" name="admin[password]" class="form-control" placeholder="6 caracteres no mínimo">
+            </div> 
+            <div style="width:49.5%;margin-left:auto"> 
+                <%= label_tag "Confirmar senha" %>
+                <input type="password" name="admin[password_confirmation]" class="form-control" placeholder="6 caracteres no mínimo">
+            </div>  
+        </div>   
+        <hr>
+        <div class="form-group" style="display:flex;">   
+          <div style="width:49.5%;margin-right:auto">  
+            <label  class="col-sm-2 col-form-label" style="max-width: inherit;padding-left: 0px;padding-right: 0px;">
+              Senha atual 
+              <span style="float: right;font-size: 13px;margin-top: 4px;">Preencha para pode salvar os dados.</span>
+            </label>
+              <input type="password" name="admin[current_password]" required class="form-control" placeholder="6 caracteres no mínimo">
+              <input type="hidden" name="admin[id]" value="<%= @admin.id %>">
+          </div>  
+        </div>   
+      </div> 
+    </div>  
+    <br>
+    <div class="actions">
+      <%= submit_tag "Salvar",class:"btn btn-primary",style:"float: right;" %>
+    </div>
+    <%= link_to administrador_operadores_path do %>
+      <button class="btn btn-secondary" style="float:left">Voltar</button>
+    <% end %>
+  <% end %>  
+</div>
+<style>
+
+  .col-sm-2{
+    max-width: 100%;
+    width: 100%;
+  } 	
+.foto_edit{
+  width: 160px;
+  height: 160px;
+  margin: auto;
+  padding: 0px;
+  margin-top: 27px;
+  border: 1px solid transparent;
+  border-radius: 7.25rem !important;
+  object-fit: cover;
+}
+.foto_edit_edit{
+  background: #b0deff; 
+  position: absolute;
+  bottom: 176px;
+  left: 171px;
+  border-radius: 50%;
+  color: #0b386b;
+  border: 2px solid white;
+}    
+.foto_edit_edit:hover{
+  background: #83cbff; 
+  position: absolute;
+  bottom: 176px;
+  left: 171px;
+  border-radius: 50%;
+  color: #042142;
+  border: 2px solid white;
+}    
+</style> 

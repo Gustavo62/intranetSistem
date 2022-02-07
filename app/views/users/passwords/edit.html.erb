@@ -1,25 +1,76 @@
-<h2>Change your password</h2>
+<div class="container background_principal">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "users/shared/error_messages", resource: resource %>
+    <%= f.hidden_field :reset_password_token %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
+    <div class="field">
+      <%= f.label :password, "Nova Senha" %><br />
+      <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> caracteres no mínimo)</em><br />
+      <% end %>
+      <%= f.password_field :password, autofocus: true, autocomplete: "new-password" , class:"form-control" %>
+    </div>
+    <br>
+    <div class="mb-3">
+			<label class="form-label" style="">Confirmar Senha</label><br>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" , class:"form-control" %>
+    </div>  
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
-  </div>
+    <div class="actions">
+      <%= f.submit "Alterar Senha",class:"btn btn-primary", id:'login' %> 
+    </div>
+    <%= render "users/shared/links" %>
+  <% end %>
+</div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+  <style>
+    #login{
+      border: 1px;
+      background: #ff8b45;
+      font-weight: bold; 
+      float: right;
+      width: 100%;
+      margin-bottom: 7%;
+    }
+    #user_email{
+      width: 100%;
+    }
+    label{
+      display: inline-block;
+        font-weight: bold;
+        margin-bottom: 0rem;
+        color: #0b386b;
+    }
+    #user_intranet_cartorio_id{
+      width: 100%;
+    }
+    .mb-3 .icone-login-key{
+      position:absolute;
+    }
+    .icone-login-key { 
+      color: rgb(4 39 78);
+      margin-top: 43px;
+      margin-left: -44px;
+      z-index: 9;
+    }
+    .mb-3 .icone-login-user{
+      position:absolute;
+    }
+    .icone-login-user { 
+      color: rgb(4 39 78);
+    margin-top: 43px;
+    margin-left: -119px;
+      z-index: 9;
+    }
+    #new_user{
+      padding:14px;
+    }
+    .background_principal{
+      background-position: top;
+      background-position-y: 51px;
+      padding-top: 166px; 
+      background-size: 92px;
+      background-image: url(/assets/logo.png);
+      background-repeat: no-repeat;
+    }
+  </style>

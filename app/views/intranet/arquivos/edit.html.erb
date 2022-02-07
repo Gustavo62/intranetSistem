@@ -1,0 +1,13 @@
+<div class="container" style="margin-bottom: 146px;">
+    <div class="page-header">
+		<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Editar arquivo</h1>      
+	</div>
+	<p>Edição do arquivo n°: <%= @intranet_arquivo.id %>.</p>
+    <%= render 'form', intranet_arquivo: @intranet_arquivo %> 
+    <%= link_to @intranet_arquivo do %>
+        <button class="btn btn-secondary" style="float:left;margin-right:10px">Visualizar</button>
+    <% end %>
+    <%= link_to intranet_arquivos_path do %>
+        <button class="btn btn-secondary" style="float:left">Voltar</button>
+    <% end %>
+</div>

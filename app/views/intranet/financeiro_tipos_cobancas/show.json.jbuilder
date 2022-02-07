@@ -1,1 +1,0 @@
-json.partial! "intranet_financeiro_tipos_cobancas/intranet_financeiro_tipos_cobanca", intranet_financeiro_tipos_cobanca: @intranet_financeiro_tipos_cobanca

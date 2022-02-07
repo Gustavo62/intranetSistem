@@ -1,0 +1,103 @@
+<script src="https://unpkg.com/imask"></script>
+<div class="container" style="margin-bottom: 200px;">  
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Eventos</h1>      
+  </div>
+  <p>Gerenciar eventos do sistema.</p>  
+  <%= form_with(url:'/intranet/events',method: :get, id:"form_assoc" )  do |f| %>  
+    <%= select_tag(:status, options_for_select([["Pago",0],["Gratuito",1]],params[:status]), class:"form-control",prompt:"Tipo do evento",style:"margin-right:1%;") %> 
+    <%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
+    <%= link_to "Limpar", intranet_boletos_path , style:"width: 21%;",class:"btn btn-link" %>
+  <% end %> 
+  <div style="width: 100%;height: 572px;overflow-y: scroll;" class="table-wrapper-scroll-y my-custom-scrollbar shadow p-3 mb-5 bg-white rounded">
+    <div class="collapse multi-collapse show" id="multiCollapseExample">  
+      <table  class="table table-hover table-striped mb-0" style="overflow-x: auto;">
+        <thead>
+          <tr> 
+            <th>Titulo</th> 
+            <th>Tipo</th> 
+            <th>Início</th> 
+            <th>Final</th> 
+            <th>Status</th> 
+            <th style="text-align: center;" colspan="3">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @intranet_events.each do |intranet_event| %>
+            <tr> 
+              <td><%= intranet_event.titulo %></td>
+              <td>
+                <% if intranet_event.valor.to_i != 0 %>
+                  Pago
+                <% else %>
+                  Gratuito
+                <% end %>
+              </td>
+              <td><%= intranet_event.periodo_ini.strftime("%d/%m/%Y") %></td> 
+              <td><%= intranet_event.periodo_fim.strftime("%d/%m/%Y") %></td> 
+              <td>
+                <% if intranet_event.ativo %>
+                  Aberto
+                <% else %>
+                  Fechado
+                <% end %>
+              </td>  
+              <td style="text-align: center;">
+                <%= link_to intranet_event, class:"btni" do %>
+                  <i class="fas fa-eye" style="padding:0px;"></i>
+                <% end %>
+              </td>
+              <% if user_signed_in? == false %>
+                <td style="text-align: center;">
+                  <%= link_to edit_intranet_event_path(intranet_event), class:"btni" do %>
+                    <i class="fas fa-edit" style="padding-left: 3px;"></i>
+                  <% end %>
+                </td>
+                <td style="text-align: center;"> 
+                  <a  class="btni" data-bs-toggle="modal" data-bs-target="#exampleModal<%= intranet_event.id %>"><i class="fas fa-trash-alt" style="padding:0px;"></i></a>
+                  
+                  <div class="modal fade" id="exampleModal<%= intranet_event.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Deletar evento</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                      </div>
+                      <div class="modal-body">
+                        Deseja deletar evento, <%= intranet_event.titulo%>?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" focus>cancelar</button> 
+                        <%= link_to intranet_event, method: :delete do %> 
+                          <button type="button" class="btn btn-danger">Excluir</button>
+                        <% end %>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table> 
+    </div>  
+  </div>
+  <p style="text-align: center;padding: 1%;">Consulta obteve <%=  @intranet_events.size %> resultados.<p>  
+  
+  <% if user_signed_in? == false %>
+    <%= link_to new_intranet_event_path ,style:"float:right", class:"btn btn-primary" do %>
+      <i style="margin-right: 9px;" class="fas fa-plus icon-aux-label"></i>Evento
+    <% end %> 
+  <% end %> 
+  <br>
+  <%= paginate @intranet_events%> 
+  <br>
+</div>  
+<style>
+  #form_assoc{
+    display: flex;
+    margin-bottom: 1%;
+  } 
+</style>
+

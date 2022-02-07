@@ -1,16 +1,63 @@
-<h2>Forgot your password?</h2>
+<div class="container background_principal">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <%= render "admins/shared/error_messages", resource: resource %>
+    <div class="mb-3">
+      <label class="form-label" style="">E-mail</label><br>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
+    </div> 
+    <%= f.submit "Recuperar Senha",class:"btn btn-primary", id:'login' %> 
+  <% end %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "admins/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "admins/shared/links" %>
+  <%= render "admins/shared/links" %>
+  <style>
+    #login{
+      border: 1px;
+      background: #ff8b45;
+      font-weight: bold; 
+      float: right;
+      width: 100%;
+      margin-bottom: 7%;
+    }
+    #user_email{
+      width: 100%;
+    }
+    label{
+      display: inline-block;
+        font-weight: bold;
+        margin-bottom: 0rem;
+        color: #0b386b;
+    }
+    #user_intranet_cartorio_id{
+      width: 100%;
+    }
+    .mb-3 .icone-login-key{
+      position:absolute;
+    }
+    .icone-login-key { 
+      color: rgb(4 39 78);
+      margin-top: 43px;
+      margin-left: -44px;
+      z-index: 9;
+    }
+    .mb-3 .icone-login-user{
+      position:absolute;
+    }
+    .icone-login-user { 
+      color: rgb(4 39 78);
+      margin-top: 43px;
+      margin-left: -119px;
+      z-index: 9;
+    }
+    #new_user{
+      padding:14px;
+    }
+    .background_principal{
+      background-position: top;
+      background-position-y: 51px;
+      padding-top: 166px; 
+      background-size: 92px;
+      background-image: url(/assets/logo.png);
+      background-repeat: no-repeat;
+    }
+  </style>
+</div>

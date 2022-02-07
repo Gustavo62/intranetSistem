@@ -1,0 +1,164 @@
+<%= javascript_pack_tag "administrador_novo_operador", "data-turbolinks-track" => true %> 
+<script src="https://unpkg.com/imask"></script>
+<div class="container" style="margin-bottom: 7%;">
+  <div class="page-header">
+		<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Dados Pessoais</h1>      
+	</div> 
+    <%= form_with url: "/administrador/operador/novo/criar", method: :post do |f| %>
+    <div class="row" style="margin-right: 0px;margin-left: 0px;">
+      <div class="col-3 card shadow p-3 mb-5 bg-white rounded" style="text-align: center;background: #f8f9fa;margin-right: 1%;height: 259px;">
+        <% if @admin.avatar.attached? %>
+          <%= image_tag(@admin.avatar_thumbnail, class: 'shadow-sm mb-5 bg-white rounded foto_edit',id:"foto_edit")%>
+        <% else %>
+          <%= image_tag('default.png', class: 'shadow-sm mb-5 bg-white rounded foto_edit',id:"foto_edit")%>
+        <% end %> 
+        <span class="foto_edit_edit" aria-hidden="true"><i class="fas fa-pen" style="padding:8px"></i></span>
+        <%= f.file_field 'admin[avatar]',style:"display:none",id:"admin_avatar",class:"form-control"%>
+        <div style="margin-bottom: 14px;margin-top: -37px;">
+          <span style="font-weight: bolder;font-size: 21px;"><%= @admin.nome%></span>
+        </div> 
+      </div>
+      <div class="col card shadow p-3 mb-5 bg-white rounded" style="background: #f8f9fa;"> 
+        <div class="form-group" style="display:flex;margin-top: 13px;"> 
+          <div style="width:100%;">  
+            <label  class="col-sm-2 col-form-label" style="max-width: inherit;padding-left: 0px;padding-right: 0px;">
+              Nome 
+              <% if can? :read, :novo_operador %>
+                <span style="float: right;font-size: 13px;margin-top: 4px;">Operador master? <%= check_box_tag :isAdmin %></span>
+              <% end %> 
+            </label> 
+            <input type="text" name="admin[nome]" required class="form-control" placeholder="informe o nome do operador">
+          </div>     
+        </div> 
+        <div class="form-group" style="display:flex;">  
+          <div style="width:100%;"> 
+            <%= label_tag "Email" %> 
+            <input type="text" name="admin[email]" required class="form-control" placeholder="informe o e-mail do operador">
+          </div>  
+        </div> 
+        <div class="form-group" style="display:flex;">  
+          <div style="width:49.5%;margin-right:auto"> 
+            <%= label_tag "CPF" %>  
+            <span style="float: right;font-size: 13px;margin-top: 4px;">
+              Operador ativo? 
+              <% if @admin.acesso %>
+                <input type="checkbox" name="admin[acesso]" checked>
+              <% else %> 
+                <input type="checkbox" name="admin[acesso]">
+              <% end %>
+            </span>  
+            <input type="text" name="admin[cpf]" id="admin_cpf" required class="form-control" placeholder="Informe o CPF">
+            <span id="admin_cpf_errors" class="admin_cpf_errors"></span> 
+          </div> 
+          <div style="width:49.5%;margin-left:auto"> 
+            <%= label_tag "Lembrete de senha" %>
+            <input type="text" name="admin[lembrete]" required class="form-control" placeholder="informe o lembrete da senha">
+          </div>  
+        </div> 
+        <div class="form-group" style="display:flex;">  
+          <div style="width:49.5%;margin-right:auto">  
+            <%= label_tag :privilegio_id %>
+            <div class="form-control" style="overflow-y: scroll;height: 200px;padding-top: 12px;">
+              <% @privilegios.each  do |privilegio| %> 
+                <p style="display:flex;margin-bottom: 0px;"> 
+                  <span style="margin: 1px;" ><%= check_box :privilegio_id, privilegio.id %></span>
+                  <%= label_tag privilegio.descricao %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+          <div style="width:49.5%;margin-left:auto">  
+            <%= label_tag :departamento_id %> 
+            <div class="form-control" style="overflow-y: scroll;height: 200px;padding-top: 12px;">
+              <% @dapartamentos.each do |departamento| %> 
+                <p style="display:flex;margin-bottom: 0px;  "> 
+                  <span style="margin: 1px;" ><%= check_box :departamento , departamento.id %></span>
+                  <%= label_tag departamento.descricao %>
+                </p>
+              <% end %>
+            </div>
+          </div>   
+        </div> 
+        <hr>
+        <div class="form-group" style="display:flex;">  
+            <div style="width:49.5%;margin-right:auto"> 
+                <%= label_tag "Nova senha" %> 
+                <div>
+                  <input type="password" name="admin[password]" id="admin_password" required class="form-control" placeholder="6 caracteres no mínimo"> 
+                  <span id="admin_password_errors" class="admin_cpf_errors"></span> 
+                  <div class="progress" style="transition: 0.05s">
+                    <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+            </div> 
+            <div style="width:49.5%;margin-left:auto"> 
+              <%= label_tag "Confirmar senha" %>
+              <input type="password" name="admin[password_confirmation]" id="admin_password_c" required class="form-control" placeholder="6 caracteres no mínimo">
+              <span id="admin_password_c_errors" class="admin_cpf_errors"></span> 
+            </div>  
+        </div>  
+      </div> 
+    </div>  
+    <br>
+    <div class="actions">
+      <%= submit_tag "Salvar",class:"btn btn-primary",style:"float: right;" %>
+    </div>
+    <%= link_to administrador_operadores_path do %>
+      <button class="btn btn-secondary" style="float:left">Voltar</button>
+    <% end %>
+  <% end %>   
+</div>
+<style>
+.form-control{
+  margin-bottom:10px
+}
+.col-sm-2{
+  width:100%;
+}
+.progress{
+  transition: 0.05s;
+  height: 3px;
+  margin-top: -13px;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  border-top-right-radius: 0rem;
+  border-top-left-radius: 0rem; 
+  border: 1px solid #d0d6db;
+  border-top: none;
+}
+.admin_cpf_errors{ 
+  margin-top: -30px; 
+  float: right;
+  padding-right: 9px;
+  color: #bd0000;
+  font-weight: bolder;
+}
+.foto_edit{
+  width: 160px;
+  height: 160px;
+  margin: auto;
+  padding: 0px;
+  margin-top: 27px;
+  border: 1px solid transparent;
+  border-radius: 7.25rem !important;
+  object-fit: cover;
+}
+.foto_edit_edit{
+  background: #b0deff; 
+  position: absolute;
+  bottom: 55px;
+  left: 171px;
+  border-radius: 50%;
+  color: #0b386b;
+  border: 2px solid white;
+}    
+.foto_edit_edit:hover{
+  background: #83cbff; 
+  position: absolute;
+  bottom: 55px;
+  left: 171px;
+  border-radius: 50%;
+  color: #042142;
+  border: 2px solid white;
+}    
+</style>

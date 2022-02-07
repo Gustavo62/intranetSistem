@@ -9,54 +9,100 @@
         <% end %>
       </ul>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :dt_inicio %>
-    <%= form.date_select :dt_inicio %>
+  <% end %>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Nome 
+        <span style="float: right;font-size: 13px;margin-top: 4px;">Tabelião atual? <%= form.check_box :atual? %></span>
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :nome,class:"form-control",placeholder:"Informe o nome do tabelião",required:true %>
+      </div>
+    </div> 
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: max-content;">Cartório</label>
+      <div class="col-sm-10 correct-md-10" >  
+        <%= form.select "intranet_cartorio_id" ,options_from_collection_for_select(@cartorios, "id", "nome", @intranet_tabeliao.cart_ref_id), {:prompt => "Escolha o cartório",required:true},{style:"margin-right:1%;",required:true}%> 
+      </div>
+    </div>  
   </div>
-
-  <div class="field">
-    <%= form.label :dt_final %>
-    <%= form.date_select :dt_final %>
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        E-mail
+      </label>
+      <div class="col-sm-10 correct-md-10" >
+        <%= form.text_field :email,class:"form-control",placeholder:"Informe o seu e-mail",required:true %>
+      </div>
+    </div> 
   </div>
-
-  <div class="field">
-    <%= form.label :cpf %>
-    <%= form.text_field :cpf %>
-  </div>
-
-  <div class="field">
-    <%= form.label :rg %>
-    <%= form.text_field :rg %>
-  </div>
-
-  <div class="field">
-    <%= form.label :nome %>
-    <%= form.text_field :nome %>
-  </div>
-
-  <div class="field">
-    <%= form.label :telefone %>
-    <%= form.text_field :telefone %>
-  </div>
-
-  <div class="field">
-    <%= form.label :whatsapp %>
-    <%= form.check_box :whatsapp %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :atual? %>
-    <%= form.check_box :atual? %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <div class="form-group row" style="display:flex">
+    <div style="width:49.5%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        CPF
+      </label>
+      <div class="col-sm-10 correct-md-10" >
+        <%= form.text_field :cpf,class:"form-control",placeholder:"000.000.000-00",required:true %>
+      </div>
+    </div> 
+    <div style="width:49.5%;margin-left: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        RG
+      </label>
+      <div class="col-sm-10 correct-md-10" >
+        <%= form.text_field :rg,class:"form-control",placeholder:"000.000.0000/00",required:true %>
+      </div>
+    </div> 
+  </div> 
+  <div class="form-group row" style="display:flex">
+    <div style="width:49.5%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Telefone 
+        <span style="float: right;font-size: 13px;margin-top: 4px;">É whatsapp? <%= form.check_box :whatsapp %></span>
+      </label>
+      <div class="col-sm-10 correct-md-10" >
+        <%= form.text_field :telefone,class:"form-control",placeholder:"(00) 0 0000-0000",required:true %>
+      </div>
+    </div>  
+  </div>   
+	<div class="actions">
+		<%= form.submit 'Salvar',class:"btn btn-primary", style:"float:right",id:"subform" %>
+	</div> 
+  <div id="modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">ALERTA!</h5> 
+            <span id="modalClose" aria-hidden="true" class="close" data-dismiss="modal"> &times;</span>  
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Infelismente o cartório já possui um tabelião ativo, caso deseje visualizar clique <a id="link">aqui</a>.</p>
+        </div> 
+      </div>
+    </div>
+  </div>     
 <% end %>
+
+<style> 
+  .correct-md-10{
+    max-width: 100%;
+    width: 100%;
+  }
+  .modal-backdrop {
+      /* bug fix - no overlay */    
+      display: none;    
+}
+
+.modal{
+    /* bug fix - custom overlay */   
+    background-color: rgba(10,10,10,0.45);
+}
+  .col-sm-2{
+    max-width: 100%;
+    width: 100%;
+  } 	
+</style>

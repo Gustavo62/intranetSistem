@@ -1,0 +1,97 @@
+<%= form_with(model: intranet_event) do |form| %>
+  <ul class="nav nav-tabs" style="margin-bottom: 11px;">
+    <li class="nav-item">
+      <a class="nav-link active" id="btn_menu_1" type="button" >Detalhes da cobrança</a>
+    </li> 
+    <div style="margin-left: auto;">
+      <%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+      <%= link_to 'Visualizar',  @intranet_event ,class:"btn btn-primary" if @intranet_event.id != nil %> 
+    </div>
+  </ul>
+  <% if intranet_event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(intranet_event.errors.count, "error") %> prohibited this intranet_event from being saved:</h2>
+
+      <ul>
+        <% intranet_event.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %> 
+  <div class="form-group" style="display:flex"> 
+    <div style="width:100%;margin-right: auto;" > 
+      <%= form.label "Tíulo" %>
+      <span style="float: right;font-size: 13px;margin-top: 4px;margin-left:10px">Evento ativo? <%= form.check_box :ativo %></span>
+      <span style="float: right;font-size: 13px;margin-top: 4px;">Evento pago? <%= form.check_box :pago %></span>
+      <%= form.text_field :titulo, class:"form-control",placeholder:"Informe o título do evento", required:true %> 
+    </div>   
+  </div>  
+  <div class="form-group"> 
+    <div style="width:100%;margin-right: auto;"> 
+      <%= form.label "Sub Título" %>
+      <%= form.text_field :cabecalho_1, class:"form-control",placeholder:"Informe um sub título do evento", required:true %> 
+    </div> 
+  </div>
+  <div class="form-group"> 
+    <div style="width:100%;margin-right: auto;"> 
+      <%= form.label "Link do evento" %>
+      <%= form.text_field :link, class:"form-control",placeholder:"Informe um sub título do evento", required:true %> 
+    </div> 
+  </div>
+  <div class="form-group" style="display:flex"  > 
+    <div style="width:49.5%;margin-right: auto;" id="div_intranet_event_insc_ini"> 
+      <%= form.label "Periodo de inscrição inicial" %>
+      <%= form.date_field :insc_ini, class:"form-control", required:true%> 
+    </div>
+    <div style="width:49.5%;margin-left: auto;" id="div_intranet_event_insc_fim">
+      <%= form.label "Periodo de inscrição final" %>
+      <%= form.date_field :insc_fim, class:"form-control", required:true %> 
+    </div>
+  </div>  
+  <div class="form-group" style="display:flex"> 
+    <div style="width:49.5%;margin-right: auto;"  id="div_intranet_event_periodo_ini"> 
+      <%= form.label "Data de inicio do evento" %>
+      <%= form.date_field :periodo_ini, class:"form-control", required:true%> 
+    </div>
+    <div style="width:49.5%;margin-left: auto;"  id="div_intranet_event_periodo_fim">
+      <%= form.label "Data final do evento" %>
+      <%= form.date_field :periodo_fim, class:"form-control", required:true%> 
+    </div>
+  </div>   
+  <div class="form-group" style="display:flex" > 
+    <div style="width:49.5%;margin-right: auto;" id="div_intranet_event_data_max_pagamento"> 
+      <%= form.label "Data limite para os pagamentos" %>
+      <%= form.date_field :data_max_pagamento, class:"form-control", required:false%> 
+    </div> 
+  </div>    
+  <div class="form-group" style="display:flex"> 
+    <div style="width:49.5%;margin-right: auto;" id="div_intranet_event_tipo">
+      <%= form.label "Tipo de cobrança" %>
+      <%= select_tag :tipo,options_for_select([["Por cartório",1],["Por inscrição",2]],@intranet_event.tipo), class:"form-control",prompt:"Selecione o tipo do evento", name:"intranet_event[tipo]", required:true %> 
+    </div>
+    <div style="width:49.5%;margin-left: auto;" id="div_intranet_event_valor"> 
+      <%= form.label "Valor" %>
+      <%= form.number_field :valor, class:"form-control", min:"0", step:"0.01", required:false, placeholder:"valor do evento" %> 
+    </div>
+  </div>       
+  <div class="form-group" style="display:flex"> 
+    <div style="width:49.5%;" id="div_intranet_event_qtd_insc_total"> 
+      <%= form.label "Total de vagas" %>
+      <%= form.number_field :qtd_insc_total, class:"form-control", placeholder:"Quantidade total de vagas"%> 
+    </div>
+    <div style="width:49.5%;" id="div_intranet_event_qtd_insc_cart">
+      <%= form.label "Vagas por cartório" %>
+      <%= form.number_field :qtd_insc_cart, class:"form-control", placeholder:"Quantidade de vagas por cartório"%> 
+    </div>
+  </div>    
+  <div class="actions">
+    <%= form.submit  'Salvar' , class:"btn btn-primary", style:"float: right;margin-bottom: 90px;",id:"subform"  %>
+  </div> 
+  <style>
+    .form-group{
+      margin-bottom:10px;
+    }
+  </style>
+<% end %> 
+ 

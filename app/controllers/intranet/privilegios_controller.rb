@@ -1,8 +1,10 @@
 class Intranet::PrivilegiosController < ApplicationController
+	before_action :valida_acesso  
+  authorize_resource :class => false
   before_action :set_intranet_privilegio, only: %i[ show edit update destroy ]
   # GET /intranet/privilegios or /intranet/privilegios.json
   def index
-    @intranet_privilegios = Intranet::Privilegio.all
+    @intranet_privilegios = Intranet::Privilegio.consulta_por_status(params[:status])
   end
 
   # GET /intranet/privilegios/1 or /intranet/privilegios/1.json
@@ -21,10 +23,10 @@ class Intranet::PrivilegiosController < ApplicationController
   # POST /intranet/privilegios or /intranet/privilegios.json
   def create
     @intranet_privilegio = Intranet::Privilegio.new(intranet_privilegio_params)
-
+    
     respond_to do |format|
       if @intranet_privilegio.save
-        format.html { redirect_to @intranet_privilegio, notice: "Privilegio was successfully created." }
+        format.html { redirect_to @intranet_privilegio, notice: "Privilégio criada com sucesso." }
         format.json { render :show, status: :created, location: @intranet_privilegio }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -37,7 +39,7 @@ class Intranet::PrivilegiosController < ApplicationController
   def update
     respond_to do |format|
       if @intranet_privilegio.update(intranet_privilegio_params)
-        format.html { redirect_to @intranet_privilegio, notice: "Privilegio was successfully updated." }
+        format.html { redirect_to @intranet_privilegio, notice: "Privilégio foi editada com sucesso." }
         format.json { render :show, status: :ok, location: @intranet_privilegio }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -50,7 +52,7 @@ class Intranet::PrivilegiosController < ApplicationController
   def destroy
     @intranet_privilegio.destroy
     respond_to do |format|
-      format.html { redirect_to intranet_privilegios_url, notice: "Privilegio was successfully destroyed." }
+      format.html { redirect_to intranet_privilegios_url, notice: "Privilégio foi excluida com sucesso." }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  periodo_ini: 2021-11-08
+  periodo_fim: 2021-11-08
+  insc_ini: 2021-11-08
+  insc_fim: 2021-11-08
+  titulo: MyString
+  cabecalho_1: MyString
+  cabecalho_2: MyString
+  data_max_pagamento: 2021-11-08
+  qtd_insc_total: 1
+  dias_boleto: 1
+  qtd_insc_cart: 1
+  valor: 1.5
+  tipo: MyString
+  ativo: false
+  intranet_boleto: one
+
+two:
+  periodo_ini: 2021-11-08
+  periodo_fim: 2021-11-08
+  insc_ini: 2021-11-08
+  insc_fim: 2021-11-08
+  titulo: MyString
+  cabecalho_1: MyString
+  cabecalho_2: MyString
+  data_max_pagamento: 2021-11-08
+  qtd_insc_total: 1
+  dias_boleto: 1
+  qtd_insc_cart: 1
+  valor: 1.5
+  tipo: MyString
+  ativo: false
+  intranet_boleto: two

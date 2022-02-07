@@ -1,6 +1,7 @@
-<h1>Editing Intranet Arquivos Tipo</h1>
-
-<%= render 'form', intranet_arquivos_tipo: @intranet_arquivos_tipo %>
-
-<%= link_to 'Show', @intranet_arquivos_tipo %> |
-<%= link_to 'Back', intranet_arquivos_tipos_path %>
+<div class="container" style="margin-bottom: 7%;">
+    <div class="page-header">
+		<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Editar Tipo de arquivo</h1>      
+	</div>
+	<p>Edição do tipo de arquivo n°: <%= @intranet_arquivos_tipo.id %>.</p>
+    <%= render 'form', intranet_arquivos_tipo: @intranet_arquivos_tipo %>  
+</div>

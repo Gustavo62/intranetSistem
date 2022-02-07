@@ -1,43 +1,89 @@
-<p id="notice"><%= notice %></p>
+<script src="https://unpkg.com/imask"></script>
+<div class="container" style="margin-bottom: 200px;">  
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Tabelião</h1>      
+  </div>
+  <p>Gerenciar tabelião do sistema.</p>  
+  <%= form_with(url:'/intranet/tabeliaos',method: :get, id:"form_assoc")  do |f| %> 
+    <%= f.select "intranet_cartorio_id",options_from_collection_for_select(@intranet_cartorios , "id", "nome",params[:intranet_cartorio_id]), {:prompt => "Escolha o cartório"},{style:"margin-right:1%;", class:"form-control" }%> 
+    <%= select_tag(:situacao, options_for_select([["Ativo",true],["Desativado",false]],params[:situacao]), class:"form-control",prompt:"Status do tabelião",style:"margin-right:1%;width: 28%;") %>
+    <%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
+    <%= link_to "Limpar", intranet_tabeliaos_path , style:"width: 21%;",class:"btn btn-link" %>
+  <% end %>  
+  <div style="width: 100%;height: 572px;overflow-y: scroll;" class="table-wrapper-scroll-y my-custom-scrollbar shadow p-3 mb-5 bg-white rounded">
+    <div class="collapse multi-collapse show" id="multiCollapseExample">  
+      <table  class="table table-hover table-striped mb-0" style="overflow-x: auto;">
+        <thead>
+          <tr> 
+            <th>Nome</th> 
+            <th>Ativo</th>   
+            <th style="text-align: center;" colspan="3">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @intranet_tabeliaos.each do |intranet_tabeliao| %>
+            <tr> 
+              <td><%= intranet_tabeliao.nome %></td>  
+              <td>
+                <% if intranet_tabeliao.atual? %>
+                  Ativo
+                <% else %>
+                  Desativado
+                <% end %>
+              </td>  
+              <td style="text-align: center;">
+                <%= link_to intranet_tabeliao, class:"btni" do %>
+                  <i class="fas fa-eye" style="padding:0px;"></i>
+                <% end %>
+              </td>
+              <% if user_signed_in? == false %>
+                <td style="text-align: center;">
+                  <%= link_to edit_intranet_tabeliao_path(intranet_tabeliao), class:"btni" do %>
+                    <i class="fas fa-edit" style="padding-left: 3px;"></i>
+                  <% end %>
+                </td>
+                <td style="text-align: center;"> 
+                  <a  class="btni" data-bs-toggle="modal" data-bs-target="#exampleModal<%= intranet_tabeliao.id %>"><i class="fas fa-trash-alt" style="padding:0px;"></i></a>
+                  
+                  <div class="modal fade" id="exampleModal<%= intranet_tabeliao.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Deletar Cartório</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                      </div>
+                      <div class="modal-body">
+                        Deseja deletar Tabelião, <%= intranet_tabeliao.nome%>?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
+                        <%= link_to intranet_tabeliao, method: :delete do %> 
+                          <button type="button" class="btn btn-danger">Excluir</button>
+                        <% end %>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table> 
+    </div>  
+  </div>
+  <p style="text-align: center;padding: 1%;">Consulta obteve <%=  @intranet_tabeliaos.total_count %> resultados.<p>  
+  <%= link_to new_intranet_tabeliao_path ,style:"float:right", class:"btn btn-primary" do %>
+    <i style="margin-right: 9px;" class="fas fa-plus icon-aux-label"></i>Tabelião
+  <% end %> 
+  <br>
+  <%= paginate @intranet_tabeliaos %> 
+  <br>
+</div>  
+<style>
+  #form_assoc{
+    display: flex;
+    margin-bottom: 1%;
+  } 
+</style>
 
-<h1>Intranet Tabeliaos</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Dt inicio</th>
-      <th>Dt final</th>
-      <th>Cpf</th>
-      <th>Rg</th>
-      <th>Nome</th>
-      <th>Telefone</th>
-      <th>Whatsapp</th>
-      <th>Email</th>
-      <th>Atual?</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @intranet_tabeliaos.each do |intranet_tabeliao| %>
-      <tr>
-        <td><%= intranet_tabeliao.dt_inicio %></td>
-        <td><%= intranet_tabeliao.dt_final %></td>
-        <td><%= intranet_tabeliao.cpf %></td>
-        <td><%= intranet_tabeliao.rg %></td>
-        <td><%= intranet_tabeliao.nome %></td>
-        <td><%= intranet_tabeliao.telefone %></td>
-        <td><%= intranet_tabeliao.whatsapp %></td>
-        <td><%= intranet_tabeliao.email %></td>
-        <td><%= intranet_tabeliao.atual? %></td>
-        <td><%= link_to 'Show', intranet_tabeliao %></td>
-        <td><%= link_to 'Edit', edit_intranet_tabeliao_path(intranet_tabeliao) %></td>
-        <td><%= link_to 'Destroy', intranet_tabeliao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Intranet Tabeliao', new_intranet_tabeliao_path %>

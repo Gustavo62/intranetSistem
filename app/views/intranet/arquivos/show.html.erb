@@ -1,0 +1,126 @@
+<script src="https://unpkg.com/imask"></script> 
+<div class="container" style="margin-bottom: 104px;">   
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Arquivo</h1>      
+  </div>
+  <p>Visualizar Arquivo Nº <b><%= @intranet_arquivo.id%></b>.</p>  
+  <ul class="nav nav-tabs" style="margin-bottom: 11px;">
+    <li class="nav-item">
+      <a class="nav-link active" id="btn_menu_1" type="button" >Detalhes da cobrança</a>
+    </li> 
+    <div style="margin-left: auto;">
+      <%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+      
+	    <% if user_signed_in? == false %>
+        <%= link_to 'Editar', edit_intranet_arquivo_path(@intranet_arquivo),class:"btn btn-primary" %> 
+        <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= @intranet_arquivo.id %>">Deletar</i></a>
+      <% end %>
+    </div>
+    
+    <% if user_signed_in? == false %>
+      <div class="modal fade" id="exampleModal<%= @intranet_arquivo.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Deletar Arquivo</h5>
+                
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+            </div>
+            <div class="modal-body">
+                Deseja deletar Arquivo <%= @intranet_arquivo.descricao %>.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
+                <%= link_to intranet_arquivo_path, method: :delete do %> 
+                    <button type="button" class="btn btn-danger">Excluir</button>
+                <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %> 
+  </ul>
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" style="max-width: 100%;">Descrição
+      <h6 style="float:right;margin: 0px">Arquivo ativo? <%= check_box_tag 'Ativo','yes',@intranet_arquivo.ativo, onclick:"return false;"%></h6></label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_arquivo.descricao %>">
+      </div>
+    </div>
+  </div> 
+  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Cartório</label>
+      <div class="col-sm-10 correct-md-10" > 
+        <% if @intranet_arquivo.intranet_cartorio_id.to_i != 0 %>
+          <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_cartorios.find_by_id(@intranet_arquivo.intranet_cartorio_id).nome%>"> 
+        <% else %>
+          <input type="text" readonly class="form-control-plaintext input-show"  value="Todos os cartórios"> 
+        <% end %>
+      </div>
+    </div>
+  </div> 
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Tipo</label>
+      <div class="col-sm-10 correct-md-10" >
+        <% if @intranet_arquivo.intranet_arquivos_tipo_id.to_i != 0 %>
+          <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_tipos.find_by_id(@intranet_arquivo.intranet_arquivos_tipo_id).descricao%>"> 
+        <% else %>
+          <input type="text" readonly class="form-control-plaintext input-show"  value="Outros"> 
+        <% end %>
+      </div>
+    </div>
+  </div> 
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Descrição</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_arquivo.descricao %>">
+      </div>
+    </div>
+  </div> 
+
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Arquivos</label>
+      <div class="col-sm-10 correct-md-10" >
+        <% if @intranet_arquivo.arquivos.size != 0 %>
+          <% @intranet_arquivo.arquivos.each do |doc| %> 
+            <div class="" style="text-align:end;height: 48px;padding-top: 10px;">
+              <span style="float: left;font-weight: bold;width: auto;text-align: left;"><i class="fas fa-file-alt" style="margin-right: 10px;"></i><%= doc.filename%></span> 
+              <span><%= link_to "Download", rails_blob_url(doc, disposition: 'inline'), target:'blank',	class:"btn btn-info" ,style:"height: 20px;font-size: 13px;padding-top: 0px;"%></span>
+              <% if user_signed_in? == false%>
+                <%= link_to "Deletar", delete_doc_attachment_intranet_arquivo_path(idb: doc.id,ida: @intranet_arquivo.id),method: :delete,
+                  data: { confirm: 'Você tem certeza disso?' },	class:"btn btn-danger" ,style:"height: 20px;font-size: 13px;padding-top: 0px;"%>
+              <% end %> 
+            </div>
+          <% end %>
+        <% else %> 
+          <span  class="form-control-plaintext input-show">Sem arquivos</span> 
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div> 
+ 
+<style>
+  .input-show{
+    background: #f8f9fa;
+    border-radius: 2px;
+    border: 1px solid #ededed;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  .correct-md-10{
+    max-width: 100%;
+    width: 100%;
+  }
+  .col-sm-2{
+    max-width: 100%;
+    width: 100%;
+  } 	
+</style> 

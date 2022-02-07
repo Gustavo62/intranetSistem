@@ -1,19 +1,21 @@
 class CreateIntranetBoletos < ActiveRecord::Migration[6.1]
   def change
-    create_table :intranet_boletos do |t|
-      t.references :intranet_financeiro_tipos_cobanca, null: false, foreign_key: true
-      t.references :intranet_financeiro_portadores
-      t.references :intranet_regiao, null: false, foreign_key: true
-      t.references :intranet_entrancium, null: false, foreign_key: true
-      t.references :intranet_contribuicao, null: false, foreign_key: true
-      t.references :intranet_atividade
-      t.float :valor
-      t.integer :vencimento
-      t.string :descricao
-      t.string :observacao_email
-      t.string :forma_cobranca
-      t.boolean :apenas_titular
-      t.boolean :pago
+    create_table :intranet_boletos do |t| 
+      t.references :intranet_associado, null: false, foreign_key: true 
+      t.string   :valor
+      t.date    :vencimento
+      t.string  :descricao 
+      t.string  :nosso_numero 
+      t.string  :status
+      t.string  :codigo_de_barras
+      t.string  :token 
+      t.string  :estornado 
+      t.boolean :a_maior 
+      t.string  :tipo  
+      t.string  :metodo  
+      t.string  :url  
+      t.integer :id_boleto 
+      t.boolean :ativo, default: true
 
       t.timestamps
     end

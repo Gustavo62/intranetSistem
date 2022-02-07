@@ -1,144 +1,266 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Possui cnpj?:</strong>
-  <%= @intranet_cartorio.possui_cnpj? %>
-</p>
-
-<p>
-  <strong>Cei:</strong>
-  <%= @intranet_cartorio.cei %>
-</p>
-
-<p>
-  <strong>Cnpj:</strong>
-  <%= @intranet_cartorio.cnpj %>
-</p>
-
-<p>
-  <strong>Cod tj:</strong>
-  <%= @intranet_cartorio.cod_tj %>
-</p>
-
-<p>
-  <strong>Cod cnj:</strong>
-  <%= @intranet_cartorio.cod_cnj %>
-</p>
-
-<p>
-  <strong>Nome:</strong>
-  <%= @intranet_cartorio.nome %>
-</p>
-
-<p>
-  <strong>Nome fant:</strong>
-  <%= @intranet_cartorio.nome_fant %>
-</p>
-
-<p>
-  <strong>Nome res:</strong>
-  <%= @intranet_cartorio.nome_res %>
-</p>
-
-<p>
-  <strong>Cep:</strong>
-  <%= @intranet_cartorio.cep %>
-</p>
-
-<p>
-  <strong>Logradouro:</strong>
-  <%= @intranet_cartorio.logradouro %>
-</p>
-
-<p>
-  <strong>Numero:</strong>
-  <%= @intranet_cartorio.numero %>
-</p>
-
-<p>
-  <strong>Bairro:</strong>
-  <%= @intranet_cartorio.bairro %>
-</p>
-
-<p>
-  <strong>Complemento:</strong>
-  <%= @intranet_cartorio.complemento %>
-</p>
-
-<p>
-  <strong>Telefone fixo:</strong>
-  <%= @intranet_cartorio.telefone_fixo %>
-</p>
-
-<p>
-  <strong>Telefone celular:</strong>
-  <%= @intranet_cartorio.telefone_celular %>
-</p>
-
-<p>
-  <strong>Whatsapp:</strong>
-  <%= @intranet_cartorio.whatsapp %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @intranet_cartorio.email %>
-</p>
-
-<p>
-  <strong>Forma branca:</strong>
-  <%= @intranet_cartorio.forma_branca %>
-</p>
-
-<p>
-  <strong>Observacao:</strong>
-  <%= @intranet_cartorio.observacao %>
-</p>
-
-<p>
-  <strong>Regiao:</strong>
-  <%= @intranet_cartorio.intranet_regiao_id %>
-</p>
-
-<p>
-  <strong>Contribuicao:</strong>
-  <%= @intranet_cartorio.intranet_contribuicao_id %>
-</p>
-
-<p>
-  <strong>Atividade:</strong>
-  <%= @intranet_cartorio.intranet_atividade_id %>
-</p>
-
-<p>
-  <strong>Entrancia:</strong>
-  <%= @intranet_cartorio.intranet_entrancia_id %>
-</p>
-
-<p>
-  <strong>Boleto:</strong>
-  <%= @intranet_cartorio.intranet_boleto_id %>
-</p>
-
-<p>
-  <strong>Cidade:</strong>
-  <%= @intranet_cartorio.intranet_cidade_id %>
-</p>
-
-<p>
-  <strong>Associado:</strong>
-  <%= @intranet_cartorio.intranet_associado_id %>
-</p>
-
-<p>
-  <strong>Substituto:</strong>
-  <%= @intranet_cartorio.intranet_substituto_id %>
-</p>
-
-<p>
-  <strong>Tabeliaes:</strong>
-  <%= @intranet_cartorio.intranet_tabeliao_id %>
-</p>
-
-<%= link_to 'Edit', edit_intranet_cartorio_path(@intranet_cartorio) %> |
-<%= link_to 'Back', intranet_cartorios_path %>
+<div class="container" style="margin-bottom: 7%;">
+	<div class="page-header">
+		<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Visualizar cartório</h1>      
+	</Div>
+	<p>Visualização do cartório n°: <%= @intranet_cartorio.id %>.</p> 
+	<ul class="nav nav-tabs" style="margin-bottom: 11px;">
+		<li class="nav-item">
+			<a class="nav-link active" id="btn_menu_1" type="button" >Detalhes do cartório</a> 
+		</li> 
+    <% if user_signed_in? == false %> 
+      <li class="nav-item">  
+        <%= link_to intranet_associados_path(intranet_cartorio_id: @intranet_cartorio.id), class:"nav-link",id:"btn_menu_2", type:"button" do %>
+          Associados
+        <% end %>
+      </li>  
+      <li class="nav-item">  
+        <%= link_to intranet_tabeliaos_path(intranet_cartorio_id: @intranet_cartorio.id), class:"nav-link",id:"btn_menu_2", type:"button" do %>
+          Tabelião
+        <% end %>
+      </li> 
+      <li class="nav-item">  
+        <%= link_to intranet_substitutos_path(intranet_cartorio_id: @intranet_cartorio.id), class:"nav-link",id:"btn_menu_2", type:"button" do %>
+          Substituto
+        <% end %>
+      </li>
+    <% end %>
+		<div style="margin-left: auto;">
+			<%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+			<%= link_to 'Editar', edit_intranet_cartorio_path(@intranet_cartorio),class:"btn btn-primary" %> 
+			<a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= @intranet_cartorio.id %>">Deletar</i></a>
+		</div>
+		<div class="modal fade" id="exampleModal<%= @intranet_cartorio.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Deletar cartório</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+				</div>
+				<div class="modal-body">
+					Deseja deletar cartório <%= @intranet_cartorio.nome %>.
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
+					<%= link_to @intranet_cartorio, method: :delete do %> 
+						<button type="button" class="btn btn-danger">Excluir</button>
+					<% end %>
+				</div>
+				</div>
+			</div>
+		</div>
+	</ul>
+	<div class="form-group row" style="display:flex">
+		<div style="width:100%;margin-right: auto;">
+			<label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+				E-mail 
+				<span style="float: right;font-size: 13px;margin-top: 4px;">
+					cartório ativo? 
+					<%= check_box_tag 'Ativo','yes',@intranet_cartorio.ativo, onclick:"return false;" %>
+				</span>
+			</label>
+			<div class="col-sm-10 correct-md-10" >  
+				<input readonly value="<%= @intranet_cartorio.email %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />
+			</div>
+		</div> 
+	</div>    
+	<div class="form-group row" style="display:flex">
+		<div style="width:100%;margin-right: auto;">
+			<label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+				Nome 
+				<span style="float: right;font-size: 13px;margin-top: 4px;">
+					Possui CNPJ? 
+					<%= check_box_tag 'Ativo','yes',@intranet_cartorio.possui_cnpj, onclick:"return false;" %>
+				</span>
+			</label>
+			<div class="col-sm-10 correct-md-10" >  
+				<input readonly value="<%= @intranet_cartorio.nome %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />
+			</div>
+		</div> 
+	</div>   
+	<div class="form-group row" style="display:flex">
+		<div style="width:100%;margin-right: auto;">
+			<label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+				Nome fantasia 
+			</label>
+			<div class="col-sm-10 correct-md-10" >  
+				<input readonly value="<%= @intranet_cartorio.nome_fant %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />
+			</div>
+		</div> 
+	</div>  
+	<div class="form-group row" style="display:flex">
+		<div style="width:100%;margin-right: auto;">
+			<label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+				Nome resumido 
+			</label>
+			<div class="col-sm-10 correct-md-10" >  
+				<input readonly value="<%= @intranet_cartorio.nome_res %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />
+			</div>
+		</div> 
+	</div>        
+  <div class="form-group row" style="display:flex">
+    <div style="width:25%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        CEI
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+				<input readonly value="<%= @intranet_cartorio.cei %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />
+      </div>
+    </div> 
+    <div style="width:25%;margin: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        CNPJ
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+				<input readonly value="<%= @intranet_cartorio.cnpj %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br /> 
+      </div>
+    </div> 
+    <div style="width:25%;margin: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        COD. TJ
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+				<input readonly value="<%= @intranet_cartorio.cod_tj %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />  
+      </div>
+    </div> 
+    <div style="width:25%;margin-left: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        COD. CNJ
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+				<input readonly value="<%= @intranet_cartorio.cod_cns %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;" ><br />  
+      </div>
+    </div> 
+  </div>
+  <div class="form-group row" style="display:flex">
+    <div style="width:70%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Logradouro
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+				<input readonly value="<%= @intranet_cartorio.logradouro %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />   
+      </div>
+    </div> 
+    <div style="width:30%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Cidade
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+        <%= select_tag("intranet_cidade_id", options_from_collection_for_select(@intranet_cidades, "id", "municipio"), style:"margin-right:1%;",class:"form-control form-control-plaintext input-show",readonly:true, required:true,:disabled => @intranet_cidades.ids )%> 
+      </div>
+    </div> 
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:49.5%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Bairro
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+      	<input readonly value="<%= @intranet_cartorio.bairro %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />   
+      </div>
+    </div> 
+    <div style="width:49.5%;margin-left: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Complemento
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+      	<input readonly value="<%= @intranet_cartorio.complemento %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />   
+      </div>
+    </div>  
+  </div>   
+  <div class="form-group row" style="display:flex">
+    <div style="width:49.5%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Cep
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+      	<input readonly value="<%= @intranet_cartorio.cep %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />   
+      </div>
+    </div> 
+    <div style="width:49.5%;margin-left: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Numero 
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+      	<input readonly value="<%= @intranet_cartorio.numero %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />   
+      </div>
+    </div>  
+  </div>   
+  <div class="form-group row" style="display:flex">
+    <div style="width:49.5%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Telefone fixo
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+      	<input readonly value="<%= @intranet_cartorio.telefone_fixo %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />   
+      </div>
+    </div> 
+    <div style="width:49.5%;margin-left: auto;"> 
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Telefone celular
+        
+        <span style="float: right;font-size: 13px;margin-top: 4px;">é whatsapp? 
+        <%= check_box_tag 'Ativo','yes',@intranet_cartorio.whatsapp, onclick:"return false;" %></span>
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+      	<input readonly value="<%= @intranet_cartorio.telefone_celular %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />   
+      </div>
+    </div>  
+  </div>   
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Observação
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+      	<input readonly value="<%= @intranet_cartorio.observacao %>" class='form-control form-control-plaintext input-show' style="background: #f8f9fa;"><br />   
+      </div>
+    </div> 
+  </div>     
+  <div class="form-group row" style="display:flex">
+    <div style="width:30%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Região
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+        <%= select_tag(:intranet_regiao_id ,options_from_collection_for_select(@intranet_regiaos, "id", "descricao", @intranet_cartorio.intranet_regiao_id), style:"margin-right:1%;",class:"form-control form-control-plaintext input-show",readonly:true, required:true,:disabled => @intranet_regiaos.ids )%> 
+      </div>
+    </div> 
+    <div style="width:30%;margin: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Contribuição
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+        <%= select_tag(:intranet_contribuicao_id ,options_from_collection_for_select(@intranet_contribuicaos, "id", "descricao", @intranet_cartorio.intranet_contribuicao_id), style:"margin-right:1%;",class:"form-control form-control-plaintext input-show",readonly:true, required:true,:disabled => @intranet_contribuicaos.ids )%> 
+      </div>
+    </div> 
+    <div style="width:30%;margin-left: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Entrâncias
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+        <%= select_tag(:intranet_entrancia_id ,options_from_collection_for_select(@intranet_entrancias, "id", "descricao", @intranet_cartorio.intranet_entrancia_id), style:"margin-right:1%;",class:"form-control form-control-plaintext input-show",readonly:true, required:true,:disabled => @intranet_entrancias.ids )%> 
+      </div>
+    </div> 
+  </div>     
+</div>     
+<style> 
+  .correct-md-10{
+    max-width: 100%;
+    width: 100%;
+  }
+  .row{
+    margin-bottom: -1rem;
+  }
+  .input-show{
+    background: #f8f9fa;
+    border-radius: 2px;
+    border: 1px solid #ededed;
+    padding-left: 12px;
+    padding-right: 12px;
+  } 
+  .col-sm-2{
+    max-width: 100%;
+    width: 100%;
+  } 	
+</style> 

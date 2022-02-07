@@ -1,80 +1,167 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-
-    <%= link_to destroy_admin_session_path, method: :delete, class:'sair' do %>
-        <i class="fas fa-door-open" style="color: black;font-size: 19px;margin-top: 4px;margin-right: 3px;"></i>
+  
+    <%= link_to edit_admin_registration_path, class:'sair' do %> 
+        <% if current_admin.avatar.attached? %>
+            <%= image_tag(current_admin.avatar_thumbnail, class: 'shadow-sm mb-5 bg-white rounded foto' )%>
+        <% else %>
+            <%= image_tag('default.png', class: 'shadow-sm mb-5 bg-white rounded foto' )%>
+        <% end %>
     <% end %> 
-    <%= link_to administrador_home_path, style:"color: #000;", class:"navbar-brand" do %>
-            <b>SINOREDI-CE</b> Área Restrita
-    <% end %>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="padding: 4px;width: 33px;margin-left: -10px;">
-      <i class="fas fa-bars" style="color: black;font-size: 19px;"></i>
+                
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="padding: 4px;width: 33px;margin-left: -10px;">
+      <i class="fas fa-bars" style="color: #18457a;font-size: 19px;"></i>
     </button> 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="width: 100%;align-items: center;justify-content: center;">
             <li class="nav-item"> 
-                <%= link_to 'Home', administrador_home_path,class:"nav-link active"%>  
-            </li> 
-            <li class="nav-item"> 
-                <%= link_to 'Arquivos', administrador_home_path,class:"nav-link "%>  
-            </li> 
-
-            <li class="nav-item dropdown" style="display:block">
-                <span class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                    Ferramentas 
-                </span>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUl"> 
-                    <li><%= link_to 'Arquivos', administrador_home_path   ,class:"dropdown-item"%></li>     
-                    <li><%= link_to 'Chamados', administrador_home_path   ,class:"dropdown-item"%></li> 
-                    <li><%= link_to 'Eventos', administrador_home_path    ,class:"dropdown-item"%></li>   
-                    <li><%= link_to 'Financeiro', administrador_home_path ,class:"dropdown-item"%></li> 
-                    <li><%= link_to 'Reunião', administrador_home_path    ,class:"dropdown-item"%></li>   
-                    <li><%= link_to 'Visitantes', administrador_home_path ,class:"dropdown-item"%></li>  
-                    <li><%= link_to 'Mala direta', administrador_home_path,class:"dropdown-item"%></li>  
-                </ul>
-            </li>
-
-            <li class="nav-item dropdown" style="display:block">
-                <span class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                    Cadastros
-                </span>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUl"> 
-                    <li><%= link_to 'Avisos',        intranet_avisos_path       ,class:"dropdown-item"%></li>
-                    <li><%= link_to 'Atividades',    intranet_atividades_path   ,class:"dropdown-item"%></li> 
-                    <li><%= link_to 'Entrâncias',    intranet_entrancia_path    ,class:"dropdown-item"%></li>
-                    <li><%= link_to 'Contribuiçoes', intranet_contribuicaos_path,class:"dropdown-item"%></li>
-                    <li><%= link_to 'Regiões',        intranet_regiaos_path     ,class:"dropdown-item"%></li> 
-                    <li><%= link_to 'Departamentos', intranet_departamentos_path,class:"dropdown-item"%></li> 
-                    <li><%= link_to 'Privilégios', intranet_privilegios_path    ,class:"dropdown-item"%></li> 
-                </ul>
-            </li>
-
-            <% if @master%> 
-                <li class="nav-item dropdown" style="display:block">
-                    <span class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                        Administração
-                    </span>
+                <%= link_to 'Home',     administrador_home_path,class:"nav-link"%>  
+            </li>   
+            
+            <li class="nav-item dropdown" style="display:none">
+                <% if can?(:read, :novo_operador) or can?(:read, :dashboard_evento) or can?(:read, :dashboard_cartorio, :administrador)%>
+                    <span class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+                        Estatísticas 
+                    </span> 
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUl"> 
-                        <li><%= link_to 'Parametros',        intranet_avisos_path       ,class:"dropdown-item"%></li>
-                        <li><%= link_to 'Cadastrar Administrador', intranet_avisos_path ,class:"dropdown-item"%></li>
-                        
+                        <% if can? :dashboard_evento, :administrador %>
+                            <li><%= active_link_to 'Eventos',administrador_dashboard_evento_path,class:"dropdown-item"%></li>    
+                        <% end %> 
+                        <% if can? :dashboard_cartorio, :administrador %>
+                            <li><%= active_link_to 'Cartórios',administrador_dashboard_cartorio_path,class:"dropdown-item"%></li>  
+                        <% end %> 
+                        <% if can? :dashboard_associado, :administrador %>
+                            <li><%= active_link_to 'Associados',administrador_dashboard_associado_path,class:"dropdown-item"%></li>  
+                        <% end %>
                     </ul>
-                </li> 
+                <% end %>
+            </li>
+            <li class="nav-item dropdown" style="display:block">
+                <span class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+                    Gerenciar
+                </span>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUl">  
+                    <% if can? :read, :aviso %>
+                        <li><%= active_link_to 'Avisos',            intranet_avisos_path                    ,class:"dropdown-item"%></li> 
+                    <% end %>
+                    <% if can? :read, :event %>
+                        <li><%= active_link_to 'Eventos',           intranet_events_path                    ,class:"dropdown-item"%></li>  
+                    <% end %>
+                    <% if can? :read, :novo_operador %>
+                        <li class="dropdown-submenu">
+                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars" style="font-weight: bold;color: #8393a3;"></i><span style="margin-left: 6px;color: #212529;" class="nav-label">Sistema</span><span class="caret"></span></a>
+                            <ul class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
+                                <% if can? :operador, :privilegio %>
+                                    <li><%= active_link_to 'Privilégios',       intranet_privilegios_path       ,class:"dropdown-item"%></li> 
+                                <% end %>
+                                <% if can? :operador, :administrador %>
+                                    <li><%= active_link_to 'Operadores',        administrador_operadores_path   ,class:"dropdown-item"%></li>  
+                                <% end %>
+                                <% if can? :manage, :departamento %>
+                                    <li><%= active_link_to 'Departamentos',     intranet_departamentos_path     ,class:"dropdown-item"%></li> 
+                                <% end %>
+                            </ul>  
+                        </li> 
+                    <% end %> 
+                    <% if can? :read, :arquivo %>
+                        <li><%= active_link_to 'Arquivos',          intranet_arquivos_path                  ,class:"dropdown-item"%></li>   
+                    <% end %> 
+                    <% if can? :read, :reunion %>
+                        <li><%= active_link_to 'Reuniões',          intranet_reunions_path                  ,class:"dropdown-item"%></li>   
+                    <% end %> 
+                    <% if can? :manage, :cartorio %>
+                        <li class="dropdown-submenu">
+                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"  style="font-weight: bold;color: #8393a3;"></i><span style="margin-left: 6px;color: #212529;" class="nav-label">Cartórios</span><span class="caret"></span></a>
+                            <ul class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">  
+                                <% if can? :read, :cartorio %>
+                                    <li><%= active_link_to 'Listagem',         intranet_cartorios_path          ,class:"dropdown-item"%></li> 
+                                <% end %> 
+                                <% if can? :read, :tabeliao %>
+                                    <li><%= active_link_to 'Tabeliães',         intranet_tabeliaos_path         ,class:"dropdown-item"%></li> 
+                                <% end %>
+                                <% if can? :read, :substituto %>
+                                    <li><%= active_link_to 'Substitutos',         intranet_substitutos_path         ,class:"dropdown-item"%></li>  
+                                <% end %>
+                            </ul>  
+                        </li>
+                    <% end %>
+                    <% if can? :read, :pergunt %>
+                        <li><%= active_link_to 'Perguntas',         intranet_pergunts_path                  ,class:"dropdown-item"%></li> 
+                    <% end %>
+                    <% if can? :read, :boleto %>
+                        <li><%= active_link_to 'Financeiro',        intranet_boletos_path                   ,class:"dropdown-item"%></li>
+                    <% end %>
+                    <% if can? :read, :mala_diretum %>
+                        <li><%= active_link_to 'Mala direta',       intranet_mala_direta_path               ,class:"dropdown-item"%></li>   
+                    <% end %> 
+                    <% if can? :associado, :cartorio %>
+                        <% if can? :associado, :cartorio %>
+                            <li class="dropdown-submenu">
+                                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"  style="font-weight: bold;color: #8393a3;"></i><span style="margin-left: 6px;color: #212529;" class="nav-label">Associados</span><span class="caret"></span></a>
+                                <ul class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">  
+                                    <% if can? :read, :associado %>
+                                        <li><%= active_link_to 'Listagem',         intranet_associados_path          ,class:"dropdown-item"%></li> 
+                                    <% end %> 
+                                    <% if can? :read, :tabeliao %>
+                                        <li><%= active_link_to 'Novos usuários',         intranet_lista_usuarios_index_path         ,class:"dropdown-item"%></li> 
+                                    <% end %> 
+                                </ul>  
+                            </li>
+                        <% end %> 
+                    <% end %> 
+                    <%  if can? :read, :novo_operador  %>
+                        <li class="dropdown-submenu">
+                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"  style="font-weight: bold;color: #8393a3;"></i><span style="margin-left: 6px;color: #212529;" class="nav-label">Parâmetros</span><span class="caret"></span></a>
+                            <ul class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink"> 
+                                <% if can? :read, :regiao %>
+                                    <li><%= active_link_to 'Regiões',           intranet_regiaos_path           ,class:"dropdown-item"%></li>  
+                                <% end %>
+                                <% if can? :read, :atividade %>
+                                    <li><%= active_link_to 'Atividades',        intranet_atividades_path        ,class:"dropdown-item"%></li> 
+                                <% end %>
+                                <% if can? :read, :entrancium %>
+                                    <li><%= active_link_to 'Entrâncias',        intranet_entrancia_path         ,class:"dropdown-item"%></li> 
+                                <% end %>
+                                <% if can? :read, :contribuicao %>
+                                    <li><%= active_link_to 'Contribuiçoes',     intranet_contribuicaos_path     ,class:"dropdown-item"%></li> 
+                                <% end %>
+                            </ul>  
+                        </li>
+                    <% end %>
+                    <% if can? :read, :arquivos_tipo %>
+                        <li><%= active_link_to 'Tipos de Arquivos', intranet_arquivos_tipos_path            ,class:"dropdown-item"%></li> 
+                    <% end %>
+                </ul>
+            </li>
+
+            <% if can? :read, :novo_operador %> 
+                <% if can? :read, :parametros %>
+                    <li class="nav-item dropdown" style="display:block">
+                        <span class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+                            Administração
+                        </span>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUl"> 
+                            <li><%= active_link_to 'Parametros',administrador_parametros_path,class:"dropdown-item"%></li> 
+                        </ul>
+                    </li>  
+                <% end %>
             <% end %>
         </ul>
     </div>
+    <%= link_to destroy_admin_session_path, method: :delete,class:"btn btn-link" do %>
+        Sair <i style="margin-left: 3px;" class="fas fa-sign-out-alt"></i>
+    <% end %>
   </div>
 </nav> 
-<div class="container"> 
+<div > 
     <div class="central_msgs">
         <% flash.each do |name, msg| %> 
             <% name = 'warning' if name == 'alert'%>
             <% name = 'info' if name == 'notice'%>
-            <div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="transition: all 0.5s ease-in-out 0s;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="margin: auto;transition: all 0.5s ease-in-out 0s;bottom: 9px;"> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;"><span aria-hidden="true"><i class="fas fa-times"></i></button>
                 <span data-notify="icon" class="nc-icon nc-app"></span> 
                 <% if name == 'info' %>   
                     <span data-notify="title">Informação:</span>
@@ -91,6 +178,7 @@
         <% end %>
     </div>
 </div>
+
 <style>
 .navbarDropdownMenuLink:hover  .navbarDropdownMenuLinkUl{
     display:block !important; 
@@ -117,11 +205,44 @@
 }
 .central_msgs{
     position: fixed;
-    z-index: 2;
+    z-index: 4;
     bottom: 56px;
     width: 100%;
     right: 0px;
     justify-content: flex-end;
     display: flex;
+}
+.foto{
+    width: 35px;
+    height: 35px;
+    margin-top: -2px;
+    margin-left: 9px; 
+    border: 1px solid transparent;
+    border-radius: 6px;     
+    padding: 0px; 
+}
+.dropdown-submenu{
+    position: relative;
+}
+.dropdown-submenu a::after{
+    transform: rotate(-90deg);
+    position: absolute;
+    right: 3px;
+    top: 40%;
+}
+.dropdown-submenu:hover .dropdown-menu, .dropdown-submenu:focus .dropdown-menu{
+    display: flex;
+    flex-direction: column;
+    position: absolute !important;
+    margin-top: -30px;
+    left: 100%;
+}
+@media (max-width: 992px) {
+    .dropdown-menu{
+        width: 50%;
+    }
+    .dropdown-menu .dropdown-submenu{
+        width: auto;
+    }
 }
 </style>

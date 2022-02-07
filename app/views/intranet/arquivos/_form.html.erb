@@ -1,0 +1,67 @@
+<%= form_with(model: intranet_arquivo) do |form| %>
+  <ul class="nav nav-tabs" style="margin-bottom: 11px;">
+    <li class="nav-item">
+      <a class="nav-link active" id="btn_menu_1" type="button" >Detalhes do arquivo</a>
+    </li> 
+    <div style="margin-left: auto;">
+      <%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+      <%= link_to 'Visualizar',  @intranet_arquivo ,class:"btn btn-primary" if @intranet_arquivo.id != nil %> 
+    </div>
+  </ul>  
+  <div class="form-group" style="display:flex"> 
+    <div style="width:100%;margin-right: auto;"> 
+      <%= form.label "Descrição" %>
+      <span style="float: right;font-size: 13px;margin-top: 4px;margin-left:10px">Arquivo ativo? <%= form.check_box :ativo %></span>
+      <%= form.text_field :descricao, class:"form-control",placeholder:"Informe a descrição do evento", required:true %> 
+    </div>   
+  </div>  
+  <div class="form-group">
+    <%= form.label 'Cartório' %>
+    <select id="intranet_arquivo_intranet_cartorio_id" name="intranet_arquivo[intranet_cartorio_id]" class="form-control" required="true" multiple="true">
+      <option value="">Selecione um cartório</option> 
+        <% if @intranet_arquivo.intranet_cartorio_id == 0 %>
+          <option value="0" selected>Todos os cartorios</option> 
+        <% else %>
+          <option value="0">Todos os cartorios</option> 
+        <% end %> 
+        <% @intranet_cartorios.each do |cartorio| %> 
+          <% if @intranet_arquivo.intranet_cartorio_id == cartorio.id %>
+            <option value="<%= cartorio.id %>" selected><%= cartorio.nome %></option>
+          <% else %>
+            <option value="<%= cartorio.id %>"><%= cartorio.nome %></option>
+          <% end %> 
+        <% end %>
+    </select>
+  </div>  
+  <div class="form-group">
+    <%= form.label 'Tipo' %>
+    <select id="intranet_arquivo_intranet_arquivos_tipo_id" name="intranet_arquivo[intranet_arquivos_tipo_id]" class="form-control"  required="true">
+      <option value="">Selecione o tipo de arquivo</option> 
+      <% @intranet_tipo.each do |tipo| %> 
+        <% if @intranet_arquivo.intranet_arquivos_tipo_id == tipo.id %>
+          <option value="<%= tipo.id %>" selected><%= tipo.descricao %></option>
+        <% else %>
+          <option value="<%= tipo.id %>"><%= tipo.descricao %></option>
+        <% end %>
+      <% end %>
+      <% if @intranet_arquivo.intranet_arquivos_tipo_id == 0 %>
+        <option value="outros" selected>Outros</option> 
+      <% else %>
+        <option value="outros">Outros</option> 
+      <% end %>
+    </select>
+  </div>     
+  <div class="mb-3">
+    <label for="formFile" class="form-label">Escolha os arquivos para enviar</label> 
+    <%= form.file_field :arquivos, multiple:true,class:"form-control"%>
+  </div>  
+  
+	<div class="actions">
+		<%= form.submit 'Salvar',class:"btn btn-primary", style:"float:right"%>
+	</div>
+  <style>
+  .form-control{
+    margin-bottom:10px
+  }
+  </style>
+<% end %>

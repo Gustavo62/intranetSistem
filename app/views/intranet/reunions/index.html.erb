@@ -1,0 +1,94 @@
+<script src="https://unpkg.com/imask"></script>
+<div class="container" style="margin-bottom: 200px;">  
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Reuniões</h1>      
+  </div>
+  <p>Gerenciar Reuniões do sistema.</p>  
+  <% if user_signed_in? == false %>
+    <%= form_with(url:'/intranet/reunions',method: :get, id:"form_assoc" )  do |f| %>  
+      <%= select_tag(:status, options_for_select([["ativo",true],["desativado",false]],params[:status]), class:"form-control",prompt:"Status da reunião",style:"margin-right:1%;") %> 
+      <%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
+      <%= link_to "Limpar", intranet_reunions_path , style:"width: 21%;",class:"btn btn-link" %>
+    <% end %> 
+  <% end %> 
+  <div style="width: 100%;height: 572px;overflow-y: scroll;" class="table-wrapper-scroll-y my-custom-scrollbar shadow p-3 mb-5 bg-white rounded">
+    <div class="collapse multi-collapse show" id="multiCollapseExample">  
+      <table  class="table table-hover table-striped mb-0" style="overflow-x: auto;">
+        <thead>
+          <tr> 
+            <th>Assunto</th> 
+            <th>Status</th>  
+            <th>Data</th>  
+            <th style="text-align: center;" colspan="3">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @intranet_reunions.each do |intranet_reunion| %>
+            <tr> 
+              <td><%= intranet_reunion.assunto %></td> 
+              <td>
+                <% if intranet_reunion.ativo %>
+                  Ativo
+                <% else %>
+                  Desativado
+                <% end %>
+              </td>  
+              <td><%= intranet_reunion.created_at.strftime("%d/%m/%Y") %></td>  
+              <td style="text-align: center;">
+                <%= link_to intranet_reunion, class:"btni" do %>
+                  <i class="fas fa-eye" style="padding:0px;"></i>
+                <% end %>
+              </td>
+              <% if user_signed_in? == false %>
+                <td style="text-align: center;">
+                  <%= link_to edit_intranet_reunion_path(intranet_reunion), class:"btni" do %>
+                    <i class="fas fa-edit" style="padding-left: 3px;"></i>
+                  <% end %>
+                </td>
+                <td style="text-align: center;"> 
+                  <a  class="btni" data-bs-toggle="modal" data-bs-target="#exampleModal<%= intranet_reunion.id %>"><i class="fas fa-trash-alt" style="padding:0px;"></i></a>
+                  
+                  <div class="modal fade" id="exampleModal<%= intranet_reunion.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Deletar Reuniões</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                      </div>
+                      <div class="modal-body">
+                        Deseja deletar Reuniões, <%= intranet_reunion.assunto%>?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
+                        <%= link_to intranet_reunion, method: :delete do %> 
+                          <button type="button" class="btn btn-danger">Excluir</button>
+                        <% end %>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table> 
+    </div>  
+  </div>
+  <p style="text-align: center;padding: 1%;">Consulta obteve <%=  @intranet_reunions.size %> resultados.<p> 
+  <% if user_signed_in? == false %> 
+    <%= link_to new_intranet_reunion_path ,style:"float:right", class:"btn btn-primary" do %>
+      <i style="margin-right: 9px;" class="fas fa-plus icon-aux-label"></i>Reunião
+    <% end %> 
+  <% end %>
+  <br>
+  <%= paginate @intranet_reunions %> 
+  <br>
+</div>  
+<style>
+  #form_assoc{
+    display: flex;
+    margin-bottom: 1%;
+  } 
+</style>
+

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Assunto:</strong>
+  <%= @intranet_chamado.assunto %>
+</p>
+
+<p>
+  <strong>Intranet associado:</strong>
+  <%= @intranet_chamado.intranet_associado_id %>
+</p>
+
+<p>
+  <strong>Mensagem pergunta:</strong>
+  <%= @intranet_chamado.mensagem_pergunta %>
+</p>
+
+<p>
+  <strong>Mensagem resposta:</strong>
+  <%= @intranet_chamado.mensagem_resposta %>
+</p>
+
+<p>
+  <strong>Profissional:</strong>
+  <%= @intranet_chamado.profissional_id %>
+</p>
+
+<p>
+  <strong>Visualizada:</strong>
+  <%= @intranet_chamado.visualizada %>
+</p>
+
+<p>
+  <strong>Visualizada at:</strong>
+  <%= @intranet_chamado.visualizada_at %>
+</p>
+
+<%= link_to 'Edit', edit_intranet_chamado_path(@intranet_chamado) %> |
+<%= link_to 'Back', intranet_chamados_path %>

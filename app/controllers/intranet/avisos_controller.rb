@@ -1,19 +1,18 @@
 class Intranet::AvisosController < ApplicationController
-	before_action :set_intranet_aviso, only: %i[ show edit update destroy ]
 	before_action :valida_acesso
-	
+	before_action :set_intranet_aviso, only: %i[ show edit update destroy ] 
+	authorize_resource :class => false
 	def index
 		if user_signed_in? 
+			@msg = []
 			@intranet_avisos = Intranet::Aviso.where(recipient_id: current_user.id,master: false).order(:created_at)
 			@atividades = Intranet::Atividade.all
-			@avisonumb = Intranet::Aviso.where(ativo: true, recipient_id: current_user.id, read_at: nil,master: false).order(:created_at)
-			if @avisonumb.size > 0
-				@numero_pushs = 0 
-				@numero_pushs += @avisonumb.size
-				flash[:notice] = "Você tem que ainda não foram visualizados!" 
+		else   
+			if params[:id_atividade].present?
+				@intranet_avisos = Intranet::Aviso.where(master: true).pesquisa(params[:status]).where("intranet_atividade_id &&  ?", "{#{params[:id_atividade]}}")
+			else
+				@intranet_avisos = Intranet::Aviso.where(master: true).pesquisa(params[:status])
 			end
-		else 
-			@intranet_avisos = Intranet::Aviso.where(master: true)
 			@atividades = Intranet::Atividade.all
 		end
 	end
@@ -51,7 +50,7 @@ class Intranet::AvisosController < ApplicationController
 		respond_to do |format|
 			if @intranet_aviso.save
 				Intranet::Avisos::DispararEmailAvisoJob.perform_later(@intranet_aviso)
-				format.html { redirect_to @intranet_aviso, notice: "Aviso was successfully created." }
+				format.html { redirect_to @intranet_aviso, notice: "Aviso foi criado com sucesso." }
 				format.json { render :show, status: :created, location: @intranet_aviso }
 			else
 				format.html { render :new, status: :unprocessable_entity }
@@ -64,7 +63,7 @@ class Intranet::AvisosController < ApplicationController
 		respond_to do |format|
 		if @intranet_aviso.update(intranet_aviso_params) 
 			Intranet::Avisos::AtualizarMsgJob.perform_later(@intranet_aviso)
-			format.html { redirect_to @intranet_aviso, notice: "Aviso was successfully updated." }
+			format.html { redirect_to @intranet_aviso, notice: "Aviso foi atualizado com sucesso." }
 			format.json { render :show, status: :ok, location: @intranet_aviso }
 		else
 			format.html { render :edit, status: :unprocessable_entity }
@@ -77,11 +76,11 @@ class Intranet::AvisosController < ApplicationController
 		Intranet::Avisos::ExcluirLoteAvisoJob.perform_later(@intranet_aviso)
 		@intranet_aviso.destroy
 		respond_to do |format|
-			format.html { redirect_to intranet_avisos_url, notice: "Aviso was successfully destroyed." }
+			format.html { redirect_to intranet_avisos_url, notice: "Aviso  foi deletado com sucesso." }
 			format.json { head :no_content }
 		end
 	end
-
+	
 	private
 	
 		def set_intranet_aviso

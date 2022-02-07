@@ -1,6 +1,5 @@
-class AdminMailer < ApplicationMailer
-
-  default from: 'suporte@sinoredice.org.br'  
+class AdminMailer < ApplicationMailer 
+  default from: 'ouvidoria@anoregce.org.br'
   def cad_deferido(user,assunto,msg)
     @msg  = msg
     @user = user
@@ -20,5 +19,18 @@ class AdminMailer < ApplicationMailer
     @atividades = Intranet::Atividade.all
     @cartorio = cart
     mail to: 'gust904@gmail.com', subject: @intranet_aviso.titulo
+  end 
+  def notificacao_mensal_assoc(id_boleto)
+    @boleto  = Intranet::Boleto.find(id_boleto)
+    @user    = Intranet::Associado.find(@boleto.intranet_associado_id)
+    mail to: 'gust904@gmail.com', subject: 'Nova Cobrança'
+    # production
+    # mail to: destinatario, subject: 'Nova Cobrança' 
+  end 
+  def maladireta(cartorio_email,id_mala_direta)
+    @mala_direta  = Intranet::MalaDiretum.find(id_mala_direta) 
+    mail to: 'gust904@gmail.com', subject: @mala_direta.assunto
+    # production
+    # mail to: cartorio, subject: @mala_direta.assunto
   end
 end

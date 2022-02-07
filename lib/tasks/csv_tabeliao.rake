@@ -1,15 +1,19 @@
 require 'csv'
+require 'date'
 namespace :csv_tabeliao do
 	desc "Importa o arquivo tabeliao_db.csv"
 	task import: :environment do
 		CSV.foreach('tmp/tabeliao_db.csv', col_sep: ';').with_index do |linha, indice|
 			unless (indice == 0)
-				if linha[3] == 1 or   linha[3] == '1'
-					@wpp = true
-				else
-					@wpp = true
+				begin
+					@tab = Intranet::Tabeliao.create(nome: linha[22], cpf:linha[23], cartorio_cns: linha[1],atual?:true)
+					@tab.save  
+					if @tab.save == false  
+						puts "TASK CRIA TAB \e[41m\e[1mERROR!!\e[22m linha #{indice}\e[0m"
+					end
+				rescue
+					puts "TASK CRIA TAB \e[41mERROR!! linha #{indice}\e[0m"
 				end
-				Intranet::Tabeliao.create!(id: linha[0], nome: linha[1], telefone: linha[2], whatsapp:linha[3], email:linha[4], cpf:linha[5])
 			end
 		end
 	end

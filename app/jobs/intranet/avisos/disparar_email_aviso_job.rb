@@ -1,40 +1,40 @@
 class Intranet::Avisos::DispararEmailAvisoJob < ApplicationJob
-  queue_as :default
+  	queue_as :default
 
 	def perform(intranet_aviso)
 		@cartorios = Intranet::Cartorio.all
-		@count == 1
-		puts "---------------------------"
-		puts "Referencia: " + (intranet_aviso.intranet_atividade_id).to_s
+		@count == 1  
 		@cartorios.each do |cartorio|
-			if cartorio.intranet_atividade_id & intranet_aviso.intranet_atividade_id
-				@assoc 	= Intranet::Associado.where(intranet_cartorio_id: cartorio.id,ativo: true).take
-				begin 
-					@avs_slave = Intranet::Aviso.new(	titulo: 				intranet_aviso.titulo, 
-														descricao: 				intranet_aviso.descricao, 
-														intranet_atividade_id: 	intranet_aviso.intranet_atividade_id, 
-														integer_id: 			intranet_aviso.integer_id, 
-														ativo: 					intranet_aviso.ativo, 
-														recipient_id: 			@assoc.user_id,
-														master_id:              intranet_aviso.id) 
-					@avs_slave.save
-					if intranet_aviso.docs
-						puts "tem doc -------------------------" 
-						intranet_aviso.docs.each do |documents|
-							@avs_slave.docs.attach(documents.blob)
-						end 
-						puts "tem doc -------------------------" 
-					end
-					@avs 	= Intranet::Aviso.find(intranet_aviso.id)  
-					@avs.recipient_id = @assoc.user_id
-					@avs.save
-				rescue
-					puts "cart_id: " + cartorio.id.to_s + " sem associados"
-				end   
-				puts "----- Cartorio id: " + (cartorio.id).to_s 
-				#AdminMailer.aviso_new(cartorio,intranet_aviso).deliver_later 
-			end  
+			aux = cartorio.intranet_atividade_id & intranet_aviso.intranet_atividade_id
+			puts "Aviso para user, Referencias: aviso_id - " + (intranet_aviso.intranet_atividade_id).to_s + " / cart_id " + (cartorio.id).to_s
+			if aux.any?
+				@assoc 	     = Intranet::Associado.where(ativo: true).where("intranet_cartorio @> ?", "{#{cartorio.id}}").take
+				if @assoc
+					@aviso_exist = Intranet::Aviso.where(master_id: intranet_aviso.id,recipient_id: @assoc.user_id).size
+				end
+				if @assoc && @aviso_exist == 0 
+					begin 
+						@avs_slave = Intranet::Aviso.new(	titulo: 				intranet_aviso.titulo, 
+															descricao: 				intranet_aviso.descricao, 
+															intranet_atividade_id: 	intranet_aviso.intranet_atividade_id, 
+															integer_id: 			intranet_aviso.integer_id, 
+															ativo: 					intranet_aviso.ativo,  
+															recipient_id: 			@assoc.user_id,
+															master_id:              intranet_aviso.id) 
+						@avs_slave.save
+						ActionText::RichText.create!(name:'aviso',body: intranet_aviso.aviso.body ,record_type: "Intranet::Aviso", record_id: @avs_slave.id )
+						if intranet_aviso.docs 
+							intranet_aviso.docs.each do |documents|
+								@avs_slave.docs.attach(documents.blob)
+							end  
+						end    
+					rescue
+						puts "cart_id: " + cartorio.id.to_s + " sem associados"
+					end    
+					AdminMailer.aviso_new('gust904@gmail.com',intranet_aviso).deliver_later 
+				end
+			end   
+			break 
 		end 
 	end
-end
-#carts sem atvs [50, 144, 190, 191, 193, 196, 198, 200, 203, 206, 208, 212, 218, 235, 357, 474, 630, 631] 
+end 

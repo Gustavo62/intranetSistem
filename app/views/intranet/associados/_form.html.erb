@@ -1,102 +1,174 @@
+<%= javascript_pack_tag "associados_form", "data-turbolinks-track" => true %> 
 <%= form_with(model: intranet_associado) do |form| %>
-  <% if intranet_associado.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(intranet_associado.errors.count, "error") %> prohibited this intranet_associado from being saved:</h2>
-
-      <ul>
-        <% intranet_associado.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+  <div id="dados_acesso"> 
+    <div class="form-group row" style="display:flex">
+      <div style="width:100%;margin-right: auto;">
+        <label  class="col-sm-2 col-form-label" style="max-width: max-content;">Cartório</label>
+        <div class="col-sm-10 correct-md-10" >  
+          <%= form.select :intranet_cartorio ,options_from_collection_for_select(@cartorios, "id", "nome", @intranet_associado.intranet_cartorio), {:prompt => "Escolha o cartório"},{style:"margin-right:1%;",multiple:true}%> 
+        </div>
+      </div>  
+    </div> 
+    <div class="form-group row" style="display:flex">
+      <div style="width:70%">
+        <label  class="col-sm-2 col-form-label" >Nome</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @user.nome %>">
+        </div>
+      </div>
+      <div style="width:30%">
+        <label  class="col-sm-2 col-form-label" >CPF</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @user.cpf %>">
+        </div>
+      </div>
+    </div> 
+    <div class="form-group row" style="display:flex">
+      <div style="width:70%">
+        <label  class="col-sm-2 col-form-label" style="max-width: max-content;">Lembrete Senha</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @user.lembrete %>">
+        </div>
+      </div>
+      <div style="width:30%">
+        <label  class="col-sm-2 col-form-label" >Acesso</label>
+        <% if @user.acesso%>
+          <div class="col-sm-10 correct-md-10" >
+            <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="Liberado">
+          </div>
+        <% else %> 
+          <div class="col-sm-10 correct-md-10" >
+            <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="Bloqueado">
+          </div>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
+      </div>
+    </div>  
+    <div class="form-group row" style="display:flex">
+      <div style="width:50%">
+        <label  class="col-sm-2 col-form-label" style="max-width: max-content;">Data de Aniversário</label>
+        <div class="col-sm-10 correct-md-10" > 
+          <%= form.text_field :data_nascimento,class:"form-control" %>
+        </div>
+      </div> 
+      <div style="width:50%">
+        <label class="col-sm-2 col-form-label" style="max-width: inherit;">Função 
+        <span style="float: right;font-size: 13px;margin-top: 4px;">é o substituto?  <%= form.check_box :substituto %></span>
+        </label>
+        <div class="col-sm-10 correct-md-10" >  
+          <%= select_tag "intranet_associado_funcao", options_for_select(["Titular", "Substituto", "Interino" ], @intranet_associado.funcao), id:"intranet_associado_funcao", :prompt => "Escolha a sua função"%> 
+        </div>
+      </div> 
+    </div> 
+    <hr>
+    <div class="form-group row" style="display:flex">  
+      <div style="width:100%">
+        <label  class="col-sm-2 col-form-label" style="max-width: max-content;">Ficha de associação</label>
+        <div class="col-sm-10 correct-md-10" >   
+          <%= link_to user_path(id: @user.id), class:"btn btn-link" do %>
+            Anexar Fixas  
+          <% end %> 
+        </div>
+      </div>  
+    </div>   
+    <div class="form-group row" style="display:flex">  
+      <div style="width:100%">
+        <label  class="col-sm-2 col-form-label" style="max-width: max-content;">Termo de posse</label>
+        <div class="col-sm-10 correct-md-10" >  
+          <% @intranet_associado.intranet_cartorio.each do | cart_id |%>
+            <div class="page-header">
+              <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;font-size: 18px;"><%= @cartorios.find(cart_id).try(:nome)%></h1>      
+            </div>
+            <p>Anexe o documento relacionado a este respectivo cartório.</p> 
+            <%= form.file_field "termo_posse_#{cart_id}",style:"width: 97%;margin-top: 20px;",type:"file",id:"user_termo_posse",class:"form-control"%>
+          <% end %>
+        </div>
+      </div>  
+    </div>    
+  </div>  
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
+  <div id="dados_para_contato"> 
+    <div class="form-group row" style="display:flex">
+      <div style="width:100%">
+        <label  class="col-sm-2 col-form-label" style="max-width: max-content;">E-mail</label>
+        <div class="col-sm-10 correct-md-10" >
+          <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="<%= @user.email %>">
+        </div>
+      </div> 
+    </div> 
+    <div class="form-group row" style="display:flex">
+      <div style="width:30%;margin-right: auto;">
+        <label  class="col-sm-2 col-form-label" style="max-width: max-content;">Contato 1</label>
+        <div class="col-sm-10 correct-md-10" > 
+          <%= form.text_field :telefone_1,class:"form-control" %>
+        </div>
+      </div>
+      <div style="width:30%"> 
+        <label  class="col-sm-2 col-form-label" style="max-width: initial;">Contato 2 
+          <span style="float: right;font-size: 13px;margin-top: 4px;">possui whatsapp <%= form.check_box :ativo %></span>
+        </label>
+        <div class="col-sm-10 correct-md-10" >
+          <%= form.text_field :telefone_2,class:"form-control" %>
+        </div> 
+      </div>
+      <div style="width:30%;    margin-left: auto;">
+        <label  class="col-sm-2 col-form-label" style="max-width: max-content;">Contato 3</label>
+        <div class="col-sm-10 correct-md-10" > 
+          <%= form.text_field :celular,class:"form-control" %>
+        </div>
+      </div> 
+    </div>  
+    <div class="form-group row" style="display:flex">
+      <div style="width:70%">
+        <label  class="col-sm-2 col-form-label" style="max-width: max-content;">Logradouro</label>
+        <div class="col-sm-10 correct-md-10" > 
+          <%= form.text_field :logradouro,class:"form-control" %>
+        </div>
+      </div> 
+      <div style="width:30%">
+        <label  class="col-sm-2 col-form-label" style="max-width: max-content;">CEP</label>
+        <div class="col-sm-10 correct-md-10" > 
+          <%= form.text_field :cep,class:"form-control" %>
+        </div>
+      </div> 
+    </div> 
+    <div class="form-group row" style="display:flex">
+      <div style="width:50%;margin-right: auto;">
+        <label  class="col-sm-2 col-form-label" style="max-width: max-content;">Complemento</label>
+        <div class="col-sm-10 correct-md-10" > 
+          <%= form.text_field :complemento,class:"form-control" %>
+        </div>
+      </div> 
+      <div style="width:50%;    margin-left: auto;">
+        <label  class="col-sm-2 col-form-label" style="max-width: max-content;">Bairro</label>
+        <div class="col-sm-10 correct-md-10" > 
+          <%= form.text_field :bairro,class:"form-control" %>
+        </div>
+      </div> 
+    </div>  
   </div>
-
-  <div class="field">
-    <%= form.label :cidade_id %>
-    <%= form.text_field :cidade_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :matricula %>
-    <%= form.text_field :matricula %>
-  </div>
-
-  <div class="field">
-    <%= form.label :data_nascimento %>
-    <%= form.date_select :data_nascimento %>
-  </div>
-
-  <div class="field">
-    <%= form.label :funcao %>
-    <%= form.text_field :funcao %>
-  </div>
-
-  <div class="field">
-    <%= form.label :rg %>
-    <%= form.text_field :rg %>
-  </div>
-
-  <div class="field">
-    <%= form.label :sexo %>
-    <%= form.check_box :sexo %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ativo %>
-    <%= form.check_box :ativo %>
-  </div>
-
-  <div class="field">
-    <%= form.label :cep %>
-    <%= form.text_field :cep %>
-  </div>
-
-  <div class="field">
-    <%= form.label :logradouro %>
-    <%= form.text_field :logradouro %>
-  </div>
-
-  <div class="field">
-    <%= form.label :complemento %>
-    <%= form.text_field :complemento %>
-  </div>
-
-  <div class="field">
-    <%= form.label :bairro %>
-    <%= form.text_field :bairro %>
-  </div>
-
-  <div class="field">
-    <%= form.label :telefone_1 %>
-    <%= form.text_field :telefone_1 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :telefone_2 %>
-    <%= form.text_field :telefone_2 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :celular %>
-    <%= form.text_field :celular %>
-  </div>
-
-  <div class="field">
-    <%= form.label :whatsapp %>
-    <%= form.text_field :whatsapp %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+ 
+  <div class="actions" style="margin-top: 14px;">
+    <%= form.submit 'Salvar', class:"btn btn-info", style:"float: right;" %>
   </div>
 <% end %>
+<style> 
+  .col-sm-2{
+    max-width: 100%;
+    width: 100%;
+  } 	
+  .input-show{
+    background: #f8f9fa;
+    border-radius: 2px;
+    border: 1px solid #ededed;
+    padding-left: 12px;
+  }
+  .active{
+    font-weight: bold !important; 
+    color: #12345e !important;
+  } 
+  
+  .correct-md-10{
+    max-width: 100%;
+    width: 100%;
+  }
+</style> 

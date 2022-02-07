@@ -1,5 +1,10 @@
-<h1>New Intranet Tabeliao</h1>
-
-<%= render 'form', intranet_tabeliao: @intranet_tabeliao %>
-
-<%= link_to 'Back', intranet_tabeliaos_path %>
+<%= javascript_pack_tag "tabeliao_new" %> 
+<script src="https://unpkg.com/imask"></script>
+<div class="container" style="margin-bottom: 7%;">
+    <div class="page-header">
+        <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Tabelião</h1>      
+    </div>
+    <p>Criar novo tabelião.</p>  
+    <%= render 'form', intranet_tabeliao: @intranet_tabeliao %> 
+</div>
+ 

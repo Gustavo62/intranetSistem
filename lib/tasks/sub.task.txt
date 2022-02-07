@@ -1,0 +1,22 @@
+require 'csv'
+namespace :csv_substituto do
+	desc "Importa o arquivo substituto_db.csv"
+	task import: :environment do
+		CSV.foreach('tmp/substituto_db.csv', col_sep: ';').with_index do |linha, indice|
+			unless (indice == 0)
+				if linha[4] == 1 or linha[4] == '1'
+					@wpp = true
+				else
+					@wpp = true
+				end
+				if linha[0] != "" or linha[0] != nil
+					begin
+						Intranet::Substituto.create!(id: linha[0], cpf: linha[1] , nome: linha[2], telefone: linha[3], whatsapp:linha[4], email:linha[5]) 
+					rescue
+						puts "não foi possivel adcionar id #{linha[0]}"
+					end
+				end
+			end
+		end
+	end
+end

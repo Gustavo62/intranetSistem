@@ -10,148 +10,204 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :possui_cnpj? %>
-    <%= form.check_box :possui_cnpj? %>
-  </div>
-
-  <div class="field">
-    <%= form.label :cei %>
-    <%= form.text_field :cei %>
-  </div>
-
-  <div class="field">
-    <%= form.label :cnpj %>
-    <%= form.text_field :cnpj %>
-  </div>
-
-  <div class="field">
-    <%= form.label :cod_tj %>
-    <%= form.text_field :cod_tj %>
-  </div>
-
-  <div class="field">
-    <%= form.label :cod_cnj %>
-    <%= form.text_field :cod_cnj %>
-  </div>
-
-  <div class="field">
-    <%= form.label :nome %>
-    <%= form.text_field :nome %>
-  </div>
-
-  <div class="field">
-    <%= form.label :nome_fant %>
-    <%= form.text_field :nome_fant %>
-  </div>
-
-  <div class="field">
-    <%= form.label :nome_res %>
-    <%= form.text_field :nome_res %>
-  </div>
-
-  <div class="field">
-    <%= form.label :cep %>
-    <%= form.text_field :cep %>
-  </div>
-
-  <div class="field">
-    <%= form.label :logradouro %>
-    <%= form.text_field :logradouro %>
-  </div>
-
-  <div class="field">
-    <%= form.label :numero %>
-    <%= form.text_field :numero %>
-  </div>
-
-  <div class="field">
-    <%= form.label :bairro %>
-    <%= form.text_field :bairro %>
-  </div>
-
-  <div class="field">
-    <%= form.label :complemento %>
-    <%= form.text_field :complemento %>
-  </div>
-
-  <div class="field">
-    <%= form.label :telefone_fixo %>
-    <%= form.text_field :telefone_fixo %>
-  </div>
-
-  <div class="field">
-    <%= form.label :telefone_celular %>
-    <%= form.text_field :telefone_celular %>
-  </div>
-
-  <div class="field">
-    <%= form.label :whatsapp %>
-    <%= form.text_field :whatsapp %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :forma_branca %>
-    <%= form.text_field :forma_branca %>
-  </div>
-
-  <div class="field">
-    <%= form.label :observacao %>
-    <%= form.text_area :observacao %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intranet_regiao_id %>
-    <%= form.text_field :intranet_regiao_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intranet_contribuicao_id %>
-    <%= form.text_field :intranet_contribuicao_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intranet_atividade_id %>
-    <%= form.text_field :intranet_atividade_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intranet_entrancia_id %>
-    <%= form.text_field :intranet_entrancia_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intranet_boleto_id %>
-    <%= form.text_field :intranet_boleto_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intranet_cidade_id %>
-    <%= form.text_field :intranet_cidade_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intranet_associado_id %>
-    <%= form.text_field :intranet_associado_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intranet_substituto_id %>
-    <%= form.text_field :intranet_substituto_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intranet_tabeliao_id %>
-    <%= form.text_field :intranet_tabeliao_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        E-mail  
+        <span style="float: right;font-size: 13px;margin-top: 4px;">Cartório ativo? <%= form.check_box :ativo %></span>
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :email,class:"form-control",required:true,placeholder:"Nome fantasia do cartório" %>
+      </div>
+    </div> 
+  </div> 
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Nome 
+        <span style="float: right;font-size: 13px;margin-top: 4px;">Possui CNPJ? <%= form.check_box :possui_cnpj %></span>
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :nome,class:"form-control",required:true,placeholder:"Nome do cartório" %>
+      </div>
+    </div> 
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Nome fantasia  
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :nome_fant,class:"form-control",required:true,placeholder:"Nome fantasia do cartório" %>
+      </div>
+    </div> 
+  </div>   
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Nome resumido
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :nome_res,class:"form-control",required:true,placeholder:"Nome resumido do cartório" %>
+      </div>
+    </div> 
+  </div>    
+  <div class="form-group row" style="display:flex">
+    <div style="width:25%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        CEI
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :cei,class:"form-control",required:true,placeholder:"0000-00"  %>
+      </div>
+    </div> 
+    <div style="width:25%;margin: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        CNPJ
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :cnpj,class:"form-control",required:true,placeholder:"000.0000.000/0000-00" %>
+      </div>
+    </div> 
+    <div style="width:25%;margin: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        COD. TJ
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :cod_tj,class:"form-control",required:true,placeholder:"00000" %>
+      </div>
+    </div> 
+    <div style="width:25%;margin-left: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        COD. CNJ
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :cod_cns,class:"form-control",required:true,placeholder:"00000" %>
+      </div>
+    </div> 
+  </div> 
+  <div class="form-group row" style="display:flex">
+    <div style="width:70%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Logradouro
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :logradouro,class:"form-control",required:true,placeholder:"Logradouro do cartório" %>
+      </div>
+    </div> 
+    <div style="width:30%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Cidade
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+        <%= form.select :intranet_cidade_id ,options_from_collection_for_select(@intranet_cidades, "id", "municipio", @intranet_cartorio.intranet_cidade_id), {:prompt => "Escolha a cidade"},{style:"margin-right:1%;",class:"form-control",required:true}%> 
+      </div>
+    </div> 
+  </div>        
+  <div class="form-group row" style="display:flex">
+    <div style="width:49.5%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Bairro
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :bairro,class:"form-control",required:true,placeholder:"Informe o bairro"  %>
+      </div>
+    </div> 
+    <div style="width:49.5%;margin-left: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Complemento
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :complemento,class:"form-control",required:true,placeholder:"Informe o complemento" %>
+      </div>
+    </div>  
+  </div>    
+  <div class="form-group row" style="display:flex">
+    <div style="width:49.5%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Cep
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :cep,class:"form-control",required:true,placeholder:"00000-00"  %>
+      </div>
+    </div> 
+    <div style="width:49.5%;margin-left: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Numero
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :numero,class:"form-control",required:true,placeholder:"Informe o numero" %>
+      </div>
+    </div>  
+  </div>    
+  <div class="form-group row" style="display:flex">
+    <div style="width:49.5%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Telefone fixo
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :telefone_fixo,class:"form-control",required:true,placeholder:"0000-0000"  %>
+      </div>
+    </div> 
+    <div style="width:49.5%;margin-left: auto;"> 
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Telefone celular 
+        <span style="float: right;font-size: 13px;margin-top: 4px;">é whatsapp? <%= form.check_box :whatsapp %></span>
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_field :telefone_celular,class:"form-control",required:true,placeholder:"(00) 0 0000-0000" %>
+      </div>
+    </div>  
+  </div>    
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Observação
+      </label>
+      <div class="col-sm-10 correct-md-10" > 
+        <%= form.text_area :observacao,class:"form-control",required:true, placeholder:"Observações sobre o cartório" %>
+      </div>
+    </div> 
+  </div>      
+  <div class="form-group row" style="display:flex">
+    <div style="width:30%;margin-right: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Região
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+        <%= form.select :intranet_regiao_id ,options_from_collection_for_select(@intranet_regiaos, "id", "descricao", @intranet_cartorio.intranet_regiao_id), {:prompt => "Escolha a região"},{style:"margin-right:1%;",class:"form-control",required:true}%> 
+      </div>
+    </div> 
+    <div style="width:30%;margin: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Contribuição
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+        <%= form.select :intranet_contribuicao_id ,options_from_collection_for_select(@intranet_contribuicaos, "id", "descricao", @intranet_cartorio.intranet_contribuicao_id), {:prompt => "Escolha o grupo"},{style:"margin-right:1%;",class:"form-control",required:true}%> 
+      </div>
+    </div> 
+    <div style="width:30%;margin-left: auto;">
+      <label  class="col-sm-2 col-form-label" style="max-width: inherit;">
+        Entrâncias
+      </label>
+      <div class="col-sm-10 correct-md-10" >  
+        <%= form.select :intranet_entrancia_id ,options_from_collection_for_select(@intranet_entrancias, "id", "descricao", @intranet_cartorio.intranet_entrancia_id), {:prompt => "Escolha a entrância"},{style:"margin-right:1%;",class:"form-control",required:true}%> 
+      </div>
+    </div> 
+  </div>    
+  <br>
+	<div class="actions">
+		<%= form.submit 'Salvar',class:"btn btn-primary", style:"float:right",id:"subform" %>
+	</div>
 <% end %>
+
+<style> 
+  .correct-md-10{
+    max-width: 100%;
+    width: 100%;
+  }
+  .col-sm-2{
+    max-width: 100%;
+    width: 100%;
+  } 	
+</style>

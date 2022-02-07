@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Intranet Chamados</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assunto</th>
+      <th>Intranet associado</th>
+      <th>Mensagem pergunta</th>
+      <th>Mensagem resposta</th>
+      <th>Profissional</th>
+      <th>Visualizada</th>
+      <th>Visualizada at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intranet_chamados.each do |intranet_chamado| %>
+      <tr>
+        <td><%= intranet_chamado.assunto %></td>
+        <td><%= intranet_chamado.intranet_associado_id %></td>
+        <td><%= intranet_chamado.mensagem_pergunta %></td>
+        <td><%= intranet_chamado.mensagem_resposta %></td>
+        <td><%= intranet_chamado.profissional_id %></td>
+        <td><%= intranet_chamado.visualizada %></td>
+        <td><%= intranet_chamado.visualizada_at %></td>
+        <td><%= link_to 'Show', intranet_chamado %></td>
+        <td><%= link_to 'Edit', edit_intranet_chamado_path(intranet_chamado) %></td>
+        <td><%= link_to 'Destroy', intranet_chamado, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intranet Chamado', new_intranet_chamado_path %>

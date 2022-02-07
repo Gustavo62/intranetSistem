@@ -1,0 +1,117 @@
+<%= form_with(model: intranet_pergunt) do |form| %>
+	<ul class="nav nav-tabs" style="margin-bottom: 11px;">
+		<li class="nav-item">
+			<a class="nav-link active" id="btn_menu_1" type="button" >Detalhes da pergunta</a>
+		</li> 
+		<div style="margin-left: auto;">
+			<%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+			<%= link_to 'Visualizar',  @intranet_pergunt ,class:"btn btn-primary" if @intranet_pergunt.id != nil %> 
+		</div>
+	</ul> 
+	<% if intranet_pergunt.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(intranet_pergunt.errors.count, "error") %> prohibited this intranet_pergunt from being saved:</h2>
+
+			<ul>
+				<% intranet_pergunt.errors.each do |error| %>
+				<li><%= error.full_message %></li>
+				<% end %>
+			</ul>
+		</div>
+  	<% end %> 
+	<% if user_signed_in? %>
+		<div class="form-group" style="display:flex">
+			<div style="width:100%;margin-right: auto;">
+				<label  class="col-sm-15 col-form-label" style="max-width: inherit;">
+					Autor   
+				</label>
+				<div class="col-sm-15 correct-md-15" >  
+					<input value="<%= @associado.nome %>" class='form-control' style="background: #f8f9fa;" readonly='true'><br />
+				</div> 
+			</div> 
+		</div> 
+	<% end %>
+  <div class="form-group" style="display:flex">
+		<div style="width:100%;margin-right: auto;">
+			<label  class="col-sm-15 col-form-label" style="max-width: inherit;">
+				Assunto   
+			</label>
+			<div class="col-sm-15 correct-md-15" >   
+				<% if user_signed_in? %>  
+					<%= form.text_field :assunto, placeholder:"Informe o assunto", class:'form-control' %><br />
+				<% else %> 
+					<input value="<%= @intranet_pergunt.assunto %>" class='form-control' style="background: #f8f9fa;" readonly='true'><br />
+				<% end %>
+			</div>
+			 
+		</div> 
+	</div>   
+  	<div class="form-group" style="display:flex">
+		<div style="width:49%;margin-right: auto;">
+			<label  class="col-sm-15 col-form-label" style="max-width: inherit;">
+				Tipo  
+			</label> 
+			<div class="col-sm-15 correct-md-15" >  
+				<% if user_signed_in? %> 
+					<%= select_tag :tipo,options_for_select([["Instituto de Protestos",1],["Registro Civil Pessoas Jurídicas",2],["Registro Civil Pessoas Naturais",3],["Registro de Imóveis",4],["Registro de Títulos e Documentos",5]],@intranet_pergunt.tipo), class:"form-control",prompt:"Selecione o tipo da pergunta", name:"intranet_pergunt[tipo]" %> 
+					<br /> 
+				<% else %>
+					<%= select_tag 'readonly', options_for_select([["Instituto de Protestos",1],["Registro Civil Pessoas Jurídicas",2],["Registro Civil Pessoas Naturais",3],["Registro de Imóveis",4],["Registro de Títulos e Documentos",5]],@intranet_pergunt.tipo), class:"form-control",prompt:"Selecione o tipo da pergunta",readonly:true %> 
+				<% end %>
+			</div>
+		</div>    
+    	<div style="width:49%;margin-left: auto;">
+			<label  class="col-sm-15 col-form-label" style="max-width: inherit;">
+				Criação  
+			</label>
+			<div class="col-sm-15 correct-md-15" >   
+				<% if user_signed_in? %>
+					<input value="<%= Time.now.strftime("%d/%m/%Y") %>" class='form-control' style="background: #f8f9fa;" readonly='true'><br />
+				<% else %>
+					<input value="<%= @intranet_pergunt.created_at.strftime("%d/%m/%Y") if @intranet_pergunt.created_at %>" class='form-control' readonly='true' style="background: #f8f9fa;"><br />
+				<% end %>
+			</div>
+		</div> 
+	</div> 
+
+  	<div class="form-group" style="display:flex">
+		<div style="width:100%;margin-right: auto;">
+			<label  class="col-sm-15 col-form-label" style="max-width: inherit;">
+				Pergunta  
+			</label>
+			<div class="col-sm-15 correct-md-15" >   
+				<% if user_signed_in? %>
+					<textarea class='form-control' style="height: 200px;" name=intranet_pergunt[mensagem_pergunta]>
+						<%= @intranet_pergunt.mensagem_pergunta %>
+					</textarea><br /> 
+				<% else %>
+					<span class='form-control' style="background: #f8f9fa;height: auto;" ><%= @intranet_pergunt.mensagem_pergunta %></span><br /> 
+				<% end %>
+			</div>
+		</div> 
+	</div>    
+	
+	<% if user_signed_in? == false %>
+		<hr style="margin-left: -17px;margin-right: -17px;">
+		<div class="form-group" style="display:flex">
+			<div style="width:100%;margin-right: auto;">
+			<label  class="col-sm-15 col-form-label" style="max-width: inherit;">
+				Resposta  
+			</label>
+			<div class="col-sm-15 correct-md-15" >   
+				<textarea class='form-control' style="height: 200px;" name=intranet_pergunt[mensagem_resposta]>
+					<%= @intranet_pergunt.mensagem_resposta %>
+				</textarea><br /> 
+				<% if @nome_admin %>
+					<h6 style="float: right;color: #b0afaf;">Respondido por: <%= @nome_admin %>.</h6>
+				<% else %>
+					<h6 style="float: right;color: #b0afaf;">Ainda não respondido.</h6> 
+				<% end %>
+			</div>
+			</div>  
+		</div>    
+	<% end %> 
+	<div class="actions">
+		<%= form.submit 'Salvar',class:"btn btn-primary", style:"float: right;margin-bottom: 90px;",id:"subform" %>
+	</div>
+<% end %>

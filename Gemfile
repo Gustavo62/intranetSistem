@@ -2,7 +2,12 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
-
+# Gráficos
+gem 'chart-js-rails' 
+# Auth routes
+gem 'cancancan'
+# savon
+gem 'savon', '~> 2.12.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 # Use postgresql as the database for Active Record
@@ -21,10 +26,18 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
-
+# rest api por shopfacil
+gem 'rest-client'  
+# cache
+gem 'dalli', '~> 2.7', '>= 2.7.6'
+# Boletos 
+gem 'boletosimples'
+# cache
+gem 'memcachier'
+# secret keys
+gem "figaro"
+# Boletos 
+gem 'bradesco_shopfacil', :git => 'https://github.com/gilcierweb/bradesco-shopfacil'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 # O BrCep é um gem que tem como objetivo buscar um endereço com base no seu CEP.
@@ -34,22 +47,30 @@ gem "rails-erd"
 gem 'graphviz', '~> 0.3.0'
 # Devise
 gem 'devise'
-# Use Active storage Variant
+# Use Active storage Variant.
 gem 'image_processing', '~> 1.2'
-# font-awesome-rails
+# font-awesome-rails.
 gem "font-awesome-rails"
-#Apartment allows Rack applications to deal with database multitenancy through ActiveRecord
+#Apartment allows Rack applications to deal with database multitenancy through ActiveRecord.
 gem 'ros-apartment', '~> 2.9'
-# sendgrid
+# sendgrid.
 gem 'sendgrid-ruby'
-# Devise
+# Devise.
 gem 'devise' 
-# Gem para gerar os pdfs
+# Gem para gerar os pdfs.
 gem 'prawn-rails'
-# Gem para gerar os gráficos
+# Gem para gerar os gráficos.
 gem 'gruff'
+# Gem para criar paginação.
+gem 'kaminari'
+# serve jobs
+gem 'redis'
+# gerenciar jobs
+gem 'sidekiq'
+# start jobs
+gem 'whenever', require: false
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console.
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 

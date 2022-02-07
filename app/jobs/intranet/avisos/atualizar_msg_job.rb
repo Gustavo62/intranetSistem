@@ -1,17 +1,17 @@
 class Intranet::Avisos::AtualizarMsgJob < ApplicationJob
 	queue_as :default
 
-	def perform(intranet_aviso)
-		@intranet_avisos = Intranet::Aviso.where(master_id: intranet_aviso.id,master: false)
-		puts @intranet_avisos.size
+	def perform(avs)
+		@intranet_avisos = Intranet::Aviso.where(master_id: avs.id,master: false)
 		@intranet_avisos.each do |aviso| 
-			aviso.titulo 				= intranet_aviso.titulo 				if aviso.titulo 				!= intranet_aviso.titulo
-			aviso.descricao 			= intranet_aviso.descricao				if aviso.descricao 				!= intranet_aviso.descricao
-			aviso.aviso					= intranet_aviso.aviso					if aviso.aviso					!= intranet_aviso.aviso
-			aviso.intranet_atividade_id = intranet_aviso.intranet_atividade_id	if aviso.intranet_atividade_id 	!= intranet_aviso.intranet_atividade_id
-			aviso.ativo					= intranet_aviso.ativo					if aviso.ativo 					!= intranet_aviso.ativo 
-			aviso.docs					= intranet_aviso.docs					if aviso.docs 					!= intranet_aviso.docs 
+			aviso.titulo 				= avs.titulo 				
+			aviso.descricao 			= avs.descricao				
+			aviso.aviso					= avs.aviso					
+			aviso.intranet_atividade_id = avs.intranet_atividade_id	
+			aviso.ativo					= avs.ativo	 		
+			aviso.aviso.body 			= avs.aviso.body 		
 			aviso.save
-		end
+		end  
+		
 	end
 end

@@ -1,6 +1,11 @@
-<h1>Editing Intranet Tabeliao</h1>
-
-<%= render 'form', intranet_tabeliao: @intranet_tabeliao %>
-
-<%= link_to 'Show', @intranet_tabeliao %> |
-<%= link_to 'Back', intranet_tabeliaos_path %>
+<%= javascript_pack_tag "tabeliao_edit" %> 
+<script src="https://unpkg.com/imask"></script> 
+<div class="container" style="margin-bottom: 104px;">  
+    <div class="page-header">
+        <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Tabelião</h1>      
+    </div>
+    <p>Editar Tabelião N°: <%= @intranet_tabeliao.id %>.</p>  
+    <input type="hidden" value="<%= @intranet_tabeliao.id %>" id="id_tab" >
+    <%= render 'form', intranet_tabeliao: @intranet_tabeliao %> 
+</div>
+ 

@@ -1,0 +1,112 @@
+<script src="https://unpkg.com/imask"></script> 
+<div class="container" style="margin-bottom: 104px;">   
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Reunião</h1>      
+  </div>
+  <p>Visualizar reunião Nº <b><%= @intranet_reunion.id%></b>.</p>  
+  <ul class="nav nav-tabs" style="margin-bottom: 11px;">
+    <li class="nav-item">
+      <a class="nav-link active" id="btn_menu_1" type="button" >Detalhes da reunião</a>
+    </li> 
+    <div style="margin-left: auto;">
+      <%= link_to 'Voltar', :back,class:"btn btn-link" %>  
+      <% if user_signed_in? == false %>
+        <%= link_to 'Editar', edit_intranet_reunion_path(@intranet_reunion),class:"btn btn-primary" %> 
+        <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= @intranet_reunion.id %>">Deletar</i></a>
+      <% end %>
+    </div>
+    <% if user_signed_in? == false %>
+      <div class="modal fade" id="exampleModal<%= @intranet_reunion.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Deletar reunião</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+            </div>
+            <div class="modal-body">
+              Deseja deletar reunião <%= @intranet_reunion.assunto %>.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
+              <%= link_to intranet_reunion_path, method: :delete do %> 
+                <button type="button" class="btn btn-danger">Excluir</button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </ul>
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Assunto</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_reunion.assunto %>">
+      </div>
+    </div>
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Local</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_reunion.local %>">
+      </div>
+    </div>
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Link</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_reunion.link %>">
+      </div>
+    </div>
+  </div>  
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Cartórios</label>
+      <div class="col-sm-10 correct-md-10" > 
+        <div class="form-control-plaintext input-show"> 
+          <% if @intranet_reunion.intranet_cartorio_id.include?(0) %>
+            Todos os cartórios.
+          <% else %>
+            <% @intranet_reunion.intranet_cartorio_id.each do | cartorio |  %>  
+              <%= @intranet_cartorios.find(cartorio).nome  %>
+              <% if @intranet_reunion.intranet_cartorio_id.last == cartorio%> 
+                <span style="margin-left:-4px">. </span> 
+              <% else %>
+                <span style="margin-left:-4px">, </span> 
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>   
+  <div class="form-group row" style="display:flex">
+    <div style="width:49.5%">
+      <label  class="col-sm-2 col-form-label" >Data</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="date" readonly class="form-control-plaintext input-show"  value="<%= @intranet_reunion.data %>">
+      </div>
+    </div>
+  </div>  
+</div> 
+ 
+<style>
+  .input-show{
+    background: #f8f9fa;
+    border-radius: 2px;
+    border: 1px solid #ededed;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  .correct-md-10{
+    max-width: 100%;
+    width: 100%;
+  }
+  .col-sm-2{
+    max-width: 100%;
+    width: 100%;
+  } 	
+</style> 

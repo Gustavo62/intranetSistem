@@ -1,0 +1,2 @@
+module Intranet::PerguntsHelper
+end

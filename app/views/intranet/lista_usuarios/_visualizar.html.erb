@@ -1,5 +1,5 @@
 <div class="modal-header"> 
-  	<i class="fas fa-times" class="close" data-dismiss="modal"></i>
+  	<i class="fas fa-times" class="close" data-bs-dismiss="modal"></i>
   	<h4 class="modal-title" id="myModalLabel">Visualizar Usuário</h4>
 </div>
 <% if @user %>
@@ -37,34 +37,14 @@
 				<div class="disabled">
 					<input placeholder="<%= @associado.email%>" class='form-control'><br />
 				</div>
-			</div> 
-			<div style="display: flex;    margin-top: -17px;">
-				<div class="field" style="width:48%;margin-right: 4%;">
-					<label>RG</label><br>
-					<div class="disabled">
-						<input placeholder="<%= @associado.rg%>" class='form-control'><br />
-					</div>
-				</div> 
-				<div class="field" style="width:48%">
-					<label>RG Emissor</label><br>
-					<div class="disabled">
-						<input placeholder="<%= @associado.rg_emissor%>" class='form-control'><br />
-					</div>
-				</div>
-			</div>
+			</div>  
 			<div style="display: flex;    margin-top: -17px;">
 				<div class="field" style="width:48%;margin-right: 4%;">
 					<label>Função</label><br>
 					<div class="disabled">
 						<input placeholder="<%= @associado.funcao%>" class='form-control'><br />
 					</div>
-				</div> 
-				<div class="field" style="width:48%">
-					<label>Sexo</label><br>
-					<div class="disabled">
-						<input placeholder="<%= "Maculino" if @associado.sexo%>" class='form-control'><br />
-					</div>
-				</div>
+				</div>  
 			</div>
 
 			<div style="display: flex;    margin-top: -17px;">
@@ -82,73 +62,86 @@
 				</div>
 			</div>
 			<h4>Dados do Cartório</h4>
-			<hr>
-			<div class="field" >
-				<label>Nome Resumido</label><br />
-				<div class="disabled">
-					<input placeholder="<%= @cartorio.nome_res%>" class='form-control'><br />
-				</div>
-			</div>  
-			<div class="field" >
-				<label>E-mail</label><br />
-				<div class="disabled">
-					<input placeholder="<%= @cartorio.email%>" class='form-control'><br />
-				</div>
-			</div>  
-			<div style="display: flex;    margin-top: -17px;">
-				<div class="field" style="width:48%;margin-right: 4%;">
-					<label>Serventia</label><br>
+				<hr>
+				<% @cartorio.each do | cart_sados | %>
+				<div class="field" >
+					<label>Nome Resumido</label><br />
 					<div class="disabled">
-						<input placeholder="<%= @cartorio.cod_tj%>" class='form-control'><br />
+						<input placeholder="<%= cart_sados.nome_res%>" class='form-control'><br />
+					</div>
+				</div>  
+				<div class="field" >
+					<label>E-mail</label><br />
+					<div class="disabled">
+						<input placeholder="<%= cart_sados.email%>" class='form-control'><br />
+					</div>
+				</div>  
+				<div style="display: flex;    margin-top: -17px;">
+					<div class="field" style="width:48%;margin-right: 4%;">
+						<label>Serventia</label><br>
+						<div class="disabled">
+							<input placeholder="<%= cart_sados.cod_tj%>" class='form-control'><br />
+						</div>
+					</div> 
+					<div class="field" style="width:48%">
+						<label>CNJ</label><br>
+						<div class="disabled">
+							<input placeholder="<%= cart_sados.cod_cns%>" class='form-control'><br />
+						</div>
 					</div>
 				</div> 
-				<div class="field" style="width:48%">
-					<label>CNJ</label><br>
-					<div class="disabled">
-						<input placeholder="<%= @cartorio.cod_cnj%>" class='form-control'><br />
+				<div style="display: flex;    margin-top: -17px;">
+					<div class="field" style="width:48%;margin-right: 4%;">
+						<label>CEP</label><br>
+						<div class="disabled">
+							<input placeholder="<%= cart_sados.cep%>" class='form-control'><br />
+						</div>
+					</div> 
+					<div class="field" style="width:48%">
+						<label>Telefone</label><br>
+						<% if cart_sados.telefone_celular%>
+							<div class="disabled">
+								<input placeholder="<%= cart_sados.telefone_celular%>" class='form-control'><br />
+							</div>
+						<% else %>
+							<div class="disabled">
+								<input placeholder="<%= cart_sados.telefone_fixo%>" class='form-control'><br />
+							</div>
+						<% end %>
 					</div>
 				</div>
-			</div> 
-			<div style="display: flex;    margin-top: -17px;">
-				<div class="field" style="width:48%;margin-right: 4%;">
-					<label>CEP</label><br>
-					<div class="disabled">
-						<input placeholder="<%= @cartorio.cep%>" class='form-control'><br />
-					</div>
-				</div> 
-				<div class="field" style="width:48%">
-					<label>Telefone</label><br>
-					<% if @cartorio.telefone_celular%>
-						<div class="disabled">
-							<input placeholder="<%= @cartorio.telefone_celular%>" class='form-control'><br />
-						</div>
-					<% else %>
-						<div class="disabled">
-							<input placeholder="<%= @cartorio.telefone_fixo%>" class='form-control'><br />
-						</div>
-					<% end %>
-				</div>
-			</div>
-			<div class="field">
-				
+			<% end %>
+			
+			<div class="field"> 
 				<h4>Documentação do Filiado</h4>
 				<hr>
 				<p>
-				Termo de Posse: <span style="float:right"><%= link_to "Download", rails_blob_path(@user.termo_posse, disposition: 'inline'), target:'blank',	class:"btn btn-info" ,style:"height: 21px;font-size: 13px;padding-top: 0px;"%></span><br />
-				RG Frente: <span style="float:right"><%= link_to "Download", rails_blob_path(@user.rg_photo_1, disposition: 'inline'), target:'blank',			class:"btn btn-info" ,style:"height: 21px;font-size: 13px;padding-top: 0px;"%></span><br />
-				RG Verso: <span style="float:right"><%= link_to "Download", rails_blob_path(@user.rg_photo_2, disposition: 'inline'), target:'blank',			class:"btn btn-info" ,style:"height: 21px;font-size: 13px;padding-top: 0px;"%></span><br />
-				Termo de Filiação: <span style="float:right"><%= link_to "Download", rails_blob_path(@user.fixa_assinada,disposition: 'inline'), target:'blank',class:"btn btn-info",style:"height: 21px;font-size: 13px;padding-top: 0px;"%></span><br />
-				<% if @user.cpf_photo.attached? %>
-					CPF: <span style="float:right"><%= link_to "Download", rails_blob_path(@user.cpf_photo, disposition: 'inline', target:'blank',class:"btn btn-info") %></span>
-				<% end %>
+					Termos de Posse:  
+					<% @termos.each do | termo | %>
+						<div style="display:flex">
+							<h5 style="font-size: 12px;padding: 2px;width: 78%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><%= @cartorios.find(termo.intranet_cartorio_id).try(:nome) %></h5>
+							<span>
+								<%= link_to "Download", rails_blob_path(termo.termo_posse, disposition: 'inline'), target:'blank',	class:"btn btn-info" ,style:"float:right;height: 21px;font-size: 13px;padding-top: 0px;"%>
+							</span>
+						</div>
+						<br />
+					<% end %>
+					<br>
+					Termo de Filiação: 
+					<% @fixas.each do | fixa | %>
+						<div style="display:flex">
+							<h5 style="font-size: 12px;padding: 2px;width: 78%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><%= @cartorios.find(fixa.intranet_cartorio_id).try(:nome) %></h5>
+							<span>
+								<%= link_to "Download", rails_blob_path(fixa.fixa_assinada, disposition: 'inline'), target:'blank',	class:"btn btn-info" ,style:"float:right;height: 21px;font-size: 13px;padding-top: 0px;"%>
+							</span>
+						</div>
+						<br />
+					<% end %> 
 				</p>
 			</div> 
 		</form>	
 	</div>
-<% end %>  
-<script> 
-	
-</script>
+<% end %> 
 <style>
 	.disabled { 
     pointer-events: none; 

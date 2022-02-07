@@ -8,39 +8,44 @@ namespace :csv_associado do
         else
           @acesso = true
         end
-        if linha[17]
-          @cart = Intranet::Cartorio.where(cod_tj: linha[17]).take
-          @cart = @cart.id if @cart != nil
+        if linha[12]
+          @cart = Intranet::Cartorio.where(cod_cns: linha[13]).take 
         end
-        @user = User.create!(  email:            linha[16], 
-                              password:         "123456", 
-                              nome:             linha[6],
-                              cpf:              linha[4],
-                              acesso:           @acesso,
-                              lembrete:         linha[5],
-                              serventia:        linha[17])
-        if @user.save!
-          @ass = Intranet::Associado.create!(  user_id:              @user.id, 
-                                              funcao:               "Titular", 
-                                              nome:                 linha[6], 
-                                              ativo:                @acesso, 
-                                              cep:                  linha[7], 
-                                              logradouro:           linha[8], 
-                                              complemento:          linha[9], 
-                                              bairro:               linha[11], 
-                                              telefone_1:           linha[13], 
-                                              telefone_2:           linha[14],  
-                                              email:                linha[16], 
-                                              intranet_cartorio_id: @cart)
-          if @ass.save!
-            puts "usuario salvo com sucesso linha: #{linha[0]} id usuario: #{@user.id}, id associado: #{@ass.id}"
+        begin
+          @user = User.create(  email:                linha[11], 
+                                password:             "123456",  
+                                nome:                 linha[4],
+                                cpf:                  linha[2],
+                                acesso:               @acesso,
+                                lembrete:             linha[3], 
+                                termo_de_uso:         false,
+                                aux_cartorio_id:      nil)
+
+          if @user.save! 
+            begin 
+              @ass = Intranet::Associado.create(  user_id:              @user.id, 
+                                                  funcao:               "Titular", 
+                                                  nome:                 linha[4], 
+                                                  ativo:                @acesso, 
+                                                  cep:                  linha[5], 
+                                                  logradouro:           linha[6],  
+                                                  complemento:          linha[7], 
+                                                  bairro:               linha[8], 
+                                                  telefone_1:           linha[9], 
+                                                  telefone_2:           linha[10],  
+                                                  email:                linha[11], 
+                                                  intranet_cartorio:    "{#{@cart.id}}" ) 
+              @ass.save 
+              @cart.intranet_associado_id = @ass.id
+              @cart.save
+            rescue  
+              puts "TASK CRIA ASSOC \e[41m\e[1mERROR SECOND BEGIN!!\e[22m linha #{linha[0]}\e[0m" 
+            end 
           else
-            puts "Não foi possivel salvar associado, usuario deletado linha: #{linha[0]}"
-            @user.destroy 
+            puts "TASK CRIA ASSOC \e[41m\e[1mERROR USER SAVE!!\e[22m linha #{linha[0]}\e[0m"  
           end
-        else
-          puts "Não foi possivel criar um usuario linha: #{linha[0]}"
-          break
+        rescue    
+          puts "TASK CRIA ASSOC \e[41m\e[1mERROR FIRST BEGIN!!\e[22m linha #{linha[0]}\e[0m" 
         end
 			end
 		end

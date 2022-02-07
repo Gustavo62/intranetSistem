@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  data: 2021-11-09
+  assunto: MyString
+  local: MyString
+  intranet_associado: one
+
+two:
+  data: 2021-11-09
+  assunto: MyString
+  local: MyString
+  intranet_associado: two

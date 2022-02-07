@@ -1,90 +1,254 @@
-  
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="background: #ff8b45;">
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-        <div class="carousel-item active" > 
-            <a href="#"><%= image_tag 'image1.png',class:"d-block w-100",style:"height: 500px;min-width: 360px !important;margin: auto;max-width: 600px"%></a>
-        </div>
-        <div class="carousel-item">
-            <a href="#"><%= image_tag 'image2.png',class:"d-block w-100",style:"height: 500px;min-width: 360px !important;margin: auto;max-width: 600px"%></a>
-        </div>
-        <div class="carousel-item">
-            <a href="#"><%= image_tag 'image3.png',class:"d-block w-100",style:"height: 500px;min-width: 360px !important;margin: auto;max-width: 600px"%></a>
-        </div>
+ 
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel"  style="background: #134a88;">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner" style="text-shadow: 1px 2px 4px #000000;">
+    <div class="carousel-item active">
+      <%= image_tag 'image1.png',class:"d-block w-100",style:"object-fit: cover;height: 392px;min-width: 360px !important;margin: auto;max-width: 600px"%>
+      <div class="carousel-caption d-none d-md-block">
+        <h5></h5>
+        <p></p>
+      </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+    <div class="carousel-item">
+      <%= image_tag 'image2.png',class:"d-block w-100",style:"object-fit: cover;height: 392px;min-width: 360px !important;margin: auto;max-width: 600px"%>
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Equipe Anoreg-CE</h5>
+        <p>Sempre trabalhando para lhe garantir um ótimo desempenho.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag 'image3.png',class:"d-block w-100",style:"object-fit: cover;height: 392px;min-width: 360px !important;margin: auto;max-width: 600px"%>
+      <div class="carousel-caption d-none d-md-block">
+        <h5></h5>
+        <p></p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
-<div class="container" style="height:30px;">
-    <div class="banner-1"> 
-        <%= link_to intranet_avisos_path, class:"element",style:"margin-top: 28px;" do %> 
-            <div>
-                <% if @avisonumb.size > 0 %>
-                    <div class="notify_number"><%= @avisonumb.size %> <i class="fas fa-fire" style=""></i></div>
-                <% end %> 
-                <i class="fas fa-exclamation-circle icon-notify"></i><br/>
-                <label>AVISOS</label>
-                
-            </div>
-        <% end %>
-        <div class="element"> 
-            <i class="fas fa-hand-holding-usd icon-notify"></i><br/>
-            <label>FINANÇAS</label>
-        </div>
-        <div class="element"> 
-            <i class="fas fa-calendar-day icon-notify"></i><br/>
-            <label>EVENTOS</label>
-        </div>
-        <div class="element"> 
-            <i class="fas fa-file-download icon-notify"></i><br/>
-            <label>ARQUIVOS</label>
-        </div>
-    </div>
-    <div class="banner-2">
-        <p style="line-height: 23px;color: #ff6000;font-size: 24px;font-weight: bolder;">Feed de notícias<br />
-        <span style="color: #fba571;font-size: 14px;">ultima atualização <%= Time.now.strftime("%d/%m/%Y às %H:%M")%></span></p>
-        <% @aviso.each do |aviso| %>
-            <div class="container-feed">
-            <div class="element-feed" style="display:flex;">
-                <div class="image-feed"> 
-                    <%= icon('exclamation-circle-fill', class:"icon-feed")%>
+<div class="container" style="height:30px;"> 
+    <% if @adimplente.adimplente %>
+        <div class="banner-1">  
+            <% if can? :read, :aviso %>
+                <div class="element"> 
+                    <%= link_to intranet_avisos_path, class:"element" do %> 
+                        <div>
+                            <% if @avisonumb%>
+                                <% if @avisonumb.size > 0 %>
+                                    <div class="notify_number"><i class="fas fa-circle"></i></i></div>
+                                <% end %> 
+                            <% end %>
+                            <i class="fas fa-exclamation-circle icon-notify"></i><br/>
+                            <label>Avisos</label> 
+                        </div>
+                    <% end %>
+                </div>  
+            <% end %>
+            <% if can? :read, :event %>
+                <div class="element">   
+                    <%= link_to intranet_events_path, class:"element" do %>  
+                        <% if @eventnumb%>
+                            <% if @eventnumb.size > 0 %>
+                                <div class="notify_number"><i class="fas fa-circle"></i></i></div>
+                            <% end %>  
+                        <% end %>
+                    <i class="fas fa-calendar-day icon-notify"></i><br/>
+                    <label>Eventos</label>
+                    <% end %>
                 </div>
-                <div class="texto" style="width: 100%;">
-                    <p class="titulo"> 
-                            <span style="font-size: 18px;"><%= aviso.titulo %></span>
-                    <br>
-                             
-                        <span class="conteudo" style="float: left;font-size: 14px;width: 100%;">
-                            <%= aviso.created_at.strftime("%d/%m/%Y às %H:%M") %> 
-                            <% if aviso.read_at == nil %> 
-                                <span class="status_aviso">NOVO</span>
-                            <% end %> 
-                        </span>
-                    </p>
-                    <br>
-                    <p class="conteudo"><%= aviso.descricao %>, <%= link_to 'Ler mais', aviso, style:"text-decoration:none"%>.</p>
+            <% end %>
+            <% if can? :read, :arquivo %>
+                <div class="element">   
+                    <%= link_to intranet_arquivos_path, class:"element" do %>  
+                        <% if @arquivosnumb%>
+                            <% if @arquivosnumb.size > 0 %>
+                                <div class="notify_number"><i class="fas fa-circle"></i></i></div>
+                            <% end %>  
+                        <% end %>
+                        <i class="fas fa-file-download icon-notify"></i><br/>
+                        <label>Arquivos</label>
+                    <% end %>
+                </div> 
+            <% end %>
+            <% if can? :read, :pergunt %>
+                <div class="element"> 
+                    <%= link_to intranet_pergunts_path, class:"element" do %>  
+                        <% if @perguntnumb%>
+                            <% if @perguntnumb.size > 0 %>
+                                <div class="notify_number"><i class="fas fa-circle"></i></i></div>
+                            <% end %>  
+                        <% end %>
+                        <i class="fas fa-comments icon-notify"></i><br/>
+                        <label>Perguntas</label>
+                    <% end %>
                 </div>
-            </div>
+            <% end %>
         </div>
+    <% end %>
+    <div class="banner-2" style="margin: 22px;">
+        <p style="line-height: 23px;color: #0b386b;font-size: 24px;font-weight: bolder;">Feed de notícias<br />
+        <span style="color:#134a88;font-size: 14px;">ultima atualização <%= Time.now.strftime("%d/%m/%Y às %H:%M")%></span></p>
+        <% if @boletosnumb%>
+            <% @boletosnumb.each do |boleto| %>
+                <div class="container-feed">
+                    <div class="element-feed shadow-sm p-3 mb-5 bg-white rounded" style="display:flex;margin-bottom: 1rem !important;">
+                        <div class="image-feed">  
+                            <i class="fas fa-hand-holding-usd icon-feed"></i>
+                        </div>
+                        <div class="texto" style="width: 100%;">
+                            <p class="titulo"> 
+                                <span style="font-size: 18px;"><%= boleto.descricao %></span>
+                                <br> 
+                                <span class="conteudo" style="float: left;font-size: 14px;width: 100%;">
+                                    Vencimento<%= boleto.vencimento.strftime("%d/%m/%Y") %> 
+                                </span>
+                            </p>
+                            <br>
+                            <p class="conteudo"><%= boleto.descricao %>, <%= link_to 'Ler mais', boleto, style:"text-decoration:none"%>.</p>
+                        </div>
+                    </div>
+                </div>
+            <% end %> 
         <% end %> 
-        
-    <div style="margin-top: 44px;height:209px;text-align: center;color: #ff8b45;"> 
-        <hr style="background-color: #fba571;margin: 13px;height: 1px;">
-        <a href="#">Ir para central de notícias</a>
-    </div>
-    </div>
-</div>
+        <% if @avisonumb%>
+            <% @avisonumb.each do |aviso| %>
+                <div class="container-feed">
+                    <div class="element-feed shadow-sm p-3 mb-5 bg-white rounded" style="display:flex;margin-bottom: 1rem !important;">
+                        <div class="image-feed">  
+                            <i class="fas fa-exclamation-circle icon-feed"></i>
+                        </div>
+                        <div class="texto" style="width: 100%;">
+                            <p class="titulo"> 
+                                <span style="font-size: 18px;"><%= aviso.titulo %></span>
+                                <br> 
+                                <span class="conteudo" style="float: left;font-size: 14px;width: 100%;">
+                                    <%= aviso.created_at.strftime("%d/%m/%Y às %H:%M") %> 
+                                    <% if aviso.read_at == nil %> 
+                                        <span class="status_aviso">NOVO</span>
+                                    <% end %> 
+                                </span>
+                            </p>
+                            <br>
+                            <p class="conteudo"><%= aviso.descricao %>, <%= link_to 'Ler mais', aviso, style:"text-decoration:none"%>.</p>
+                        </div>
+                    </div>
+                </div>
+            <% end %> 
+        <% end %> 
+        <% if @eventnumb%>
+            <% @eventnumb.each do |event| %>
+                <div class="container-feed">
+                    <div class="element-feed shadow-sm p-3 mb-5 bg-white rounded" style="display:flex;margin-bottom: 1rem !important;">
+                        <div class="image-feed">   
+                            <i class="fas fa-calendar-day icon-feed"></i>
+                        </div>
+                        <div class="texto" style="width: 100%;">
+                            <p class="titulo"> 
+                                <span style="font-size: 18px;"><%= event.titulo %></span>
+                                <br> 
+                                <span class="conteudo" style="float: left;font-size: 14px;width: 100%;">
+                                    <%= event.created_at.strftime("%d/%m/%Y às %H:%M") %> 
+                                    <% if @presenc.where(m_id: event.id,intranet_associado: @dados_assoc.id,m_name: 'evento') == nil %> 
+                                        <span class="status_aviso">NOVO</span>
+                                    <% end %> 
+                                </span>
+                            </p>
+                            <br>
+                            <p class="conteudo">Novo Evento clique, <%= link_to 'AQUI', event, style:"text-decoration:none"%> para conferir.</p>
+                        </div>
+                    </div>
+                </div>
+            <% end %> 
+        <% end %>  
+        <% if @arquivosnumb%>
+            <% @arquivosnumb.each do |arquivo| %>
+                <div class="container-feed">
+                    <div class="element-feed shadow-sm p-3 mb-5 bg-white rounded" style="display:flex;margin-bottom: 1rem !important;">
+                        <div class="image-feed">   
+                            <i class="fas fa-file-download icon-feed"></i>
+                        </div>
+                        <div class="texto" style="width: 100%;">
+                            <p class="titulo"> 
+                                <span style="font-size: 18px;"><%= arquivo.descricao %></span>
+                                <br> 
+                                <span class="conteudo" style="float: left;font-size: 14px;width: 100%;">
+                                    <%= arquivo.created_at.strftime("%d/%m/%Y às %H:%M") %>  
+                                </span>
+                            </p>
+                            <br>
+                            <p class="conteudo">Novo Arquivo clique, <%= link_to 'AQUI', arquivo, style:"text-decoration:none"%> para conferir.</p>
+                        </div>
+                    </div>
+                </div>
+            <% end %> 
+        <% end %> 
+        <% if @perguntnumb%>
+            <% @perguntnumb.each do |pergunt| %>
+                <div class="container-feed">
+                    <div class="element-feed shadow-sm p-3 mb-5 bg-white rounded" style="display:flex;margin-bottom: 1rem !important;">
+                        <div class="image-feed">  
+                            <i class="fas fa-comments icon-feed"></i>
+                        </div>
+                        <div class="texto" style="width: 100%;">
+                            <p class="titulo"> 
+                                <span style="font-size: 18px;"><%= pergunt.assunto %></span>
+                                <br> 
+                                <span class="conteudo" style="float: left;font-size: 14px;width: 100%;">
+                                    <%= pergunt.created_at.strftime("%d/%m/%Y às %H:%M") %> 
+                                    <% if pergunt.mensagem_resposta != nil %> 
+                                        <span class="status_aviso">NOVO</span>
+                                    <% end %> 
+                                </span>
+                            </p>
+                            <br>
+                            <p class="conteudo">Pergunta respondida clique, <%= link_to 'AQUI', pergunt, style:"text-decoration:none"%> para conferir.</p>
+                        </div>
+                    </div>
+                </div>
+            <% end %> 
+        <% end %>  
+        <% if @reunionnumb%>
+            <% @reunionnumb.each do |reunion| %>
+                <div class="container-feed">
+                    <div class="element-feed shadow-sm p-3 mb-5 bg-white rounded" style="display:flex;margin-bottom: 1rem !important;">
+                        <div class="image-feed">  
+                            <i class="fas fa-users icon-feed"></i>
+                        </div>
+                        <div class="texto" style="width: 100%;">
+                            <p class="titulo"> 
+                                <span style="font-size: 18px;"><%= reunion.assunto %></span>
+                                <br> 
+                                <span class="conteudo" style="float: left;font-size: 14px;width: 100%;">
+                                    Data da reunião <%= reunion.data.strftime("%d/%m/%Y") %>  
+                                </span>
+                            </p>
+                            <br>
+                            <p class="conteudo">Nova Reunião clique, <%= link_to 'AQUI', reunion, style:"text-decoration:none"%> para conferir.</p>
+                        </div>
+                    </div>
+                </div>
+            <% end %> 
+        <% end %> 
+        <div style="margin-top: 44px;height:209px;text-align: center;color: #134a88;"> 
+            <hr style="background-color: #134a88;margin: 13px;height: 1px;"> 
+            <p><%= @cart_current.nome %></p>
+        </div>
+    </div> 
+</div> 
+
 <style>
+
 .container-feed{
     line-height: 19px;
 }
@@ -92,21 +256,26 @@
     margin-left: 6px;
 }
 .image-feed{
-    background: #fba571;
-    border-radius: 5px; 
+    text-align: center;
+    background: #134a88;
+    border-radius: 5px;
+    text-align: center;
+    height: 64px;
+    width: 75px;
     align-self: center;
 }
-.icon-feed{ 
-    padding: 12px;
-    width: 58px;
-    height: 54px;
-    color: white;
-    margin: 9px; 
+.icon-feed{  
+    font-size: 20px;
+    color: white; 
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin-top: 19px;
 }
 .titulo{
     margin: 0px;
     padding: 0px;
-    color: #ff6000;
+    color: #0b386b;
     font-weight: bolder;
 }
 .conteudo{
@@ -118,8 +287,8 @@
     color: #393939;
 }
 .icon-notify{  
-    font-size: 37px;
-    color: #ff6000; 
+    font-size: 21px;
+    color: #0b386b; 
     margin: auto;
 }
 .carousel-indicators {
@@ -157,7 +326,7 @@
     display: inline-block;
     margin-bottom: 0.5rem;
     font-weight: bolder;
-    color: #ff6000;
+    color: #0b386b;
     font-size: 12px;
 }
 .banner-1{
@@ -173,22 +342,21 @@
     display:flex;
 }
 .element-feed:hover .image-feed{
-    background:#ff6000 !important;
+    background:#0b386b !important;
     border-radius: 6px;
 } 
 .notify_number{
     position: relative;
-    margin-left: 69%;
-    background: #ff6000;
+    margin-left: 51%;
     max-width: 23px;
     margin-bottom: -16px;
-    color: #fff;
+    color: #5ace0a;
     font-weight: bold;
     font-size: 9px;
     border-radius: 9px;
-    padding: 3px;
+    padding: 1px;
 }
-.status_aviso{background: #ff6000;
+.status_aviso{background: #0b386b;
 color: white; 
 padding-left: 5px;
 border-radius: 14px;

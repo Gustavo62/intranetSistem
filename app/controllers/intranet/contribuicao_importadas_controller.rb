@@ -1,4 +1,6 @@
 class Intranet::ContribuicaoImportadasController < ApplicationController
+	before_action :valida_acesso 
+	authorize_resource :class => false
   before_action :set_intranet_contribuicao_importada, only: %i[ show edit update destroy ]
 
   # GET /intranet/contribuicao_importadas or /intranet/contribuicao_importadas.json
@@ -25,7 +27,7 @@ class Intranet::ContribuicaoImportadasController < ApplicationController
 
     respond_to do |format|
       if @intranet_contribuicao_importada.save
-        format.html { redirect_to @intranet_contribuicao_importada, notice: "Contribuicao importada was successfully created." }
+        format.html { redirect_to @intranet_contribuicao_importada, notice: "Contribuicao importada foi criada com sucesso." }
         format.json { render :show, status: :created, location: @intranet_contribuicao_importada }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +40,7 @@ class Intranet::ContribuicaoImportadasController < ApplicationController
   def update
     respond_to do |format|
       if @intranet_contribuicao_importada.update(intranet_contribuicao_importada_params)
-        format.html { redirect_to @intranet_contribuicao_importada, notice: "Contribuicao importada was successfully updated." }
+        format.html { redirect_to @intranet_contribuicao_importada, notice: "Contribuicao importada foi atualizada com sucesso." }
         format.json { render :show, status: :ok, location: @intranet_contribuicao_importada }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,7 +53,7 @@ class Intranet::ContribuicaoImportadasController < ApplicationController
   def destroy
     @intranet_contribuicao_importada.destroy
     respond_to do |format|
-      format.html { redirect_to intranet_contribuicao_importadas_url, notice: "Contribuicao importada was successfully destroyed." }
+      format.html { redirect_to intranet_contribuicao_importadas_url, notice: "Contribuicao importada foi deletado com sucesso." }
       format.json { head :no_content }
     end
   end

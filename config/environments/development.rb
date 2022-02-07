@@ -1,5 +1,4 @@
 require "active_support/core_ext/integer/time"
-
 Rails.application.configure do
 	# Settings specified here will take precedence over those in config/application.rb.
 			
@@ -12,8 +11,7 @@ Rails.application.configure do
 	config.eager_load = false
 
 	# Show full error reports.
-	config.consider_all_requests_local = true
-
+	config.consider_all_requests_local = true 
 	# Enable/disable caching. By default caching is disabled.
 	# Run rails dev:cache to toggle caching.
 	if Rails.root.join('tmp', 'caching-dev.txt').exist?
@@ -22,10 +20,10 @@ Rails.application.configure do
 
 		config.cache_store = :memory_store
 		config.public_file_server.headers = {
-			'Cache-Control' => "public, max-age=#{2.days.to_i}"
+			"Cache-Control" => "public, max-age=#{2.days.to_i}"
 		}
 	else
-		config.action_controller.perform_caching = false
+		config.action_controller.perform_caching = true
 
 		config.cache_store = :null_store
 	end
@@ -34,24 +32,24 @@ Rails.application.configure do
 	# Store uploaded files on the local file system (see config/storage.yml for options).
 	config.active_storage.service = :local 
 	# Don't care if the mailer can't send.
-	config.action_mailer.default_url_options = { host: 'localhost:3000' } #  e URLs in HTML email
-
+	config.action_mailer.default_url_options = { host: "localhost:3000" } #  e URLs in HTML email
+	config.action_mailer.default :charset => "utf-8"
 	# Allow generating absolute urls with routing url helpers.
 	Rails.application.routes.default_url_options[:host] = 'localhost:3000'
-	config.action_mailer.raise_delivery_errors = false
+	config.action_mailer.raise_delivery_errors = true
 
 	config.action_mailer.perform_caching = false
 	config.action_mailer.perform_deliveries = true
-	config.action_mailer.delivery_method = :smtp
+	config.action_mailer.delivery_method = :smtp 
 	config.action_mailer.smtp_settings = {
-			:user_name => 'apikey', 
-			:password => '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', 
-			:domain => 'sinoredice.com.br',
-			:address => 'smtp.sendgrid.net',
-			:port => 587,
-			:authentication => :plain,
-			:enable_starttls_auto => true
-	}
+		:user_name => 'apikey', # This is the string literal 'apikey', NOT the ID of your API key
+		:password => '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', # This is the secret sendgrid API key which was issued during API key creation
+		:domain => 'anoregce.org.br',
+		:address => 'smtp.sendgrid.net',
+		:port => 587,
+		:authentication => :plain,
+		:enable_starttls_auto => true
+	} 
 	# Print deprecation notices to the Rails logger.
 	config.active_support.deprecation = :log
 
@@ -86,5 +84,6 @@ Rails.application.configure do
 	config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
 	# Uncomment if you wish to allow Action Cable access from any origin.
-	# config.action_cable.disable_request_forgery_protection = true 
+	# config.action_cable.disable_request_forgery_protection = true  
+	
 end

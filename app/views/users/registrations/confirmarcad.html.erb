@@ -1,34 +1,64 @@
+<%= javascript_pack_tag "usuario_confirmarcad" %> 
 <div class="container">
 <br>
     <% if @user_id%>
-        <% if @user.fixa_assinada.attached? == false%>
+        <% if ApplicationRecord.verificaFicha(@user.id) == false%>
             <h4 style="border-bottom: 1px solid #e6e6e6;height: 40px;margin-bottom: 11px;">Termo de Filiação.</h4>
-            <h6>Nessa última etapa faça o <b>Download</b> do <span>termo de filiação</span> e assine, após assinar basta scanear a fixa e enviar novamente ela assinada, confira se os dados estão corretos.</h6>
-            <%= link_to termo_filiacao_path(:id => @user_id),id:"btnPDF", class:"btn btn-success", style:"display: flex;width: 40%;margin: auto;margin-bottom: 22px;margin-top: 24px;", target:"blank"  do %>
-                BAIXAR
-                <span class="baixar">
-                </span>
-                <%= icon('file-earmark-arrow-down-fill', class:"btn-download")%> 
-            <% end %> 
+            <h6 style="text-align: justify;">Nessa última etapa faça o <b>Download</b> do <span>termo de filiação</span> e assine, após assinar basta scanear a fixa e enviar novamente ela assinada, confira se os dados estão corretos.</h6>
             <h4 style="margin-top: 46px;margin-bottom: 4px;border-bottom: 1px solid #e6e6e6;height: 25px;font-size: 18px;text-align: initial;">Termo de posse.</h4><span id="termo_required" style="font-size: 12px;padding: 5px;float: inline-end;color: #b30303;"></span>
-            <%= form_for @user do |f| %>
-                <div class="form-group" style="padding:6px;display:none"> 
-                    <input type="text" id="id" name="id" value="<%= @user_id%>" style="width: 100%;">
-                </div>
-                <div class="form-group" style="padding:6px"> 
-                    <br> 
-                    <%= f.file_field :fixa_assinada,id:"fixa_assinada", name:"fixa_assinada", accept:".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"%>
-                </div>
-                <div class="actions">
+            <%=form_with url: "/confirmar/cadastro/anexa_docs?id=#{@user.id}", method: :post do |f| %>
+                <input type="hidden" value="<%= @associado.intranet_cartorio%>" id="cartorios_ids" >
+                <% @cartorio.each do | cart | %> 
+                    <div class="form-group" style="padding:6px;" style="text-align: left;">  
+                        <div class="page-header">
+                            <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;font-size: 18px;"><%= cart.nome%></h1>      
+                        </div>
+                        <br>
+                        <div style="display:flex">
+                            <%= link_to termo_filiacao_path(:id => @user_id,:cartorio_id => cart),id:"btnPDF", class:"btn btn-success baixar", target: "_blank"  do %>
+                                BAIXAR
+                                <span class="baixar_hr">
+                                </span>
+                                <%= icon('file-earmark-arrow-down-fill', class:"btn-download")%> 
+                            <% end %> 
+                            <%= f.file_field "fixa_assinada_#{cart.id}",id:"fixa_assinada",required:true, name:"fixa_assinada_#{cart.id}", accept:".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document", style:"width:100%",class:"form-control"%>
+                        </div>
+                        <p>Anexe o documento relacionado a este respectivo cartório.</p>
+                        
+                        <br>
+                    </div>
+                <% end %>  
+                <div class="actions" style="margin-bottom: 119px;float: right;">
                     <button  class="btn btn-primary" id="enviar" >Enviar</button>
                 </div>
             <% end %>
+            <div class="central_msgs">
+                <% flash.each do |name, msg| %> 
+                    <% name = 'warning' if name == 'alert'%>
+                    <% name = 'info' if name == 'notice'%>
+                    <div data-notify="container" class="col-11 col-sm-11 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 13;bottom: 15px;right: 16px;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
+                            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-app"></span> 
+                        <% if name == 'info' %>   
+                            <span data-notify="title">Informação:</span>
+                        <% elsif name == 'success'%>
+                            <span data-notify="title">Sucesso:</span> 
+                        <% elsif name == 'danger'%>
+                            <span data-notify="title">Perigo:</span>  
+                        <% elsif name == 'warning'%> 
+                            <span data-notify="title">Aviso:</span>
+                        <% end %>
+                        <span data-notify="message"><%=sanitize(msg)%></span>
+                        <a href="#" target="_blank" data-notify="url"></a>
+                    </div> 
+                <% end %>
+            </div>   
         <% else %>
             <h4>Link não está validado</h4>
-            <div data-notify="container" class="col-11 col-sm-4 alert alert-warning alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 0;bottom: 15px;right: 16px;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div data-notify="container" class="col-11 col-sm-4 alert alert-warning alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 13;bottom: 15px;right: 16px;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;"><span aria-hidden="true"><i class="fas fa-times"></i></button>
                 <span data-notify="icon" class="nc-icon nc-app"></span>
                 <span data-notify="message">Infelizmente o link não está mais funcionando, caso não tenha feito o Download do seu Termo entre em contato com o sindicato <a href="http://www.sinoredice.org.br/contato/">aqui</a>.</span>
                 <a href="#" target="_blank" data-notify="url"></a>
@@ -36,10 +66,9 @@
         <% end %>
     <% else %>
         <h4>Link não está validádo</h4>
-        <div data-notify="container" class="col-11 col-sm-4 alert alert-warning alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 0;bottom: 15px;right: 16px;">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        <div data-notify="container" class="col-11 col-sm-4 alert alert-warning alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 13;bottom: 15px;right: 16px;">
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;"><span aria-hidden="true"><i class="fas fa-times"></i></button>
+        
             <span data-notify="icon" class="nc-icon nc-app"></span>
             <span data-notify="message">Infelizmente o link não está mais funcionando, caso não tenha feito o Download do seu Termo entre em contato com o sindicato<a href="http://www.sinoredice.org.br/contato/">aqui</a>.</span>
             <a href="#" target="_blank" data-notify="url" accept= 'application/pdf,image/jpeg'></a>
@@ -47,39 +76,23 @@
     <% end %>
 </div>
 <style> 
+#fixa_assinada{
+    width: 100%;
+    align-self: center;
+    margin-left: 14px;
+}
 	.baixar{
-		height: 38px;
-		width: 1px;
-		background-color: #24883b; 
-		margin-left: auto;
-		margin-right: 11px;
-		margin-top: -7px;
-		margin-bottom: -7px;
+        height: 32px;
+        display: flex;
+        width: 129px;
 	}
-</style>
-<script>
-    $(document).ready(function(){
-        var assFixaAssinada     = document.getElementById("fixa_assinada");    
-        $(document).on('keyup keypress', 'form input[type="text"]', function(e) {
-            if(e.keyCode == 13) {
-            e.preventDefault();
-            return false;
-            }
-        }); 
-        $("#enviar").click(function(){ 
-            if(assFixaAssinada.value==''){
-                assFixaAssinada.focus(); 
-                $("#termo_required").html("Não pode ficar vazio."); 
-                assFixaAssinada.style.boxShadow = "0px 0px 0px 1px #ea2c00";
-                assFixaAssinada.style.borderRadius = "6px";
-                return false;
-            }else{  
-                var attachment = fileInput.files[0];
-                $("#termo_required").html("");  
-                return true;
-            };
-        });
-    
-    });
-
-</script>
+    .baixar_hr{
+        height: 32px;
+        width: 1px;
+        background-color: #24883b;
+        margin-left: auto;
+        margin-right: 5px;
+        margin-top: -7px;
+        margin-bottom: -7px;
+    } 
+</style> 

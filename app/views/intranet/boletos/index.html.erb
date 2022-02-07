@@ -1,51 +1,94 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Intranet Boletos</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Intranet financeiro tipos cobranca</th>
-      <th>Intranet financeiro portadores</th>
-      <th>Intranet regiao</th>
-      <th>Intranet entrancias</th>
-      <th>Intranet contribuicao</th>
-      <th>Intranet atividade</th>
-      <th>Intranet cartorio</th>
-      <th>Valor</th>
-      <th>Vencimento</th>
-      <th>Descricao</th>
-      <th>Observacao email</th>
-      <th>Forma cobranca</th>
-      <th>Apenas titular</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @intranet_boletos.each do |intranet_boleto| %>
-      <tr>
-        <td><%= intranet_boleto.intranet_financeiro_tipos_cobranca_id %></td>
-        <td><%= intranet_boleto.intranet_financeiro_portadores %></td>
-        <td><%= intranet_boleto.intranet_regiao_id %></td>
-        <td><%= intranet_boleto.intranet_entrancias_id %></td>
-        <td><%= intranet_boleto.intranet_contribuicao_id %></td>
-        <td><%= intranet_boleto.intranet_atividade %></td>
-        <td><%= intranet_boleto.intranet_cartorio_id %></td>
-        <td><%= intranet_boleto.valor %></td>
-        <td><%= intranet_boleto.vencimento %></td>
-        <td><%= intranet_boleto.descricao %></td>
-        <td><%= intranet_boleto.observacao_email %></td>
-        <td><%= intranet_boleto.forma_cobranca %></td>
-        <td><%= intranet_boleto.apenas_titular %></td>
-        <td><%= link_to 'Show', intranet_boleto %></td>
-        <td><%= link_to 'Edit', edit_intranet_boleto_path(intranet_boleto) %></td>
-        <td><%= link_to 'Destroy', intranet_boleto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Intranet Boleto', new_intranet_boleto_path %>
+<%= javascript_pack_tag "boletos_index", "data-turbolinks-track" => true  %> 
+<div class="container" style="margin-bottom: 200px;">  
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Cobranças</h1>      
+  </div>
+  <p>Gerenciar cobranças do sistema.</p>  
+  <%= form_with(url:'/intranet/boletos',method: :get, id:"form_assoc")  do |f| %> 
+    <% if user_signed_in? == false %>
+      <%= f.select "id_cart",options_from_collection_for_select(@intranet_cartorios_consult, "id", "nome",params[:id_cart]), {:prompt => "Escolha o cartório"},{style:"margin-right:1%;"}%> 
+      <%- if params[:id_cart] && @associados_aux.size > 1%> 
+        <%= f.select "associado",options_from_collection_for_select(@associados_aux, "id", "nome",params[:associado]), {:prompt => "Escolha o associado"},{style:"margin-right:1%;"}%>  
+      <% end %>
+    <% end %> 
+    <%= select_tag(:status, options_for_select([["Pago",0],["Aberto",1],["Vencido",2]],params[:status]), class:"form-control",prompt:"Status do Boleto",style:"margin-right:1%;") %> 
+    <%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
+    <%= link_to "Limpar", intranet_boletos_path , style:"width: 21%;",class:"btn btn-link" %>
+  <% end %> 
+  <div style="width: 100%;height: 572px;overflow-y: scroll;" class="table-wrapper-scroll-y my-custom-scrollbar shadow p-3 mb-5 bg-white rounded">
+    <div class="collapse multi-collapse show" id="multiCollapseExample">  
+      <table  class="table table-hover table-striped mb-0" style="overflow-x: auto;">
+        <thead>
+          <tr> 
+            <th>Associado</th>
+            <th>Valor</th>
+            <th>Vencimento</th> 
+            <th>Status</th> 
+            <th style="text-align: center;" colspan="3">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @intranet_boletos.each do |intranet_boleto| %>
+            <tr> 
+              <td><%= @associados_aux.find(intranet_boleto.intranet_associado_id).try(:nome) %></td>
+              <td id="intranet_boleto_valor"><%= intranet_boleto.valor %></td>
+              <td><%= intranet_boleto.vencimento.strftime("%d/%m/%Y") %></td> 
+              <td><%= I18n.t("boleto_simples.status.#{intranet_boleto.status}") %></td>  
+              <td style="text-align: center;">
+                <%= link_to intranet_boleto, class:"btni" do %>
+                  <i class="fas fa-eye" style="padding:0px;"></i>
+                <% end %>
+              </td>
+              <% if user_signed_in? == false%>
+                <td style="text-align: center;">
+                  <%= link_to edit_intranet_boleto_path(intranet_boleto), class:"btni" do %>
+                    <i class="fas fa-edit" style="padding-left: 3px;"></i>
+                  <% end %>
+                </td>
+                <td style="text-align: center;"> 
+                  <a  class="btni" data-bs-toggle="modal" data-bs-target="#exampleModal<%= intranet_boleto.id %>"><i class="fas fa-trash-alt" style="padding:0px;"></i></a>
+                  
+                  <div class="modal fade" id="exampleModal<%= intranet_boleto.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Deletar Cobrança</h5>
+										    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                      </div>
+                      <div class="modal-body">
+                        Deseja deletar cobrança, <%= intranet_boleto.descricao%>?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
+                        <%= link_to intranet_boleto, method: :delete do %> 
+                          <button type="button" class="btn btn-danger">Excluir</button>
+                        <% end %>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table> 
+    </div>  
+  </div>
+  <p style="text-align: center;padding: 1%;">Consulta obteve <%=  @intranet_boletos_aux.size %> resultados.<p>  
+  
+	<% if user_signed_in? == false%> 
+    <%= link_to new_intranet_boleto_path ,style:"float:right", class:"btn btn-primary" do %>
+      <i style="margin-right: 9px;" class="fas fa-plus icon-aux-label"></i>Cobrança
+    <% end %> 
+  <% end %> 
+  <br>
+  <%= paginate @intranet_boletos%> 
+  <br>
+</div>  
+<style>
+  #form_assoc{
+    display: flex;
+    margin-bottom: 1%;
+  } 
+</style>

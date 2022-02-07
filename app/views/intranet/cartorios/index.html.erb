@@ -1,81 +1,91 @@
-<p id="notice"><%= notice %></p>
+<script src="https://unpkg.com/imask"></script>
+<div class="container" style="margin-bottom: 200px;">  
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Cartório</h1>      
+  </div>
+  <p>Gerenciar cartórios do sistema.</p>  
+  <% if user_signed_in? == false %>
+    <%= form_with(url:'/intranet/cartorios',method: :get, id:"form_assoc" )  do |f| %>  
+      <%= select_tag(:status, options_for_select([["ativo",true],["desativado",false]],params[:status]), class:"form-control",prompt:"Status do cartório",style:"margin-right:1%;") %> 
+      <%= select_tag(:cidade, options_from_collection_for_select(@intranet_cidades, "id", "municipio",params[:cidade]), class:"form-control",prompt:"Escolha a cidade",style:"margin-right:1%;") %> 
+      <%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
+      <%= link_to "Limpar", intranet_cartorios_path , style:"width: 21%;",class:"btn btn-link" %>
+    <% end %> 
+  <% end %> 
+  <div style="width: 100%;height: 572px;overflow-y: scroll;" class="table-wrapper-scroll-y my-custom-scrollbar shadow p-3 mb-5 bg-white rounded">
+    <div class="collapse multi-collapse show" id="multiCollapseExample">  
+      <table  class="table table-hover table-striped mb-0" style="overflow-x: auto;">
+        <thead>
+          <tr> 
+            <th>Nome</th> 
+            <th>Status</th>   
+            <th style="text-align: center;" colspan="3">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @intranet_cartorios.each do |intranet_cartorio| %>
+            <tr> 
+              <td><%= intranet_cartorio.nome %></td>  
+              <td>
+                <% if intranet_cartorio.ativo %>
+                  Ativo
+                <% else %>
+                  Desativado
+                <% end %>
+              </td>  
+              <td style="text-align: center;">
+                <%= link_to intranet_cartorio, class:"btni" do %>
+                  <i class="fas fa-eye" style="padding:0px;"></i>
+                <% end %>
+              </td>
+              <% if user_signed_in? == false %>
+                <td style="text-align: center;">
+                  <%= link_to edit_intranet_cartorio_path(intranet_cartorio), class:"btni" do %>
+                    <i class="fas fa-edit" style="padding-left: 3px;"></i>
+                  <% end %>
+                </td>
+                <td style="text-align: center;"> 
+                  <a  class="btni" data-bs-toggle="modal" data-bs-target="#exampleModal<%= intranet_cartorio.id %>"><i class="fas fa-trash-alt" style="padding:0px;"></i></a>
+                  
+                  <div class="modal fade" id="exampleModal<%= intranet_cartorio.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Deletar Cartório</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                      </div>
+                      <div class="modal-body">
+                        Deseja deletar Cartório, <%= intranet_cartorio.nome%>?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
+                        <%= link_to intranet_cartorio, method: :delete do %> 
+                          <button type="button" class="btn btn-danger">Excluir</button>
+                        <% end %>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table> 
+    </div>  
+  </div>
+  <p style="text-align: center;padding: 1%;">Consulta obteve <%=  @intranet_cartorios.total_count %> resultados.<p>  
+  <%= link_to new_intranet_cartorio_path ,style:"float:right", class:"btn btn-primary" do %>
+    <i style="margin-right: 9px;" class="fas fa-plus icon-aux-label"></i>Cartório
+  <% end %> 
+  <br>
+  <%= paginate @intranet_cartorios %> 
+  <br>
+</div>  
+<style>
+  #form_assoc{
+    display: flex;
+    margin-bottom: 1%;
+  } 
+</style>
 
-<h1>Intranet Cartorios</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Possui cnpj?</th>
-      <th>Cei</th>
-      <th>Cnpj</th>
-      <th>Cod tj</th>
-      <th>Cod cnj</th>
-      <th>Nome</th>
-      <th>Nome fant</th>
-      <th>Nome res</th>
-      <th>Cep</th>
-      <th>Logradouro</th>
-      <th>Numero</th>
-      <th>Bairro</th>
-      <th>Complemento</th>
-      <th>Telefone fixo</th>
-      <th>Telefone celular</th>
-      <th>Whatsapp</th>
-      <th>Email</th>
-      <th>Forma branca</th>
-      <th>Observacao</th>
-      <th>Regiao</th>
-      <th>Contribuicao</th>
-      <th>Atividade</th>
-      <th>Entrancia</th>
-      <th>Boleto</th>
-      <th>Cidade</th>
-      <th>Associado</th>
-      <th>Substituto</th>
-      <th>Tabeliaes</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @intranet_cartorios.each do |intranet_cartorio| %>
-      <tr>
-        <td><%= intranet_cartorio.possui_cnpj? %></td>
-        <td><%= intranet_cartorio.cei %></td>
-        <td><%= intranet_cartorio.cnpj %></td>
-        <td><%= intranet_cartorio.cod_tj %></td>
-        <td><%= intranet_cartorio.cod_cnj %></td>
-        <td><%= intranet_cartorio.nome %></td>
-        <td><%= intranet_cartorio.nome_fant %></td>
-        <td><%= intranet_cartorio.nome_res %></td>
-        <td><%= intranet_cartorio.cep %></td>
-        <td><%= intranet_cartorio.logradouro %></td>
-        <td><%= intranet_cartorio.numero %></td>
-        <td><%= intranet_cartorio.bairro %></td>
-        <td><%= intranet_cartorio.complemento %></td>
-        <td><%= intranet_cartorio.telefone_fixo %></td>
-        <td><%= intranet_cartorio.telefone_celular %></td>
-        <td><%= intranet_cartorio.whatsapp %></td>
-        <td><%= intranet_cartorio.email %></td>
-        <td><%= intranet_cartorio.forma_branca %></td>
-        <td><%= intranet_cartorio.observacao %></td>
-        <td><%= intranet_cartorio.intranet_regiao_id %></td>
-        <td><%= intranet_cartorio.intranet_contribuicao_id %></td>
-        <td><%= intranet_cartorio.intranet_atividade_id%></td>
-        <td><%= intranet_cartorio.intranet_entrancia_id %></td>
-        <td><%= intranet_cartorio.intranet_boleto_id %></td>
-        <td><%= intranet_cartorio.intranet_cidade_id %></td>
-        <td><%= intranet_cartorio.intranet_associado_id %></td>
-        <td><%= intranet_cartorio.intranet_substituto_id %></td>
-        <td><%= intranet_cartorio.intranet_tabeliao_id %></td>
-        <td><%= link_to 'Show', intranet_cartorio %></td>
-        <td><%= link_to 'Edit', edit_intranet_cartorio_path(intranet_cartorio) %></td>
-        <td><%= link_to 'Destroy', intranet_cartorio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Intranet Cartorio', new_intranet_cartorio_path %>

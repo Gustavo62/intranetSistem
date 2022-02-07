@@ -1,81 +1,53 @@
-<div class="container">
-    <h4 class="titulo">Novos Usuarios</h4> 
-    <% @cidades.each do |cidade|%>
+<div class="container"> 
+	<div class="page-header">
+		<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Novos usuários</h1>      
+	</div>  
+    <p>Lista de novos usuários.</p>   
+    <table class="table">
+        <thead> 
+            <tr>
+                <th class="id">#</th> 
+                <th class="nome">Nome</th>
+                <th class="codtj">Data</th>
+                <th class="acao">Interação</th>
+            </tr>
+        </thead>
+        <tbody>  
+            <% @associados.each do |associado|%>   
+                <tr style="vertical-align: middle;">    
+                    <th scope="row" class="id"><%= associado.user_id %></th>
+                    <td class="nome"><%= associado.nome %></td> 
+                    <td class="codtj"><%= associado.created_at.strftime("%d/%m/%Y") %></td>
+                    <td class="acao">
+                        <div class="btn-group">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Ação
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <%= link_to intranet_lista_usuarios_deferir_path(:id => associado.user_id),  {:remote => true, 'data-bs-toggle' =>  "modal", 'data-bs-target' => '#modal-window', style:'text-decoration:none'}  do %>
+                                    <span class="dropdown-item">Deferir</span>
+                                <% end %> 
 
-        <h4><%= cidade.municipio%></h4> 
-        <table class="table">
-            <thead> 
-                <tr>
-                    <th class="id">#</th> 
-                    <th class="nome">Nome</th>
-                    <th class="codtj">Serventia</th>
-                    <th class="acao">Interação</th>
-                </tr>
-            </thead>
-            <tbody> 
-                <% @cartorios.each do |cartorio|%>  
-                    <% if cartorio.intranet_cidade_id == cidade.id %>  
-                        <% @associados.each do |associado|%>  
-                            <% if associado.intranet_cartorio_id == cartorio.id %>
-                                <tr>    
-                                    <th scope="row" class="id"><%= associado.user_id %></th>
-                                    <td class="nome"><%= associado.nome %></td> 
-                                    <td class="codtj"><%= cartorio.cod_tj %></td>
-                                    <td class="acao">
-                                        <div class="btn-group">
-                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Ação
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                                <%= link_to intranet_lista_usuarios_deferir_path(:id => associado.user_id),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', style:'text-decoration:none'}  do %>
-                                                    <span class="dropdown-item">Deferir</span>
-                                                <% end %> 
+                                <%= link_to intranet_lista_usuarios_indeferir_path(:id => associado.user_id),  {:remote => true, 'data-bs-toggle' =>  "modal", 'data-bs-target' => '#modal-window', style:'text-decoration:none'}  do %>
+                                    <span class="dropdown-item">Indeferir</span>
+                                <% end %>  
 
-                                                <%= link_to intranet_lista_usuarios_indeferir_path(:id => associado.user_id),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', style:'text-decoration:none'}  do %>
-                                                    <span class="dropdown-item">Indeferir</span>
-                                                <% end %>  
-
-                                                <%= link_to intranet_lista_usuarios_visualizar_path(:id => associado.user_id),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', style:'text-decoration:none'}  do %>
-                                                    <span class="dropdown-item">Visualizar</span>
-                                                <% end %>   
-                                            </div>
-                                        </div> 
-                                    </td> 
-                                </tr>  
-                            <% end %> 
-                        <% end %> 
-                    <% end %>
-                <% end %>  
-            </tbody>
-        </table>
-        <br>
-    <% end %> 
+                                <%= link_to intranet_lista_usuarios_visualizar_path(:id => associado.user_id),  {:remote => true, 'data-bs-toggle' =>  "modal", 'data-bs-target' => '#modal-window', style:'text-decoration:none'}  do %>
+                                    <span class="dropdown-item">Visualizar</span>
+                                <% end %>   
+                            </div>
+                        </div> 
+                    </td> 
+                </tr>   
+            <% end %>  
+        </tbody>
+    </table>
+        <br> 
     <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content"></div>
         </div>
-    </div> 
-    <% flash.each do |name, msg| %> 
-		<% name = 'warning' if name == 'alert'%>
-		<% name = 'info' if name == 'notice'%>
-		<div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 0;bottom: 15px;right: 16px;">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
-			<span aria-hidden="true">&times;</span>
-		</button>
-		<span data-notify="icon" class="nc-icon nc-app"></span> 
-		<% if name == 'info' %>   
-			<span data-notify="title">Informação:</span>
-		<% elsif name == 'success'%>
-			<span data-notify="title">Sucesso:</span> 
-		<% elsif name == 'danger'%>
-			<span data-notify="title">Perigo:</span>  
-		<% elsif name == 'warning'%> 
-			<span data-notify="title">Aviso:</span>
-		<% end %>
-		<span data-notify="message"><%=sanitize(msg)%></span>
-		<a href="#" target="_blank" data-notify="url"></a>
-		</div>
-	<% end %>
+    </div>  
 </div>
     <style>
     .serv{
