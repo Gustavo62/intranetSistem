@@ -16,7 +16,7 @@
 /* app/assets/stylesheets/application.css */
 
 /* import the bootstrap library */ 
-@import "bootstrap";     
+@import "bootstrap/scss/bootstrap"; 
 @import "trix/dist/trix"; 
 body{
   --color-principal: #0b386b;

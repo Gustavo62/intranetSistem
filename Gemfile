@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 # Gráficos
-gem 'chart-js-rails' 
+gem 'chart-js-rails'   
 # Auth routes
 gem 'cancancan' 
 # savon
