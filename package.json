@@ -20,8 +20,10 @@
     "n": "^8.0.2",
     "popper.js": "^1.16.1",
     "trix": "^1.2.0",
-    "turbolinks": "^5.2.0",
-    "node":"14.18.2"
+    "turbolinks": "^5.2.0"
+  },
+  "engines": {
+    "node": "^14.18.2"
   },
   "version": "0.1.0",
   "devDependencies": {
