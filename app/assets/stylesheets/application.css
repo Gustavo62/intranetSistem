@@ -1,4 +1,4 @@
-@import "bootstrap/scss/bootstrap"; 
+@import '../../node_modules/bootstrap/scss/bootstrap';
 @import "trix/dist/trix"; 
 body{
   --color-principal: #0b386b;
