@@ -15,7 +15,7 @@ $(document).ready(function(){
         return dataset
     };
     getData() 
-    var cart_adiplente              = parseInt(dataset['cart_adiplente'])
+    var cart_adimplente             = parseInt(dataset['cart_adimplente'])
     var cartorio_cad                = parseInt(dataset['cartorio_cad'])
     var cartorio_cad_c_assoc        = parseInt(dataset['cartorio_cad_c_assoc'])
     var cartorio_cad_c_assoc_ativo  = parseInt(dataset['cartorio_cad_c_assoc_ativo'])
@@ -243,7 +243,7 @@ $(document).ready(function(){
     //top dash
     var text1_injections = cartorio_cad; 
     var text2_injections = cartorio_cad_c_assoc;
-    var text3_injections = cart_adiplente;
+    var text3_injections = cart_adimplente;
     var text4_injections = cartorio_cad_c_assoc_ativo;
     function animate(obj, initVal, lastVal, duration) { 
         let startTime = null; 
@@ -265,7 +265,7 @@ $(document).ready(function(){
     } 
     let text1 = document.getElementById('cartorio_cad');  
     let text2 = document.getElementById('cartorio_cad_c_assoc');  
-    let text3 = document.getElementById('cart_adiplente');  
+    let text3 = document.getElementById('cart_adimplente');  
     let text4 = document.getElementById('cartorio_cad_c_assoc_ativo'); 
 
     const load = () => {

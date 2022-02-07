@@ -10,7 +10,7 @@ class AdministradorController < ApplicationController
     @cartorios                  = Intranet::Cartorio.all
     @associados                 = Intranet::Associado.all
     @usuarios                   = User.all
-    @cart_adiplente             = Intranet::Cartorio.where(pg_retencao_tj: 1).size
+    @cart_adimplente             = Intranet::Cartorio.where(adimplente: true).size
     @cartorio_cad               = @cartorios.size
     @cartorio_cad_c_assoc       = @associados.all.size
     @cartorio_cad_c_assoc_ativo = User.where(acesso: true).size 
@@ -20,7 +20,8 @@ class AdministradorController < ApplicationController
     @cartorios_cad_s_retencao   = @cartorios.where(retencao_tj: false).size
     @cartorios_c_associado_a    = @usuarios.where(acesso: true).size
     @cartorios_s_associado_a    = @usuarios.where(acesso: false).size
-    @resposta                   = {cart_adiplente:  @cart_adiplente,                        
+    @resposta                   = {
+      cart_adimplente:                              @cart_adimplente,                        
       cartorio_cad:                                 @cartorio_cad,                            
       cartorio_cad_c_assoc:                         @cartorio_cad_c_assoc,            
       cartorio_cad_c_assoc_ativo:                   @cartorio_cad_c_assoc_ativo,
