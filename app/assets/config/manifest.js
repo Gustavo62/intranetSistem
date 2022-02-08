@@ -1,1 +1,1 @@
-//= require_tree ../../javascript/stylesheets/usuario
+//= require_tree ../../javascript/stylesheets 
