@@ -3,7 +3,7 @@ $(document).ready(function(){
     var count_regras  = null;
     var admin_avatar  = document.getElementById("admin_avatar");
     $('.foto_edit_edit').click(function() {
-        $('#admin_avatar').click();
+        admin_avatar.click();
     }); 
     admin_avatar.onchange = function(event) {
         var output = document.getElementById('foto_edit');

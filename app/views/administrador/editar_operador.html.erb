@@ -13,7 +13,7 @@
             <%= image_pack_tag('default.png', class: 'shadow-sm mb-5 bg-white rounded foto_edit',id:"foto_edit")%>
           <% end %> 
           <span class="foto_edit_edit" aria-hidden="true"><i class="fas fa-pen" style="padding:8px"></i></span>
-          <%= f.file_field 'admin[avatar]',style:"display:none",id:"admin_avatar",onchange:"loadFile(event)",class:"form-control"%>
+          <%= f.file_field 'admin[avatar]',style:"display:none",id:"admin_avatar",class:"form-control"%>
         </div> 
         <div style="margin-bottom: 14px;margin-top: -37px;">
           <span style="font-weight: bolder;font-size: 21px;"><%= @admin.nome%></span>

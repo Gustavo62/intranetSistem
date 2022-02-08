@@ -2,11 +2,13 @@ $(document).ready(function(){
     var progress_bar          = document.getElementById("progress-bar");
 	var user_password         = document.getElementById("user_password")
 	var user_password_confirm = document.getElementById("user_password_confirmation")
-  	var password_c_errors     = document.getElementById("user_password_c_errors"); 
+  	var password_c_errors     = document.getElementById("user_password_c_errors");  
+  	var user_avatar           = document.getElementById("user_avatar"); 
+
 	$('.foto_edit_edit').click(function() {
-		$('#admin_avatar').click();
+		user_avatar.click();
 	});
-	var loadFile = function(event) {
+	user_avatar.onchange = function(event) {
 		var output = document.getElementById('foto_edit');
 		output.src = URL.createObjectURL(event.target.files[0]);
 		output.onload = function() {

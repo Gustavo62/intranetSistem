@@ -9,7 +9,7 @@
 				<%= image_pack_tag('default.png', class: 'shadow-sm mb-5 bg-white rounded foto_edit',id:"foto_edit" )%>
 			<% end %> 
 			<span class="foto_edit_edit" aria-hidden="true"><i class="fas fa-pen" style="padding:8px"></i></span>
-			<%= f.file_field :avatar,style:"display:none",id:"admin_avatar",onchange:"loadFile(event)",class:"form-control"%>
+			<%= f.file_field :avatar,style:"display:none",id:"user_avatar",class:"form-control"%>
 		</div>
 		<div class="nome_user">
 			<h5><%= current_user.nome %></h5>

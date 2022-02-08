@@ -13,7 +13,7 @@ module GeneratePdf
     }
     def self.run_pdf(user_d,associado_d,cartorio_d,cidade_d) 
         Prawn::Document.new(PDF_OPTIONS_PORTRAIT) do |pdf|
-            pdf.image "#{Rails.root}/app/assets/images/logo.png", :at => [10,740], :width => 70, :height => 70
+            pdf.image "#{Rails.root}/app/javascript/stylesheets/logo.png", :at => [10,740], :width => 70, :height => 70
             pdf.draw_text "Ficha de Filiação", :at => [290,710], :size => 18, :style => :bold
             pdf.bounding_box([290,700], width: 155) do
                 pdf.table([["Nº #{cartorio_d.id}-#{associado_d.id}"]], :column_widths =>[155])
