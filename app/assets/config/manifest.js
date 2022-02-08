@@ -1,1 +1,1 @@
-//= require_tree ../../javascript/stylesheets .css
+//= require_tree ../../javascript/stylesheets
