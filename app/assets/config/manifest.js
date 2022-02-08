@@ -1,1 +1,1 @@
-//= require_tree ../../javascript/stylesheets
+//= link_tree ../../javascript/stylesheets
