@@ -69,5 +69,5 @@ class Intranet::Cartorio < ApplicationRecord
     else
       all
     end
-  end
+  end 
 end

@@ -50,7 +50,7 @@ class Users::SessionsController < Devise::SessionsController
   def after_sign_in_path_for(resource)    
     if resource.acesso == false   
       session.destroy
-      if ApplicationRecord.verificaFicha(resource.id)
+      if Intranet::FixaFiliacao.verificaFicha(resource.id)
         redirect_to user_session_path	
         link =  "<a href=\"http://www.anoregce.org.br/\">aqui</a>" 
         flash.delete(:notice)

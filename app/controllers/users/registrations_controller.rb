@@ -21,8 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 		end
       	super  
     end 
-    def create
-		
+    def create 
 		@cartorios = Intranet::Cartorio.all.order(:intranet_cidade_id)
 		@cartorios.each do |cart|
 			@cidade = Intranet::Cidade.find_by_id(cart.intranet_cidade_id)
@@ -80,8 +79,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 		@user_id    = params[:id] || params[:format]
 		@user      	= User.where(id: @user_id).take
 		if @user 
-			@associado  = Intranet::Associado.where(user_id: @user.id).take
-			@cartorio   = Intranet::Cartorio.find(@associado.try(:intranet_cartorio)) 
+			@associado 	  = Intranet::Associado.where(user_id: @user.id).take
+			@cartorio  	  = Intranet::Cartorio.find(@associado.try(:intranet_cartorio)) 
+			@situacaoFixa = Intranet::FixaFiliacao.verificaFicha(@user.id)
 		else
 			flash.delete(:notice)
 			flash[:info] = "Houve um problema tente novamente em alguns instantes."
