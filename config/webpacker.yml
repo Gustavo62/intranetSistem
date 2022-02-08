@@ -50,8 +50,6 @@ default: &default
 development:
   <<: *default
   compile: true
-  # update: resolved_paths: [] as follows
-  resolved_paths: ['app/javascript/images', 'app/assets/images']   
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
@@ -91,3 +89,6 @@ production:
 
   # Cache manifest.json for performance
   cache_manifest: true
+  
+  # update: resolved_paths: [] as follows
+  resolved_paths: ['app/assets']   
