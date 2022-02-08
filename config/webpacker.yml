@@ -51,7 +51,7 @@ development:
   <<: *default
   compile: true
   # update: resolved_paths: [] as follows
-  resolved_paths: ['app/javascript/images', 'app/assets/images']  
+  resolved_paths: ['app/javascript/images', 'app/assets/images','app/javascript/stylesheets', 'app/assets/stylesheets']   
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
@@ -84,7 +84,7 @@ test:
 production:
   <<: *default
   # update: resolved_paths: [] as follows
-  resolved_paths: ['app/javascript/images', 'app/assets/images']  
+  resolved_paths: ['app/javascript/images', 'app/assets/images','app/javascript/stylesheets', 'app/assets/stylesheets']  
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
 
