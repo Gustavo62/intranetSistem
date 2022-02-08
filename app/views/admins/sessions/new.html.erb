@@ -1,10 +1,11 @@
+<script src="https://unpkg.com/imask"></script>
 <div class="container background_principal">
 	<h2></h2> 
 	<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 		<div class="mb-3">
 			<label class="form-label">Numero do CPF</label>
 			<%= icon("person", class: "icone-login-user") %> 
-			<%= f.text_field :cpf, autofocus: true,class:"form-control", id:"user_cpf", type:"text", maxlength:"14", style:"padding: 0.375rem 1.75rem;", placeholder:"CPF do operador"%>
+			<%= f.text_field :cpf, autofocus: true,class:"form-control", id:"admin_cpf", type:"text", maxlength:"14", style:"padding: 0.375rem 1.75rem;", placeholder:"CPF do operador"%>
 			<div id="cpfHelp" class="form-text">Informe o numero de <b>CPF</b> utilizado no cadastro</div>
 		</div>  
 		<div class="mb-3">
@@ -81,3 +82,13 @@ label{
     background-repeat: no-repeat;
 }
 </style> 
+
+<script>
+$(document).ready(function(){ 
+    var cpf                  = document.getElementById("admin_cpf"); 
+    IMask(
+        cpf,
+        {mask:'000.000.000-00'}
+    ); 
+});
+</script>
