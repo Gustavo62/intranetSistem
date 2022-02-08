@@ -1,2 +1,2 @@
-//= link_directory ../stylesheets .css
+//= link_directory ../stylesheets
 //= link_directory ../../../node_modules/bootstrap-icons .svg
