@@ -64,8 +64,10 @@ class Intranet::AssociadosController < ApplicationController
     redirect_to "/relatorio_simples.pdf"  
   end
   def show
-    @user     = User.find_by_id(@intranet_associado.user_id)
-    @boletos  = Intranet::Boleto.where(intranet_associado_id: @intranet_associado.id) 
+    @user         = User.find_by_id(@intranet_associado.user_id)
+    @boletos      = Intranet::Boleto.where(intranet_associado_id: @intranet_associado.id) 
+    @situacaoFixa = Intranet::FixaFiliacao.verificaFicha(@user.id)
+    @termoPosse   = Intranet::TermoPosse.termoPosse(@user.id)
   end
 
   # GET /intranet/associados/new

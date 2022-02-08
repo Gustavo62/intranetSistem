@@ -20,8 +20,12 @@ set :output, 'log/whenever.log'
 # Learn more: http://github.com/javan/whenever
   
 #every 1.minute  do
-#    runner "ApplicationRecord.geraCobranca"
+#    runner "Intranet::Boleto.geraCobranca"
 #end
 #every 1.hour  do
-#    runner "ApplicationRecord.atualizaStatusBoleto"
+#    runner "Intranet::Boleto.atualizaStatusBoleto"
+#end
+
+#every 1.hour  do
+#    runner "Intranet::Boleto.atualizaSituacaoAssoc"
 #end

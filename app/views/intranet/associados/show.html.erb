@@ -118,7 +118,7 @@
       <div style="width:50%">
         <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Ficha de associação</label>
         <div class="col-sm-10 correct-md-10" >  
-          <% if ApplicationRecord.verificaFicha(@user.id) %>  
+          <% if situacaoFixa %>  
             <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="Enviado"> 
             <i class="fas fa-thumbs-up icon_ok"></i>
           <% else %>
@@ -130,7 +130,7 @@
       <div style="width:50%">
         <label for="staticEmail" class="col-sm-2 col-form-label" style="max-width: max-content;">Termo de posse </label>
         <div class="col-sm-10 correct-md-10" > 
-          <% if ApplicationRecord.termoPosse(@user.id)%>  
+          <% if @termoPosse %>  
             <input type="text" readonly class="form-control-plaintext input-show" id="staticEmail" value="Enviado">
             <i class="fas fa-thumbs-up icon_ok"></i> 
           <% else %> 

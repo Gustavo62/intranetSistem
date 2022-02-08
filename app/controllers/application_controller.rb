@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
             end   
     def valida_acesso   
         if user_signed_in? 
-            if ApplicationRecord.verificaFicha(current_user.id) || current_user.acesso == true
+            if Intranet::FixaFiliacao.verificaFicha(current_user.id) || current_user.acesso == true
                 @current_ability ||= Ability.new(current_user)
                 @dados_assoc    = Intranet::Associado.where(user_id: current_user.id).take
                 @cart_current = Intranet::Cartorio.where(id: current_user.aux_cartorio_id).take
