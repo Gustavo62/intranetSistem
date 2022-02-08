@@ -1,1 +1,2 @@
-//= link_tree ../../javascript/stylesheets
+//= link_tree ../../javascript/stylesheets 
+//= require ../../javascript/stylesheets/usuario.css
