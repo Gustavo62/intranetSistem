@@ -1,6 +1,9 @@
 
 @import "~bootstrap/scss/bootstrap";    
-@import "trix/dist/trix"; 
+@import "trix/dist/trix";  
+@import "usuario";
+@import "intranet";
+
 body{
   --color-principal: #0b386b;
 }
