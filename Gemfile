@@ -28,6 +28,8 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 # rest api por shopfacil
 gem 'rest-client'  
+# emails sender
+gem 'sendgrid-actionmailer'
 # cache
 gem 'dalli', '~> 2.7', '>= 2.7.6'
 # Boletos 

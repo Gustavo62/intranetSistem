@@ -1,3 +1,4 @@
-merchant_id:   "90000"
-security_key:  "11012001"
-email_loja:    "gust904@gmail.com"
+SENDGRID_API_KEY: "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"
+SMTP_USER_NAME: "anoregce@anoregce.org.br"
+SMTP_PASSWORD:  "notariosdoceara55"
+DOMAIN_NAME:    "www.anoreg.org.br"

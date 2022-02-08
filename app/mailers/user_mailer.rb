@@ -1,5 +1,4 @@
-class UserMailer < ApplicationMailer 
-  default from: 'anoregce@anoregce.org.br'  
+class UserMailer < ApplicationMailer   
   def criado_com_sucesso(user) 
     @user = user  
     @nome_abrev = @user.nome.split(" ")

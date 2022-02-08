@@ -1,5 +1,4 @@
-class AdminMailer < ApplicationMailer 
-  default from: 'ouvidoria@anoregce.org.br'
+class AdminMailer < ApplicationMailer  
   def cad_deferido(user,assunto,msg)
     @msg  = msg
     @user = user

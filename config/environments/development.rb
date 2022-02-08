@@ -8,8 +8,8 @@ Rails.application.configure do
 	config.cache_classes = false
 
 	# Do not eager load code on boot.
-	config.eager_load = false
-
+	config.eager_load = false  
+	config.action_mailer.default_options = {from: 'anoregce@anoregce.org.br'}
 	# Show full error reports.
 	config.consider_all_requests_local = true 
 	# Enable/disable caching. By default caching is disabled.
@@ -28,7 +28,11 @@ Rails.application.configure do
 		config.cache_store = :null_store
 	end
 	# configurando chamada do jquery
-	
+	config.action_mailer.delivery_method = :sendgrid_actionmailer
+	config.action_mailer.sendgrid_actionmailer_settings = {
+		api_key: ENV['SENDGRID_API_KEY'],
+		raise_delivery_errors: true
+	}
 	# Store uploaded files on the local file system (see config/storage.yml for options).
 	config.active_storage.service = :local 
 	# Don't care if the mailer can't send.
@@ -39,16 +43,21 @@ Rails.application.configure do
 	config.action_mailer.raise_delivery_errors = true
 
 	config.action_mailer.perform_caching = false
-	config.action_mailer.perform_deliveries = true
-	config.action_mailer.delivery_method = :smtp 
-	config.action_mailer.smtp_settings = {
-		:address              => "smtp.gmail.com",
-		:port                 => 587,
-		:domain               => "gmail.com",
-		:user_name            => "anoregce@anoregce.org.br",
-		:password             => "notariosdoceara55",
-		:authentication       => :plain
+	config.action_mailer.perform_deliveries = true 
+	ActionMailer::Base.smtp_settings = { 
+		user_name: ENV['SMTP_USER_NAME'],
+		password: ENV['SMTP_PASSWORD'],
+		domain: ENV['DOMAIN_NAME'],
+		address: 'smtp.sendgrid.net',
+		port: 465,
+		authentication: :plain,
+		enable_starttls_auto: true
 	} 
+	config.action_mailer.default_url_options = {
+		host: '',
+		port: 587,
+		protocol: 'http'
+	}
 	# Print deprecation notices to the Rails logger.
 	config.active_support.deprecation = :log
 
