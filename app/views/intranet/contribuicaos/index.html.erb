@@ -4,7 +4,7 @@
 	</div>
 	<p>Gerenciar contribuicão do sistema.</p>    
 	<%= form_with(url:'/intranet/contribuicaos',method: :get, id:"form_assoc")  do |f| %>   
-		<%= select_tag(:status, options_for_select([["Ativo",true],["Desativado",false]],params[:status]), class:"form-control",prompt:"Status do contribuicão",style:"margin-right:1%;") %> 
+		<%= select_tag(:status, options_for_select([["Ativo",true],["Desativado",false]],params[:status]), class:"form-control",id:"params_status",prompt:"Status do contribuicão",style:"margin-right:1%;") %> 
 		<%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
 		<%= link_to "Limpar", intranet_contribuicaos_path ,style:"width: 21%;",class:"btn btn-link" %>
 	<% end %> 

@@ -6,7 +6,7 @@
   <p>Gerenciar Reuniões do sistema.</p>  
   <% if user_signed_in? == false %>
     <%= form_with(url:'/intranet/reunions',method: :get, id:"form_assoc" )  do |f| %>  
-      <%= select_tag(:status, options_for_select([["ativo",true],["desativado",false]],params[:status]), class:"form-control",prompt:"Status da reunião",style:"margin-right:1%;") %> 
+      <%= select_tag(:status, options_for_select([["ativo",true],["desativado",false]],params[:status]), class:"form-control",id:"params_status" ,prompt:"Status da reunião",style:"margin-right:1%;") %> 
       <%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
       <%= link_to "Limpar", intranet_reunions_path , style:"width: 21%;",class:"btn btn-link" %>
     <% end %> 

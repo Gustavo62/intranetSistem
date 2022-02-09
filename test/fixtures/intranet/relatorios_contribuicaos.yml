@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  errors_logs: MyString
+  data: 2022-02-08
+  status: MyString
+  url_link: MyString
+
+two:
+  errors_logs: MyString
+  data: 2022-02-08
+  status: MyString
+  url_link: MyString

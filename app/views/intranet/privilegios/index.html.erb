@@ -4,7 +4,7 @@
 	</div>
 	<p>Gerenciar privilégios do sistema.</p>    
 	<%= form_with(url:'/intranet/privilegios',method: :get, id:"form_assoc")  do |f| %>   
-		<%= select_tag(:status, options_for_select([["Ativo",true],["Desativado",false]],params[:status]), class:"form-control",prompt:"Status do privilégio",style:"margin-right:1%;") %> 
+		<%= select_tag(:status, options_for_select([["Ativo",true],["Desativado",false]],params[:status]), class:"form-control",prompt:"Status do privilégio",style:"margin-right:1%;",id:"params_status") %> 
 		<%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
 		<%= link_to "Limpar", intranet_privilegios_path ,style:"width: 21%;",class:"btn btn-link" %>
 	<% end %> 
@@ -12,26 +12,28 @@
 		<table class="table table-hover table-striped mb-0" style="overflow-x: auto;">
 			<thead>
 			<tr>
-				<th style="width:70%">Descrição</th>
+				<th style="width:4%">#</th>
+				<th style="width:66%">Descrição</th>
 				<th style="width:10%">Ativo</th>
 				<th colspan="3" style="width:20%;text-align: center;">Ações</th>  
 			</tr>
 			</thead> 
-			<tbody>
+			<tbody> 
 				<% @intranet_privilegios.each do |intranet_privilegio| %>
 					<tr>
-            <td><%= intranet_privilegio.descricao %></td> 
-            <td><%= check_box_tag 'Ativo','yes',intranet_privilegio.ativo, onclick:"return false;",class: 'form-group',style:"width: 17px;height: 17px;" %></td> 
-            <td style="text-align: center;">
-              <%= link_to intranet_privilegio, class:"btni" do %>
-                <i class="fas fa-eye" style="padding:0px;"></i>
-              <% end %>
-            </td>  
-            <td style="text-align: center;">
-              <%= link_to edit_intranet_privilegio_path(intranet_privilegio), class:"btni" do %>
-                <i class="fas fa-edit" style="padding-left: 3px;"></i>
-              <% end %>
-            </td> 
+						<td><%= intranet_privilegio.id %></td> 
+						<td><%= intranet_privilegio.descricao %></td> 
+						<td><%= check_box_tag 'Ativo','yes',intranet_privilegio.ativo, onclick:"return false;",class: 'form-group',style:"width: 17px;height: 17px;" %></td> 
+						<td style="text-align: center;">
+						<%= link_to intranet_privilegio, class:"btni" do %>
+							<i class="fas fa-eye" style="padding:0px;"></i>
+						<% end %>
+						</td>  
+						<td style="text-align: center;">
+						<%= link_to edit_intranet_privilegio_path(intranet_privilegio), class:"btni" do %>
+							<i class="fas fa-edit" style="padding-left: 3px;"></i>
+						<% end %>
+						</td> 
 					</tr>
 				<% end %>
 			</tbody>

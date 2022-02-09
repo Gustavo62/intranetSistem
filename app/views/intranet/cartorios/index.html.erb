@@ -6,7 +6,7 @@
   <p>Gerenciar cartórios do sistema.</p>  
   <% if user_signed_in? == false %>
     <%= form_with(url:'/intranet/cartorios',method: :get, id:"form_assoc" )  do |f| %>  
-      <%= select_tag(:status, options_for_select([["ativo",true],["desativado",false]],params[:status]), class:"form-control",prompt:"Status do cartório",style:"margin-right:1%;") %> 
+      <%= select_tag(:status, options_for_select([["ativo",true],["desativado",false]],params[:status]), class:"form-control",id:"params_status",prompt:"Status do cartório",style:"margin-right:1%;") %> 
       <%= select_tag(:cidade, options_from_collection_for_select(@intranet_cidades, "id", "municipio",params[:cidade]), class:"form-control",prompt:"Escolha a cidade",style:"margin-right:1%;") %> 
       <%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
       <%= link_to "Limpar", intranet_cartorios_path , style:"width: 21%;",class:"btn btn-link" %>

@@ -93,6 +93,8 @@ class ApplicationController < ActionController::Base
         else
             if admin_signed_in? 
                 redirect_to administrador_home_path, :alert => exception.message
+            else
+                redirect_to root_url
             end
         end
     end 

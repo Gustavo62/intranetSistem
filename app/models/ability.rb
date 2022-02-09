@@ -77,6 +77,7 @@ class Ability
         cannot  :new,       :presenc
         cannot  :edit,      :presenc 
         can     :destroy,   :presenc
+        can     :read,      :contribuicao_importadas
       end 
     else 
       # Rotas Principais USER

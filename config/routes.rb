@@ -32,7 +32,7 @@ Rails.application.routes.draw do
 		get 'lista_usuarios/visualizar'
 	end
 	namespace :intranet do
-		resources :contribuicao_importadas
+		resources :contribuicao_importadas, only: [:show, :index]  
 	end
 	namespace :intranet do
 		resources :entrancia
