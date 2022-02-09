@@ -2,7 +2,8 @@ $(document).ready(function(){
     $('.alert1').hide()
     var bloco_cart           = document.getElementById("bloco_cart");
     var cpf                  = document.getElementById("user_cpf");
-    var select_cart          = document.getElementById("intranet_cartorio_id");
+    var select_cart          = document.getElementById("intranet_cartorio_id"); 
+    cpf.value = null;
     IMask(
         cpf,
         {mask:'000.000.000-00'}
@@ -24,6 +25,7 @@ $(document).ready(function(){
                         select_cart.options[select_cart.options.length] = new Option(value[1],value[0]); 
                     });
                 }else{ 
+                    cpf.value = null;
                     $('.alert1').fadeIn();
                 }
                 $("#loading").fadeOut(500); 

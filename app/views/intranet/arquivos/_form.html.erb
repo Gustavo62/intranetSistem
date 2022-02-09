@@ -4,7 +4,7 @@
       <a class="nav-link active" id="btn_menu_1" type="button" >Detalhes do arquivo</a>
     </li> 
     <div style="margin-left: auto;">
-      <%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+      <%= link_to 'Voltar', intranet_arquivos_path,class:"btn btn-link" %> 
       <%= link_to 'Visualizar',  @intranet_arquivo ,class:"btn btn-primary" if @intranet_arquivo.id != nil %> 
     </div>
   </ul>  

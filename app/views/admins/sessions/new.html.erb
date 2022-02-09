@@ -1,11 +1,16 @@
 <script src="https://unpkg.com/imask"></script>
 <div class="container background_principal">
-	<h2></h2> 
+	<div style="text-align: center;">
+		<div class="page-header">
+			<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Ambiente Operador <i class="fas fa-user-lock"></i></h1>      
+		</div>
+		<p>Área restrita para funcionários.</p>
+	</div>
 	<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 		<div class="mb-3">
 			<label class="form-label">Numero do CPF</label>
 			<%= icon("person", class: "icone-login-user") %> 
-			<%= f.text_field :cpf, autofocus: true,class:"form-control", id:"admin_cpf", type:"text", maxlength:"14", style:"padding: 0.375rem 1.75rem;", placeholder:"CPF do operador"%>
+			<%= f.text_field :cpf, autocomplete:"off", autofocus: true,class:"form-control", id:"admin_cpf", type:"text", maxlength:"14", style:"padding: 0.375rem 1.75rem;", placeholder:"CPF do operador"%>
 			<div id="cpfHelp" class="form-text">Informe o numero de <b>CPF</b> utilizado no cadastro</div>
 		</div>  
 		<div class="mb-3">
@@ -25,7 +30,7 @@ margin-bottom: 7%;" %>
 		<% name = 'warning' if name == 'alert'%>
 		<% name = 'info' if name == 'notice'%>
 		<div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 5;bottom: 15px;right: 16px;">
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"  style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;"><span aria-hidden="true"><i class="fas fa-times"></i></button>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="float:right"></button>
 		<span data-notify="icon" class="nc-icon nc-app"></span> 
 		<% if name == 'info' %>   
 			<span data-notify="title">Informação:</span>
@@ -86,6 +91,7 @@ label{
 <script>
 $(document).ready(function(){ 
     var cpf                  = document.getElementById("admin_cpf"); 
+	cpf.value = null;
     IMask(
         cpf,
         {mask:'000.000.000-00'}

@@ -533,7 +533,7 @@ $(document).ready(function(){
                     </div>`  
                 }
                 conteudo_cards[data.length] = `
-                <div class="alert1 alert-danger" role="alert">
+                <div class="alert1 alert-danger" role="alert"> 
                     <h4 class="alert-heading">Caso haja divergências</h4>
                     <p>Entre em contato com a secretaria, para atualizar os dados do cartório, caso haja divergência com os dados o seu cadastro será indeferido.</p>
                     <hr>
@@ -560,10 +560,11 @@ $(document).ready(function(){
         validaPagina();
         if(pagina == 1){
             verificaSenha();     
-            let aux_contagem = valida_primeira_pagina + valida_primeira_pagina_cpf + valida_primeira_pagina_email
+            let aux_contagem = valida_primeira_pagina + valida_primeira_pagina_cpf + valida_primeira_pagina_email 
             if(senha_validada == true){ 
                 if( aux_contagem == 7){
                     $("#exampleModal2").modal('show')
+                    valida_primeira_pagina = 0; 
                 }
             };
         };
@@ -577,8 +578,7 @@ $(document).ready(function(){
     $("#termos_de_uso").click(function(){   
         if(pagina == 1){    
             $("#exampleModal2").modal('hide') 
-            $(".step:visible").hide().next().fadeIn(); 
-            valida_primeira_pagina = 0; 
+            $(".step:visible").hide().next().fadeIn();  
             passoexibido(); 
         };
     });

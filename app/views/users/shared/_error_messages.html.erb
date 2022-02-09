@@ -3,9 +3,7 @@
   <% if resource.errors.any? %> 
     <% resource.errors.full_messages.each do |message| %> 
       <div data-notify="container" class="col-11 col-sm-11 alert alert-danger alert-with-icon" role="alert" data-notify-position="top-right" style="margin: 0px auto;position: fixed;transition: all 0.5s ease-in-out 0s;z-index: 5;bottom: 77px;right: 16px;">
-        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;">
-            <span aria-hidden="true"><i class="fas fa-times"></i></span>
-        </button>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="float:right"></button>
         <span data-notify="icon" class="nc-icon nc-app"></span> 
         <span data-notify="title">Error:</span>
         <span data-notify="message"><%=message%></span>

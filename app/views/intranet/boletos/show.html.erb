@@ -9,7 +9,7 @@
       <a class="nav-link active" id="btn_menu_1" type="button" >Detalhes da cobrança</a>
     </li> 
     <div style="margin-left: auto;">
-      <%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+      <%= link_to 'Voltar', intranet_boletos_path,class:"btn btn-link" %> 
       <% if user_signed_in? == false%> 
         <%= link_to 'Editar', edit_intranet_boleto_path(@intranet_boleto),class:"btn btn-primary" %> 
         <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= @intranet_boleto.id %>">Deletar</i></a>

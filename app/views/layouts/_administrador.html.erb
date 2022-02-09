@@ -164,7 +164,8 @@
             <% name = 'warning' if name == 'alert'%>
             <% name = 'info' if name == 'notice'%>
             <div data-notify="container" class="col-11 col-sm-4 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="margin: auto;transition: all 0.5s ease-in-out 0s;bottom: 9px;"> 
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="background: white;padding-left: 4px;border-radius: 14px;margin: 0px;padding-right: 5px;padding-top: 1px;"><span aria-hidden="true"><i class="fas fa-times"></i></button>
+                
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="float:right"></button>
                 <span data-notify="icon" class="nc-icon nc-app"></span> 
                 <% if name == 'info' %>   
                     <span data-notify="title">Informação:</span>

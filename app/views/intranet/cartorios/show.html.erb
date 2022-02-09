@@ -26,7 +26,7 @@
       </li>
     <% end %>
 		<div style="margin-left: auto;">
-			<%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+			<%= link_to 'Voltar', intranet_cartorios_path,class:"btn btn-link" %> 
 			<%= link_to 'Editar', edit_intranet_cartorio_path(@intranet_cartorio),class:"btn btn-primary" %> 
 			<a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= @intranet_cartorio.id %>">Deletar</i></a>
 		</div>
