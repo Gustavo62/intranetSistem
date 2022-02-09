@@ -232,10 +232,10 @@ ActiveRecord::Schema.define(version: 2022_02_08_221800) do
   end
 
   create_table "intranet_contribuicao_importadas", force: :cascade do |t|
-    t.string "ano", null: false
+    t.date "ano", null: false
     t.string "intranet_cartorio_id", null: false
     t.string "descContrib", null: false
-    t.float "float", null: false
+    t.float "valor", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

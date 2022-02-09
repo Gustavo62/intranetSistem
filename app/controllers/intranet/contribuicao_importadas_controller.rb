@@ -3,28 +3,33 @@ class Intranet::ContribuicaoImportadasController < ApplicationController
 	authorize_resource :class => false
   before_action :set_intranet_contribuicao_importada, only: %i[ show edit update destroy ]
 
-  # GET /intranet/contribuicao_importadas or /intranet/contribuicao_importadas.json
   def index
-    @intranet_contribuicao_importadas = Intranet::ContribuicaoImportada.all
+    @intranet_contribuicao_importadas = Intranet::ContribuicaoImportada.all.consulta_por_cart(params[:intranet_cartorio_id]).consulta_por_ano(params[:ano]).page(params[:page]).per(10)
+    @data_ultima_atualização = Intranet::RelatoriosContribuicao.all.order(:created_at).where(status: "sucesso").last.try(:data)
+    @cartorios        = Intranet::Cartorio.all.order(:intranet_cidade_id)
+    @intranet_cidades = Intranet::Cidade.all
+    @cartorios.each do |cart|
+			@cidade = @intranet_cidades.find_by_id(cart.intranet_cidade_id)
+			cart.nome = "#{@cidade.municipio} - #{cart.nome}"
+		end
   end
 
-  # GET /intranet/contribuicao_importadas/1 or /intranet/contribuicao_importadas/1.json
   def show
+    @cartorio  = Intranet::Cartorio.all.find(@intranet_contribuicao_importada.intranet_cartorio_id)
+    @associado = Intranet::Associado.find(@cartorio.intranet_associado_id) if @cartorio.intranet_associado_id
+    @cidade    = Intranet::Cidade.all.find_by_id(@cartorio.intranet_cidade_id)
+    @cartorio.nome = "#{@cidade.municipio} - #{@cartorio.nome}"
   end
 
-  # GET /intranet/contribuicao_importadas/new
   def new
     @intranet_contribuicao_importada = Intranet::ContribuicaoImportada.new
   end
 
-  # GET /intranet/contribuicao_importadas/1/edit
   def edit
   end
 
-  # POST /intranet/contribuicao_importadas or /intranet/contribuicao_importadas.json
   def create
-    @intranet_contribuicao_importada = Intranet::ContribuicaoImportada.new(intranet_contribuicao_importada_params)
-
+    @intranet_contribuicao_importada = Intranet::ContribuicaoImportada.new(intranet_contribuicao_importada_params) 
     respond_to do |format|
       if @intranet_contribuicao_importada.save
         format.html { redirect_to @intranet_contribuicao_importada, notice: "Contribuicao importada foi criada com sucesso." }
@@ -36,7 +41,6 @@ class Intranet::ContribuicaoImportadasController < ApplicationController
     end
   end
 
-  # PATCH/PUT /intranet/contribuicao_importadas/1 or /intranet/contribuicao_importadas/1.json
   def update
     respond_to do |format|
       if @intranet_contribuicao_importada.update(intranet_contribuicao_importada_params)
@@ -49,7 +53,6 @@ class Intranet::ContribuicaoImportadasController < ApplicationController
     end
   end
 
-  # DELETE /intranet/contribuicao_importadas/1 or /intranet/contribuicao_importadas/1.json
   def destroy
     @intranet_contribuicao_importada.destroy
     respond_to do |format|
@@ -59,12 +62,10 @@ class Intranet::ContribuicaoImportadasController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_intranet_contribuicao_importada
       @intranet_contribuicao_importada = Intranet::ContribuicaoImportada.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def intranet_contribuicao_importada_params
       params.require(:intranet_contribuicao_importada).permit(:ano, :documento)
     end

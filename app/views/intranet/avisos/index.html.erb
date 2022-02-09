@@ -7,7 +7,7 @@
 		<p>Gerenciar avisos do sistema.</p>    
 		<%= form_with(url:'/intranet/avisos',method: :get, id:"form_assoc")  do |f| %> 
 			<%= f.select "id_atividade",options_from_collection_for_select(@atividades, "id", "descricao",params[:id_atividade]), {:prompt => "Escolha a atividade"},{style:"margin-right:1%;"}%> 
-			<%= select_tag(:status, options_for_select([["Ativo",true],["Desativado",false]],params[:status]), class:"form-control",prompt:"Status do Boleto",style:"margin-right:1%;") %> 
+			<%= select_tag(:status, options_for_select([["Ativo",true],["Desativado",false]],params[:status]), class:"form-control",id:"params_status",prompt:"Status do Boleto",style:"margin-right:1%;") %> 
 			<%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
 			<%= link_to "Limpar", intranet_avisos_path ,style:"width: 21%;",class:"btn btn-link" %>
 		<% end %> 

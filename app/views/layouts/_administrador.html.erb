@@ -132,7 +132,10 @@
                     <% end %>
                     <% if can? :read, :arquivos_tipo %>
                         <li><%= active_link_to 'Tipos de Arquivos', intranet_arquivos_tipos_path            ,class:"dropdown-item"%></li> 
-                    <% end %>
+                    <% end %> 
+                    <% if can? :read, :icontribuicao_importadas %>
+                        <li><%= active_link_to 'Contribuiçao importada',         intranet_contribuicao_importadas_path         ,class:"dropdown-item"%></li> 
+                    <% end %> 
                 </ul>
             </li>
 
@@ -147,7 +150,7 @@
                         </ul>
                     </li>  
                 <% end %>
-            <% end %>
+            <% end %> 
         </ul>
     </div>
     <%= link_to destroy_admin_session_path, method: :delete,class:"btn btn-link" do %>

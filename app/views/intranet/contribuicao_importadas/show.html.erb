@@ -1,14 +1,86 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Ano:</strong>
-  <%= @intranet_contribuicao_importada.ano %>
-</p>
-
-<p>
-  <strong>Documento:</strong>
-  <%= @intranet_contribuicao_importada.documento %>
-</p>
-
-<%= link_to 'Edit', edit_intranet_contribuicao_importada_path(@intranet_contribuicao_importada) %> |
-<%= link_to 'Back', intranet_contribuicao_importadas_path %>
+<div class="container" style="margin-bottom: 104px;">   
+  <div class="page-header">
+    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Cobrança</h1>      
+  </div>
+  <p>Visualizar Cobrança Nº <b><%= @intranet_contribuicao_importada.id%></b>.</p>  
+  <ul class="nav nav-tabs" style="margin-bottom: 11px;">
+    <li class="nav-item">
+      <a class="nav-link active" id="btn_menu_1" type="button" >Detalhes da cobrança</a>
+    </li> 
+    <div style="margin-left: auto;">
+      <%= link_to 'Voltar',intranet_contribuicao_importadas_path,class:"btn btn-link" %>  
+    </div> 
+  </ul> 
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Cartório</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @cartorio.nome %>">
+      </div>
+    </div>
+  </div>
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Associado atual</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @associado.try(:nome) || "Sem associado ativo no intranet" %>">
+      </div>
+    </div>
+  </div> 
+  <div class="form-group row" style="display:flex"> 
+    <div style="width:49.5%">
+      <label  class="col-sm-2 col-form-label" >Cod. CNS</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @cartorio.cod_cns %>">
+      </div>
+    </div>
+    <div style="width:49.5%">
+      <label  class="col-sm-2 col-form-label" >Cod. TJ</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @cartorio.cod_tj %>">
+      </div>
+    </div>
+  </div>
+  <br>
+  <hr>
+  <div class="form-group row" style="display:flex">
+    <div style="width:100%">
+      <label  class="col-sm-2 col-form-label" >Descrição</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_contribuicao_importada.descContrib %>">
+      </div>
+    </div>
+  </div>
+  <div class="form-group row" style="display:flex"> 
+    <div style="width:49.5%">
+      <label  class="col-sm-2 col-form-label" >Data ref.</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_contribuicao_importada.ano.strftime('%d/%m/%Y') %>">
+      </div>
+    </div>
+    <div style="width:49.5%">
+      <label  class="col-sm-2 col-form-label" >Valor</label>
+      <div class="col-sm-10 correct-md-10" >
+        <input type="text" readonly class="form-control-plaintext input-show" id="valor" value="R$ <%= @intranet_contribuicao_importada.valor %>">
+      </div>
+    </div>
+  </div>
+</div> 
+ 
+<style>
+  .input-show{
+    background: #f8f9fa;
+    border-radius: 2px;
+    border: 1px solid #ededed;
+    padding-left: 12px;
+  }
+  
+  .correct-md-10{
+    max-width: 100%;
+    width: 100%;
+  }
+  .col-sm-2{
+    max-width: 100%;
+    width: 100%;
+  } 	
+</style> 

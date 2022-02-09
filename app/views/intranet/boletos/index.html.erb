@@ -11,7 +11,7 @@
         <%= f.select "associado",options_from_collection_for_select(@associados_aux, "id", "nome",params[:associado]), {:prompt => "Escolha o associado"},{style:"margin-right:1%;"}%>  
       <% end %>
     <% end %> 
-    <%= select_tag(:status, options_for_select([["Pago",0],["Aberto",1],["Vencido",2]],params[:status]), class:"form-control",prompt:"Status do Boleto",style:"margin-right:1%;") %> 
+    <%= select_tag(:status, options_for_select([["Pago",0],["Aberto",1],["Vencido",2]],params[:status]), class:"form-control",id:"params_status",prompt:"Status do Boleto",style:"margin-right:1%;") %> 
     <%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
     <%= link_to "Limpar", intranet_boletos_path , style:"width: 21%;",class:"btn btn-link" %>
   <% end %> 

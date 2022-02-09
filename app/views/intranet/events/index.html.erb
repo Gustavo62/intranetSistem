@@ -5,7 +5,7 @@
   </div>
   <p>Gerenciar eventos do sistema.</p>  
   <%= form_with(url:'/intranet/events',method: :get, id:"form_assoc" )  do |f| %>  
-    <%= select_tag(:status, options_for_select([["Pago",0],["Gratuito",1]],params[:status]), class:"form-control",prompt:"Tipo do evento",style:"margin-right:1%;") %> 
+    <%= select_tag(:status, options_for_select([["Pago",0],["Gratuito",1]],params[:status]), class:"form-control",id:"params_status",prompt:"Tipo do evento",style:"margin-right:1%;") %> 
     <%= f.submit("Pesquisar", style:"margin-left: 10px;",class:"btn btn-primary") %>
     <%= link_to "Limpar", intranet_boletos_path , style:"width: 21%;",class:"btn btn-link" %>
   <% end %> 
