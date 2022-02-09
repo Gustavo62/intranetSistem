@@ -5,7 +5,6 @@ class CreateIntranetContribuicaoImportadas < ActiveRecord::Migration[6.1]
 		t.string :intranet_cartorio_id,    null: false
 		t.string :descContrib,  null: false
 		t.float  :float,        null: false
-		t.string :documento,    null: false
 
 		t.timestamps
 		end
