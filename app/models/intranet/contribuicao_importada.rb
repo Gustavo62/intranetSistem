@@ -11,10 +11,9 @@ class Intranet::ContribuicaoImportada < ApplicationRecord
     def self.capturaNovosArquivos
         @ultima_atualiz_data = Intranet::RelatoriosContribuicao.all.order(:created_at).where(status: "sucesso").last.try(:data)
         if @ultima_atualiz_data
-            @data_atual          = Time.now.strftime('%Y-%m-%d')
-            @data_request        = @ultima_atualiz_data.tomorrow.strftime('%Y-%m-%d')
-            @url_request         = "https://tjcev2.tjce.jus.br/rest/?area=cartorios&data_inicio=#{@data_request}&data_fim=#{@data_atual}&limite=100"
-            @resposta            = HTTP.post("https://tjcev2.tjce.jus.br/rest/", :params => {:area => 'cartorios',:data_inicio => @data_request, :data_fim => @data_atual,:limite => '100'})
+            @data_request        = @ultima_atualiz_data.tomorrow.strftime('%Y-%m-%d') 
+            @data_atual          = (@ultima_atualiz_data.tomorrow + 33.days).strftime('%Y-%m-%d')
+            @resposta            = HTTP.post("https://tjcev2.tjce.jus.br/rest/", :params => {:area => 'cartorios',:data_inicio => @data_request, :data_fim => @data_atual,:limite => '1'})
             @json_resposta = JSON.parse(@resposta.body, symbolize_names: true)  
             if @json_resposta != "Nenhum resultado encontrado..."
                 @resposta_tratada = @json_resposta.map do |item|   
@@ -36,34 +35,46 @@ class Intranet::ContribuicaoImportada < ApplicationRecord
         @errors             = [] 
         @url_xls            = url_xls
         @sheet              = Roo::Spreadsheet.open(@url_xls)
-        @sheet.each(cod_tj: 'CÓD. SERV.', nome:'CART.',anoreg:"ANOREG\nACERPEN (R$)") do |hash|
-            if hash[:cod_tj] != nil && hash[:cod_tj] != 'CÓD. SERV.'  &&  hash[:cod_tj] != '' && hash[:cod_tj].size == 6
-                @total_listado += 1
-                @cod_tj = maskCodCns(hash[:cod_tj])
-                @cartorio = Intranet::Cartorio.where(cod_tj: @cod_tj).take
-                if @cartorio 
-                    @valor = 0
-                    if hash[:anoreg] != 0.00
-                        @valor = hash[:anoreg].to_f / 2
-                        @contrib = Intranet::ContribuicaoImportada.create(intranet_cartorio_id: @cartorio.id, 
-                            descContrib: "Importação de cobrança Ref ao Mês #{I18n.t "month_names.#{Date.parse(data).strftime("%B")}"}", 
-                            valor: @valor,
-                            ano:   data)
-                        if @contrib.save == false 
-                            @errors[@contagem_errors] = @contrib.errors
-                            @total_n_cadastrado += 1
-                            @contagem_errors    += 1
-                        else
-                            @total_cadastrado += 1
+        # mudança nos nomes  
+        #cod_tj: 'CÓD. SERV.', nome:'CART.',anoreg:"ANOREG\nACERPEN (R$)"
+        # mudança nos nomes ref 2021-07 
+        #cod_tj: "CÓDIGO\nSERVENTIA", nome:"CÓDIGO\nSERVENTIA",anoreg:"CARTÓRIO"
+
+        
+        begin
+            @sheet.each(cod_tj: 'CÓD. SERV.', nome:'CART.',anoreg:"ANOREG\nACERPEN (R$)") do |hash|
+                if hash[:cod_tj] != nil && hash[:cod_tj] != 'CÓD. SERV.'  &&  hash[:cod_tj] != '' && hash[:cod_tj].size == 6
+                    @total_listado += 1
+                    @cod_tj = maskCodCns(hash[:cod_tj])
+                    @cartorio = Intranet::Cartorio.where(cod_tj: @cod_tj).take
+                    if @cartorio 
+                        @valor = 0
+                        if hash[:anoreg] != 0.00
+                            @valor = hash[:anoreg].to_f / 2
+                            @contrib = Intranet::ContribuicaoImportada.create(intranet_cartorio_id: @cartorio.id, 
+                                descContrib: "Importação de cobrança Ref ao Mês #{I18n.t "month_names.#{Date.parse(data).strftime("%B")}"}", 
+                                valor: @valor,
+                                ano:   data)
+                            if @contrib.save == false 
+                                @errors[@contagem_errors] = @contrib.errors
+                                @total_n_cadastrado += 1
+                                @contagem_errors    += 1
+                            else
+                                @total_cadastrado += 1
+                            end
                         end
                     end
                 end
             end
-        end
-        if @total_listado != @total_cadastrado ||   
-            Intranet::RelatoriosContribuicao.create(errors_logs: 'Sem erros.', data: data, status: 'sucesso', url_link: url_xls)
-        else
-            Intranet::RelatoriosContribuicao.create(errors_logs: 'Sem erros.', data: '2021-08-31', status: 'sucesso', url_link: 'url_xls').create(errors_logs: "Quantidade erros #{@total_n_cadastrado} detalhes: #{@errors.join(',')}", data: data, status: 'erro', url_link: url_xls)
+            p "total listado :#{@total_listado}"
+            p "total cadastr :#{@total_cadastrado}"
+            if @total_listado != @total_cadastrado
+                Intranet::RelatoriosContribuicao.create(errors_logs: 'Sem erros.', data: data, status: 'sucesso', url_link: url_xls)
+            else
+                Intranet::RelatoriosContribuicao.create(errors_logs: "Quantidade erros #{@total_n_cadastrado} detalhes: #{@errors.join(',')}", data: data, status: 'erro', url_link: url_xls)
+            end
+        rescue
+            Intranet::RelatoriosContribuicao.create(errors_logs: "Mudança no cabeçalho", data: data, status: 'erro', url_link: url_xls)
         end
     end  
 
@@ -82,4 +93,3 @@ class Intranet::ContribuicaoImportada < ApplicationRecord
         end
     end
 end
-#Intranet::RelatoriosContribuicao.create(errors_logs: 'Sem erros.', data: '2021-08-31', status: 'sucesso', url_link: 'url_xls')

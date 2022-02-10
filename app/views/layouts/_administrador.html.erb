@@ -136,6 +136,9 @@
                     <% if can? :read, :icontribuicao_importadas %>
                         <li><%= active_link_to 'Contribuiçao importada',         intranet_contribuicao_importadas_path         ,class:"dropdown-item"%></li> 
                     <% end %> 
+                    <% if can? :read, :icontribuicao_importadas %>
+                        <li><%= active_link_to 'Relatorio Contrib. import.',         intranet_contribuicao_importadas_relatorio_index_path         ,class:"dropdown-item"%></li> 
+                    <% end %> 
                 </ul>
             </li>
 

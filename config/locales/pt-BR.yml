@@ -1,4 +1,10 @@
 pt-BR:  
+  views:
+    pagination:
+      last: "Última"
+      next: "Próxima"
+      first: "Primeira" 
+      previous: "Anterior"
   boleto_simples:
     status:
       generating:         "sendo gerado."

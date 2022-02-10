@@ -64,8 +64,8 @@
 			<label  class="col-sm-15 col-form-label" style="max-width: inherit;">
 				Tipo  
 			</label>
-			<div class="col-sm-15 correct-md-15" >   
-				<%= select_tag 'readonly', options_for_select([["Instituto de Protestos",1],["Registro Civil Pessoas Jurídicas",2],["Registro Civil Pessoas Naturais",3],["Registro de Imóveis",4],["Registro de Títulos e Documentos",5]],@intranet_pergunt.tipo), class:"form-control",prompt:"Selecione o tipo da pergunta",onchange:"this.value = '#{@intranet_pergunt.tipo}'"%> 
+			<div class="col-sm-15 correct-md-15" >    
+				<%= select_tag 'readonly', options_for_select([["Instituto de Protestos",5],["Registro Civil Pessoas Jurídicas",3],["Registro Civil Pessoas Naturais",2],["Registro de Imóveis",1],["Registro de Títulos e Documentos",4]],@intranet_pergunt.tipo), class:"form-control",prompt:"Selecione o tipo da pergunta",readonly:true,onchange:"this.value = '#{@intranet_pergunt.tipo}'" %> 
 			</div>
 		</div>   
     <div style="width:49%;margin-left: auto;">

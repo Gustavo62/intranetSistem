@@ -24,7 +24,14 @@ class Intranet::ContribuicaoImportadasController < ApplicationController
   def new
     @intranet_contribuicao_importada = Intranet::ContribuicaoImportada.new
   end
-
+  def relatoriosIndex
+    @relatorios_aux = Intranet::RelatoriosContribuicao.all
+    @relatorios = @relatorios_aux.all.consulta_por_data(params[:ano]).consulta_por_status(params[:status]).order(created_at: :DESC).page(params[:page]).per(10)
+    @data_ultima_atualização = @relatorios_aux.where(status: "sucesso").last.try(:data)
+  end
+  def relatoriosShow 
+    @relatorio = Intranet::RelatoriosContribuicao.find(params[:id])
+  end
   def edit
   end
 

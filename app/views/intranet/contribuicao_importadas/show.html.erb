@@ -28,13 +28,13 @@
     </div>
   </div> 
   <div class="form-group row" style="display:flex"> 
-    <div style="width:49.5%">
+    <div style="width:49.5%;margin-right:auto">
       <label  class="col-sm-2 col-form-label" >Cod. CNS</label>
       <div class="col-sm-10 correct-md-10" >
         <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @cartorio.cod_cns %>">
       </div>
     </div>
-    <div style="width:49.5%">
+    <div style="width:49.5%;margin-left:auto">
       <label  class="col-sm-2 col-form-label" >Cod. TJ</label>
       <div class="col-sm-10 correct-md-10" >
         <input type="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @cartorio.cod_tj %>">
@@ -52,13 +52,13 @@
     </div>
   </div>
   <div class="form-group row" style="display:flex"> 
-    <div style="width:49.5%">
+    <div style="width:49.5%;margin-right:auto">
       <label  class="col-sm-2 col-form-label" >Data ref.</label>
       <div class="col-sm-10 correct-md-10" >
         <input type="text" readonly class="form-control-plaintext input-show"  value="<%= @intranet_contribuicao_importada.ano.strftime('%d/%m/%Y') %>">
       </div>
     </div>
-    <div style="width:49.5%">
+    <div style="width:49.5%;margin-left:auto">
       <label  class="col-sm-2 col-form-label" >Valor</label>
       <div class="col-sm-10 correct-md-10" >
         <input type="text" readonly class="form-control-plaintext input-show" id="valor" value="R$ <%= @intranet_contribuicao_importada.valor %>">

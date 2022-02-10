@@ -33,6 +33,8 @@ Rails.application.routes.draw do
 	end
 	namespace :intranet do
 		resources :contribuicao_importadas, only: [:show, :index]  
+		get '/contribuicao_importadas/relatorio/index', to: 'contribuicao_importadas#relatoriosIndex'   
+		get '/contribuicao_importadas/relatorio/show/', to: 'contribuicao_importadas#relatoriosShow'  
 	end
 	namespace :intranet do
 		resources :entrancia

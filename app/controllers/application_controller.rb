@@ -16,8 +16,7 @@ class ApplicationController < ActionController::Base
                 @cid_current  = Intranet::Cidade.where(id: @cart_current.intranet_cidade_id).take
                 @msg = []
                 @adimplente = Intranet::Cartorio.find(current_user.aux_cartorio_id)
-                @boletos_atrasados = Intranet::Boleto.where.not(status: "paid").where(metodo: "mensalidade",intranet_associado_id: @dados_assoc.id).where("vencimento < ?", Time.current)
-                if @boletos_atrasados.size != 0  
+                if @cart_current.adimplente == false 
                     @notificacao = true   
                     @msg << "Você possui #{@boletos_atrasados.size} boletos de mensalidade vencidos."   
                     @boletosnumb    = Intranet::Boleto.where(status: ["opened","generating","overdue"])

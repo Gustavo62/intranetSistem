@@ -9,7 +9,7 @@ class Intranet::PerguntsController < ApplicationController
       @cartorio = Intranet::Cartorio.pesquisa_cart_id(current_user.aux_cartorio_id) 
       @intranet_cartorios_consult = Intranet::Cartorio.all
       @associados_aux  = Intranet::Associado.where('intranet_cartorio && ARRAY[?]::integer[]' [current_user.aux_cartorio_id])    
-      @intranet_pergunts = Intranet::Pergunt.consulta_por_palavra(params[:palavra_1],params[:intecec_1],params[:palavra_2],params[:intecec_2],params[:palavra_3]).order(visualizada_at: :desc).where(intranet_associado_id: current_user.id).consulta_por_status(params[:status]).page(params[:page]).per(10)
+      @intranet_pergunts = Intranet::Pergunt.consulta_por_palavra(params[:palavra_1],params[:intecec_1],params[:palavra_2],params[:intecec_2],params[:palavra_3]).order(visualizada_at: :desc).consulta_por_status(params[:status]).page(params[:page]).per(10)
     else 
       @intranet_pergunts = Intranet::Pergunt.consulta_por_palavra(params[:palavra_1],params[:intecec_1],params[:palavra_2],params[:intecec_2],params[:palavra_3]).order(visualizada_at: :desc).consulta_por_status(params[:status]).page(params[:page]).per(10)
     end

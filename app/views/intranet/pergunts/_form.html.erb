@@ -53,10 +53,10 @@
 			</label> 
 			<div class="col-sm-15 correct-md-15" >  
 				<% if user_signed_in? %> 
-					<%= select_tag :tipo,options_for_select([["Instituto de Protestos",1],["Registro Civil Pessoas Jurídicas",2],["Registro Civil Pessoas Naturais",3],["Registro de Imóveis",4],["Registro de Títulos e Documentos",5]],@intranet_pergunt.tipo), class:"form-control",prompt:"Selecione o tipo da pergunta", name:"intranet_pergunt[tipo]" %> 
+					<%= select_tag :tipo,options_for_select([["Instituto de Protestos",5],["Registro Civil Pessoas Jurídicas",3],["Registro Civil Pessoas Naturais",2],["Registro de Imóveis",1],["Registro de Títulos e Documentos",4]],@intranet_pergunt.tipo), class:"form-control",prompt:"Selecione o tipo da pergunta", name:"intranet_pergunt[tipo]" %> 
 					<br /> 
 				<% else %>
-					<%= select_tag 'readonly', options_for_select([["Instituto de Protestos",1],["Registro Civil Pessoas Jurídicas",2],["Registro Civil Pessoas Naturais",3],["Registro de Imóveis",4],["Registro de Títulos e Documentos",5]],@intranet_pergunt.tipo), class:"form-control",prompt:"Selecione o tipo da pergunta",readonly:true %> 
+					<%= select_tag 'readonly', options_for_select([["Instituto de Protestos",5],["Registro Civil Pessoas Jurídicas",3],["Registro Civil Pessoas Naturais",2],["Registro de Imóveis",1],["Registro de Títulos e Documentos",4]],@intranet_pergunt.tipo), class:"form-control",prompt:"Selecione o tipo da pergunta",readonly:true %> 
 				<% end %>
 			</div>
 		</div>    

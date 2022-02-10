@@ -141,7 +141,7 @@ class Intranet::Boleto < ApplicationRecord
     puts "Atuaizando Situação Assoc" 
     @associados  = Intranet::Associado.where(ativo: true)
     @associados.each do | associado |
-      @boletos    = Intranet::Boleto.where.not(status: "paid").where(metodo: "mensalidade",intranet_associado_id: associado.id).where("vencimento < ?", (Date.today - 30).all_day)
+      @boletos    = Intranet::Boleto.where.not(status: "paid").where("metodo = ? OR tipo = ? OR tipo = ? AND intranet_associado_id = ?","mensalidade","acordo","cobranca",associado.id).where("vencimento < ?", (Date.today - 30).all_day)
       if @boletos.empty?  
         @cartorio = Intranet::Cartorio.where(intranet_associado_id: associado.id) 
         if @cartorio.adimplente == false 

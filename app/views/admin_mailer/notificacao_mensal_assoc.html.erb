@@ -353,7 +353,7 @@
                         <p>Novo Boleto Disponível, <%= @boleto.descricao %>.</p>  
                         <p>Valor: <%= @boleto.valor %>.</p>  
                         <p style="text-align:center"><%= @boleto.codigo_de_barras %>.</p> 
-                        <% if ['mensalidade','acordo'].include?(@boleto.metodo) %>
+                        <% if @boleto.metodo == 'mensalidade' || @boleto.tipo == 'acordo' %>
                           <p>Pague o quanto antes e evite bloqueio do seu ambiente.</p>
                         <% end %> 
                           <%= link_to 'Baixar Boleto', @boleto.url , class:"btn btn-info",style:"float:left",target: '_blank'%>   

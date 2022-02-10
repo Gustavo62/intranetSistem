@@ -78,6 +78,7 @@ class Ability
         cannot  :edit,      :presenc 
         can     :destroy,   :presenc
         can     :read,      :contribuicao_importadas
+        can     :read,      :relatorios_contribuicao
       end 
     else 
       # Rotas Principais USER
@@ -85,8 +86,6 @@ class Ability
       can :contato, :usuario 
       can :mais,    :usuario 
       @adimplente = Intranet::Cartorio.find(object.aux_cartorio_id).adimplente
-      puts "------------------------"
-      puts @adimplente
       if @adimplente
         # bloco AVISO
         can    :read,    :aviso 

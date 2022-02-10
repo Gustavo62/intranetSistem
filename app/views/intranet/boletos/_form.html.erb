@@ -46,7 +46,7 @@
     </div> 
     <div style="width:29%;margin-left: auto;">
       <%= form.label "Tipo" %>
-      <%= form.select :metodo, options_for_select([["Avulso",'avulso'],["Acordo",'acordo'],["Evento",'evento']],params[:metodo]),{style:"margin-right:1%;"},{class:"form-control",prompt:"Status do Boleto"}  %> 
+      <%= form.select :tipo, options_for_select([["Acordo",'acordo'],["Evento",'evento']],params[:tipo]),{style:"margin-right:1%;"},{class:"form-control",prompt:"Status do Boleto"}  %> 
     </div>
   </div>
   <div class="form-group" style="display:flex"> 
