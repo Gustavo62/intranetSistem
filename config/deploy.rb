@@ -1,6 +1,3 @@
-# Change these
-server '186.225.33.222', port: 192.168.0.10, roles: [:web, :app, :db], primary: true
-
 set :repo_url,        'git@github.com:Gustavo62/intranet-anoreg.git'
 set :application,     'intranet'
 set :user,            'anoreg'
