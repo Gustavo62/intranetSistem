@@ -1,6 +1,4 @@
-
-    
-$(document).ready(function(){ 
+document.addEventListener('DOMContentLoaded', (event) => {
     let response = {};
     let content_cart_info_resumo        =  document.getElementById("content_cart_info_resumo");
     let box_termos_poses                =  document.getElementById("box_termos_poses");
@@ -15,7 +13,7 @@ $(document).ready(function(){
     let mes_p                           = ['0','1']
     let mes_s                           = ['0','1','2']
     let mes_t                           = ['0','1','2','3','4','5','6','7','8','9']
-    let senha_validada;
+    let senha_validada                  = false;
     let dataRetunUserEmail;
     let password_c_errors   = document.getElementById("admin_password_c_errors"); 
     let progress_bar        = document.getElementById("progress-bar");
@@ -82,8 +80,10 @@ $(document).ready(function(){
                 data: {cpf: userCpf.value},
                 success: function(data) {   
                     if(data == 0){
-                        if(valida_primeira_pagina_cpf == 0){ 
-                            valida_primeira_pagina_cpf++;
+                        if(valida_primeira_pagina_cpf == 0){   
+                            if(valida_primeira_pagina_cpf == 0){ 
+                                valida_primeira_pagina_cpf+=1;
+                            }
                             userCpf.style.border = "1px solid #ced4da"; 
                             $("#user_cpf_exist").html(""); 
                         }
@@ -98,28 +98,28 @@ $(document).ready(function(){
             });
         } 
     } 
-    userEmail.onkeyup = function(){ 
-        if(userCpf.value.length == 14){  
-            $.ajax({
-                type: "get",
-                beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},
-                url: '/checkemail?',
-                data: 'email=' + userEmail.value,
-                success: function(data) {  
-                    if(data.email_exists){ 
-                        userEmail.focus();
-                        userEmail.style.border= "1px solid #ea2c00";
-                        $("#user_email_exist").html("Email já está em uso");  
-                        userEmail.value = null;
-                        valida_primeira_pagina_email = 0;
-                    }else{      
-                        valida_primeira_pagina_email++;
-                        userEmail.style.border = "1px solid #ced4da";
-                        $("#user_email_exist").html("");  
-                    };  
-                }
-            });  
-        } 
+    userEmail.onchange = function(){  
+        $.ajax({
+            type: "get",
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},
+            url: '/checkemail?',
+            data: 'email=' + userEmail.value,
+            success: function(data) {  
+                if(data.email_exists){ 
+                    userEmail.focus();
+                    userEmail.style.border= "1px solid #ea2c00";
+                    $("#user_email_exist").html("Email já está em uso");  
+                    userEmail.value = null;
+                    valida_primeira_pagina_email = 0;
+                }else{      
+                    if(valida_primeira_pagina_email == 0){ 
+                        valida_primeira_pagina_email+=1;
+                    }
+                    userEmail.style.border = "1px solid #ced4da";
+                    $("#user_email_exist").html("");  
+                };  
+            }
+        });  
     }  
     assDtNasc.onkeypress = function(event){ 
 
@@ -264,7 +264,7 @@ $(document).ready(function(){
                 $("#user_nome_exist").html("Não pode ficar vazio."); 
             }else{
                 userNome.style.border = "1px solid #ced4da";
-                valida_primeira_pagina++; 
+                valida_primeira_pagina+=1; 
                 $("#user_nome_exist").html(""); 
             }; 
             if(userCpf.value==''){
@@ -273,7 +273,7 @@ $(document).ready(function(){
                 $("#user_cpf_exist").html("Não pode ficar vazio."); 
             }else{
                 userCpf.style.border = "1px solid #ced4da";
-                valida_primeira_pagina++; 
+                valida_primeira_pagina+=1; 
                 $("#user_cpf_exist").html(""); 
             };
 
@@ -282,7 +282,7 @@ $(document).ready(function(){
                 userEmail.style.border= "1px solid #ea2c00"; 
                 $("#user_email_exist").html("Não pode ficar vazio."); 
             }else{ 
-                valida_primeira_pagina++; 
+                valida_primeira_pagina+=1; 
             }
 
             if(userSenha.value==''){
@@ -298,7 +298,7 @@ $(document).ready(function(){
                     progress_bar.style.backgroundColor = "#ff0052"
                 }else{ 
                     userSenha.style.border = "1px solid #ced4da";
-                    valida_primeira_pagina++; 
+                    valida_primeira_pagina+=1; 
                     $("#user_senha_exist").html(""); 
                 };
             };
@@ -311,7 +311,7 @@ $(document).ready(function(){
                 progress_bar.style.backgroundColor = "#ff0052"
             }else{
                 userSenhaConfirm.style.border = "1px solid #ced4da";
-                valida_primeira_pagina++;  
+                valida_primeira_pagina+=1;  
                 $("#user_senha_conf_exist").html(""); 
             };
 
@@ -331,7 +331,7 @@ $(document).ready(function(){
             }else{
                 assNome.style.border = "1px solid #ced4da";
                 $("#ass_nome_required").html(""); 
-                valida_segunda_pagina++;
+                valida_segunda_pagina+=1;
             };
             if(assSubs.value != ''){
                 assSubs.style.border = "1px solid #ced4da";
@@ -344,10 +344,10 @@ $(document).ready(function(){
                     }else{
                         assFunc.style.boxShadow = "0px 0px 0px 0px white";
                         $("#ass_func_required").html(""); 
-                        valida_segunda_pagina++;
+                        valida_segunda_pagina+=1;
                     };
                 }else{ 
-                    valida_segunda_pagina++;
+                    valida_segunda_pagina+=1;
                 }
                 
             }else{ 
@@ -362,7 +362,7 @@ $(document).ready(function(){
             }else{
                 assCep.style.border = "1px solid #ced4da";
                 $("#ass_cep_required").html(""); 
-                valida_segunda_pagina++;
+                valida_segunda_pagina+=1;
             };
             if(assLogradouro.value==''){
                 assLogradouro.focus();
@@ -371,7 +371,7 @@ $(document).ready(function(){
             }else{
                 assLogradouro.style.border = "1px solid #ced4da";
                 $("#ass_log_required").html(""); 
-                valida_segunda_pagina++;
+                valida_segunda_pagina+=1;
             };
             if(assTel1.value==''){
                 assTel1.focus();
@@ -380,7 +380,7 @@ $(document).ready(function(){
             }else{
                 assTel1.style.border = "1px solid #ced4da";
                 $("#ass_tel1_required").html(""); 
-                valida_segunda_pagina++;
+                valida_segunda_pagina+=1;
             };
             if(assEmail.value==''){
                 assEmail.focus();
@@ -392,7 +392,7 @@ $(document).ready(function(){
                 if (emailFormat) {
                     assEmail.style.border = "1px solid #ced4da";
                     $("#ass_email_required").html(""); 
-                    valida_segunda_pagina++;
+                    valida_segunda_pagina+=1;
                 }else{  
                     assEmail.focus();
                     assEmail.style.border = "1px solid #ea2c00"; 
@@ -410,7 +410,7 @@ $(document).ready(function(){
             if(selected.length > 0){
                 cartId.style.border = "1px solid #ced4da";
                 $("#ass_cart_id_required").html(""); 
-                valida_segunda_pagina++;  
+                valida_segunda_pagina+=1;  
             }else{ 
                 cartId.focus();
                 cartId.style.border = "1px solid #ea2c00";
@@ -430,7 +430,7 @@ $(document).ready(function(){
             }else{
                 assTermoPosse.style.boxShadow = "0px 0px 0px 0px white";
                 $("#termo_required").html(""); 
-                valida_terceira_pagina++;
+                valida_terceira_pagina+=1;
             };
         };
     }; 
@@ -444,13 +444,17 @@ $(document).ready(function(){
             progress_bar.style.width = "0%"
             progress_bar.style.backgroundColor = "#ff0052"
             senha_validada = false;
-        }else if(userSenha.length < 6){   
+        }else if(user_senha.length < 6){   
             $("#user_senha_exist").html("Senha não pode ficar vazia."); 
             progress_bar.style.width = "0%"
             progress_bar.style.backgroundColor = "#ff0052"
             senha_validada = false;
         }else{ 
-            senha_validada = true;
+            if(user_senha.length < 6 || user_senha == null){ 
+                senha_validada = false;
+            }else{ 
+                senha_validada = true;
+            }
         }
     };
     let validaDadosCart = function(){ 
@@ -559,9 +563,10 @@ $(document).ready(function(){
     $("#next").click(function(){
         validaPagina();
         if(pagina == 1){
+            let aux_contagem = 0
             verificaSenha();     
-            let aux_contagem = valida_primeira_pagina + valida_primeira_pagina_cpf + valida_primeira_pagina_email 
-            if(senha_validada == true){ 
+            aux_contagem = valida_primeira_pagina + valida_primeira_pagina_cpf + valida_primeira_pagina_email 
+            if(senha_validada == true ){  
                 if( aux_contagem == 7){
                     $("#exampleModal2").modal('show')
                     valida_primeira_pagina = 0; 

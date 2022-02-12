@@ -30,7 +30,7 @@ Rails.application.configure do
 	# configurando chamada do jquery
 	config.action_mailer.delivery_method = :sendgrid_actionmailer
 	config.action_mailer.sendgrid_actionmailer_settings = {
-		api_key: ENV['SENDGRID_API_KEY'],
+		api_key: ENV['API_KEY_SENDGRID'],
 		raise_delivery_errors: true
 	}
 	# Store uploaded files on the local file system (see config/storage.yml for options).
@@ -46,7 +46,7 @@ Rails.application.configure do
 	config.action_mailer.perform_deliveries = true 
 	ActionMailer::Base.smtp_settings = { 
 		user_name: ENV['SMTP_USER_NAME'],
-		password: ENV['SMTP_PASSWORD'],
+		password: ENV['API_KEY_SENDGRID'],
 		domain: ENV['DOMAIN_NAME'],
 		address: 'smtp.sendgrid.net',
 		port: 465,

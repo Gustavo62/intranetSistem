@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 
 module IntraSin
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
+    # Initialize configuration defaults for originally generated Rails version. 
     config.load_defaults 6.1 
     config.i18n.default_locale = :'pt-BR'
     config.active_job.queue_adapter = :sidekiq
@@ -29,11 +29,11 @@ module IntraSin
 end
 
 BoletoSimples.configure do |c|
-  c.environment = :sandbox # defaut :sandbox
+  c.environment = ENV["BOLETO_SIMPLES_METODO"]
   # production - https://boletosimples.com.br/conta/api/tokens
   # sandbox - https://sandbox.boletosimples.com.br/conta/api/tokens
-  c.api_token = '-J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM'
-  c.user_agent = 'gust904@gmail.com' #Colocar um e-mail válido para contatos técnicos relacionado ao uso da API.
+  c.api_token = ENV["API_TOKEN"]
+  c.user_agent = 'intranet@anoregce.org.br' #Colocar um e-mail válido para contatos técnicos relacionado ao uso da API.
   # c.debug = true 
   c.cache = ActiveSupport::Cache.lookup_store(:mem_cache_store, ['localhost:11211'],
                                             namespace: 'boletosimples_client',
