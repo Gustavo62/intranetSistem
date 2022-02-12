@@ -2,7 +2,7 @@ development:
   #detalhes boleto simples integration
   api_token:        -J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM
   IP_PORT_SERV:     192.168.0.250 
-  BOLETO_SIMPLES_METODO: :sandbox
+  BOLETO_SIMPLES_METODO: sandbox
 
   #detalhes sendgrid integration
   SMTP_USER_NAME:   apikey
@@ -12,7 +12,7 @@ production:
   #detalhes boleto simples integration
   api_token:        -J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM
   IP_PORT_SERV:     192.168.0.250 
-  BOLETO_SIMPLES_METODO: :production
+  BOLETO_SIMPLES_METODO: production
 
   #detalhes sendgrid integration
   SMTP_USER_NAME:   apikey
