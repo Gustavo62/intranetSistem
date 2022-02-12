@@ -1,0 +1,20 @@
+development:
+  #detalhes boleto simples integration
+  api_token:        -J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM
+  IP_PORT_SERV:     192.168.0.250 
+  BOLETO_SIMPLES_METODO: :sandbox
+
+  #detalhes sendgrid integration
+  SMTP_USER_NAME:   apikey
+  API_KEY_SENDGRID: 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   
+  DOMAIN_NAME:      anoregce.org.br
+production: 
+  #detalhes boleto simples integration
+  api_token:        -J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM
+  IP_PORT_SERV:     192.168.0.250 
+  BOLETO_SIMPLES_METODO: :production
+
+  #detalhes sendgrid integration
+  SMTP_USER_NAME:   apikey
+  API_KEY_SENDGRID: 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   
+  DOMAIN_NAME:      anoregce.org.br
