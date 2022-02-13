@@ -9,8 +9,7 @@ install_plugin Capistrano::SCM::Git
 install_plugin Capistrano::Puma
 install_plugin Capistrano::Puma::Daemon
 install_plugin Capistrano::Puma::Systemd
-install_plugin Capistrano::Puma::Workers
-install_plugin Capistrano::Puma::Monit
+install_plugin Capistrano::Puma::Workers 
 install_plugin Capistrano::Puma::Nginx
  
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
