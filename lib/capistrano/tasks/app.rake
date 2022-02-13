@@ -7,5 +7,12 @@ namespace :app do
         execute %(tail -n0 -F #{shared_path}/log/#{logfile}.log | while read line; do echo "$(hostname): $line"; done)
       end
     end
+    
+    task :allfiles do
+        on roles :app do
+          logfile = ENV['LOG'] || fetch(:rails_env)
+          execute %(RAILS_ENV=production 'bin/webpack';RAILS_ENV=production rails restart )
+        end
+    end
   
   end
