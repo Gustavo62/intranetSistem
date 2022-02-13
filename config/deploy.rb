@@ -25,13 +25,7 @@ set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh
 set :nginx_sites_available_path, "/etc/nginx/sites-available"
 set :nginx_sites_enabled_path, "/etc/nginx/sites-enabled"
  
-set :rvm_ruby_version, '2.7.1' 
-set :default_env, {
-  PATH: '$HOME/.npm-packages/bin/:$PATH',
-  NODE_ENVIRONMENT: 'production', 
-  "RAILS_ENV" => "production",
-  "RAILS_MASTER_KEY" => ENV["RAILS_MASTER_KEY"]
-}
+set :rvm_ruby_version, '2.7.1'  
 ## Defaults:
 # set :scm,           :git
 # set :branch,        :master
