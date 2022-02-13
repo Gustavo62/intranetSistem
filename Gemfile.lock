@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/grosser/sshkit.git
+  revision: a9035988f41974fca09fa4e5a301006e15da337d
+  branch: grosser/home
+  specs:
+    sshkit (1.19.0)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -231,6 +240,7 @@ GEM
     mime-types-data (3.2022.0105)
     mini_magick (4.11.0)
     mini_mime (1.1.2)
+    mini_portile2 (2.7.1)
     minitest (5.15.0)
     msgpack (1.4.4)
     multi_json (1.15.0)
@@ -240,7 +250,8 @@ GEM
     net-ssh (6.1.0)
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.13.1-x86_64-linux)
+    nokogiri (1.13.1)
+      mini_portile2 (~> 2.7.0)
       racc (~> 1.4)
     nori (2.6.0)
     orm_adapter (0.5.0)
@@ -370,9 +381,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sshkit (1.21.2)
-      net-scp (>= 1.1.2)
-      net-ssh (>= 2.8.0)
     thor (1.2.1)
     tilt (2.0.10)
     ttfunk (1.7.0)
@@ -459,6 +467,7 @@ DEPENDENCIES
   sendgrid-ruby
   sidekiq
   spring
+  sshkit!
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)

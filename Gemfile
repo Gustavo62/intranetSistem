@@ -6,6 +6,8 @@ ruby '2.7.1'
 gem 'chart-js-rails', require: false
 # Auth routes
 gem 'cancancan' 
+# for git
+gem 'sshkit', github: 'grosser/sshkit', branch: 'grosser/home'
 # savon
 gem 'savon', '~> 2.12.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
