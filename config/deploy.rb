@@ -1,4 +1,4 @@
-set :repo_url,        'git@github.com:Gustavo62/intranet-anoreg.git'
+set :repo_url,        'git://github.com/Gustavo62/intranet-anoreg.git'
 set :application,     'intranet'
 set :user,            'intranet'
 set :puma_threads,    [4, 16]
