@@ -1,8 +1,7 @@
 {
   "name": "intra-anoreg",
   "private": true,
-  "engines": {
-    "node": "14.18.2",
+  "engines": { 
     "npm": "6.14.15"
   },
   "dependencies": {
