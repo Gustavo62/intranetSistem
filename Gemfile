@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
+
 # Gráficos
 gem 'chart-js-rails', require: false
 # Auth routes
@@ -53,6 +54,7 @@ group :development do
   gem "capistrano-rails", "~> 1.3", require: false
   gem 'capistrano3-puma', require: false
   gem 'capistrano-rvm', require: false
+  gem 'capistrano-rake', require: false
 end
 # Devise
 gem 'devise'
