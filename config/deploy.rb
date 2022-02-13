@@ -1,12 +1,12 @@
+server '192.168.0.250', port: '65022', roles: [:web, :app, :db], primary: true
 set :repo_url,        'git@github.com:Gustavo62/intranet-anoreg.git'
 set :application,     'intranet'
 set :user,            'intranet'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
-
+set :use_sudo, true
 # Don't change these unless you know what you're doing
-set :pty,             true
-set :use_sudo,        false
+set :pty,             true 
 set :stage,           :production
 set :deploy_via,      :remote_cache
 set :deploy_to,       "/var/www/intranet"
@@ -22,12 +22,14 @@ set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
 set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock"
 set :puma_access_log, "#{shared_path}/log/puma_access.log"
 set :puma_error_log, "#{shared_path}/log/puma_error.log"
- 
+set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
 set :nginx_sites_available_path, "/etc/nginx/sites-available"
 set :nginx_sites_enabled_path, "/etc/nginx/sites-enabled"
  
-set :rvm_ruby_version, '2.7.1'
+set :rvm_ruby_version, '2.7.1' 
 set :default_env, {
+  PATH: '$HOME/.npm-packages/bin/:$PATH',
+  NODE_ENVIRONMENT: 'production', 
   "RAILS_ENV" => "production",
   "RAILS_MASTER_KEY" => ENV["RAILS_MASTER_KEY"]
 }
@@ -60,6 +62,31 @@ namespace :puma do
  
   before :start, :create_dirs
   after :start, :nginx_restart
+end
+namespace :deploy do
+  # make sure we're deploying what we think we're deploying
+  before :deploy, "deploy:check_revision"
+  # only allow a deploy with passing tests to deployed
+  before :deploy, "deploy:run_tests"
+  # compile assets locally then rsync
+  after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
+  after :finishing, 'deploy:cleanup'
+
+  # remove the default nginx configuration as it will tend
+  # to conflict with our configs.
+  before 'deploy', 'nginx:remove_default_vhost'
+
+  # reload nginx to it will pick up any modified vhosts from
+  # setup_config
+  after 'deploy', 'nginx:reload'
+
+  # Restart monit so it will pick up any monit configurations
+  # we've added
+  after 'deploy', 'monit:restart'
+
+  # As of Capistrano 3.1, the `deploy:restart` task is not called
+  # automatically.
+  after 'deploy:publishing', 'deploy:restart'
 end
  
 
