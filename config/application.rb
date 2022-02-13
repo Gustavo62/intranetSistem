@@ -35,7 +35,7 @@ BoletoSimples.configure do |c|
   c.api_token = ENV["API_TOKEN"]
   c.user_agent = 'intranet@anoregce.org.br' #Colocar um e-mail válido para contatos técnicos relacionado ao uso da API.
   # c.debug = true 
-  c.cache = ActiveSupport::Cache.lookup_store(:mem_cache_store, ['localhost:11211'],
+  c.cache = ActiveSupport::Cache.lookup_store(:mem_cache_store, ['192.168.0.250:11211'],
                                             namespace: 'boletosimples_client',
                                             compress: true)
 end
