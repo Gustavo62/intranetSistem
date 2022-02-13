@@ -41,8 +41,6 @@ gem 'boletosimples'
 gem 'memcachier'
 # secret keys
 gem "figaro"
-# Boletos 
-gem 'bradesco_shopfacil', :git => 'https://github.com/gilcierweb/bradesco-shopfacil'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 # O BrCep é um gem que tem como objetivo buscar um endereço com base no seu CEP.
