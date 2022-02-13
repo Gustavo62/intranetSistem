@@ -26,9 +26,7 @@ set :nginx_sites_available_path, "/etc/nginx/sites-available"
 set :nginx_sites_enabled_path, "/etc/nginx/sites-enabled"
  
 set :rvm_ruby_version, '2.7.1'  
-set :default_env, {
-  "PATH" => "/home/ubuntu/.nvm/versions/node/v14.18.2/bin:$PATH"
-}
+
 ## Defaults:
 # set :scm,           :git
 # set :branch,        :master
