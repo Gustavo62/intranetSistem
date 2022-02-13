@@ -20,5 +20,5 @@ test:
 production:
   <<: *default
   database: database_anoreg_intranet_production
-  username: anoreg_intranet
-  password: <%= ENV['ANOREG_INTRANET_DATABASE_PASSWORD'] %>
+  username: postgres
+  password: 123456 
