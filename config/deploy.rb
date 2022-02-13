@@ -1,4 +1,3 @@
-server '192.168.0.250', port: '65022', roles: [:web, :app, :db], primary: true
 set :repo_url,        'git@github.com:Gustavo62/intranet-anoreg.git'
 set :application,     'intranet'
 set :user,            'intranet'
@@ -63,29 +62,11 @@ namespace :puma do
   before :start, :create_dirs
   after :start, :nginx_restart
 end
-namespace :deploy do
-  # make sure we're deploying what we think we're deploying
-  before :deploy, "deploy:check_revision"
-  # only allow a deploy with passing tests to deployed
-  before :deploy, "deploy:run_tests"
-  # compile assets locally then rsync
-  after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
-  after :finishing, 'deploy:cleanup'
-
-  # remove the default nginx configuration as it will tend
-  # to conflict with our configs.
-  before 'deploy', 'nginx:remove_default_vhost'
-
-  # reload nginx to it will pick up any modified vhosts from
-  # setup_config
-  after 'deploy', 'nginx:reload'
-
-  # Restart monit so it will pick up any monit configurations
-  # we've added
-  after 'deploy', 'monit:restart'
-
-  # As of Capistrano 3.1, the `deploy:restart` task is not called
-  # automatically.
+namespace :deploy do 
+  before :deploy, "deploy:check" 
+  after 'deploy:symlink:shared', 'deploy:compile_assets'
+  after :finishing, 'deploy:cleanup'  
+  after 'deploy', 'nginx:reload' 
   after 'deploy:publishing', 'deploy:restart'
 end
  
