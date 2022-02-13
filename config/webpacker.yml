@@ -1,6 +1,6 @@
 # Note: You must restart bin/webpack-dev-server for changes to take effect
 
-default: &default
+default: &default 
   source_path: app/javascript
   source_entry_path: packs
   public_root_path: public
@@ -83,7 +83,7 @@ production:
   <<: *default 
   # Production depends on precompilation of packs prior to booting for performance.
   compile: true
-
+  RAILS_ENV: production
   # Extract and emit a css file
   extract_css: true
 
