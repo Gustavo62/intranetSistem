@@ -27,6 +27,10 @@ set :nginx_sites_available_path, "/etc/nginx/sites-available"
 set :nginx_sites_enabled_path, "/etc/nginx/sites-enabled"
  
 set :rvm_ruby_version, '2.7.1'
+set :default_env, {
+  "RAILS_ENV" => "production",
+  "RAILS_MASTER_KEY" => ENV["RAILS_MASTER_KEY"]
+}
 ## Defaults:
 # set :scm,           :git
 # set :branch,        :master
