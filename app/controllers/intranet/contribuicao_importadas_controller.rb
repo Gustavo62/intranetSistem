@@ -4,8 +4,8 @@ class Intranet::ContribuicaoImportadasController < ApplicationController
   before_action :set_intranet_contribuicao_importada, only: %i[ show edit update destroy ]
 
   def index
-    @intranet_contribuicao_importadas = Intranet::ContribuicaoImportada.all.consulta_por_cart(params[:intranet_cartorio_id]).consulta_por_ano(params[:ano]).page(params[:page]).per(10)
-    @data_ultima_atualização = Intranet::RelatoriosContribuicao.all.order(:created_at).where(status: "sucesso").last.try(:data)
+    @intranet_contribuicao_importadas = Intranet::ContribuicaoImportada.all.consulta_por_cart(params[:intranet_cartorio_id]).consulta_por_ano(params[:ano]).page(params[:page]).per(10).order(ano: :DESC)
+    @data_ultima_atualizacao = Intranet::RelatoriosContribuicao.all.order(:created_at).where(status: "sucesso").last.try(:data)
     @cartorios        = Intranet::Cartorio.all.order(:intranet_cidade_id)
     @intranet_cidades = Intranet::Cidade.all
     @cartorios.each do |cart|
@@ -27,7 +27,7 @@ class Intranet::ContribuicaoImportadasController < ApplicationController
   def relatoriosIndex
     @relatorios_aux = Intranet::RelatoriosContribuicao.all
     @relatorios = @relatorios_aux.all.consulta_por_data(params[:ano]).consulta_por_status(params[:status]).order(created_at: :DESC).page(params[:page]).per(10)
-    @data_ultima_atualização = @relatorios_aux.where(status: "sucesso").last.try(:data)
+    @data_ultima_atualizacao = @relatorios_aux.where(status: "sucesso").last.try(:data)
   end
   def relatoriosShow 
     @relatorio = Intranet::RelatoriosContribuicao.find(params[:id])

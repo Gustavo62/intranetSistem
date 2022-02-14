@@ -1,9 +1,13 @@
-<%= javascript_pack_tag "boletos_index", "data-turbolinks-track" => true  %> 
+<%= javascript_pack_tag "boletos_index"  %> 
 <div class="container" style="margin-bottom: 200px;">  
   <div class="page-header">
     <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Relatórios de contribuições importadas</h1>      
   </div>
-  <p>Gerenciar contribuições importadas feitas pelo sistema, ultima atualização<b><%= @data_ultima_atualização.strftime('%d/%m/%Y') %></b>.</p>  
+  <% if @data_ultima_atualizacao %>
+    <p>Gerenciar contribuições importadas feitas pelo sistema, ultima atualização<b><%= @data_ultima_atualizacao.strftime('%d/%m/%Y') %></b>.</p>  
+  <% else %>
+    <p>Gerenciar contribuições importadas feitas pelo sistema.</p>  
+  <% end %>
   <%= form_with(url:'/intranet/contribuicao_importadas/relatorio/index',method: :get, id:"form_assoc")  do |f| %>  
     <%= select_tag(:status, options_for_select([["Sucesso",'sucesso'],["Erro",'erro']],params[:status]), class:"form-control",id:"params_status",prompt:"Status relatório",style:"margin-right:1%;") %> 
     <%= f.date_field "ano",type:"month",class:"form-control", value:params[:ano]%>

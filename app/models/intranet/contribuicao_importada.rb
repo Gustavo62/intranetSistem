@@ -38,9 +38,7 @@ class Intranet::ContribuicaoImportada < ApplicationRecord
         # mudança nos nomes  
         #cod_tj: 'CÓD. SERV.', nome:'CART.',anoreg:"ANOREG\nACERPEN (R$)"
         # mudança nos nomes ref 2021-07 
-        #cod_tj: "CÓDIGO\nSERVENTIA", nome:"CÓDIGO\nSERVENTIA",anoreg:"CARTÓRIO"
-
-        
+        #cod_tj: "CÓDIGO\nSERVENTIA", nome:"CÓDIGO\nSERVENTIA",anoreg:"CARTÓRIO"  
         begin
             @sheet.each(cod_tj: 'CÓD. SERV.', nome:'CART.',anoreg:"ANOREG\nACERPEN (R$)") do |hash|
                 if hash[:cod_tj] != nil && hash[:cod_tj] != 'CÓD. SERV.'  &&  hash[:cod_tj] != '' && hash[:cod_tj].size == 6
@@ -49,8 +47,8 @@ class Intranet::ContribuicaoImportada < ApplicationRecord
                     @cartorio = Intranet::Cartorio.where(cod_tj: @cod_tj).take
                     if @cartorio 
                         @valor = 0
-                        if hash[:anoreg] != 0.00
-                            @valor = hash[:anoreg].to_f / 2
+                        if hash[:anoreg].to_f > 0 
+                            @valor = "R$ " + (hash[:anoreg].to_f / 2.0).to_s
                             @contrib = Intranet::ContribuicaoImportada.create(intranet_cartorio_id: @cartorio.id, 
                                 descContrib: "Importação de cobrança Ref ao Mês #{I18n.t "month_names.#{Date.parse(data).strftime("%B")}"}", 
                                 valor: @valor,

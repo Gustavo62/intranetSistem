@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', (event) => {
+$(document).ready(function() {
     let response = {};
     let content_cart_info_resumo        =  document.getElementById("content_cart_info_resumo");
     let box_termos_poses                =  document.getElementById("box_termos_poses");
@@ -59,11 +59,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     IMask(
         assRg,
         {mask:'000.000.000.00'}
-    ); 
-    IMask(
-        userCpf,
-        {mask:'000.000.000-00'}
-    );
+    );  
     IMask(
         assCep,
         {mask:'00000-000'}
@@ -72,7 +68,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     $('.mensagem').hide();
     $('.step').first().show();
     userCpf.onkeyup = function(){ 
-        if(userCpf.value.length == 14){ 
+        if(userCpf.value.length  >= 9){ 
             $.ajax({
                 type: "get",
                 beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},

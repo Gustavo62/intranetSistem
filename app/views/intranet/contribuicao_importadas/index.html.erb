@@ -1,9 +1,13 @@
-<%= javascript_pack_tag "boletos_index", "data-turbolinks-track" => true  %> 
+<%= javascript_pack_tag "boletos_index"  %> 
 <div class="container" style="margin-bottom: 200px;">  
   <div class="page-header">
     <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Cobranças importadas</h1>      
   </div>
-  <p>Gerenciar cobranças do sistema, ultima atualização <b><%= @data_ultima_atualização.strftime('%d/%m/%Y') %></b>.</p>  
+  <% if @data_ultima_atualizacao %>
+    <p>Gerenciar contribuições importadas feitas pelo sistema, ultima atualização<b><%= @data_ultima_atualizacao.strftime('%d/%m/%Y') %></b>.</p>  
+  <% else %>
+    <p>Gerenciar contribuições importadas feitas pelo sistema.</p>  
+  <% end %>
   <%= form_with(url:'/intranet/contribuicao_importadas',method: :get, id:"form_assoc")  do |f| %>  
     <%= f.select "intranet_cartorio_id",options_from_collection_for_select(@cartorios, "id", "nome",params[:intranet_cartorio_id]), {:prompt => "Escolha o cartório"},{style:"margin-right:1%;",class:"form-control"}%> 
     <%= f.date_field "ano",type:"month",class:"form-control", value:params[:ano]%>
@@ -29,7 +33,7 @@
               <td><%= intranet_contribuicao_importada.id %></td>
               <td><%= @cartorios.find(intranet_contribuicao_importada.intranet_cartorio_id).try(:cod_cns) %></td>
               <td><%= @cartorios.find(intranet_contribuicao_importada.intranet_cartorio_id).try(:cod_tj) %></td> 
-              <td><%= "R$ #{intranet_contribuicao_importada.valor.round(2)}" %></td> 
+              <td><%= intranet_contribuicao_importada.valor %></td> 
               <td><%= intranet_contribuicao_importada.ano.strftime("%d/%m/%Y") %></td>  
               <td style="text-align: center;">
                 <%= link_to intranet_contribuicao_importada, class:"btni" do %>

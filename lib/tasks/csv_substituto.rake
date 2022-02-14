@@ -16,7 +16,7 @@ namespace :csv_substituto do
 					else
 						@entrada = Date.parse(linha[28])
 					end
-					@sub = Intranet::Substituto.create(cartorio_cns: linha[1],cpf: linha[32], nome: linha[31], email:linha[33],dt_inicio: @entrada,dt_final: @substituicao,atual?: true) 
+					@sub = Intranet::Substituto.create(cartorio_cns: linha[1],cpf: linha[32].remove(".").remove("-").remove(" "), nome: linha[31], email:linha[33],dt_inicio: @entrada,dt_final: @substituicao,atual?: true) 
 					@sub.save 
 					if @sub.save == false
 						puts "TASK CRIA SUBS \e[41m\e[1mERROR!!\e[22m linha #{indice}\e[0m"

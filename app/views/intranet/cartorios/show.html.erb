@@ -23,6 +23,11 @@
         <%= link_to intranet_substitutos_path(intranet_cartorio_id: @intranet_cartorio.id), class:"nav-link",id:"btn_menu_2", type:"button" do %>
           Substituto
         <% end %>
+      </li> 
+      <li class="nav-item">  
+        <%= link_to intranet_contribuicao_importadas_path(intranet_cartorio_id: @intranet_cartorio.id), class:"nav-link",id:"btn_menu_2", type:"button" do %>
+          Contribuições Tribunal
+        <% end %>
       </li>
     <% end %>
 		<div style="margin-left: auto;">

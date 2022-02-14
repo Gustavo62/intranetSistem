@@ -235,7 +235,7 @@ ActiveRecord::Schema.define(version: 2022_02_08_221800) do
     t.date "ano", null: false
     t.string "intranet_cartorio_id", null: false
     t.string "descContrib", null: false
-    t.float "valor", null: false
+    t.string "valor", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

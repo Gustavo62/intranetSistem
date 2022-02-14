@@ -2,7 +2,7 @@
 
 class Users::SessionsController < Devise::SessionsController   
   before_action :configure_sign_in_params, only: [:create] 
-  prepend_before_action :verify_signed_out_user, only: :destroy
+  prepend_before_action :verify_signed_out_user, only: :destroy 
   def new
     if user_signed_in? == false 
       if admin_signed_in?  
@@ -17,8 +17,8 @@ class Users::SessionsController < Devise::SessionsController
       end
     end
   end 
-  def create 
-    self.resource = warden.authenticate!(auth_options)
+  def create    
+    self.resource = warden.authenticate!(auth_options)  
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
     yield resource if block_given?
@@ -30,7 +30,7 @@ class Users::SessionsController < Devise::SessionsController
     super
   end
   def consulta_cart
-    @resp_user  = User.where(cpf: params[:cpf]).take.try(:id)
+    @resp_user  = User.where(cpf: params[:cpf].remove(".").remove("-").remove(" ")).take.try(:id)
     @resp_assoc = Intranet::Associado.where(user_id: @resp_user).pluck(:intranet_cartorio) 
     @response = Intranet::Cartorio.find(@resp_assoc)
     @response.each do | cart |

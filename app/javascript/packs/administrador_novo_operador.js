@@ -19,7 +19,7 @@ $(document).ready(function(){
     var progress_bar         = document.getElementById("progress-bar");
     var password_confirm     = document.getElementById("admin_password_c"); 
     cpf.onchange = function(){
-        if(cpf.value.length == 14){
+        if(cpf.value.length >= 9){
             $.ajax({
             type: "get",
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},
@@ -37,11 +37,7 @@ $(document).ready(function(){
             }
             });
         }
-    }
-    IMask(
-        cpf,
-        {mask:'000.000.000-00'}
-    );
+    } 
     password.onkeyup =  function(){
         let txt =$(this).val();
         let forca = 0;

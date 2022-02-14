@@ -14,11 +14,11 @@ namespace :csv_boletos do
                             else 
                                 @boleto_pago = 'opened'
                             end
-                            @valor = Date.parse(linha[5])
+                            @vencimento = Date.parse(linha[5])
                             @valor = "R$ " + linha[1]
                             @boleto = Intranet::Boleto.create(  intranet_associado_id: @cartorio.intranet_associado_id, 
                                                                 valor: @valor, 
-                                                                vencimento: @valor, 
+                                                                vencimento: @vencimento, 
                                                                 descricao: linha[3], 
                                                                 nosso_numero: linha[4], 
                                                                 status: @boleto_pago, 

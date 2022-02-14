@@ -8,11 +8,16 @@ namespace :app do
       end
     end
     
-    task :allfiles do
+    task :criar_tab_sub_cap do
         on roles :app do
           logfile = ENV['LOG'] || fetch(:rails_env)
-          execute %(RAILS_ENV=production 'bin/webpack';RAILS_ENV=production rails restart )
+          execute %(rake csv_substituto:import RAILS_ENV=production;rake csv_tabeliao:import RAILS_ENV=production;rake csv_cartorio:import RAILS_ENV=production)
         end
     end
-  
-  end
+    task :criar_master do
+        on roles :app do
+          logfile = ENV['LOG'] || fetch(:rails_env)
+          execute %(rake criar_master:import RAILS_ENV=production) 
+        end
+    end
+end

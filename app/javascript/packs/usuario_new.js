@@ -3,13 +3,9 @@ $(document).ready(function(){
     var bloco_cart           = document.getElementById("bloco_cart");
     var cpf                  = document.getElementById("user_cpf");
     var select_cart          = document.getElementById("intranet_cartorio_id"); 
-    cpf.value = null;
-    IMask(
-        cpf,
-        {mask:'000.000.000-00'}
-    );
+    cpf.value = null; 
     cpf.onkeyup = function(){ 
-        if(cpf.value.length == 14){
+        if(cpf.value.length  >= 9){
             $('#intranet_cartorio_id').empty();
             $('.alert1').hide()
             $("#loading").fadeIn(); 

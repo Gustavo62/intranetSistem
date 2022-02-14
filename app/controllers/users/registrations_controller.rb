@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     before_action :configure_sign_up_params, only: [:create]
     before_action :configure_account_update_params, only: [:update]  
 	before_action :valida_acesso, only: [ :edit,:new,:create ]
-	skip_before_action :verify_authenticity_token, :only => [:index, :show, :anexaDocFiliacao]
+	skip_before_action :verify_authenticity_token, :only => [:index, :show, :anexaDocFiliacao] 
 	require './lib/generate_pdf'
     def new   
 		if admin_signed_in?
@@ -134,7 +134,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 		redirect_to "/termo_filiacao_#{params[:cartorio_id]}.pdf"
 	end
 	def consulta_user
-		@response_user = User.where(cpf: params[:cpf])
+		@response_user = User.where(cpf: params[:cpf].remove(".").remove("-").remove(" "))
 		
 		respond_to do |format| 
 		  format.json { render json: @response_user.size }
@@ -166,7 +166,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	  end
 	def cria_user
 		@cart = Intranet::Cartorio.find_by_id(params[:intranet_cartorio_id])  
-		@user = User.new(:nome => params[:user][:nome],:email => params[:user][:email],:cpf => params[:user][:cpf], :password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
+		@user = User.new(:nome => params[:user][:nome],:email => params[:user][:email],:cpf => params[:user][:cpf].remove(".").remove("-").remove(" "), :password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
 		if @user.save 
 			@user_id          = @user.id
 			@cartorio_id      = params[:intranet_cartorio]				if params[:intranet_cartorio] != '' 

@@ -3,7 +3,7 @@ namespace :csv_associado do
 	task import: :environment do
 		CSV.foreach('tmp/associado_db.csv', col_sep: ';').with_index do |linha, indice|
 			unless (indice == 0)
-        if linha[1] == 'sim'
+        if linha[1] == '1'
           @acesso = true
         else
           @acesso = true
@@ -20,7 +20,7 @@ namespace :csv_associado do
           @email = linha[11]
         end
         begin
-          @user_consulta = User.where(cpf: linha[2]).take
+          @user_consulta = User.where(cpf: linha[2].remove(".").remove("-").remove(" ")).take
           if @user_consulta 
             if @cart
               @associado = Intranet::Associado.where(user_id: @user_consulta.id).take
@@ -34,7 +34,7 @@ namespace :csv_associado do
             @user = User.create(email:@email, 
               password:             "123456",  
               nome:                 linha[4],
-              cpf:                  linha[2],
+              cpf:                  linha[2].remove(".").remove("-").remove(" "),
               acesso:               @acesso,
               lembrete:             linha[3])
             if @user.save! 

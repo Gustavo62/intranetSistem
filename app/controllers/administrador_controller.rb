@@ -145,7 +145,7 @@ class AdministradorController < ApplicationController
     redirect_to administrador_operadores_path
   end
   def consulta_admin
-    @admin = Admin.where(cpf: params[:cpf]).size
+    @admin = Admin.where(cpf: params[:cpf].remove(".").remove("-").remove(" ")).size
     
     respond_to do |format| 
       format.json { render json: @admin }

@@ -9,6 +9,7 @@ namespace :csv_contrib do
                     if linha[3] != "" || linha[3] != nil || linha[3].empty? == false
                         @cartorio = Intranet::Cartorio.where(cod_cns: linha[3]).take
                         if @cartorio
+                            puts linha[0]
                             @valor = "R$ " + linha[0] 
                             @ano   = Date.parse(linha[1])
                             @bolt = Intranet::ContribuicaoImportada.create(intranet_cartorio_id: @cartorio.id, descContrib: "Importação de cobrança Ref ao Mês #{I18n.t "month_names.#{@ano.strftime("%B")}"}", valor: @valor,ano:   @ano) 
