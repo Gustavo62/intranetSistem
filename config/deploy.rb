@@ -11,7 +11,8 @@ set :deploy_via,      :remote_cache
 set :deploy_to,       "/var/www/intranet"
 
 append :linked_files, "config/database.yml", "config/storage.yml", "config/master.key","config/application.yml"
-append :linked_dirs, "log", "tmp"
+append :linked_dirs, "log", "tmp" 
+#append :linked_dirs, “log”, “tmp/pids”, “tmp/cache”, “tmp/sockets”, “public/system”
  
 set :keep_releases, 5
 set :migration_role, :app
@@ -19,7 +20,9 @@ set :migration_role, :app
 
 
 set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
-set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
+#set :puma_bind,       "unix://#{shared_path}/tmp/sockets/intranet-puma.sock"
+set :puma_bind,       "tcp://192.168.0.250:3000"
+set :puma_init_active_record, true
 set :puma_access_log, "#{shared_path}/log/puma_access.log"
 set :puma_error_log, "#{shared_path}/log/puma_error.log"
 set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
