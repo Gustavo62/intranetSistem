@@ -28,7 +28,13 @@ set :puma_error_log, "#{shared_path}/log/puma_error.log"
 set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
 set :nginx_sites_available_path, "/etc/nginx/sites-available"
 set :nginx_sites_enabled_path, "/etc/nginx/sites-enabled"
- 
+
+set :nginx_ssl_certificate, "/etc/ssl/certs/#{fetch(:nginx_config_name)}.crt"
+set :nginx_ssl_certificate_key, "/etc/ssl/private/#{fetch(:nginx_config_name)}.key"
+set :nginx_use_ssl, false
+set :nginx_use_http2, true
+set :nginx_downstream_uses_ssl, false
+
 set :rvm_ruby_version, '2.7.1'  
 
 ## Defaults:
