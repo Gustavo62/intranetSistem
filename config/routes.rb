@@ -1,4 +1,5 @@
-Rails.application.routes.draw do  
+Rails.application.routes.draw do
+	require 'sidekiq/web' 
 	namespace :intranet do
 		resources :chamados
 	end
@@ -11,6 +12,8 @@ Rails.application.routes.draw do
 	end
 	namespace :intranet do
 		resources :events  
+		get '/events/relatorio/pdf', to: 'events#relatorio_pdf'   
+		get '/events/relatorio/csv', to: 'events#relatorio_csv'  
 	end
 	namespace :intranet do 
 		resources :arquivos, as: 'arquivos' do
@@ -19,9 +22,10 @@ Rails.application.routes.draw do
 			end
 		end
 	end
-	require 'sidekiq/web'
-	
-	mount Sidekiq::Web => '/sidekiq' 
+	authenticate :admin do
+		mount Sidekiq::Web => '/sidekiq'
+	end
+	 
 	namespace :intranet do
 		resources :pergunts
 	end
@@ -75,27 +79,28 @@ Rails.application.routes.draw do
 		resources :departamentos , as: 'departamentos'  
 	end 
 	namespace :intranet do
-		resources :privilegios   , as: 'privilegios'  
+		resources :privilegios   , as: 'privilegios'
 	end 
 	namespace :intranet do
-		resources :cidades       , as: 'cidades'   
+		resources :cidades       , as: 'cidades'
 	end 
 	namespace :intranet do
-		resources :entrancia     , as: 'entrancia'  
+		resources :entrancia     , as: 'entrancia'
 	end 
 	namespace :intranet do
-		resources :contribuicaos , as: 'contribuicaos'  
+		resources :contribuicaos , as: 'contribuicaos'
 	end 
 	namespace :intranet do
-		resources :regiaos       , as: 'regiaos'  
+		resources :regiaos       , as: 'regiaos'
 	end 
 	namespace :intranet do
-		resources :atividades    , as: 'atividades'  
+		resources :atividades    , as: 'atividades'
 	end 
 	namespace :intranet do  
-		resources :presencs    , as: 'presencs' 
-		get '/presencs/gerar/pagamento',    to: 'presencs#fazer_pagamento' 
-		get '/adicionar/presenca', to: 'presencs#se_inscrever'   
+		resources :presencs    , as: 'presencs'
+		get '/presencs/gerar/pagamento',    to: 'presencs#fazer_pagamento'
+		get '/presencs/adicionar/presenca',          to: 'presencs#se_inscrever'
+		get '/presencs/cancelar/presenca/evento',           to: 'presencs#cancelar_insc_evento'
 	end 
 	namespace :intranet do      
 		resources :avisos, as: 'avisos' do

@@ -1,19 +1,8 @@
 class Intranet::PresencsController < ApplicationController
-	before_action :valida_acesso  
+	before_action :valida_acesso, except: %i[ cancelar_insc_evento fazer_pagamento ]  
   authorize_resource :class => false
-  before_action :set_intranet_presenc, only: %i[ show edit update destroy fazer_pagamento]
+  before_action :set_intranet_presenc, only: %i[ destroy fazer_pagamento ]  
 
-  def index
-    @intranet_presencs = Intranet::Presenc.all
-  end
-
-  def show 
-  end
-
-  def new
-    @intranet_presenc = Intranet::Presenc.new
-  end 
-  
   def fazer_pagamento  
     @presenca = Intranet::Presenc.find(params[:id])
     if params[:tipo] == 'evento'
@@ -34,77 +23,34 @@ class Intranet::PresencsController < ApplicationController
     end
   end
 
-	def se_inscrever 
-    # Bloco evento
-    if params[:m_name] == 'evento'
-      @intranet_event = Intranet::Event.find(params[:m_id])
-      if @intranet_event
-        @qtd_vaga = @intranet_event.qtd_insc_cart.to_i - Intranet::Presenc.where(m_id: @intranet_event.id).size
-        if @qtd_vaga > 0 
-          @intranet_presenc = Intranet::Presenc.create(ingresso_nome: params[:ingresso_nome],m_id:@intranet_event.id, m_name:"evento", intranet_associado_id:params[:intranet_associado_id])
-          if @intranet_presenc.save
-            respond_to do |format|
-              format.json { render json: true  }
-            end
-          else 
-            respond_to do |format|
-              format.json { render json: false  }
-            end
-          end
-        end
+	def se_inscrever   
+    @intranet_event = Intranet::Event.find(params[:m_id])
+    if @intranet_event
+      @qtd_vaga = @intranet_event.qtd_insc_cart.to_i - Intranet::Presenc.where.not(status: 'Cancelado').where(m_id: @intranet_event.id,intranet_associado_id:params[:intranet_associado_id],intranet_cartorio_id: params[:cart_id]).size
+      if @qtd_vaga > 0  
+        @presenc = Intranet::Presencs::CriarPresencJob.perform_later(params[:email],params[:ingresso_nome],@intranet_event.id,"evento",params[:intranet_associado_id],params[:cart_id],params[:cracha_nome],params[:funcao],params[:telefone],params[:whatsapp])          
+        respond_to do |format| 
+          format.json { render json: true  }
+        end 
       end
-    end
-
-    
-    # Bloco reunião
+    end 
 	end
+     
+  def cancelar_insc_evento   
+    @intranet_presenc = Intranet::Presenc.find(params[:id])
+    @intranet_presenc.update(status: "Cancelado") 
+    if params[:m_name] == 'evento'
+      @evento = Intranet::Event.find(params[:m_id])
+      redirect_to @evento 
+    end
+  end 
   
-  def edit
-  end
-
-  def create
-    @intranet_presenc = Intranet::Presenc.new(intranet_presenc_params)
-
-    respond_to do |format|
-      if @intranet_presenc.save
-        format.html { redirect_to @intranet_presenc}
-        format.json { render :show, status: :created, location: @intranet_presenc }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @intranet_presenc.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @intranet_presenc.update(intranet_presenc_params)
-        format.html { redirect_to @intranet_presenc}
-        format.json { render :show, status: :ok, location: @intranet_presenc }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @intranet_presenc.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy 
-    @intranet_presenc.destroy
-    if params[:m_name] == "evento"
-      @event = Intranet::Event.find(params[:m_id])
-      redirect_to intranet_event_path(@event)
-    else 
-      @reunion = Intranet::Reunion.find(params[:m_id])
-      redirect_to intranet_event_path(@reunion)
-    end
-  end
-
   private
     def set_intranet_presenc
       @intranet_presenc = Intranet::Presenc.find(params[:id])
     end
 
     def intranet_presenc_params
-      params.require(:intranet_presenc).permit(:m_id, :m_name, :intranet_associado_id)
+      params.require(:intranet_presenc).permit(:m_id, :m_name, :intranet_associado_id,:intranet_cartorio_id,:status,:cracha_nome,:funcao,:numero,:telefone,:whatsapp,:pago)
     end
 end

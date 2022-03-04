@@ -7,11 +7,9 @@
 #
 set :output, 'log/whenever.log'
 #
-# every 2.hours do
-#   command "/usr/bin/some_great_command"
-#   runner "MyModel.some_method"
-#   rake "some:great:rake:task"
-# end
+every :day, at: ["10:28 AM"] do
+    runner "Intranet::Boleto.geraCobranca"
+end
 #
 # every 4.days do
 #   runner "AnotherModel.prune_old_records"

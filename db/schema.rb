@@ -199,9 +199,8 @@ ActiveRecord::Schema.define(version: 2022_02_08_221800) do
     t.bigint "intranet_tabeliao_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "intranet_associado_id"
+    t.integer "intranet_associado_id", array: true
     t.integer "intranet_atividade_id", array: true
-    t.index ["intranet_associado_id"], name: "index_intranet_cartorios_on_intranet_associado_id"
     t.index ["intranet_cidade_id"], name: "index_intranet_cartorios_on_intranet_cidade_id"
     t.index ["intranet_contribuicao_id"], name: "index_intranet_cartorios_on_intranet_contribuicao_id"
     t.index ["intranet_entrancia_id"], name: "index_intranet_cartorios_on_intranet_entrancia_id"
@@ -322,13 +321,22 @@ ActiveRecord::Schema.define(version: 2022_02_08_221800) do
     t.integer "m_id"
     t.string "m_name"
     t.string "ingresso_nome"
+    t.string "cracha_nome"
+    t.string "funcao"
+    t.string "numero", null: false
+    t.string "email"
+    t.string "telefone"
+    t.boolean "whatsapp", default: false
     t.boolean "pago"
+    t.string "status"
+    t.bigint "intranet_cartorio_id", null: false
     t.bigint "intranet_associado_id", null: false
     t.bigint "intranet_boleto_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["intranet_associado_id"], name: "index_intranet_presencs_on_intranet_associado_id"
     t.index ["intranet_boleto_id"], name: "index_intranet_presencs_on_intranet_boleto_id"
+    t.index ["intranet_cartorio_id"], name: "index_intranet_presencs_on_intranet_cartorio_id"
   end
 
   create_table "intranet_privilegios", force: :cascade do |t|
@@ -432,7 +440,6 @@ ActiveRecord::Schema.define(version: 2022_02_08_221800) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "intranet_associados", "users"
   add_foreign_key "intranet_boletos", "intranet_associados"
-  add_foreign_key "intranet_cartorios", "intranet_associados"
   add_foreign_key "intranet_cartorios", "intranet_cidades"
   add_foreign_key "intranet_cartorios", "intranet_contribuicaos"
   add_foreign_key "intranet_cartorios", "intranet_entrancia", column: "intranet_entrancia_id"
@@ -446,6 +453,7 @@ ActiveRecord::Schema.define(version: 2022_02_08_221800) do
   add_foreign_key "intranet_pergunts", "intranet_associados"
   add_foreign_key "intranet_presencs", "intranet_associados"
   add_foreign_key "intranet_presencs", "intranet_boletos"
+  add_foreign_key "intranet_presencs", "intranet_cartorios"
   add_foreign_key "intranet_termo_posses", "intranet_associados"
   add_foreign_key "intranet_termo_posses", "intranet_cartorios"
   add_foreign_key "intranet_termo_posses", "users"

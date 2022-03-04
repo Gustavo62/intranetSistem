@@ -16,8 +16,7 @@ class Ability
         can :manage,        :aviso   
       end
       if object.privilegio_id.include?(3)
-        can :manage,        :event 
-        can :dashboard_evento, :administrador
+        can :manage,        :event  
       end
       if object.privilegio_id.include?(4)
         can :manage,        :arquivo
@@ -76,7 +75,8 @@ class Ability
         can     :read,      :presenc 
         cannot  :new,       :presenc
         cannot  :edit,      :presenc 
-        can     :destroy,   :presenc
+        cannot  :edit,      :presenc 
+        can     :destroy,   :presenc 
         can     :read,      :contribuicao_importadas
         can     :read,      :relatorios_contribuicao
       end 
@@ -87,6 +87,8 @@ class Ability
       can :mais,    :usuario 
       @adimplente = Intranet::Cartorio.find(object.aux_cartorio_id).adimplente
       if @adimplente
+        # bloco PRESENÇA  
+        can    :manage, :presenc   
         # bloco AVISO
         can    :read,    :aviso 
         cannot :new,     :aviso
@@ -104,9 +106,12 @@ class Ability
         
         # bloco EVENTO
         can    :read,    :event 
+        can    :read,    :event 
         cannot :new,     :event
         cannot :edit,    :event 
         cannot :destroy, :event  
+        cannot :relatorio_insc, :event  
+        cannot :relatorio_insc_pago, :event  
         
         # bloco REUNIÂO
         can    :read,    :reunion 
@@ -153,10 +158,7 @@ class Ability
 
         # bloco MALA DIRETA
         cannot :manage,        :mala_diretum
-
-        # bloco PRESENÇA 
-        can    :manage,        :presenc  
-
+   
         # bloco PRIVILEGIO
         cannot :manage,        :privilegio
         
@@ -167,17 +169,15 @@ class Ability
         cannot :manage,        :substituto
 
         # bloco TABELIÃO
-        cannot :manage,        :tabeliao
-      else
+        cannot :manage,        :tabeliao 
+      else 
         # bloco BOLETO
         can    :read,         :boleto 
         can    :gerarBolteto, :boleto
         cannot :new,          :boleto
         cannot :edit,         :boleto
         cannot :destroy,      :boleto   
-      end
-
-      
+      end 
     end
   end
 end

@@ -52,9 +52,13 @@ namespace :csv_associado do
                                                 email:                @email, 
                                                 intranet_cartorio:    "{#{@cart_id}}" ) 
                 @ass.save 
-                if @cart
-                  @cart.intranet_associado_id = @ass.id 
-                  @cart.save
+                if @cart 
+                  if @cart.intranet_associado_id
+                    @cart_intranet_associado_id = @cart.intranet_associado_id << @ass.id.to_i
+                  else
+                    @cart_intranet_associado_id = "{#{@ass.id.to_i}}"
+                  end 
+                  @cart.update(intranet_associado_id: @cart_intranet_associado_id) 
                 end
               rescue  
                 puts "TASK CRIA ASSOC \e[41m\e[1mERROR SECOND BEGIN!!\e[22m linha #{linha[0]}\e[0m" 

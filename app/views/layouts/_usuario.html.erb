@@ -282,7 +282,7 @@
     <% flash.each do |name, msg| %> 
         <% name = 'warning' if name == 'alert'%>
         <% name = 'info' if name == 'notice'%>
-        <div data-notify="container" class="col-11 col-sm-11 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="transition: all 0.5s ease-in-out 0s;width: 92%;margin: auto;z-index: 5;"> 
+        <div data-notify="container" class="col-11 col-sm-11 alert alert-<%= name %> alert-with-icon" role="alert" data-notify-position="top-right" style="transition: all 0.5s ease-in-out 0s;width: 92%;margin: auto;z-index: 10;"> 
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="float:right"></button>
             <span data-notify="icon" class="nc-icon nc-app"></span> 
             <% if name == 'info' %>   

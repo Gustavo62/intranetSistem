@@ -33,7 +33,7 @@
             Deseja deletar Associado <%= @intranet_associado.nome %>, sua ação não poderá ser desfeita, ao clicar em <b>EXCLUIR</b> será deletado o Associado e o acesso ao intranet.
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" focus>cancelar</button> 
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
             <%= link_to intranet_associado_path, method: :delete do %> 
                 <button type="button" class="btn btn-danger">Excluir</button>
             <% end %>

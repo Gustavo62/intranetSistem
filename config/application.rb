@@ -2,7 +2,7 @@ require_relative "boot"
 
 require "rails/all"
 require 'boletosimples'
-require 'dalli'
+require 'dalli' 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -27,13 +27,10 @@ module IntraSin
 end
 
 BoletoSimples.configure do |c|
-  c.environment = ENV["BOLETO_SIMPLES_METODO"]
-  # production - https://boletosimples.com.br/conta/api/tokens
-  # sandbox - https://sandbox.boletosimples.com.br/conta/api/tokens
-  c.api_token = ENV["API_TOKEN"]
-  c.user_agent = 'intranet@anoregce.org.br' #Colocar um e-mail válido para contatos técnicos relacionado ao uso da API.
-  # c.debug = true 
-  c.cache = ActiveSupport::Cache.lookup_store(:mem_cache_store, ['192.168.0.250:11211'],
-                                            namespace: 'boletosimples_client',
-                                            compress: true)
+  #c.environment = ENV["BOLETO_SIMPLES_METODO"]
+  #c.api_token  = ENV["API_TOKEN"] 
+  c.environment = :sandbox
+  c.user_agent = 'gust904@gmail.com'
+  c.api_token = '-J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM'
+  c.cache = ActiveSupport::Cache.lookup_store(:dalli_store, ['localhost:11211'], namespace: 'boletosimples_client', compress: true) 
 end

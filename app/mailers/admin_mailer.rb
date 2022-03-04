@@ -1,4 +1,5 @@
 class AdminMailer < ApplicationMailer  
+  require "cpf_cnpj"
   def cad_deferido(user,assunto,msg)
     @msg  = msg
     @user = user
@@ -31,5 +32,14 @@ class AdminMailer < ApplicationMailer
     mail to: 'gust904@gmail.com', subject: @mala_direta.assunto
     # production
     # mail to: cartorio, subject: @mala_direta.assunto
-  end
+  end 
+  def notifica_gera_cobranca(trigger,conteudo) 
+    @conteudo = conteudo
+    mail to: 'intranet@anoregce.org.br', subject: trigger 
+  end  
+  def notifica_novo_evento(destinatário,mensagem) 
+    @conteudo = mensagem 
+    # mail to: 'intranet@anoregce.org.br', subject: trigger 
+    mail to: 'gust904@gmail.com', subject: "Novo Evento ANOREG-CE" 
+  end 
 end

@@ -1,0 +1,4 @@
+name	email	age	salary
+john	john@example.com	27	4212.5
+michael	mike@example.com	22	6150
+			=SUM(D2:D3)

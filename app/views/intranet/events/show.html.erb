@@ -1,248 +1,314 @@
-<%= javascript_pack_tag "events_show"  %> 
-<script src="https://unpkg.com/imask"></script> 
-<div class="container" style="margin-bottom: 204px;">   
-  <div class="page-header">
-    <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Evento</h1>      
-  </div>
-  <p>Visualizar Evento Nº <b><%= @intranet_event.id%></b>.</p>  
-  <ul class="nav nav-tabs" style="margin-bottom: 11px;">
-    <li class="nav-item">
-      <a class="nav-link active" id="btn_menu_1" type="button" >Detalhes da cobrança</a>
-    </li> 
-    <div style="margin-left: auto;">
-      <%= link_to 'Voltar', :back,class:"btn btn-link" %> 
-      <% if user_signed_in? == false %>
-        <%= link_to 'Editar', edit_intranet_event_path(@intranet_event),class:"btn btn-primary" %> 
-        <a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= @intranet_event.id %>">Deletar</i></a>
-      <% end %>
-    </div>
-  
-    <% if user_signed_in? == false %>
-      <div class="modal fade" id="exampleModal<%= @intranet_event.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Deletar evento</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"><i class="fas fa-times"></i></span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Deseja deletar Evento <%= @intranet_event.titulo %>.
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal" focus>cancelar</button> 
-              <%= link_to intranet_event_path, method: :delete do %> 
-                  <button type="button" class="btn btn-danger">Excluir</button>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </ul>
-  <div class="form-group row" style="display:flex">
-    <div style="width:100%">
-      <label  class="col-sm-10 col-form-label" >Título</label>
-      <div class="col-sm-10 correct-md-10" >
-        <input type="text" readonly class="form-control-plaintext input-show"  style="height: auto" value="<%= @intranet_event.titulo %>">
-      </div>
-    </div>
-  </div> 
-  <div class="form-group row" style="display:flex">
-    <div style="width:100%">
-      <label  class="col-sm-10 col-form-label" >Sub Título</label>
-      <div class="col-sm-10 correct-md-10" >
-        <input type="text" readonly class="form-control-plaintext input-show"  style="height: auto" value="<%= @intranet_event.cabecalho_1 %>">
-      </div>
-    </div>
-  </div>
-  <div class="form-group row" style="display:flex">
-    <div style="width:100%">
-      <label  class="col-sm-10 col-form-label" >Link do evento</label>
-      <div class="col-sm-10 correct-md-10" >
-        <a type="text" class="form-control" target="blank" href="<%= @intranet_event.link %>" style="height: auto"><%= @intranet_event.link %></a>
-      </div>
-    </div>
-  </div>
-  <div class="form-group row" style="display:flex"> 
-    <div style="width:49.5%">
-      <label  class="col-sm-10 col-form-label" >Periodo de inscrição inicial</label>
-      <div class="col-sm-10 correct-md-10" >
-        <input date="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.insc_ini.strftime("%d/%m/%Y") %>">
-      </div>
-    </div>
-    <div style="width:49.5%;margin-left: auto;">
-      <label  class="col-sm-10 col-form-label" >Periodo de inscrição final</label>
-      <div class="col-sm-10 correct-md-10" >
-        <input date="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.insc_fim.strftime("%d/%m/%Y") %>">
-      </div>
-    </div>
-  </div>
-  <div class="form-group row" style="display:flex"> 
-    <div style="width:49.5%">
-      <label  class="col-sm-10 col-form-label" >Data de inicio do evento</label>
-      <div class="col-sm-10 correct-md-10" >
-        <input date="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.periodo_ini.strftime("%d/%m/%Y") %>">
-      </div>
-    </div>
-    <div style="width:49.5%;margin-left: auto;">
-      <label  class="col-sm-10 col-form-label" >Data final do evento</label>
-      <div class="col-sm-10 correct-md-10" >
-        <input date="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.periodo_fim.strftime("%d/%m/%Y") %>">
-      </div>
-    </div>
-  </div>  
-  <% if @intranet_event.pago %>
-    <div class="form-group row">   
-      <div style="width:49.5%;margin-right: auto;"> 
-        <label  class="col-sm-10 col-form-label" >Data limite para os pagamentos</label>
-        <div class="col-sm-10 correct-md-10" style="margin-right: auto;">
-          <input date="date" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.data_max_pagamento.strftime("%d/%m/%Y") %>">
-        </div>
-      </div>
-    </div>    
-  <% end %>
-  <div class="form-group row" style="display:flex"> 
-    <div style="width:49.5%;margin-right: auto;"> 
-      <label  class="col-sm-10 col-form-label" >Tipo de cobrança</label>
-      <div class="col-sm-10 correct-md-10" style="margin-right: auto;">
-        <%= select_tag :tipo,options_for_select([["Por cartório",1],["Por inscrição",2]],@intranet_event.tipo), class:"form-control",prompt:"Selecione o tipo do evento", name:"intranet_event[tipo]", required:true,onchange:"this.value = '#{@intranet_event.tipo}'" %> 
-      </div>
-    </div>
-    
-    <% if @intranet_event.pago %>
-      <div style="width:49.5%;margin-left: auto;" id="div_intranet_event_valor">  
-        <label  class="col-sm-10 col-form-label" >Valor</label>
-        <div class="col-sm-10 correct-md-10" style="margin-right: auto;">
-          <input date="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.valor %>">
-        </div>
-      </div>
-    <% end %>
-  </div>      
-  
-  <div class="form-group row" style="display:flex"> 
-    <% if @intranet_event.tipo == '1' %>  
-      <div class="form-group" style="width: 50%;">  
-        <label  class="col-sm-10 col-form-label" >Total de vagas</label>
-        <div class="col-sm-10 correct-md-10" style="margin: auto;flex: none;">
-          <input date="date" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.qtd_insc_total %>">
-        </div>
-      </div>    
-    <% else %> 
-      <div class="form-group" style="width: 50%;">  
-        <label  class="col-sm-10 col-form-label" >Total de vagas</label>
-        <div class="col-sm-10 correct-md-10" style="margin: auto;flex: none;">
-          <input date="date" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.qtd_insc_cart %>">
-        </div>
-      </div>    
-    <% end %>
-  </div> 
-  <% if @presencs.size != 0 %>  
-    <hr>
-    <div class="page-header">
-      <h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Presença</h1>      
-    </div>
-    <p>Lista de presenças confirmadas.</p>
-    <table  class="table table-hover table-striped mb-0" style="overflow-x: auto;">
-      <thead>
-        <tr> 
-          <th>Nome</th>   
-          <th style="text-align: center;" colspan="3">Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @presencs.each do |ingresso| %>
-          <tr> 
-            <td><%= ingresso.ingresso_nome %></td>    
-            <% if ingresso.intranet_boleto_id %>
-              <td><%= link_to 'Pagar', @bilhetes.find(@boletos.find(ingresso.intranet_boleto_id).id_boleto).url, class:"btn btn-info",target: '_blank'%></td>
-            <% else %>
-              <% if @intranet_event.pago %>
-                <td><%= link_to 'Pagar', intranet_presencs_gerar_pagamento_path(id:ingresso.id,tipo:'evento'), class:"btn btn-info",target: '_blank'%></td>
-              <% end %>
-            <% end %>
-            <% if Time.now < @intranet_event.insc_fim.end_of_day%> 
-              <td style="text-align: center;"> 
-                <a  class="btni" data-bs-toggle="modal" data-bs-target="#exampleModal<%= ingresso.id %>"><i class="fas fa-trash-alt" style="padding:0px;"></i></a>
-                
-                <div class="modal fade" id="exampleModal<%= ingresso.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Deletar presença</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      Deseja cancela presença, de <%= ingresso.ingresso_nome %>?
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal" focus>cancelar</button> 
-                      <%= link_to intranet_presenc_path(id:ingresso.id,m_name:"evento",m_id:@intranet_event.id), method: :delete do %> 
-                        <button type="button" class="btn btn-danger">Excluir</button>
-                      <% end %>
-                    </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            <% else %>
-              <td></td>
-            <% end %>
 
-          </tr>
-        <% end %>
-      </tbody>
-    </table> 
-  <% end %>
-  <% if user_signed_in?%>
-    <% if @qtd_vaga != 0%>
-      <br>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="float: right;">Se inscrever</button>
-    <% end %>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Presença no evento.</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Nome</label>
-                <input type="text" class="form-control" id="recipient-name" placeholder="Informe o nome do ingresso" required="true">
-              </div> 
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-            
-            <button class="btn btn-info" style="float: right;" onclick="seInscreve()">
-              Se inscrever
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
+<script src="https://unpkg.com/imask"></script>
+<%= javascript_pack_tag "events_show"  %> 
+<div class="container" style="margin-bottom: 204px;">   
+	<div class="page-header">
+		<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Evento</h1>      
+	</div>
+	<p>Visualizar Evento Nº <b><%= @intranet_event.id%></b>.</p>  
+	<% if user_signed_in? %>
+		<input value="<%= @intranet_event.id %>" id="event_id" type="hidden">
+		<input value="<%= @dados_assoc.id %>"    id="assoc_id" type="hidden">
+		<input value="<%= current_user.aux_cartorio_id %>"    id="cart_id" type="hidden">
+	<% end %>
+	<ul class="nav nav-tabs" style="margin-bottom: 11px;">
+		<li class="nav-item">
+		<a class="nav-link active" id="btn_menu_1" type="button" >Detalhes da cobrança</a>
+		</li> 
+		<div style="margin-left: auto;">
+		<%= link_to 'Voltar', :back,class:"btn btn-link" %> 
+		<% if can?(:edit, :events) %>
+			<%= link_to 'Editar', edit_intranet_event_path(@intranet_event),class:"btn btn-primary" %> 
+		<% end %> 
+		<% if can?(:destroy, :events) %>
+			<a  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= @intranet_event.id %>">Deletar</i></a>
+		<% end %> 
+		<% if @presencs_total.size > 0 %>
+			<% if can?(:relatorio_insc, :events) %>  
+			<div class="btn-group">
+				<button type="button" class="btn btn-success">Relatório</button>
+				<button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+				<span class="visually-hidden">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu">
+				<% if @presencs_pago.size > 0 %>
+					<li><%= link_to 'Pagos', intranet_events_relatorio_pdf_path(     id: @intranet_event.id ,tipo:  "Pago"),                    target:"blank",class:"dropdown-item" %></li>
+				<% end %> 
+				<% if @presencs_insc.size > 0 %>
+					<li><%= link_to 'Inscritos', intranet_events_relatorio_pdf_path( id: @intranet_event.id ,tipo:  "Inscrito"),                target:"blank",class:"dropdown-item" %></li>
+				<% end %>
+				<% if @presencs_total.size > 0 %>
+					<li><%= link_to 'Completo', intranet_events_relatorio_pdf_path(  id: @intranet_event.id ,tipo:  "Pago Inscrito Cancelado"), target:"blank",class:"dropdown-item" %></li>  
+				<% end %>
+				<% if @presencs_cancel.size > 0 %>
+					<li><%= link_to 'Cancelados', intranet_events_relatorio_pdf_path(id: @intranet_event.id ,tipo:  "Cancelado"),               target:"blank",class:"dropdown-item" %></li>  
+				<% end %>
+				<li><hr class="dropdown-divider"></li>  
+				<li><%= link_to 'Geral CSV', intranet_events_relatorio_csv_path(m_id: @intranet_event.id), target:"blank",class:"dropdown-item" %></li>   
+				</ul>
+			</div>
+			<% end %>
+		<% end %>
+		</div>
+
+		<% if user_signed_in? == false %>
+		<div class="modal fade" id="exampleModal<%= @intranet_event.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Deletar evento</h5> 
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				Deseja deletar Evento <%= @intranet_event.titulo %>.
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
+				<%= link_to intranet_event_path, method: :delete do %> 
+					<button type="button" class="btn btn-danger">Excluir</button>
+				<% end %>
+				</div>
+			</div>
+			</div>
+		</div>
+		<% end %>
+	</ul>
+	<div class="form-group row" style="display:flex">
+		<div style="width:100%">
+		<label  class="col-sm-10 col-form-label" >Título</label>
+		<div class="col-sm-10 correct-md-10" >
+			<input type="text" readonly class="form-control-plaintext input-show"  style="height: auto" value="<%= @intranet_event.titulo %>">
+		</div>
+		</div>
+	</div> 
+	<div class="form-group row" style="display:flex">
+		<div style="width:100%">
+		<label  class="col-sm-10 col-form-label" >Sub Título</label>
+		<div class="col-sm-10 correct-md-10" >
+			<input type="text" readonly class="form-control-plaintext input-show"  style="height: auto" value="<%= @intranet_event.cabecalho_1 %>">
+		</div>
+		</div>
+	</div>
+	<div class="form-group row" style="display:flex">
+		<div style="width:100%">
+		<label  class="col-sm-10 col-form-label" >Link do evento</label>
+		<div class="col-sm-10 correct-md-10" >
+			<a type="text" class="form-control" target="blank" href="<%= @intranet_event.link %>" style="height: auto"><%= @intranet_event.link %></a>
+		</div>
+		</div>
+	</div>
+	<div class="form-group row" style="display:flex"> 
+		<div style="width:49.5%">
+		<label  class="col-sm-10 col-form-label" >Periodo de inscrição inicial</label>
+		<div class="col-sm-10 correct-md-10" >
+			<input date="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.insc_ini.strftime("%d/%m/%Y") %>">
+		</div>
+		</div>
+		<div style="width:49.5%;margin-left: auto;">
+		<label  class="col-sm-10 col-form-label" >Periodo de inscrição final</label>
+		<div class="col-sm-10 correct-md-10" >
+			<input date="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.insc_fim.strftime("%d/%m/%Y") %>">
+		</div>
+		</div>
+	</div>
+	<div class="form-group row" style="display:flex"> 
+		<div style="width:49.5%">
+		<label  class="col-sm-10 col-form-label" >Data de inicio do evento</label>
+		<div class="col-sm-10 correct-md-10" >
+			<input date="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.periodo_ini.strftime("%d/%m/%Y") %>">
+		</div>
+		</div>
+		<div style="width:49.5%;margin-left: auto;">
+		<label  class="col-sm-10 col-form-label" >Data final do evento</label>
+		<div class="col-sm-10 correct-md-10" >
+			<input date="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.periodo_fim.strftime("%d/%m/%Y") %>">
+		</div>
+		</div>
+	</div>  
+	<% if @intranet_event.pago %>
+		<div class="form-group row">   
+		<div style="width:49.5%;margin-right: auto;"> 
+			<label  class="col-sm-10 col-form-label" >Data limite para os pagamentos</label>
+			<div class="col-sm-10 correct-md-10" style="margin-right: auto;">
+			<input date="date" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.data_max_pagamento.strftime("%d/%m/%Y") %>">
+			</div>
+		</div>
+		</div>    
+	<% end %>
+	<div class="form-group row" style="display:flex"> 
+		<div style="width:49.5%;margin-right: auto;"> 
+			<label  class="col-sm-10 col-form-label" >Tipo de cobrança</label>
+			<div class="col-sm-10 correct-md-10" style="margin-right: auto;">
+				<%= select_tag :tipo,options_for_select([["Por cartório",1],["Por inscrição",2]],@intranet_event.tipo), class:"form-control",prompt:"Selecione o tipo do evento", name:"intranet_event[tipo]", required:true,onchange:"this.value = '#{@intranet_event.tipo}'" %> 
+			</div>
+		</div>
+	
+		<% if @intranet_event.pago %>
+			<div style="width:49.5%;margin-left: auto;" id="div_intranet_event_valor">  
+				<label  class="col-sm-10 col-form-label" >Valor</label>
+				<div class="col-sm-10 correct-md-10" style="margin-right: auto;">
+				<input date="text" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.valor %>">
+				</div>
+			</div>
+		<% end %>
+	</div>      
+
+	<div class="form-group row" style="display:flex"> 
+		<% if @intranet_event.tipo == '1' %>  
+		<div class="form-group" style="width: 50%;">  
+			<label  class="col-sm-10 col-form-label" >Total de vagas</label>
+			<div class="col-sm-10 correct-md-10" style="margin: auto;flex: none;">
+			<input date="date" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.qtd_insc_total %>">
+			</div>
+		</div>    
+		<% else %> 
+		<div class="form-group" style="width: 50%;">  
+			<label  class="col-sm-10 col-form-label" >Total de vagas</label>
+			<div class="col-sm-10 correct-md-10" style="margin: auto;flex: none;">
+			<input date="date" readonly class="form-control-plaintext input-show" id="valor" value="<%= @intranet_event.qtd_insc_cart %>">
+			</div>
+		</div>    
+		<% end %>
+	</div> 
+	<% if @presencs.size != 0 && user_signed_in? %>  
+		<hr>
+		<div class="page-header">
+		<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Presença</h1>      
+		</div>
+		<p>Lista de presenças confirmadas.</p>
+		<table  class="table table-hover table-striped mb-0" style="overflow-x: auto;">
+		<thead>
+			<tr> 
+			<th>#</th> 
+			<th>Nome crachá</th>    
+			<th>Função</th>   
+			<th>status</th>   
+			<th style="text-align: center;" colspan="3">Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @presencs.each do |ingresso| %>
+			<tr>  
+				<td><%= ingresso.numero %></td>    
+				<td><%= ingresso.ingresso_nome %></td>  
+				<td><%= ingresso.funcao %></td>    
+				<td><%= ingresso.status %></td>  
+				<% if @intranet_event.pago %>  
+					<% if ingresso.pago && ingresso.intranet_boleto_id%>
+						<td style="text-align:center;">
+							<%= link_to @bilhetes.find(@boletos.find(ingresso.intranet_boleto_id).id_boleto).url, class:"btn btn-primary",target: '_blank' do %> 
+								<i class="fas fa-file-invoice-dollar"></i>
+							<% end %>
+						</td>
+					<% else %>
+						<td  style="text-align:center" >
+							<%= link_to intranet_presencs_gerar_pagamento_path(id:ingresso.id,tipo:'evento'), class:"btn btn-primary",target: '_blank',id:"gerar_boleto" do %>
+								<i class="fas fa-credit-card"></i>
+							<% end %>
+						</td>
+					<% end %> 
+				<% else %>
+					<td></td> 
+				<% end %> 
+				<% if Time.now < @intranet_event.insc_fim.end_of_day && ingresso.pago == [false,nil] %>  
+					<td style="text-align:center" >
+						<a  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%= ingresso.id %>"><i class="fas fa-trash-alt" style="padding:0px;"></i></a>  
+						<div class="modal fade" id="exampleModal<%= ingresso.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+							<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Deletar presença</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+							Deseja cancela presença, de <%= ingresso.ingresso_nome %>?
+							</div>
+							<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
+							<%= link_to intranet_presencs_cancelar_presenca_evento_path(id:ingresso.id,m_name:"evento",m_id:@intranet_event.id) do %> 
+								<button type="button" class="btn btn-danger">Excluir</button> 
+							<% end %>
+							</div>
+							</div>
+						</div>
+						</div>
+					</td> 
+				<% end %> 
+			</tr>
+			<% end %>
+		</tbody>
+		</table> 
+	<% end %>
+	<% if user_signed_in?%>
+		<% if @qtd_vaga != 0%>
+		<br>
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="float: right;">Se inscrever</button>
+		<% end %>
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Presença no evento.</h5> 
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form>
+				<div class="form-group">
+					<label for="recipient-name" class="col-form-label">Nome</label>
+					<input type="text" class="form-control" id="recipient-name" placeholder="Informe o nome do ingresso" required="true">
+				</div> 
+				<div class="form-group">
+					<label for="recipient-name-cracha" class="col-form-label">Nome crachá</label>
+					<input type="text" class="form-control" id="recipient-name-cracha" placeholder="Informe o nome do ingresso" required="true">
+				</div> 
+				<div class="form-group">
+					<label for="recipient-email" class="col-form-label">E-mail</label>
+					<input type="text" class="form-control" id="recipient-email" placeholder="Informe o nome do ingresso" required="true">
+				</div> 
+				<div style="display:flex">
+					<div class="form-group" style="width:49%;margin-right:auto">
+					<label for="recipient-telefone" class="col-form-label" style="width:100%">Telefone 
+						<span style="float: right;font-size: 13px;">whatsapp? <input type="checkbox" id="recipient-whatsapp"></span>
+					</label>
+					<input type="text" class="form-control" id="recipient-telefone" placeholder="Informe o nome do ingresso" required="true">
+					</div> 
+					<div class="form-group" style="width:49%;margin-left:auto">
+					<label for="recipient-funcao" class="col-form-label">Função</label>
+					<select class="form-select" aria-label="Default select example" id="recipient-funcao">
+						<option selected>Selecione sua profissão</option>
+						<option value="Titular">Titular</option>
+						<option value="Substituto">Substituto</option>
+						<option value="Funcionário">Funcionário</option>
+						<option value="Acompanhante">Acompanhante</option>
+					</select> 
+					</div> 
+				</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				
+				<button class="btn btn-info" style="float: right;" id="se_inscreve">
+				Se inscrever
+				</button>
+			</div>
+			</div>
+		</div>
+		</div>
+	<% end %>
 
 </div> 
- 
+
 <style>
-  .input-show{
-    background: #f8f9fa;
-    border-radius: 2px;
-    border: 1px solid #ededed;
-    padding-left: 12px;
-  }
-  
-  .correct-md-10{
-    max-width: 100%;
-    width: 100%;
-  }
+.input-show{
+	background: #f8f9fa;
+	border-radius: 2px;
+	border: 1px solid #ededed;
+	padding-left: 12px;
+}
+
+.correct-md-10{
+	max-width: 100%;
+	width: 100%;
+}
 </style> 

@@ -40,7 +40,6 @@
               <% if user_signed_in? == false %> 
                 <td style="text-align: center;"> 
                   <a  class="btni" data-bs-toggle="modal" data-bs-target="#exampleModal<%= operador.id %>"><i class="fas fa-trash-alt" style="padding:0px;"></i></a>
-                  
                   <div class="modal fade" id="exampleModal<%= operador.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
@@ -52,7 +51,7 @@
                         Deseja deletar operador, <%= operador.nome%>?
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" focus>cancelar</button> 
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" focus>cancelar</button> 
                         <%= link_to administrador_operador_deletar_path(id: operador.id), method: :delete do %> 
                           <button type="button" class="btn btn-danger">Excluir</button>
                         <% end %>

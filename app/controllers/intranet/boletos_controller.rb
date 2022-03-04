@@ -66,7 +66,7 @@ class Intranet::BoletosController < ApplicationController
   def create 
     @id_cart   = params[:intranet_boleto][:intranet_cartorio_id]
     @associado = Intranet::Associado.all.where(ativo: true).where("intranet_cartorio @> ?", "{#{params[:intranet_boleto][:intranet_cartorio_id]}}").take
-    @intranet_boleto    = Intranet::Boleto.new(intranet_boleto_params.merge(intranet_associado_id: @associado.id),metodo:'avulso')
+    @intranet_boleto    = Intranet::Boleto.new(intranet_boleto_params.merge(intranet_associado_id: @associado.id,metodo:'avulso'))
     respond_to do |format|
       if @intranet_boleto.save
         Intranet::Boleto.createBoleto(@intranet_boleto,@id_cart)

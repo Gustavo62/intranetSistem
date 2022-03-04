@@ -18,7 +18,7 @@ Rails.application.configure do
 		config.action_controller.perform_caching = true
 		config.action_controller.enable_fragment_cache_logging = true
 
-		config.cache_store = :memory_store
+		config.cache_store = :dalli_store
 		config.public_file_server.headers = {
 			"Cache-Control" => "public, max-age=#{2.days.to_i}"
 		}
@@ -36,10 +36,10 @@ Rails.application.configure do
 	# Store uploaded files on the local file system (see config/storage.yml for options).
 	config.active_storage.service = :local 
 	# Don't care if the mailer can't send.
-	config.action_mailer.default_url_options = { host: "177.200.91.162:880" } #  e URLs in HTML email
+	config.action_mailer.default_url_options = { host: "localhost:3000" } #  e URLs in HTML email
 	config.action_mailer.default :charset => "utf-8"
 	# Allow generating absolute urls with routing url helpers.
-	Rails.application.routes.default_url_options[:host] = '177.200.91.162:880'
+	Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 	config.action_mailer.raise_delivery_errors = true
 
 	config.action_mailer.perform_caching = false

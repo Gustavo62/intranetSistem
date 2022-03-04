@@ -1,5 +1,5 @@
 class Intranet::Boleto < ApplicationRecord 
-
+  require "cpf_cnpj"
   def self.pesquisa_bolet(status)
     if status.present?  
       if status == "0"
@@ -17,7 +17,7 @@ class Intranet::Boleto < ApplicationRecord
     @user       = User.find_by_id(@associado.user_id)
     @cartorio   = Intranet::Cartorio.find_by_id(id_cart)
     @cidade     = Intranet::Cidade.find_by_id(@cartorio.intranet_cidade_id) 
-
+    cpf = CPF.new(@user.cpf.to_s.rjust(11, "0"))  
     @boleto = BoletoSimples::BankBillet.new(
       amount: cobranca.valor.gsub("R$ ", ""),
       description: cobranca.descricao,
@@ -26,7 +26,7 @@ class Intranet::Boleto < ApplicationRecord
       customer_address_complement: @cartorio.complemento || "Vazio",
       customer_address_number: @cartorio.numero || "Vazio",
       customer_city_name: @cidade.estado,
-      customer_cnpj_cpf: @user.cpf,
+      customer_cnpj_cpf: cpf.formatted,
       customer_email: @user.email,
       customer_neighborhood: @cidade.municipio,
       customer_person_name: @user.nome,
@@ -51,6 +51,7 @@ class Intranet::Boleto < ApplicationRecord
   end
 
   def self.geraCobranca # boletos mensalidade
+    AdminMailer.notifica_gera_cobranca("JOB INIADO - Criação de Boletos","Criação de boletos mensais referência ao Mês #{I18n.t "month_names.#{Time.new().strftime("%B")}"}")
     puts "Gerando remessa"
     puts "Desc: Contrib mensal"
     puts ""
@@ -116,6 +117,7 @@ class Intranet::Boleto < ApplicationRecord
         end  
       end 
     end
+    AdminMailer.notifica_gera_cobranca("JOB Finalizado - Criação de Boletos","Criação de boletos mensais referência ao Mês #{I18n.t "month_names.#{Time.new().strftime("%B")}"}")
   end
 
   def self.atualizaStatusBoleto # todos os boletos
@@ -131,6 +133,21 @@ class Intranet::Boleto < ApplicationRecord
         end
         if @bank_billet
           boleto.status = @bank_billet.status
+          if boleto.tipo == 'evento' 
+            @pago   = false
+            if boleto.status == 'paid'
+              @status = 'Pago' 
+              @pago   = true
+            else 
+              if boleto.status == 'canceled'
+                @status = 'Cancelado' 
+              else 
+                @status = boleto.status 
+              end
+            end
+            @presenc = Intranet::Presenc.where(intranet_boleto_id: boleto.id).take
+            @presenc.update(status:@status,pago: @pago)
+          end 
           boleto.save
         end
       end 

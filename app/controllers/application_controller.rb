@@ -85,16 +85,29 @@ class ApplicationController < ActionController::Base
     def reload_csrf 
         render json: { csrf: form_authenticity_token }, status: :ok
     end 
+    
     rescue_from CanCan::AccessDenied do |exception|
         
         if user_signed_in? 
-            redirect_to root_url, :alert => exception.message
+            redirect_to root_url, :alert => "Você não possui autorização para acessar esse link"
         else
             if admin_signed_in? 
-                redirect_to administrador_home_path, :alert => exception.message
+                redirect_to administrador_home_path, :alert => "Você não possui autorização para acessar esse link"
             else
                 redirect_to root_url
             end
         end
     end 
+end
+
+class Array
+    def to_xls
+      content = ''
+      self.each do |row|
+        row.map! {|col| col = col.to_s.gsub(/(\t|\r\n|\r|\n)/sim, " ").gsub(/ +/, " ") }
+        content << row.join("\t")
+        content << "\n"
+      end
+      content
+    end
 end

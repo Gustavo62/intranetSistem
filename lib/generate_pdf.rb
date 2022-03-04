@@ -1,5 +1,6 @@
 require 'prawn' 
 require 'enumerator'
+require "cpf_cnpj"
 module GeneratePdf  
     PDF_OPTIONS_PORTRAIT = { 
         :page_size   => "A4", 
@@ -13,7 +14,7 @@ module GeneratePdf
     }
     def self.run_pdf(user_d,associado_d,cartorio_d,cidade_d) 
         Prawn::Document.new(PDF_OPTIONS_PORTRAIT) do |pdf|
-            pdf.image "#{Rails.root}/app/javascript/stylesheets/logo.png", :at => [10,740], :width => 70, :height => 70
+            pdf.image "#{Rails.root}/app/javascript/images/logo.png", :at => [10,740], :width => 70, :height => 70
             pdf.draw_text "Ficha de Filiação", :at => [290,710], :size => 18, :style => :bold
             pdf.bounding_box([290,700], width: 155) do
                 pdf.table([["Nº #{cartorio_d.id}-#{associado_d.id}"]], :column_widths =>[155])
@@ -157,7 +158,7 @@ module GeneratePdf
             @ids_params = ids.each_slice(10).to_a 
             @contagem = 0
             @ids_params.each do | ids_param | 
-                pdf.image "#{Rails.root}/app/assets/images/logo.png", :at => [0,540], :width => 70, :height => 70
+                pdf.image "#{Rails.root}/app/javascript/images/logo.png", :at => [0,540], :width => 70, :height => 70
                 pdf.move_down 60  
                 pdf.draw_text "_________________________________________________________________________________________________________________________________________________________________________________________________________________", :at => [0, 460], :size => 7, :width => 1300 
                 pdf.draw_text "ANOREG - CE", :at => [75,520], :size => 14, :style => :bold  
@@ -199,7 +200,50 @@ module GeneratePdf
                 end
             end 
             pdf.render_file("public/relatorio_simples.pdf") 
-        end  
-        
+        end   
     end 
+    def self.event_relatorio_insc(evento,tipo)
+        Prawn::Document.new(PDF_OPTIONS_LANDSCAPE) do |pdf| 
+            @contagem        = 0 
+            @wpp      = "Não"
+            @presencs = Intranet::Presenc.all.where(m_id: evento.id,status: tipo).order(:id).each_slice(10)
+            @presencs_total = Intranet::Presenc.all.where(m_id: evento.id,status: tipo).order(:id)
+            if @presencs_total.size % 10 == 0
+                @total_paginas = @presencs_total.size / 10
+            else
+                @total_paginas = (@presencs_total.size / 10) + 1
+            end   
+            @presencs.each do | presencs_obj | 
+                pdf.image "#{Rails.root}/app/javascript/images/logo.png", :at => [0,540], :width => 70, :height => 70
+                pdf.move_down 60  
+                pdf.draw_text "_________________________________________________________________________________________________________________________________________________________________________________________________________________", :at => [0, 460], :size => 7, :width => 1300 
+                pdf.draw_text "ANOREG - CE", :at => [75,520], :size => 14, :style => :bold
+                pdf.draw_text "Relatorio De Incritos, Evento: #{evento.titulo}. N°: #{evento.id}.", :at => [75,495], :size => 10
+                pdf.draw_text "Data de geração do relatório: #{Time.now.strftime("%d/%m/%Y")}.", :at => [75,485], :size => 10
+                pdf.draw_text "Quantidade de resultados: #{@presencs_total.size}.", :at => [75,475], :size => 10
+                pdf.move_down 10 
+                @x      = 293
+                @data   = [["Nª","Cartorio","Cidade","E-mail","Nome Cracha","Telefone","Whatsapp","Status"]]   
+                presencs_obj.to_a.each do | presenc | 
+                    @cart   = Intranet::Cartorio.find_by_id(presenc.intranet_cartorio_id)
+                    @cid    = Intranet::Cidade.find_by_id(@cart.intranet_cidade_id)
+                    @wpp = "Sim" if presenc.whatsapp 
+                    @data += [["#{presenc.numero}","#{@cart.nome}","#{@cid.municipio}","#{presenc.email}","#{presenc.cracha_nome}","#{presenc.telefone}","#{@wpp}","#{presenc.status}"]]
+                    @wpp      = "Não"
+                end 
+                pdf.table(@data, :header => true,:column_widths => [25,220,96,100,150.89, 100,60,60], :row_colors => ["F0F0F0", "bbdaff"], :cell_style => {:padding => [1, 1, 1, 10]}, :cell_style => { :size => 8})
+                @contagem += 1   
+                # Inclui em baixo da folha do lado direito a data e o numero da página usando a tag page
+                pdf.draw_text "_________________________________________________________________________________________________________________________________________________________________________________________________________________", :at => [0, -20], :size => 7, :width => 1300 
+                pdf.draw_text "Impresso em: #{(Time.now).strftime("%d/%m/%y às %H:%M")}", :at => [5, -30], :size => 7 
+                pdf.draw_text "Página #{@contagem} / #{@total_paginas}", :at => [pdf.bounds.right - 45, -30], :size => 8 
+
+                if presencs_obj != @presencs.to_a.last
+                    # Muda de página para incluir o outro gráfico
+                    pdf.start_new_page 
+                end
+            end 
+            pdf.render_file("public/docs/event_relatorio_insc.pdf")  
+        end   
+    end
 end
