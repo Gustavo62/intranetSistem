@@ -6,8 +6,8 @@ development:
 
   #detalhes sendgrid integration
   SMTP_USER_NAME:   apikey
-  API_KEY_SENDGRID: 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   
-  DOMAIN_NAME:      anoregce.org.br
+  API_KEY_SENDGRID: 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   
+  DOMAIN_NAME:      intra.anoregce.org.br
 production: 
   #detalhes boleto simples integration
   api_token:        -J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM
@@ -16,5 +16,5 @@ production:
   environment: production
   #detalhes sendgrid integration
   SMTP_USER_NAME:   apikey
-  API_KEY_SENDGRID: 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   
-  DOMAIN_NAME:      anoregce.org.br
+  API_KEY_SENDGRID: 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   
+  DOMAIN_NAME:      intra.anoregce.org.br

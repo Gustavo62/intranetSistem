@@ -219,6 +219,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    kgio (2.11.4)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -309,6 +310,7 @@ GEM
       method_source
       rake (>= 0.13)
       thor (~> 1.0)
+    raindrops (0.20.0)
     rake (13.0.6)
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
@@ -412,6 +414,9 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8)
+    unicorn (6.1.0)
+      kgio (~> 2.6)
+      raindrops (~> 0.7)
     warden (1.2.9)
       rack (>= 2.0.9)
     wasabi (3.7.0)
@@ -494,6 +499,7 @@ DEPENDENCIES
   turbolinks (~> 5)
   twilio-ruby
   tzinfo-data
+  unicorn
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)
