@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+Ruby '2.7.1'
+#teste
 # Mensageria whatsapp
 gem 'twilio-ruby'
 # Gráficos
