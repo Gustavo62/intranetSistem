@@ -30,7 +30,6 @@ BoletoSimples.configure do |c|
   #c.environment = ENV["BOLETO_SIMPLES_METODO"]
   #c.api_token  = ENV["API_TOKEN"] 
   c.environment = :sandbox
-  c.user_agent = 'gust904@gmail.com'
-  c.api_token = '-J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM'
-  c.cache = ActiveSupport::Cache.lookup_store(:dalli_store, ['localhost:11211'], namespace: 'boletosimples_client', compress: true) 
+  c.user_agent  = 'gust904@gmail.com'
+  c.api_token   = ENV["BOLETO_SIMPLES"]
 end
