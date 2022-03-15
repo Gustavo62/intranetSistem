@@ -8,7 +8,8 @@ development:
   SMTP_USER_NAME:   apikey
   API_KEY_SENDGRID: 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   
   DOMAIN_NAME:      intra.anoregce.org.br
-production: 
+production:  
+  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
   #detalhes boleto simples integration
   api_token:        -J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM
   IP_PORT_SERV:     192.168.0.250 
