@@ -27,7 +27,7 @@ module IntraSin
 end
 
 BoletoSimples.configure do |c|
-  c.environment = ENV["BOLETO_SIMPLES_ENVIROMENT"]
+  c.environment = ENV["BOLETO_SIMPLES_ENVIROMENT"].to_sym
   c.user_agent  = ENV["BOLETO_SIMPLES_USER_AGENT"]
   c.api_token   = ENV["BOLETO_SIMPLES_API_TOKEN"]
 end
