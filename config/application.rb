@@ -27,9 +27,7 @@ module IntraSin
 end
 
 BoletoSimples.configure do |c|
-  #c.environment = ENV["BOLETO_SIMPLES_METODO"]
-  #c.api_token  = ENV["API_TOKEN"] 
-  c.environment = :sandbox
-  c.user_agent  = 'gust904@gmail.com'
-  c.api_token   = ENV["BOLETO_SIMPLES"]
+  c.environment = ENV["BOLETO_SIMPLES_ENVIROMENT"]
+  c.user_agent  = ENV["BOLETO_SIMPLES_USER_AGENT"]
+  c.api_token   = ENV["BOLETO_SIMPLES_API_TOKEN"]
 end
