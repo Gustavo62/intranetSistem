@@ -19,6 +19,7 @@ group :development, :test do
 end
 gem 'aws-sdk-rails', '~> 3'
 gem 'aws-sdk-s3', '~> 1'
+
 group :production do
  gem 'pg', '~> 1.1'
 end

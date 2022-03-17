@@ -19,11 +19,6 @@ test:
 
 production:
   <<: *default
-  # database: database_anoreg_intranet_production
-  # username: postgres
-  # password: 123456 
-  database: <%= ENV['RDS_DB_NAME'] %>
-  username: <%= ENV['RDS_USERNAME'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host: <%= ENV['RDS_HOSTNAME'] %>
-  port: <%= ENV['RDS_PORT'] %>
+  database: database_anoreg_intranet_production
+  username: postgres
+  password: 123456  
