@@ -18,7 +18,6 @@ Rails.application.configure do
   config.require_master_key = false
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = true
   Rails.application.config.assets.precompile += %w(creative/manifest.js creative/manifest.css images/* bootstrap/* fonts/* magnific-popup/* morphext/* owlcarousel2/* rs-plugin-5/* stylesheets/* javascripts/* config/*)
   # Compress CSS using a preprocessor.
   config.assets.css_compressor = :sass
@@ -88,7 +87,8 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
-
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+ 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
