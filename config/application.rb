@@ -21,16 +21,15 @@ module IntraSin
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
      
-    config.middleware.use Rack::Deflater 
-    config.assets.initialize_on_precompile = false
+    config.middleware.use Rack::Deflater  
   end
 end
 
 BoletoSimples.configure do |c|
-  # c.environment = ENV["BOLETO_SIMPLES_ENVIROMENT"].to_sym
-  # c.user_agent  = ENV["BOLETO_SIMPLES_USER_AGENT"]
-  # c.api_token   = ENV["BOLETO_SIMPLES_API_TOKEN"]
-  c.environment  = 'sandbox'
-  c.user_agent   = 'gust904@gmail.com'
-  c.api_token    = '-J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM'
+  c.environment = ENV["BOLETO_SIMPLES_ENVIROMENT"].to_sym
+  c.user_agent  = ENV["BOLETO_SIMPLES_USER_AGENT"]
+  c.api_token   = ENV["BOLETO_SIMPLES_API_TOKEN"]
+  # c.environment  = 'sandbox'
+  # c.user_agent   = 'gust904@gmail.com'
+  # c.api_token    = '-J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM'
 end
