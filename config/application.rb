@@ -30,4 +30,7 @@ BoletoSimples.configure do |c|
   c.environment = ENV["BOLETO_SIMPLES_ENVIROMENT"].to_sym
   c.user_agent  = ENV["BOLETO_SIMPLES_USER_AGENT"]
   c.api_token   = ENV["BOLETO_SIMPLES_API_TOKEN"]
+  # c.environment  = 'sandbox'
+  # c.user_agent   = 'gust904@gmail.com'
+  # c.api_token    = '-J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM'
 end
