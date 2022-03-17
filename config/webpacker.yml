@@ -52,9 +52,9 @@ development:
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
     https: false
-    host: intra.anoregce.org.br/
+    host: localhost
     port: 3035
-    public: intra.anoregce.org.br/:3035
+    public: localhost:3035
     hmr: false
     # Inline should be set to true if using HMR
     inline: true
@@ -80,7 +80,7 @@ test:
 production:  
   <<: *default 
   # Production depends on precompilation of packs prior to booting for performance.
-  compile: false 
+  compile: true 
   # Extract and emit a css file
   extract_css: true
 
