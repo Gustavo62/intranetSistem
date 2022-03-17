@@ -76,7 +76,9 @@ group :production do
   gem 'unicorn'
 end
 # Devise
-gem 'devise' 
+gem 'devise'
+# Use Active storage Variant.
+gem 'image_processing', '~> 1.2'
 # font-awesome-rails.
 gem "font-awesome-rails"
 #Apartment allows Rack applications to deal with database multitenancy through ActiveRecord.
