@@ -19,7 +19,7 @@ Rails.application.configure do
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = true
-  Rails.application.config.assets.precompile += %w(creative/manifest.js creative/manifest.css images/* bootstrap/* fonts/* magnific-popup/* morphext/* owlcarousel2/* rs-plugin-5/* stylesheets/* javascripts/* config/*)
+  config.assets.precompile += %w(creative/manifest.js creative/manifest.css images/* bootstrap/* fonts/* magnific-popup/* morphext/* owlcarousel2/* rs-plugin-5/* stylesheets/* javascripts/* config/*)
   # Compress CSS using a preprocessor.
   config.assets.css_compressor = :sass
   config.assets.digest = true
