@@ -18,6 +18,7 @@ group :development, :test do
  gem 'sqlite3'
 end
 gem "aws-sdk-s3", require: false
+gem 'aws-sdk', '~> 2'
 group :production do
  gem 'pg', '~> 1.1'
 end
