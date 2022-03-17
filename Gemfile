@@ -17,7 +17,7 @@ gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 group :development, :test do
  gem 'sqlite3'
 end
-
+gem "aws-sdk-s3", require: false
 group :production do
  gem 'pg', '~> 1.1'
 end
