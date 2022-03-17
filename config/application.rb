@@ -22,6 +22,7 @@ module IntraSin
     # config.eager_load_paths << Rails.root.join("extras")
      
     config.middleware.use Rack::Deflater  
+    config.serve_static_assets = true
   end
 end
 
