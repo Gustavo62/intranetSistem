@@ -112,14 +112,23 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-  config.paperclip_defaults = {
-    storage: :s3,
-    s3_protocol: :https,
-    s3_credentials: {
-      bucket: ENV.fetch('S3_BUCKET'),
-      access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
-      secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
-      s3_region: ENV.fetch('AWS_REGION'),
-    }
-  } 
+  # config.paperclip_defaults = {
+  #   storage: :s3,
+  #   s3_protocol: :https,
+  #   s3_credentials: {
+  #     bucket: ENV.fetch('S3_BUCKET'),
+  #     access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
+  #     secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
+  #     s3_region: ENV.fetch('AWS_REGION'),
+  #   }
+  # } 
+  Paperclip::Attachment.default_options[:s3_credentials] = {
+    :bucket => ENV["S3_BUCKET"],
+    :access_key_id => ENV["AWS_ACCESS_KEY_ID"],
+    :secret_access_key => ENV["AWS_SECRET_ACCESS_KEY"],
+    :region => ENV["AWS_REGION"]
+  }
+  Paperclip::Attachment.default_options[:s3_region] = ENV["AWS_REGION"]
+  Paperclip::Attachment.default_options[:s3_host_name] = 's3.amazonaws.com'
+  Paperclip.options[:command_path] = 'usr/local/bin'
 end
