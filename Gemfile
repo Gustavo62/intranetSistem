@@ -2,7 +2,10 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
+<<<<<<< HEAD
 #teste
+=======
+>>>>>>> parent of b0d14d1... v1.0.0
 # Mensageria whatsapp
 gem 'twilio-ruby'
 # Gráficos

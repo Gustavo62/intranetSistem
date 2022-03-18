@@ -19,7 +19,13 @@ test:
 
 production:
   <<: *default
+<<<<<<< HEAD
   database: ENV["DB_DB"]
   username: ENV["DB_USERNAME"]
   password: ENV["DB_PASSWORD"]
   host: ENV["DB_PASSWORD"]
+=======
+  database: database_anoreg_intranet_production
+  username: postgres
+  password: 123456 
+>>>>>>> parent of b0d14d1... v1.0.0
