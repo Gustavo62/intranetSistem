@@ -3,7 +3,7 @@
   <div class="page-header">
 		<h1 style="border-bottom: 1px solid #f8f9fa;margin-top: 3%;">Dados Pessoais</h1>      
 	</div> 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), multipart: true, html: { method: :put }) do |f| %>
     <div class="row" style="margin-right: 0px;margin-left: 0px;">
       <div class="col-3 card shadow p-3 mb-5 bg-white rounded" style="text-align: center;background: #f8f9fa;margin-right: 1%;height: 380px;">
         <% if @admin.avatar.attached? %>
