@@ -8,7 +8,7 @@
       <div class="col-3 card shadow p-3 mb-5 bg-white rounded" style="text-align: center;background: #f8f9fa;margin-right: 1%;height: 380px;" >
         <div>
           <% if @admin.avatar.attached? %>
-            <%= image_pack_tag(@admin.avatar_thumbnail, class: 'shadow-sm mb-5 bg-white rounded foto_edit',id:"foto_edit")%>
+            <%= image_tag(@admin.avatar.url, class: 'shadow-sm mb-5 bg-white rounded foto_edit',id:"foto_edit")%>
           <% else %>
             <%= image_pack_tag('default.png', class: 'shadow-sm mb-5 bg-white rounded foto_edit',id:"foto_edit")%>
           <% end %> 
