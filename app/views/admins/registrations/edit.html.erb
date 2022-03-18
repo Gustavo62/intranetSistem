@@ -6,7 +6,7 @@
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put,:multipart => true}) do |f| %>
     <div class="row" style="margin-right: 0px;margin-left: 0px;">
       <div class="col-3 card shadow p-3 mb-5 bg-white rounded" style="text-align: center;background: #f8f9fa;margin-right: 1%;height: 380px;">
-        <% if @admin.avatar.attached? %>
+        <% if @admin.avatar.exists? %>
           <%= image_tag(current_admin.avatar.url, class: 'shadow-sm mb-5 bg-white rounded foto_edit',id:"foto_edit" )%> 
         <% else %>
           <%= image_pack_tag('default.png', class: 'shadow-sm mb-5 bg-white rounded foto_edit',id:"foto_edit" )%>
