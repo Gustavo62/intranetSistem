@@ -63,7 +63,7 @@ class Admins::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit( :account_update, keys: [:nome,:avatar, :email,  :acesso, :password, :password_confirmation,:senhaPadrao,:cpf, :lembrete, privilegio_id: [], departamento_id: []]) 
   end
   def admin_params
-    params.require(:admin).permit(:avatar_file_name, :nome, :isAdmin, :email,  :acesso,:password, :password_confirmation,:cpf, :lembrete,:avatar,:senhaPadrao, privilegio_id: [], departamento_id: [])
+    params.require(:admin).permit(:avatar_file_name, :avatar_content_type, :nome, :isAdmin, :email,  :acesso,:password, :password_confirmation,:cpf, :lembrete,:avatar,:senhaPadrao, privilegio_id: [], departamento_id: [])
   end
   def after_sign_up_path_for(resource)
     super(resource) 
