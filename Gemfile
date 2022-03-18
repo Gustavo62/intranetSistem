@@ -19,8 +19,7 @@ group :development, :test do
 end
 gem 'aws-sdk-rails', '~> 3'
 gem 'aws-sdk-s3', '~> 1' 
-gem 'paperclip'
-gem 'aws-sdk', '~> 2.3'
+gem 'paperclip' 
 group :production do
  gem 'pg', '~> 1.1'
 end
