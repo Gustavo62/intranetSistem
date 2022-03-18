@@ -5,6 +5,7 @@ development:
 
   #detalhes sendgrid integration
   SMTP_USER_NAME:   apikey
+<<<<<<< HEAD
   API_KEY_SENDGRID: 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   
   DOMAIN_NAME:      intra.anoregce.org.br
   boleto_simples_enviroment: sandbox
@@ -15,11 +16,16 @@ production:
   boleto_simples_user_agent: intranet@anoregce.org.br
   boleto_simples_api_token:  mYbEbQK3XEAwa0QbdVWMu8XcS8FMdEteTdNcLT6R4ww
   secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+=======
+  API_KEY_SENDGRID: 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   
+  DOMAIN_NAME:      anoregce.org.br
+production: 
+>>>>>>> parent of 0ab6b9d... v1.0.0
   #detalhes boleto simples integration
   api_token:        -J04vfs8S0jIItnM-RIVJzo1xuhd6guxwOs3FuQZWUM
   IP_PORT_SERV:     192.168.0.250  
   environment: production
   #detalhes sendgrid integration
   SMTP_USER_NAME:   apikey
-  API_KEY_SENDGRID: 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   
-  DOMAIN_NAME:      intra.anoregce.org.br
+  API_KEY_SENDGRID: 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   
+  DOMAIN_NAME:      anoregce.org.br
