@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_08_221800) do
+ActiveRecord::Schema.define(version: 2022_02_04_125350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -349,15 +349,6 @@ ActiveRecord::Schema.define(version: 2022_02_08_221800) do
   create_table "intranet_regiaos", force: :cascade do |t|
     t.string "descricao"
     t.boolean "ativo", default: true
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "intranet_relatorios_contribuicaos", force: :cascade do |t|
-    t.string "errors_logs"
-    t.date "data"
-    t.string "status"
-    t.string "url_link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
